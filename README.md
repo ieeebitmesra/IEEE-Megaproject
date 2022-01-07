@@ -31,4 +31,4 @@ December 5, 2021 - January 8, 2022
 For doubts regarding pull requests ping your project coordinators.
 
 # Note
-Make sure that your README file is complete and up to date with details asked to mention - **Team Details, Domain of your project, Idea, Achievement, and How to run**. These are the mandatory details that you need to mention, you can add more if you want.
+Make sure that your README file is complete and up to date with details asked to mention - **Team Details, Domain of your project, Idea, Achievements thus far, and How to execute your code sample**. These are the mandatory details that you need to mention, you can add more if you want.
