@@ -18,8 +18,7 @@ Sports news api
 
 The APP:
 
-![tia626732475791332918](https://user-images.githubusercontent.com/76583677/148654727-b7bbb5f8-7b16-44c9-a756-795c29c3e9c8.png)
-
+         
 
 
 Different activities in the app :
