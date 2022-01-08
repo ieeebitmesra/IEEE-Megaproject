@@ -47,7 +47,7 @@ The code is well arranged into sub-directories which are -
 
 ## Team Mentor
 
-Saurav Priadarshini 
+Saurav Priadarshini <br />
 Special thanks and appriciation for our mentor who entertain even our stupidest doubt without hesitation. 😁
 
 ## Team Members
