@@ -53,10 +53,12 @@ Saurav Priadarshini
 
 <img src="assets/Icons/DS%20Back.png" width="170" height="170"> <img src="assets/Icons/Pal.png" width="170" height="170"> <img src="assets/Icons/ESDS%20Front.png" width="170" height="170">
 
-1. The first picture is of ```Bodhisatwa Bhattacharya``` who is the team leader
+1. The first picture is of ```Bodhisatwa Bhattacharya``` who is the ```team leader```
 2. The second picture is of ```Shivam Sharma      ```
 3. The third picture is of picture is of ```Rana Safal```
 
+## APK Verion
 
+You can find the apk version of [Skill Hub](https://github.com/bodhi996/IEEE-Megaproject/blob/master/student_store/SkillHub.apk) here 
 
 
