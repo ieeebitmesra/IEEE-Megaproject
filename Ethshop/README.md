@@ -40,3 +40,5 @@ The site is fully responsive on a large spectrum of screen sizes.
 ## Link to the site:
 ### [Ethshop](https://ethshop.web.app/)
 
+## Link to repository:
+https://github.com/Riturajseal2001/Ethshop
