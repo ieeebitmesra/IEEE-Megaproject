@@ -1,0 +1,782 @@
+
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+    <link href="bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <title>FreeLearn</title> 
+    <style>
+
+@font-face {
+  font-family: "bootstrap-icons";
+  src: url("./fonts/bootstrap-icons.woff2?a74547b2f0863226942ff8ded57db345") format("woff2"),
+url("./fonts/bootstrap-icons.woff?a74547b2f0863226942ff8ded57db345") format("woff");
+}
+.bi::before,
+[class^="bi-"]::before,
+[class*=" bi-"]::before {
+  display: inline-block;
+  font-family: bootstrap-icons !important;
+  font-style: normal;
+  font-weight: normal !important;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: -.125em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.bi-facebook::before { content: "\f344"; }
+.bi-twitter::before { content: "\f5ef"; }
+.bi-linkedin::before { content: "\f472"; }
+.bi-instagram::before { content: "\f437"; }
+        .container{
+    margin: 2;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: aqua; */
+}
+.navmodal{
+    margin: 2;
+    padding: 2;
+    display: flex;
+    justify-content: end;
+    align-items: flex-end;
+}
+
+.carousel .carousel-item {
+    height: 500px;
+  }
+  
+  .carousel-item img {
+      position: absolute;
+      object-fit:cover;
+      top: 0;
+      left: 0;
+      min-height: 500px;
+  }
+footer{
+    text-align: center;
+    padding: 3px;
+    background-color: rgb(4, 66, 82);
+    color: white;
+    
+ }
+.btn-primary{
+    margin:7px;
+ }
+ .card{
+     text-align: center;
+ } 
+ .body{
+     background-color:#ADF6EA ;
+ }
+/* .cardbody{
+    display:flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+} */
+.modal-footer{
+    display:flex;
+    flex-direction: row;
+    justify-content: right;
+}
+.table-hover{
+    text-align: center;
+}
+/* .logo{
+    border-style: hidden;
+    border-radius: 10px;
+    border-color: transparent;
+    
+} */
+#logo{
+    border-style: solid;
+    border-radius: 30px;
+    border-color: black;
+}
+#hero {
+        width: 100%;
+        height: 80vh;
+        background: url("static/hero-bg.jpg") top center;
+        background-size: cover;
+        position: relative;
+      }
+      #hero:before {
+        content: "";
+        background: rgba(0, 0, 0, 0.4);
+        position: absolute;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+      }
+      #hero .container {
+        padding-top: 72px;
+      }
+      @media (max-width: 992px) {
+        #hero .container {
+          padding-top: 62px;
+        }
+      }
+      #hero h1 {
+        margin: 0;
+        font-size: 43px;
+        font-weight: 700;
+        line-height: 48px;
+        color: #fff;
+        font-family: 'Times New Roman', Times, serif;
+        
+      }
+      #hero h2 {
+        color: #eee;
+        margin: 10px 0 0 0;
+        font-size: 24px;
+      }
+      #hero .btn-get-started {
+        font-family: "Raleway", sans-serif;
+        font-weight: 500;
+        font-size: 15px;
+        letter-spacing: 1px;
+        display: inline-block;
+        padding: 10px 35px;
+        border-radius: 50px;
+        transition: 0.5s;
+        margin-top: 30px;
+        border: 2px solid #fff;
+        color: #fff;
+      }
+      #hero .btn-get-started:hover {
+        background: #5fcf80;
+        border: 2px solid #5fcf80;
+      }
+      @media (min-width: 1024px) {
+        #hero {
+          background-attachment: fixed;
+        }
+      }
+      @media (max-width: 768px) {
+        #hero {
+          height: 100vh;
+        }
+        #hero h1 {
+          font-size: 28px;
+          line-height: 36px;
+        }
+        #hero h2 {
+          font-size: 18px;
+          line-height: 24px;
+        }
+      }
+
+      .trainers .member {
+  text-align: center;
+  margin-bottom: 20px;
+  background: #fff;
+  border: 1px solid #eef0ef;
+}
+.trainers .member img {
+  margin: -1px -1px 30px -1px;
+}
+.trainers .member .member-content {
+  padding: 0 20px 30px 20px;
+}
+.trainers .member h4 {
+  font-weight: 700;
+  margin-bottom: 2px;
+  font-size: 18px;
+}
+.trainers .member span {
+  font-style: italic;
+  display: block;
+  font-size: 13px;
+}
+.trainers .member p {
+  padding-top: 10px;
+  font-size: 14px;
+  font-style: italic;
+  color: #aaaaaa;
+}
+.trainers .member .social {
+  margin-top: 15px;
+}
+.trainers .member .social a {
+  color: #7e9486;
+  transition: 0.3s;
+}
+.trainers .member .social a:hover {
+  color: #5fcf80;
+}
+.trainers .member .social i {
+  font-size: 18px;
+  margin: 0 2px;
+}
+ #AE{
+   color: #e5ebeb;
+ }
+ #EM{
+   color:#ecf0f3;
+ }
+body{
+  background-color: #D2D5E0;
+}
+marquee{
+  background-color: whitesmoke;
+  /* text-align: center; */
+   
+}
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.wrapper .button{
+  display: inline-block;
+  height: 60px;
+  width: 60px;
+  /* float: left; */
+  margin: 0 5px;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease-out;
+}
+/* .wrapper .button:hover{
+  width: 200px;
+} */
+.wrapper .button .icon{
+  display: inline-block;
+  height: 60px;
+  width: 60px;
+  text-align: center;
+  border-radius: 50px;
+  box-sizing: border-box;
+  line-height: 60px;
+  transition: all 0.3s ease-out;
+}
+.wrapper .button:nth-child(1):hover .icon{
+  background: #4267B2;
+}
+.wrapper .button:nth-child(2):hover .icon{
+  background: #1DA1F2;
+}
+.wrapper .button:nth-child(3):hover .icon{
+  background: #E1306C;
+}
+.wrapper .button:nth-child(4):hover .icon{
+  background: #333;
+}
+.wrapper .button:nth-child(5):hover .icon{
+  background: #ff0000;
+}
+.wrapper .button .icon i{
+  font-size: 25px;
+  line-height: 60px;
+  transition: all 0.3s ease-out;
+}
+.wrapper .button:hover .icon i{
+  color: #fff;
+}
+.wrapper .button span{
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 60px;
+  margin-left: 10px;
+  transition: all 0.3s ease-out;
+}
+.wrapper .button:nth-child(1) span{
+  color: #4267B2;
+}
+.wrapper .button:nth-child(2) span{
+  color: #1DA1F2;
+}
+.wrapper .button:nth-child(3) span{
+  color: #E1306C;
+}
+.wrapper .button:nth-child(4) span{
+  color: #333;
+}
+.wrapper .button:nth-child(5) span{
+  color: #ff0000;
+}
+#asad:hover,#sk:hover,#raza:hover,#B1:hover,#J1:hover,#N1:hover{
+  background-color: #00C9A7;
+}
+.wrapper .button a{
+    text-decoration: none;
+}
+#hero h1{
+  font-family: monospace;
+}
+
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #E3F2FD;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            <img id="logo" src="free learn logo.jpg" width="50px" height="50px" alt="">
+                        </a>
+                    </li> -->
+                   
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#abt">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Courses
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            
+                            {% if user.is_authenticated %}
+                            <li><a class="dropdown-item" href="/boards">Boards</a></li>
+                            <li><a class="dropdown-item" href="/jacp">JEE</a></li>
+                            <li><a class="dropdown-item" href="/neet">NEET</a></li>
+                            {% else %}
+                            <li><a class="dropdown-item" onclick="myfunction()" href="" >JEE</a></li>
+                            <li><a class="dropdown-item" onclick="myfunction()" href="" >NEET</a></li>
+                            <li><a class="dropdown-item" onclick="myfunction()" href="" >Boards</a></li>
+                            <script>
+                                function myfunction(){
+            alert("Please login to use this fuction");
+        }
+                            </script>
+                            
+
+
+                            
+                            {% endif %}
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#impdates">Important Dates</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#trainers">Contact Us</a>
+                    </li>
+                </ul>
+               
+                <!-- <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form> -->
+            </div>
+        </div>
+        
+
+        <!-- Login  -->
+        {% if user.is_authenticated %}
+        <a href="logout">
+            
+            <button type="button" class="btn btn-primary" >
+                Logout
+            </button>
+        </a>
+        {% else %}
+        <a href="login">
+
+            <button type="button" class="btn btn-primary" >
+                Login/Signup
+            </button>
+        </a>
+        {% endif %}
+
+        
+        
+
+
+        <!-- SignUp  -->
+        <!-- <a href="/signup">
+            <button type="button" class="btn btn-primary" >
+                SignUp
+            </button>
+        </a> -->
+        
+            <!-- <div class="container"> -->
+              {% if user.is_authenticated %}
+              <a class="navbar-brand" href="/profile">
+                <img  id="logo" src="{% static 'pro.jpg' %}" alt="" width="50px" height="50px">
+              </a>
+              {% endif %}
+            <!-- </div> -->
+          <!-- </nav> -->
+    </nav>
+
+    <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex justify-content-center align-items-center" >
+    <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
+        <!-- <img src="" alt="" id="hero"> -->
+      {% if user.is_authenticated %}
+      <!-- <h1>Welcome, {{user.username}} </h2> -->
+      <h1>Hey {{user.first_name}},<br>Welcome to Free Learn</h1>
+      {% else %}
+      <h1>Hey There,<br>Welcome to Free Learn</h1>
+
+      
+      {% endif %}
+      <!-- <a href="courses.html" class="btn-get-started">Get Started</a> -->
+    </div>
+  </section><!-- End Hero -->
+
+    
+
+    <!-- *****************courses***************** -->
+    <div class="container">
+        <button type="button" class="btn btn-dark btn-lg">Courses</button>
+    </div>
+
+<div class="container py-4">
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+            <div class="card">
+              <img src="{% static 'boards.jpg' %}" width="400px" height="300px" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text"> </p>
+                  {% if user.is_authenticated %}
+                  <a href="/boards" class="btn btn-primary" id="B1">Boards</a>
+                  {% else %}
+                  <a href="#" class="btn btn-primary" onclick="myfunction()" id="B1">Boards</a>
+                  {% endif %}
+                </div>
+            </div>
+          </div>
+        <div class="col">
+            <div class="card">
+              <img src="{% static 'jeesa.jpg' %}" width="400px" height="300px" class="card-img-top" alt="...">
+              <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text"> </p>
+                    {% if user.is_authenticated %}
+                    <a href="/jacp" class="btn btn-primary" id="J1">JEE</a>
+                    {% else %}
+                    <a href="#" class="btn btn-primary" onclick="myfunction()" id="J1">JEE</a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card">
+                  <img src="{% static 'neet.jpg' %}" width="400px" height="300px" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text"> </p>
+                    {% if user.is_authenticated %}
+                    <a href="/neet" class="btn btn-primary" id="N1">NEET</a>
+                    {% else %}
+                    <a href="#" class="btn btn-primary" onclick="myfunction()" id="N1">NEET</a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+            
+    <!-- ********************About****************** -->
+    <div class="container " id="abt">
+        <button type="button" class="btn btn-dark btn-lg">About</button>
+    </div>
+
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'EM-2.jpg' %}" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block" id="EM">
+                    <h5>Elon Musk:--</h5>
+                    <p>Education is basically availaible for free, you can learn anything you want for free</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'AE-2.jpg' %}" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block" id="AE">
+                    <h5>Albert Einstien:--</h5>
+                    <p>Education is what remains after one has forgotten what one has learned in school.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'BF.png' %}" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Benjamin Franklin</h5>
+                    <p> An investment in knowledge pays the best interest</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+
+
+
+    <!-- ***********Important Dates********** -->
+    <div class="container py-4">
+      <button  id="impdates" type="button" class="btn btn-dark btn-lg">Important Dates</button>
+    </div>
+    
+    
+    <div class="container ">
+    <table class="table table-hover table-bordered table-dark">
+        <thead>
+            <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Exams</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>JEE MAIN-1</td>
+                <td>1st week of Feb 2022</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>JEE MAIN-2</td>
+                <td>2nd week of March 2022</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                 <td>JEE MAIN-3</td>
+                <td>3rd week of April 2022</td>
+            </tr>
+            <tr>
+                <th scope="row">4</th>
+                <td>JEE MAIN-4</td>
+                <td>4th week of May 2022</td>
+            </tr>
+            <tr>
+                <th scope="row">5</th>
+                <td>JEE ADV</td>
+                <td>3 July 2022</td>
+            </tr>
+            <tr>
+                <th scope="row">6</th>
+                <td>NEET</td>
+                <td>1st week of July 2022</td>
+            </tr>
+            
+            <tr>
+                <th scope="row">7</th>
+                <td>Boards-1</td>
+                <td>November 2021</td>
+            </tr>
+            <tr>
+                <th scope="row">8</th>
+                <td>Boards-2</td>
+                <td>March 2022</td>
+            </tr>
+            <tr>
+                <th scope="row">10</th>
+                <td>NDA</td>
+                <td>July</td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>
+<marquee behavior="" direction=""><p style="color:red">Note: These dates are tentative!. It might change according to covid situation pertaining in the country<p></marquee>
+    
+    <!-- **************Contact US*********************** -->
+    <section id="trainers" class="trainers">
+
+    <div class="container">
+        <button  id="impdates" type="button" class="btn btn-dark btn-lg">Contact Us</button>
+    </div>
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+          <div class="card">
+            <img src="{% static 'photu.jpeg' %}" width="500px" height="300px" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <a href="#" class="btn btn-primary">Swarnim Kamal</a>
+              <div class="wrapper">
+                  <div class="button">
+                     <div class="icon" >
+                   
+           
+                     <a href="https://www.linkedin.com/in/swarnim-kamal-412338209/">     <i class="fab fa-linkedin"></i>
+                     </div>
+                      </a>
+                  </div>
+                <div class="button">
+                    <div class="icon" >  
+                        
+                        
+                        <a href="https://github.com/Swarnim-del"> <i class="fab fa-github"></i>
+                        </div>
+                    </a>
+                </div>
+                
+
+                <div class="button">
+                   <div class="icon">
+
+                   <a href="https://www.instagram.com/swarnimkamal/">    <i class="fab fa-instagram"></i>         
+                   </div>
+                    </a>
+                </div>
+
+             </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <img src="{% static 'nadeem.jpg' %}" width="500px" height="300px" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <a href="#" class="btn btn-primary">Nadeem Raza</a>
+              <!-- <p class="card-text"> </p> -->
+              <div class="wrapper">
+
+
+                <div class="button">
+                   <div class="icon">
+                      
+                  
+                   <a href="https://www.linkedin.com/in/nadeem-raza-2a9a28219/"><i class="fab fa-linkedin"></i>
+                   </div>
+                    </a>
+                </div>
+
+                <div class="button">
+                   <div class="icon">
+                      
+                 
+                   <a href="https://github.com/nadeem-R17"><i class="fab fa-github"></i>
+                   </div>
+                    </a>
+                </div>
+
+                <div class="button">
+                   <div class="icon">
+                      
+                   
+                   <a href="https://www.instagram.com/its_.nadeem._/"><i class="fab fa-instagram"></i>
+                   </div>
+                    </a>
+                </div>
+
+                
+             </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card">
+            <img src="{% static 'asad.jpg' %}" width="500px" height="300px" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <!-- <p class="card-text"> </p> -->
+              <a href="#" class="btn btn-primary">Asad ul Haque</a>
+              <div class="wrapper">
+              <div class="button">
+                   <div class="icon">
+                     
+               
+                   <a href="https://www.linkedin.com/in/asad-ul-haque-1255791bb/"> <i class="fab fa-linkedin"></i>
+                   </div>
+                    </a>
+                </div>
+
+                <div class="button">
+                   <div class="icon">
+                      
+                   
+                   <a href="https://github.com/Asadhaq810"><i class="fab fa-github"></i>
+                   </div>
+                    </a>
+                </div>
+
+                <div class="button">
+                   <div class="icon">
+                      
+                  
+                   <a href="https://www.instagram.com/asad_haq810/"><i class="fab fa-instagram"></i>
+                   </div>
+                    </a>
+                </div>
+             </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+    
+        
+      </section><!-- End Trainers Section -->
+
+    <footer>
+        <!-- contact us
+            twitter
+        linkedln
+     -->
+        <p>Copyright &copy; Free Learn</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+
+        
+        </script>
+
+</body>
+
+</html>
