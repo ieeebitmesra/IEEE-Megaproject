@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1063515233462",
+    "project_id": "obliviateapp-8d601",
+    "storage_bucket": "obliviateapp-8d601.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063515233462:android:94a74ee50bba85295c9a17",
+        "android_client_info": {
+          "package_name": "com.example.obliviate_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063515233462-mvgceco9k2h6le5kpcf42rp1lm1ivfvv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIReGOr1AVoYEjX7LHbKiC-vxu4GRKmOA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063515233462-mvgceco9k2h6le5kpcf42rp1lm1ivfvv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
