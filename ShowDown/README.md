@@ -18,17 +18,7 @@ Sports news api
 
 The APP:
      
-<img src="https://user-images.githubusercontent.com/76583677/148654862-c42f3242-def1-4a09-a973-1491c7883f46.png" width=25% height=25%>   
-<img src="https://user-images.githubusercontent.com/76583677/148654863-057ab670-a1d9-4d79-803e-2d4a49b94abe.png" width=25% height=25%>   
-<img src="https://user-images.githubusercontent.com/76583677/148654868-08a26583-326d-488b-8b41-16a3b54dbc6b.png" width=25% height=25%>   
-<img src="https://user-images.githubusercontent.com/76583677/148654866-563b01d0-2701-467c-9719-1854c86d0702.png" width=25% height=25%>   
-<img src="https://user-images.githubusercontent.com/76583677/148654872-4398005a-3fb3-4548-a425-1bf848cde62c.png" width=25% height=25%>   
-<img src="https://user-images.githubusercontent.com/76583677/148654872-4398005a-3fb3-4548-a425-1bf848cde62c.png" width=25% height=25%>   
-<img src="https://user-images.githubusercontent.com/76583677/148654870-969359fb-c7da-4faf-8d29-8efb47dc7fb6.png" width=25% height=25%>   
-<img src="https://user-images.githubusercontent.com/76583677/148654871-8783a475-4684-44f9-ad97-4a99d87cf72c.png" width=25% height=25%>   
-<img src="https://user-images.githubusercontent.com/76583677/148654874-fc6c8346-84d1-4f08-bd64-47d1e574462f.png" width=25% height=25%>   
-<img src="https://user-images.githubusercontent.com/76583677/148654875-42df603d-c1b6-4843-9666-c990191fc854.png" width=25% height=25%>   
-<img src="https://user-images.githubusercontent.com/76583677/148654876-2860a6da-a494-42ae-a076-fd8c7101af91.png" width=25% height=25%>   
+<img src="https://user-images.githubusercontent.com/76583677/148654862-c42f3242-def1-4a09-a973-1491c7883f46.png" width=25% height=25%>    <img src="https://user-images.githubusercontent.com/76583677/148654863-057ab670-a1d9-4d79-803e-2d4a49b94abe.png" width=25% height=25%>     <img src="https://user-images.githubusercontent.com/76583677/148654868-08a26583-326d-488b-8b41-16a3b54dbc6b.png" width=25% height=25%>     <img src="https://user-images.githubusercontent.com/76583677/148654866-563b01d0-2701-467c-9719-1854c86d0702.png" width=25% height=25%>     <img src="https://user-images.githubusercontent.com/76583677/148654872-4398005a-3fb3-4548-a425-1bf848cde62c.png" width=25% height=25%>     <img src="https://user-images.githubusercontent.com/76583677/148654872-4398005a-3fb3-4548-a425-1bf848cde62c.png" width=25% height=25%>     <img src="https://user-images.githubusercontent.com/76583677/148654870-969359fb-c7da-4faf-8d29-8efb47dc7fb6.png" width=25% height=25%>     <img src="https://user-images.githubusercontent.com/76583677/148654871-8783a475-4684-44f9-ad97-4a99d87cf72c.png" width=25% height=25%>     <img src="https://user-images.githubusercontent.com/76583677/148654874-fc6c8346-84d1-4f08-bd64-47d1e574462f.png" width=25% height=25%>     <img src="https://user-images.githubusercontent.com/76583677/148654875-42df603d-c1b6-4843-9666-c990191fc854.png" width=25% height=25%>     <img src="https://user-images.githubusercontent.com/76583677/148654876-2860a6da-a494-42ae-a076-fd8c7101af91.png" width=25% height=25%>   
 
 Different activities in the app :
 
