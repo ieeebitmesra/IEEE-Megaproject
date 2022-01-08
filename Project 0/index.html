@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather app</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'montserrat', sans-serif;
+            background-image: url('Untitled\ design.png');
+            background-size: cover;
+
+            background-position: top center;
+        }
+
+        .app-wrap {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 15px 15px;
+        }
+
+        header input {
+            width: 100%;
+            max-width: 280px;
+            padding: 10px 15px;
+            border: none;
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 16px 0px 16px 0px;
+            border-bottom: 4px solid #DF8E00;
+
+            color: #313131;
+            font-size: 20px;
+            font-weight: 300;
+            transition: 0.2s ease-out;
+        }
+
+        header input:focus {
+            background-color: rgba(255, 218, 148, 0.6)
+        }
+
+        main {
+            flex: 1 1 100%;
+            padding: 25px 25px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .location .city {
+            color: #FFF;
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .location .date {
+            color: #FFF;
+            font-size: 16px;
+        }
+
+        .current .temp {
+            color: #FFF;
+            font-size: 102px;
+            font-weight: 900;
+            margin: 22px 0px 35px;
+            text-shadow: 3px 6px rgb(0 0 0 / 40%);
+        }
+
+        .current .temp span {
+            font-weight: 500;
+        }
+
+        .current .weather {
+            color: #FFF;
+            font-size: 32px;
+            font-weight: 700;
+            font-style: italic;
+            margin-bottom: 15px;
+            text-shadow: 0px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        .current .hi-low {
+            color: #FFF;
+            font-size: 24px;
+            font-weight: 500;
+            /* text-shadow: 0px 4px rgba(0, 0, 0, 0.4); */
+        }
+
+        h1 {
+            text-align: center;
+            border: 2px solid #f2fbffd6;
+            border-radius: 41px;
+            background-color: #d6e2f74f;
+            font-size: 55px;
+            padding: 20px;
+            display: inline-block;
+            text-shadow: 5px 2px rgb(0 0 0 / 35%);
+            /* background-color: rgba(0, 0, 0, 0.4); */
+        }
+
+        .project0 {
+            display: flex;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+        }
+
+        img {
+            width: 105px;
+            border: 2px solid #f3fbff;
+            border-radius: 69px;
+            position: absolute;
+            left: 7px;
+        }
+    </style>
+    <link rel="icon" href="528f8e2e04237d7f26284cb872dfb80e-removebg-preview.png" type="image/x-icon">
+
+</head>
+
+<body>
+    <div class="project0">
+        <img src="528f8e2e04237d7f26284cb872dfb80e.jpg" alt="">
+        <h1>Project 0</h1>
+    </div>
+    <div class="app-wrap">
+        <header>
+            <input type="text" autocomplete="off" class="search-box" placeholder="Search for a city..." />
+        </header>
+        <main>
+            <section class="location">
+                <div class="city"></div>
+                <div class="date"></div>
+            </section>
+            <div class="current">
+                <div class="temp"><span></span></div>
+                <div class="weather"></div>
+                <div class="hi-low"></div>
+            </div>
+        </main>
+    </div>
+    <script src="mani.js"></script>
+</body>
+
+</html>
