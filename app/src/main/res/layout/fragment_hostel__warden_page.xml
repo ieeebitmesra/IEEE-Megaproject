@@ -1,0 +1,1080 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/user_profile_bg"
+    tools:context=".app.fragments.Hostel_Warden_page">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:verticalScrollbarPosition="defaultPosition"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp"
+                android:layout_gravity="center">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    >
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:text="Hostel Warden"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="25dp"
+                        android:padding="2dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="25dp">
+
+                    </TextView>
+
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Warden Hostel 1"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. Rishi Sharma"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4701"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="rsharma@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Warden Hostel 2"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. Priyank Saxena"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4702"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="82.priyank@gmail.com"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="5dp"
+                    >
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:layout_marginRight="10dp"
+                            android:textColor="@color/red"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:text="Warden Hostel 3"
+                            android:layout_marginBottom="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_person"
+                            android:drawablePadding="3dp"
+                            android:text="Dr. Yogender Aggarwal"
+                            android:textColor="@color/black"
+                            android:padding="1dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="1dp"
+                            android:background="@drawable/custom_input"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_person_telephone"
+                            android:drawablePadding="3dp"
+                            android:text="Ext - 4703"
+                            android:textColor="@color/black"
+                            android:layout_marginBottom="0dp"
+                            android:layout_marginTop="0dp"
+                            android:padding="1dp"
+                            android:background="@drawable/custom_input"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_person_email"
+                            android:drawablePadding="3dp"
+                            android:text="yaggarwal@bitmesra.ac.in"
+                            android:padding="1dp"
+                            android:textColor="@color/black"
+                            android:layout_marginBottom="0dp"
+                            android:layout_marginTop="0dp"
+                            android:background="@drawable/custom_input"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Warden Hostel 4"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. Sanjeet Kumar"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4704"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="sanjeet@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Warden Hostel 5"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text=" Dr. Binay Kumar"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4825"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="binaykumar@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Warden Hostel 6"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. Gautam Shandilya"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4706"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="gautam@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Warden Hostel 7"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr.Kishanta Kumar Pradhan"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4808"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="kkpradhan@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Warden Hostel 8"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. (Mrs.) Neelima Sharma"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4708"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="nsharma@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Warden Hostel 9"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. (Mrs.) Shashwati Ghosh Sachan"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4548"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="ssachan@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Warden Hostel 10"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. Abhishek Jana"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4710"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="abhisekjana@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Warden Hostel 11"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. Anjini Kumar Tiwary"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4711"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="aktiwary@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Warden Hostel 12"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. Dileep Kumar Upadhyay"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4712"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="dileep_18@rediffmail.com"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Warden Hostel 13"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. Somak Datta"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4713"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="somakdatta@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Warden Hostel 14"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. Ritesh Jha"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4435"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="riteshjha@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</FrameLayout>

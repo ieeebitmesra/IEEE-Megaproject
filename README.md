@@ -1,34 +1,31 @@
-<h1 align="center">IEEE MegaProject</h1>
-<h3 align="center">Organised by IEEE Student Branch BIT Mesra</h3>
+TEAM DETAILS:
+- Team Name: PtaNahiYaar
+- Team Members:
+- - Rahul Srivastava 
+- - Sudhanshu Ranjan
+- - Aryank Upadhyay
 
-# About the Event
-"Talent wins games, but teamwork and intelligence win championships." – Michael Jordan
 
-After six successful editions, we are here to present you with an opportunity of prototyping your imagination with the IEEE Mega Project.
+DOMAIN:
+Android App Development
 
-IEEE Mega Project is a platform to learn and experience the entire process of making a project, from ideation to execution and then it's presentation. It is a platform for students to showcase their innovative ideas in working.
-It's a team-based project building event, where college students collaborate together to bring their ideas to reality.
+IDEA:
+Our goal is to create a one-stop solution app for all Bitian students. Everything important and related to a student will be regularly updated and properly displayed on our app. Regular announcement updates from clubs, updates about upcoming meetings and classes, contact info useful to students, bus schedules, course syllabus, and everything important to know about any particular club will be displayed systematically for the ease of understanding of the student. Club Officials will also benefit heavily by efficiently managing their respective clubs through this platform. With our app in place, officials and students will have all the information they might ever need right on their fingertips.  Thank you.
 
-# Our Sponsors
-<p align="left"> 
-  <a href="https://www.geeksforgeeks.org/" target="_blank"> <img src="https://media-exp1.licdn.com/dms/image/C4E0BAQFnv4gI-bzgIw/company-logo_200_200/0/1640713604210?e=1649894400&v=beta&t=8dn1EKbMDzoW-L0s73QC_tjfRVMxJka9AzVE1y-4AzQ" alt="geeks for geeks" width="160" height="160" /> </a> 
-  <a href="https://www.codingninjas.com/" target="_blank"> <img src="https://www.codingninjas.com/assets-landing/images/CNLOGO.svg" alt="coding ninjas" width="160" height="160"/> </a> 
-  <a href="https://psyberduck.com/" target="_blank"> <img src="https://media-exp1.licdn.com/dms/image/C4D0BAQFoxMGZCig3bg/company-logo_200_200/0/1600269356604?e=1649894400&v=beta&t=U4L119URFC066xJlu3Z8GG1y0fzo4jgNAFBmWINIjHg" alt="psyber duck" width="160" height="160"/> </a> 
-  <a href="https://www.lemonerd.in/" target="_blank"> <img src="https://www.lemonerd.in/icon.svg" alt="lemonerd" width="160" height="160"/> </a> 
-  <a href="https://floxus.co/" target="_blank"> <img src="https://media-exp1.licdn.com/dms/image/C4D0BAQHIowJ2w91oAQ/company-logo_200_200/0/1616690411282?e=2159024400&v=beta&t=0R7BnUTuJwhLnZOVSi8OvG0AQ5Yse1SXqvWXgItbnZM" alt="floxus" width="160" height="160"/> </a> 
-  <a href="" target="_blank"> <img src="https://lh3.googleusercontent.com/MBznB5hCF1RtQE8kXmd8A3ljUtO4KjhHH00RhBNI7O3I3_DzLcyjXaMOENmakCuxM8IIwllNui159LIMrzH_IKeFEZVq19dK7f4M3A=w600" alt="" width="160" height="160"/> </a> 
-</p>
+ACHIEVEMENTS:
+- Implemented signup and login features for users.
+- Setup auto generated e-mails which are being sent to users with reset password link in case they forget their password.
+- Imported the entire college directory into our app and displayed it systematically for ease of understanding.
+- Made a section within our app through which users can directly log into the college erp without the hassle of switching to a web browser.
+- Made a complete directory of all the clubs functioning within BIT Mesra with every information about every club just a click away.
+- Made a section within our app through which users can easily access the map.
+- Users have a auto-generated user-profile page which can be used as a medium to share one's info related to college with friends.
+- Made an announcements section which reflects any news updates on the official BIT Mesra site to the app.
+- Made a syllabus section within the app from where students can easily access the syllabus of their respestive courses.
+- Made a schedule section which updates students about the holidays throughout the year.
 
-# Timeline
-December 5, 2021 - January 8, 2022
-
-# How to create a Pull Request
-- Fork this repository, clone it to your system, and **make a folder of your project name.**
-- Add all your project files inside that folder.
-- Then commit and push it to your forked repository.
-- Finally make a pull request to the IEEE Megaproject repository.
-
-For doubts regarding pull requests ping your project coordinators.
-
-# Note
-Make sure that your README file is complete and up to date with details asked to mention - **Team Details, Domain of your project, Idea, Achievements thus far, and How to execute your code sample**. These are the mandatory details that you need to mention, you can add more if you want.
+HOW TO USE:
+- Built with Android with Java and Firebase.
+- The source code provided can be imported into the Android Studio software and then run on an emulator or attached physical device.
+- Alternatively, a link to the App's APK will be attached here. That APK file can directly be downloaded and installed into an android mobile phone and the app will start functioning.
+- https://drive.google.com/drive/folders/1LMEY32ZrbMaCzG5zW5VX3a35VZV4teHk?usp=sharing

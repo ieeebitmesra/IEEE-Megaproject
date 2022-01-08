@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+
+        android:title="ANNOUNCEMENT"
+        android:id="@+id/nav_home"
+
+        />
+
+
+    <item
+      android:id="@+id/nav_clubs"
+      android:title="CLUBS">
+
+
+
+    </item>
+    <group android:id="@+id/nav_group">
+        <item
+            android:id="@+id/nav_SYLLABUS"
+            android:title="SYLLABUS"
+            />
+        <item
+        android:id="@+id/nav_SCHEDULES"
+        android:title="SCHEDULES"
+        />
+
+
+        <item
+        android:id="@+id/nav_MAPS"
+        android:title="MAPS" />
+        <item
+        android:id="@+id/nav_ERP"
+        android:title="ERP"
+        />
+        <item
+            android:id="@+id/nav_DIRECTORY"
+            android:title="DIRECTORY"
+            />
+
+    </group>
+        <item
+        android:id="@+id/nav_AboutUs"
+        android:title="About Us"
+    />
+
+
+
+
+
+    <item
+        android:id="@+id/nav_Logout"
+        android:title="Log Out"
+/>
+
+
+</menu>
