@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;700;800;900&display=swap");
+h1 {
+	font-size: 4rem;
+}
+body{
+	transition: all ease-in-out;
+	animation: opacitiytransition ease-in-out 500ms;
+
+}
+h3 {
+	font-size: 2rem;
+	font-weight: 500;
+}
+html {
+	scroll-behavior: smooth;
+}
+@media (max-width: 760px) {
+	h1 {
+		font-size: 3rem;
+	}
+	h3 {
+		font-size: 1.5rem;
+	}
+}
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: white;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #5a5a5a;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #5a5a5a;
+}
+
+@media (prefers-color-scheme: dark) {
+	/* Track */
+	::-webkit-scrollbar-track {
+		background: rgb(24, 24, 24);
+	}
+
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+		background: rgb(66, 66, 66);
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+		background: rgb(66, 66, 66);
+	}
+}
+@keyframes opacitiytransition{
+	from{opacity: 0.5}
+	to{opacity: 1;}
+}

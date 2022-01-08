@@ -1,0 +1,39 @@
+.All-User-List-Container{
+    /* display: flex; */
+    height: calc(100vh - 64px);
+    /* overflow-y: hidden; */
+    /* justify-content: center;
+    align-items: center; */
+    background-color: #0984e3;
+}
+
+.UserCard-Container{
+    overflow-y: scroll;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    /* gap: 1rem; */
+    grid-row-gap: 1rem;
+    height: calc(100vh - 128px );
+    /* flex: 90%; */
+}
+@media(max-width: 600px){
+    .UserCard-Container{
+        height: calc((100vh - 112px));
+    }
+}
+@media(max-width: 768px){
+    .UserCard-Container{
+        display: flex;
+        flex-direction: column;
+    }
+}
+@media(prefers-color-scheme: dark){
+    .All-User-List-Container{
+        background-color:#0C5DAF;
+    }
+}
+@media(max-width: 1110px){
+    .UserCard-Container{
+        grid-template-columns: 1fr 1fr;
+    }
+}

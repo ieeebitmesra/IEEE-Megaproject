@@ -1,0 +1,23 @@
+.FriendCard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: start;
+    border-top: none;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 1.5rem;
+    height: 80px;
+}
+.FriendCard>button{
+    border-bottom: 1px solid ;
+    border-radius: 0%;
+    width: 100%;
+    padding: 7.0% 5%;
+    justify-content: start;
+    overflow-wrap: break-word;
+    font-size: 1.25rem;
+}
+.FriendCardAvatar{
+    margin-right: 1ch;
+}

@@ -1,0 +1,98 @@
+.Chat, .CurChat, .Friends-List{
+    height: calc(100vh - 64px);
+}
+.Chat{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    background-color:#181a1b;
+}
+.CurChat{
+    display: flex;
+    flex-direction: column;
+    background-color: #0984e3;
+}
+.nofriends{
+    color: dark;
+    font-size: 1.2rem;
+    text-align: center;
+}
+.nofriends>svg{
+    vertical-align: bottom;
+}
+
+.Friends-List{
+    background-color: #fff;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+@media (max-width:768px){
+    .Chat{
+        grid-template-columns: 1fr;
+    }
+}
+.messages-container{
+    flex: 1;
+    display: flex;
+    padding: 1ch;
+    flex-direction: column;
+    overflow-y: scroll;
+    gap: 4px;
+    font-family: "Poppins";
+}
+.message-input{
+    border: none;
+    border-radius: 20px 0 0 20px;
+    width: 90%;
+    font-size: 1rem;
+    padding-left: 2ch;
+    font-family: "Poppins";
+}
+.message-card{
+    background-color: black;
+}
+.message-form>button{
+    border-radius: 0 20px 20px 0;
+    background-color: black;
+    color: white;
+}
+.message-form{
+    align-self: flex-end;
+    height: 6ch;
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    font-size: 0.8rem;
+    margin-bottom: 3px;
+}
+.message-input:focus{
+    outline: none;
+}
+@media (prefers-color-scheme : dark) {
+    .Friends-List{
+        background-color: #181a1b;
+    }
+    .message-form{
+        border-top-color: #004a98;
+    }
+    .CurChat{
+        background-color: #1056a1;
+    }
+    .nofriends{
+        color: white;
+    }
+}
+@media(max-width: 1100px){
+    .Chat{
+        grid-template-columns: 30vw 70vw;
+    }
+}
+@media(max-width: 768px){
+    .Chat{
+        grid-template-columns: 100vw;
+    }
+}
+@media(max-width: 600px){
+    .Chat,.CurChat,.Friends-List{
+        height: calc(100vh - 56px);
+    }
+}
