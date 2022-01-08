@@ -1,0 +1,19 @@
+#faq{
+	margin-left: 25%;
+	padding: 3%;
+	padding-top: 5%;
+	background-color: white;
+	width: 60%;
+}
+#faq h3{
+	font-size: 1.5rem;
+}
+.ques{
+	font-weight: bold;
+}
+@media screen and (max-width: 500px){
+	#faq{
+		margin-left: 10%;
+		width: 80%;
+	}
+}

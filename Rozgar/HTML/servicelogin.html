@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="..//Styles/home.css">
+    <link rel="stylesheet" href="..//Styles/homepage.css">
+    <link rel="stylesheet" href="..//Styles/servicelogin.css">
+	<link rel="icon" type="image" href="..//Images/logo.png">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+	<script src="https://kit.fontawesome.com/247795ac81.js" crossorigin="anonymous"></script>
+	<title>Rozgar-Provide Service</title>
+</head>
+<body>
+<div id="first_menu">
+<nav id="navigation">
+    <a href="home.html" id="roz_logo_tag" style="text-decoration: none; color: navy;">
+        <div id="roz_logo">
+            <img src="..//Images/logo.png" id="logo">
+            <h3 id="roz">Rozgar</h3>
+        </div>
+        <div id="tag">
+            Sabka Kalyan...
+        </div>
+    </a>
+</nav>
+</div>
+<!-- *********************** -->
+<div id="main">
+    <form>
+        <h2><i class="fas fa-sitemap"></i>&nbsp;&nbsp;Provide Service</h2><br><br><br><hr><br><br>
+        <h3><i class="fas fa-user"></i>&nbsp;&nbsp;Personal Details</h3><br>
+        <div id="personal" class="smallbox">
+            <input type="text" name="name" id="name" placeholder="Full Name" required><br>
+            <input type="number" name="phone" id="phone" placeholder="Contact Number" required><br>
+            <select name="gender" id="gender" autocomplete="on" required><br>
+                <option value="">--Gender--</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="others">Others</option>
+            </select>
+            <br>
+            <label for="profilephoto">Choose a Profile Photo:</label><br>
+            <input type="file" name="profilephoto" accept="image/*" id="profilephoto">
+        </div>
+        <br><br><hr><br><br>
+        <h3><i class="fab fa-servicestack"></i>&nbsp;&nbsp;Choose Service</h3><br>
+        <div class="smallbox">
+            <select name="category" id="category" autocomplete="on" required onchange="showsubcategory()">
+                <option value="">--Category--</option>
+                <option value="teacher">Teacher/Tutor</option>
+                <option value="hr">Home and Repairing</option>
+                <option value="mr">Mechanic and Repair</option>
+                <option value="other">Others</option>
+                <option value="Notmentioned">Not in the list</option>
+            </select><br>
+
+            <input type="text" name="subjects" id="teacher" class="subcategory" placeholder="Class and Subjects" required>
+
+            <input type="text" name="Notmentioned" id="Notmentioned" class="subcategory" placeholder="Enter Subcategory" required>
+
+            <select name="subcategory" id="hr" class="subcategory" autocomplete="on" required>
+                <option value="">--Sub category--</option>
+                <option value="electrician">Electrician</option>
+                <option value="plumber">Plumber</option>
+                <option value="painter">Painter</option>
+                <option value="carpenter">Carpenter</option>
+                <option value="cleaner">Cleaner</option>
+            </select>
+
+            <select name="subcategory" id="mr" class="subcategory" autocomplete="on" required>
+                <option value="">--Sub category--</option>
+                <option value="car">Car Mechanic</option>
+                <option value="bike">Bike Mechanic</option>
+                <option value="bus">Bus Mechanic</option>
+                <option value="truck">Truck Mechanic</option>
+                <option value="laptop">Laptop Repair</option>
+                <option value="mobile">Mobile Repair</option>
+                <option value="tv">TV Repair</option>
+                <option value="ac">AC Service</option>
+                <option value="submersible">Submersible Repair</option>
+            </select>
+
+            <select name="subcategory" id="other" class="subcategory" autocomplete="on" required>
+                <option value="">--Sub category--</option>
+                <option value="tailor">Tailor</option>
+                <option value="driver">Driver</option>
+                <option value="cobler">Cobler</option>
+                <option value="watchman">Watchman</option>
+                <option value="barber">Barber</option>
+                <option value="personnel">Personnel</option>
+            </select>
+        </div>
+        <br><br><hr><br><br>
+        <div class="smallbx">
+            <h3><i class="fas fa-info-circle"></i>&nbsp;&nbsp;Details</h3><br>
+            <textarea placeholder="Describe your service skills"></textarea><br><br><br>
+            <label for="fees">Enter Fees/Visiting Charge/Service Charge:</label><br>
+            <input type="text" name="fees" id="fees" placeholder="In rupees" required>&nbsp;&nbsp;
+            <select name="perwhat" id="perwhat" class="perwhat" autocomplete="on" required>
+                <option value="perhour">per hour</option>
+                <option value="perday">per day</option>
+                <option value="permonth">per month</option>
+                <option value="pervisit">per visit</option>
+            </select>
+            <br><br>
+            <label for="video">Upload Video/Images of your Work:</label><br>
+            <input type="file" accept="image/*,video/*" name="video" id="video" multiple required>
+        </div>
+        <br><br><hr><br><br>
+        <div class="smallbox">
+            <h3><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;Location</h3><br>
+            <textarea placeholder="Address"></textarea><br><br>
+            <div id="statelist">
+            <select name="state" id="state" class="form-control" autocomplete="on" required>
+                <option value="">--Select State--</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                <option value="Daman and Diu">Daman and Diu</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Lakshadweep">Lakshadweep</option>
+                <option value="Puducherry">Puducherry</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
+            </select>
+        </div><br>
+        <input type="text" name="disrict" id="disrict" placeholder="District" required><br>
+        <input type="number" name="pin" id="pin" placeholder="Pincode" required><br>
+        </div>
+        <input type="submit" name="post" id="post" value="POST">
+    </form>
+</div>
+
+
+
+
+
+
+<!-- *********************** -->
+<footer>
+    <div id="all_lists">
+        <div class="flist">
+            <ul>
+                ABOUT US
+                <li><a href="#">About Rozgar Group</a></li><!--Aim-->
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Contact Us</a></li><!--Customer Care-->
+                <li><a href="#">Rozgar Stories</a></li><!--Achievement in earning-->
+            </ul>
+        </div>
+
+        <div class="flist">
+            <ul>
+                HELP
+                <li><a href="#">Work with Us</a></li><!--details of payments-->
+                <li><a href="#">How to Earn</a></li><!---->
+                <li><a href="#">FAQ</a></li><!--Customer care-->
+            </ul>
+        </div>
+
+        <div class="flist">
+            <ul>
+                POLICY
+                <li><a href="#">Terms of Use</a></li><!---->
+                <li><a href="#">Security</a></li><!---->
+                <li><a href="#">Privacy</a></li><!---->
+            </ul>
+        </div>
+        <hr>
+        <div class="flist add">
+
+                ADDRESS:
+                <p>Rozgar Private Limited,<br>Birla Institute of Technology<br>Mesra, Ranchi-835215,<br>Jharkhand, India</p>
+        </div>
+    </div>
+    <br><br><br>
+    <div id="tc">
+        <div>
+            <i class="far fa-copyright"></i> 2021-2022 Rozgar.com
+        </div>
+
+        <div id="footericons">
+            <a href="" title="Facebook"><i class="fab fa-facebook-square"></i></a>&nbsp;
+            <a href="" title="Instagram"><i class="fab fa-instagram"></i></a>&nbsp;
+            <a href="#" title="Mail"><i class="fas fa-envelope"></i></a>&nbsp;
+            <a href="#" title="Youtube"><i class="fab fa-youtube"></i></a>&nbsp;
+            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>&nbsp;
+            <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>&nbsp;
+        </div>
+    </div>
+</footer>
+
+<script src="..//Scripts/servicelogin.js"></script>
+</body>
+</html>

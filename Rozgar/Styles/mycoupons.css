@@ -1,0 +1,13 @@
+.coup{
+	border: 1px solid black;
+	border-radius: 5px;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	padding: 1%;
+}
+.small{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}

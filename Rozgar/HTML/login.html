@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="..//Styles/login.css">
+	<link rel="stylesheet" href="..//Styles/body.css">
+	<link rel="stylesheet" href="..//Styles/footer.css">
+	<link rel="icon" type="image" href="..//Images/logo.png">
+	<script src="https://kit.fontawesome.com/247795ac81.js" crossorigin="anonymous"></script>
+	<title>Rozgar-Log in or Sign Up</title>
+</head>
+<body onload="captcha_generator()">
+<div class="heading">
+	<img src="..//Images/logo.png" id="logo">
+<h1 align="center">Rozgar</h1>
+</div>
+
+<div class="tag_line">
+	<h3>Sabka Kalyan...</h3>
+</div>
+
+<div class="signup">
+	<h3> <i class="fas fa-user"></i>&nbsp;&nbsp;Log In</h3><br><br>
+	<form action="#" method="post" autocomplete="on" >
+		<label for="email">Email ID:&nbsp;</label>
+		<input type="email" name="email" id="email" required><br><br>	
+		
+
+		
+		<label for="password">Password:&nbsp;</label>
+		<input type="password" name="password" id="password" required><br><br>
+		
+		<label for="captchainput">Captcha:&nbsp;</label>
+		<input type="text" name="captchainput" id="captchainput" required><br><br>
+		<input type="text" name="captchagen" id="captchagen"  readonly><br><br>
+		<input type="submit" name="submit" id="submit" value="Log In" onclick="checkCaptchalogin()">
+		<a id="new_account" href="signup.html">Create New Account</a>
+	</form>
+</div>
+<br><br>
+
+
+<footer>
+	<hr>
+	<div id="icons">
+	Get in Touch&nbsp;&nbsp;
+	<a href="" title="Facebook"><i class="fab fa-facebook-square"></i></a>&nbsp;
+	<a href="" title="Instagram"><i class="fab fa-instagram"></i></a>&nbsp;
+	<a href="#" title="Mail"><i class="fas fa-envelope"></i></a><br>
+	</div>
+	<div id="copy">
+		<i class="far fa-copyright"></i>  Copyright 2021 | Rozgar <p>T&C | Policy </p>
+	</div>
+</footer>
+<script src="..//Scripts/signup.js"></script>
+</body>
+</html>

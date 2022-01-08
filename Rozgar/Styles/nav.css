@@ -1,0 +1,246 @@
+#jobs{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    column-gap: 1%;
+    align-items: flex-start;
+    height: 50px;
+}
+
+.button{
+    margin: 1% 5%;
+    font-size: 95%;
+    font-weight:600;
+    letter-spacing: 1px;
+    background-color: lightgreen;
+    border: 0;
+}
+
+#button-1,#button-2,#button-3{
+    height: 30px;
+    width: 12%;
+}
+
+#button-4{
+    height: 30px;
+    width: 8%;
+}
+#button-5{ 
+    height: 30px;
+    width: 10%;
+}
+
+.margin{
+    width: 100%;
+    padding: 2%;
+}
+
+.margin-4{
+    width: 120%;
+    margin-top: 34%;
+}
+
+.margin-5{
+    margin-top: 18%;
+}
+
+#jobs button ul{
+    margin-top: 15%;
+    padding-left: 15%;
+    list-style: none;
+    background-color: lightseagreen;
+    border-radius: 5px;
+}
+#jobs button ul a{
+    text-decoration: none;
+    color: black;
+}
+.margin-4 a li{
+    text-align: left;
+    padding-left: 0%;
+}
+
+#jobs button ul a:hover>li{
+    background-color: #ffa07a;
+    color: #0000ff;
+    width: 100%;
+}
+
+
+
+
+.button::selection{
+    color: white;
+    background-color: #191970;
+}
+
+#jobs ul{
+    display: none;
+}
+
+#jobs button:hover>ul{
+    display: block;
+}
+
+
+
+/* media query*/
+
+@media screen and (max-width:800px){
+    #jobs{
+        display: flex;
+
+        flex-direction: column;
+        align-items: center;
+        padding: 0%;
+        height: 200px;
+    }
+
+    #button-4,#button-2,#button-1,#button-3,#button-5{
+        margin: 0%;
+        width: 100%;
+    }
+
+    button:hover{
+        height: 300px;
+    }
+
+    #jobs button:hover>ul{
+        display: none;
+    }
+
+
+
+}
+
+
+@media screen and (min-width:764px) and (max-width:1028px) {
+    #jobs {
+        display: flex;
+
+        column-gap: 0%;
+        /* flex-direction: column; */
+        height: 82px;
+        column-gap: 5%;
+    }
+        
+    #button-1{
+        
+        width: 18%;
+        height: 50px;
+    }
+
+    #button-2{
+        
+        margin-left: -50px;
+        width: 25%;
+        height: 50px;
+    }
+
+    #button-3{
+        
+        margin-left: -50px;
+        width: 16%;
+        height: 50px;
+    }
+
+    #button-4{
+        
+        margin-left: -50px;
+        width: 12%;
+        height: 50px;
+    }
+
+    #button-5{
+        
+        margin-left: -50px;
+        width: 11%;
+        height: 50px;
+    }
+
+    .button{
+        border: 1px solid;
+        font-size: 160%;
+
+        height: 800px;
+    }
+
+    .margin-1{
+        margin-top: 28%;
+    }
+
+    .margin-2{
+        margin-top: 24%;
+    }
+
+    .margin-3{
+        margin-top: 28%;
+    }
+
+    .margin-4{
+        margin-top: 37%;
+    }
+
+    .margin-5{
+        margin-top: 39%;
+    }
+
+    .margin{
+        font-size: 125%;
+    }
+
+    
+}
+
+@media screen and (width:768px){
+    
+    .button{
+    margin: 5px 5px;
+    }
+    #button-1{
+        
+        margin-top: 3%;
+        font-size: 135%;
+    }
+
+    #button-2{
+        
+        width: 29%;
+        margin-top: 3%;
+        font-size: 135%;
+    }
+
+    #button-3{
+        
+        width: 18%;
+        margin-top: 3%;
+        font-size: 135%;
+    }
+
+    #button-4{
+        
+        width: 15%;
+        margin-top: 3%;
+        font-size: 135%;
+    }
+
+    #button-5{
+        
+        width: 15%;
+        margin-top: 3%;
+        font-size: 148%;
+    }
+
+    .margin-2{
+        margin-top: 20%;
+    }
+
+    .margin-5{
+        margin-top: 35%;
+    }
+
+
+
+}

@@ -1,0 +1,164 @@
+#logo{
+	display: inline;
+	width: 6%;
+	position: relative;
+	float: left;
+	left: 40%;
+	margin-top: 2%;
+	border-radius: 50%;
+}
+.heading{
+	position: relative;
+	display: block;
+	padding: 1%;
+	margin: 1%;
+	letter-spacing: 3px;
+	padding-bottom: 0;
+	margin-bottom: 0;
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+
+.tag_line{
+	position: relative;
+	display: block;
+	margin-left: 52%;
+	padding-bottom: 1%;
+	margin-bottom: 1%;
+	margin-top: 1%;
+	font-style: italic;
+}
+
+.signup{
+	background-color: #04E744;
+	padding: 2%;
+	display: inline-block;
+	margin: 2%;
+	border: 2px solid black;
+	border-radius: 10px;
+	color: #010E25;
+	font-size: 1.1em;
+	width: 40%;
+	position: relative;
+	left: 25%;
+}
+/*#animations img{
+	position: absolute;
+	float: right;
+	width: 10%;
+	overflow: hidden;
+}
+#anim1,#anim5,#anim9{
+	display: none;
+	right: 2.5%;
+	bottom: 30%;
+}
+#anim2,#anim6{
+	display: none;
+	right: 12.5%;
+	bottom: 40%;
+}
+#anim3,#anim7{
+	display: none;
+	right: 22.5%;
+	bottom: 30%;
+}
+#anim4,#anim8{
+	display: none;
+	right: 12.5%;
+	bottom: 20%;
+}
+#anim10{
+	display: none;
+	right: 12.5%;
+	bottom: 30%;
+}*/
+.signup h3{
+	font-size: 1.5em;
+	letter-spacing: 1.5px;
+}
+.signup form input{
+	background-color: #F3F0CE;
+}
+.signup form input[type=text],.signup form input[type=email],.signup form input[type=password]{
+	height: 1%;
+	padding: 0.5%;
+	border: 1px solid darkblue;
+	border-radius: 5px;
+	width: 20%;
+}
+
+.signup form input[type=submit]{
+	padding: 1%;
+	border: 1px solid #600243;
+	background-color: #AFA406;
+	cursor: pointer;
+	border-radius: 3px;
+	color: white;
+	font-weight: bolder;
+}
+.signup form input[type=submit]:hover{
+	background-color:  #5F5902 ;
+}
+#captchagen{
+	color: blue;
+	font-size: 1.2rem;
+	font-weight: bolder;
+	letter-spacing: 1.7px;
+	text-align: center;
+	height: 2.5em;
+	width: 40%;
+}
+#PassConditions{
+	background-color: #F3F0CE;
+	border: 1px solid blue;
+	position: relative;
+	padding: 5%;
+	width: 50%;
+	font-size: 90%;
+	font-style: italic;
+	border-radius: 5px;
+	display: none;
+	float: right;
+}
+.login,.login a{
+	position: relative;
+	float: right;
+	font-style: italic;
+	font-size: 1em;
+	color: #010E25;
+}
+.login a{
+	cursor: pointer;
+	text-decoration: none;
+}
+.login a:hover{
+	color: blue;
+	text-decoration: underline;
+}
+
+@media screen and (max-width: 700px){
+	#PassConditions{
+		padding: 10%;
+		margin-top: 10%;
+		font-size: 80%;
+	}
+	#logo{
+		width: 10%;
+	}
+	.signup{
+		width: 90%;
+		left: 2%;
+	}
+	.login{
+		float: left;
+	}
+	.signup form input[type=text],.signup form input[type=email],.signup form input[type=password]{
+	height: 1%;
+	padding: 0.5%;
+	border: 1px solid darkblue;
+	border-radius: 5px;
+	width: 40%;
+}
+}

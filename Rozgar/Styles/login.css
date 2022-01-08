@@ -1,0 +1,92 @@
+.heading{
+	display: flex;
+	flex-direction: row;
+	padding: 1%;
+	margin: 1%;
+	letter-spacing: 3px;
+	padding-bottom: 0;
+	margin-bottom: 0;
+	font-size: 1.5rem;
+	justify-content: center;
+}
+
+#logo{
+	width: 6%;
+}
+.tag_line{
+	margin-left: 52%;
+	padding-bottom: 1%;
+	margin-bottom: 1%;
+	font-style: italic;
+}
+.signup{
+	background-color: #04E744;
+	padding: 2%;
+	margin: 2%;
+	border: 2px solid black;
+	border-radius: 10px;
+	color: #010E25;
+	font-size: 1.1em;
+	width: 34%;
+	position: relative;
+	left: 33%;
+}
+
+.signup h3{
+	font-size: 1.5em;
+	letter-spacing: 1.5px;
+}
+.signup form input{
+	background-color: #F3F0CE;
+}
+.signup form input[type=text],.signup form input[type=email],.signup form input[type=password]{
+	height: 1%;
+	padding: 0.5%;
+	border: 1px solid darkblue;
+	border-radius: 5px;
+	width: 20%;
+}
+
+.signup form input[type=submit],#new_account{
+	padding: 1%;
+	border: 1px solid #600243;
+	background-color: #AFA406;
+	cursor: pointer;
+	border-radius: 3px;
+	color: white;
+	font-weight: bolder;
+	text-decoration: none;
+	font-size: 0.9em;
+}
+.signup form input[type=submit]:hover,#new_account:hover{
+	background-color:  #5F5902 ;
+}
+#new_account{
+	position: relative;
+	float: right;
+}
+#captchagen{
+	color: blue;
+	font-size: 1.2rem;
+	font-weight: bolder;
+	letter-spacing: 1.7px;
+	text-align: center;
+	height: 2.5em;
+}
+
+@media screen and (max-width: 700px){
+	#logo{
+		width: 10%;
+	}
+	.signup{
+		width: 80%;
+		left: 5%;
+	}
+	.signup form input[type=text],.signup form input[type=email],.signup form input[type=password]{
+	height: 1%;
+	padding: 0.5%;
+	border: 1px solid darkblue;
+	border-radius: 5px;
+	width: 40%;
+}
+}

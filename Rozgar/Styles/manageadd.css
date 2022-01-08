@@ -1,0 +1,42 @@
+#edit1{
+	border: 1px solid blue;
+	background-color: white;
+	border-radius: 10px;
+	color: black;
+	padding: 2%;
+}
+#add textarea{
+	width: 62%;
+	height: 5em;
+}
+#state,#altmobno{
+	width: 30%;
+}
+
+#add input[type=submit]{
+	padding: 2% 10%;
+	border: 1px solid #600243;
+	background-color: #AFA406;
+	cursor: pointer;
+	border-radius: 3px;
+	color: white;
+	font-weight: bolder;
+}
+#add input[type=submit]:hover{
+	background-color:  #5F5902 ;
+}
+#add{
+	display: none;
+	background-color: #61FE9B;
+	border-radius: 10px;
+	padding: 5%;
+	border: 1px solid grey;
+}
+#current_add{
+	border: 1px solid blue;
+	background-color: white;
+	border-radius: 10px;
+	width: 62%;
+	color: black;
+	padding: 2%;
+}
