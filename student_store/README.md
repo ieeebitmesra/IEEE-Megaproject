@@ -43,11 +43,12 @@ The code is well arranged into sub-directories which are -
 5. Open the repository in Android Studio.
 6. Crate an emulator in AVD manager. 
 7. Run the application.
-8. Create a new issue if you face any difficulties or call Bodhisatwa at 8910602015 or Safal at 9123169595 😁
+8. Create a new issue if you face any difficulties or call Bodhisatwa at 8910602015 or Safal at 9123169595
 
 ## Team Mentor
 
 Saurav Priadarshini 
+Special thanks and appriciation for our mentor who entertain even our stupidest doubt without hesitation. 😁
 
 ## Team Members
 
