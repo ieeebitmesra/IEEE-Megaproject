@@ -4,6 +4,7 @@ Team name: Team Oblivion
 Members:  Vishal karmakar , Harsh Kumar, Ashish Konaje
 
 Domain: App development 
+
 This app aims to promote sports for development and help the youth in India rediscover their love for sports . To facilitate these we have  created Showdown, showdown  is a sports management app that provides a suite of tools for coaches,sport academies , managers, players & sports fans who need to stay connected during games and practice.We have integrated services like sports match formation , independent team formation , following sports activities & opportunities  and curated sports news. The user gets  an option to choose sports of his interest from an array of options enabling a display of upcoming matches of the sports of interest .The user also gets access to curated news depending on the sports he's chosen .We have also integrated a location based access to sports  venues which can be used to host matches & play on!!
 
 
