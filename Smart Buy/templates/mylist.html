@@ -1,0 +1,85 @@
+{% load static %}
+<!doctype html>
+                        <html>
+                            <head>
+                                <meta charset='utf-8'>
+                                <meta name='viewport' content='width=device-width, initial-scale=1'>
+                                <title>Smart Buy</title>
+                                <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>
+                                <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css' rel='stylesheet'>
+                                <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+                                <style>body {
+    background: linear-gradient(to right, #2872e2, #1f0048);
+    min-height: 100vh
+}
+
+.text-gray {
+    color: #aaa
+}
+
+img {
+    height: auto;
+    width: 140px
+}</style>
+                                </head>
+                                <nav class="navbar navbar-light bg-light static-top">
+                                    <div class="container">
+                                        <a class="navbar-brand" href="#!">Smart Buy</a>
+                                        {% if user.is_authenticated %}
+                                        <!-- <form action="logout" method="GET">
+                                            <button type="submit" class="btn btn-outline-primary" >Log Out</button>
+                                        </form> -->
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <form action="My_Cart" method="GET">
+                                             <input type="hidden" name="username" id="username" value="{{user.username}}"/>
+                                             <button type="submit" class="btn btn-outline-primary" >My Cart</button>
+                                             
+                                            </form>
+                                            <form action="logout" method="GET">
+                                            <button type="submit" class="btn btn-outline-primary" >Log Out</button>
+                                             </form>
+                                        {% else %}
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                        <form action="register" method="GET">
+                                         <button type="submit" class="btn btn-outline-primary" >Sign up</button>
+                                        </form>
+                                        <form action="login" method="GET">
+                                        <button type="submit" class="btn btn-outline-primary" >Log In</button>
+                                         </form>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </nav>
+                                <body oncontextmenu='return false' class='snippet-body'>
+                                <div class="container py-5">
+                                    <div class="row text-center text-white mb-5">
+                                        <div class="col-lg-7 mx-auto">
+                                            <h1 class="display-4">{{username}}'s Cart</h1>
+                                        </div>
+                                    </div>
+{%for products in mycart%}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <!-- List group-->
+        <ul class="list-group shadow">
+            <!-- list group item-->
+            <li class="list-group-item">
+                <!-- Custom content-->
+                <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                    <div class="media-body order-2 order-lg-1">
+                        <a style="text-decoration: none;color: black;" href={{products.link}} target="_blank">
+                        <h5 class="mt-0 font-weight-bold mb-2">{{products.id}}</h5>
+                        </a>
+                        <form id = "post-form10">
+                            <input type="hidden" name="username" id="username10" value="{{user.username}}"/>
+                            <input type="hidden" name="productpic" id="productpic10" value="{{a_prod_id5.pic}}"/>
+                            <button type="submit" class="btn btn-outline-danger" value="Send">Remove</button>
+                        </form>
+                    </div>
+                    <img src={{products.pic}} alt="Image_could_Not_Be_Found" width="200" class="ml-lg-5 order-1 order-lg-2">
+                </div> <!-- End -->
+            </li> <!-- End -->
+        </ul> <!-- End -->
+    </div>
+</div>
+{%endfor%}

@@ -1,0 +1,97 @@
+<!-- <h1>Sign Up</h1> -->
+{% load static %}
+<!-- <form method="POST" action="register">
+    {% csrf_token %}
+    <p>Username</p>
+    <input type="text" name="username" />
+    <p>Email</p>
+    <input type="email" name="email" />
+    <p>Password</p>
+    <input type="password" name="password" />
+    <p>Repeat Password</p>
+    <input type="password" name="password2" /><br>
+    <input type="submit" />
+</form> -->
+<!--
+Author: Colorlib
+Author URL: https://colorlib.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>SignUp Form</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Custom Theme files -->
+<link href="{% static 'css/registerstyle.css' %}" rel="stylesheet" type="text/css" media="all" />
+<!-- //Custom Theme files -->
+<!-- web font -->
+<link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
+<!-- //web font -->
+<style>
+    p.center {
+      text-align: center;
+      color: red;
+    }
+    
+    p.large {
+      font-size: 100%;
+    }
+	body {
+    background: linear-gradient( #7026d1, #021372);
+    min-height: 100vh
+}
+    </style>
+</head>
+<body>
+	<!-- main -->
+	<div class="main-w3layouts wrapper">
+		<h1>Sign Up!</h1>
+		<div class="main-agileinfo">
+			<div class="agileits-top">
+                {% for message in messages %}
+                <p class="center large">{{message}}</p> 
+                {% endfor %}
+				<form method="POST" action="register">
+                    {% csrf_token %}
+					<input type="text" name="username" placeholder="Username" required="">
+					<input type="email" name="email" placeholder="Email" required="">
+					<input type="password" name="password" placeholder="Password" required="">
+					<input type="password" name="password2" placeholder="Confirm Password" required="">
+					<!-- <div class="wthree-text">
+						<label class="anim">
+							<input type="checkbox" class="checkbox" required="">
+							<span>I Agree To The Terms & Conditions</span>
+						</label>
+						<div class="clear"> </div>
+					</div> -->
+					<input type="submit" />
+				</form>
+
+				<p>Already have an account? <a href="login"> Login Now!</a></p>
+			</div>
+		</div>
+		<!-- copyright -->
+		<div class="colorlibcopy-agile">
+			<p>© Smart Buy <a href="https://colorlib.com/" target="_blank"></a></p>
+		</div>
+		<!-- //copyright -->
+		<ul class="colorlib-bubbles">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	<!-- //main -->
+</body>
+</html>
