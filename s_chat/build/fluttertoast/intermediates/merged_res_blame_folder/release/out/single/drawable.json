@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "D:\\s_chat\\s_chat\\build\\fluttertoast\\intermediates\\res\\merged\\release\\drawable\\notification_icon_background.xml",
+        "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\8ec5a4192b12a309556d408337153575\\core-1.6.0\\res\\drawable\\notification_icon_background.xml"
+    },
+    {
+        "merged": "D:\\s_chat\\s_chat\\build\\fluttertoast\\intermediates\\res\\merged\\release\\drawable\\notification_tile_bg.xml",
+        "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\8ec5a4192b12a309556d408337153575\\core-1.6.0\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
+        "merged": "D:\\s_chat\\s_chat\\build\\fluttertoast\\intermediates\\res\\merged\\release\\drawable\\corner.xml",
+        "source": "C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\fluttertoast-8.0.8\\android\\src\\main\\res\\drawable\\corner.xml"
+    },
+    {
+        "merged": "D:\\s_chat\\s_chat\\build\\fluttertoast\\intermediates\\res\\merged\\release\\drawable\\toast_bg.xml",
+        "source": "C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\fluttertoast-8.0.8\\android\\src\\main\\res\\drawable\\toast_bg.xml"
+    },
+    {
+        "merged": "D:\\s_chat\\s_chat\\build\\fluttertoast\\intermediates\\res\\merged\\release\\drawable\\notification_bg.xml",
+        "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\8ec5a4192b12a309556d408337153575\\core-1.6.0\\res\\drawable\\notification_bg.xml"
+    },
+    {
+        "merged": "D:\\s_chat\\s_chat\\build\\fluttertoast\\intermediates\\res\\merged\\release\\drawable\\notification_bg_low.xml",
+        "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\8ec5a4192b12a309556d408337153575\\core-1.6.0\\res\\drawable\\notification_bg_low.xml"
+    }
+]

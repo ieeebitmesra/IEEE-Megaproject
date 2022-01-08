@@ -1,0 +1,58 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\s_chat\\s_chat\\build\\app\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-v23\\values-v23.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\19b3f28125c2b0a4d5f183d50810f00e\\cardview-1.0.0\\res\\values-v23\\values-v23.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "4",
+                        "endColumns": "12",
+                        "endOffsets": "200"
+                    },
+                    "to": {
+                        "startLines": "45",
+                        "startColumns": "4",
+                        "startOffsets": "3100",
+                        "endLines": "47",
+                        "endColumns": "12",
+                        "endOffsets": "3245"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\9f415e47dd4131a00a047abf100dc83a\\appcompat-1.1.0-alpha01\\res\\values-v23\\values-v23.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,19,32,33,34,38,39,40,41",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,190,325,400,487,1277,2079,2206,2311,2535,2650,2757,2870",
+                        "endLines": "2,3,4,5,18,31,32,33,37,38,39,40,44",
+                        "endColumns": "134,134,74,86,12,12,126,104,12,114,106,112,12",
+                        "endOffsets": "185,320,395,482,1272,2074,2201,2306,2530,2645,2752,2865,3095"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\98bb65678e5f4b3df89ca0548c328879\\material-1.1.0-alpha05\\res\\values-v23\\values-v23.xml",
+                    "from": {
+                        "startLines": "2,5",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,215",
+                        "endLines": "4,7",
+                        "endColumns": "10,10",
+                        "endOffsets": "210,379"
+                    },
+                    "to": {
+                        "startLines": "48,51",
+                        "startColumns": "4,4",
+                        "startOffsets": "3250,3410",
+                        "endLines": "50,53",
+                        "endColumns": "10,10",
+                        "endOffsets": "3405,3574"
+                    }
+                }
+            ]
+        }
+    ]
+}

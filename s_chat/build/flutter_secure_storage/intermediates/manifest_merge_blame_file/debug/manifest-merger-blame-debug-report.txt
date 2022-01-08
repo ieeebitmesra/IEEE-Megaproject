@@ -1,0 +1,17 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    xmlns:tools="http://schemas.android.com/tools"
+4    package="com.it_nomads.fluttersecurestorage"
+5    android:versionCode="6"
+6    android:versionName="3.3.1" >
+7
+8    <uses-sdk
+8-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_secure_storage-5.0.2\android\src\main\AndroidManifest.xml:5:5-58
+9        android:minSdkVersion="18"
+9-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_secure_storage-5.0.2\android\src\main\AndroidManifest.xml:5:5-58
+10        android:targetSdkVersion="31"
+10-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_secure_storage-5.0.2\android\src\main\AndroidManifest.xml:5:5-58
+11        tools:overrideLibrary="androidx.security" />
+11-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_secure_storage-5.0.2\android\src\main\AndroidManifest.xml:5:15-56
+12
+13</manifest>

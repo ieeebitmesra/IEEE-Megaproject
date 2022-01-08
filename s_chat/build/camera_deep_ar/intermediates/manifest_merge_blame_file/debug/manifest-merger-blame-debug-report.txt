@@ -1,0 +1,53 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.camera_deep_ar" >
+4
+5    <uses-sdk android:minSdkVersion="19" />
+5-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml
+6
+7    <uses-permission android:name="android.permission.FLASHLIGHT" />
+7-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:5:5-69
+7-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:5:22-66
+8    <uses-permission android:name="android.permission.WAKE_LOCK" />
+8-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:6:5-68
+8-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:6:22-65
+9    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+9-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:7:5-80
+9-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:7:22-77
+10    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+10-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:8:5-81
+10-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:8:22-78
+11    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+11-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:9:5-82
+11-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:9:22-79
+12    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+12-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:10:5-81
+12-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:10:22-78
+13    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+13-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:11:5-79
+13-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:11:22-76
+14    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+14-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:12:5-71
+14-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:12:22-68
+15    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+15-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:13:5-78
+15-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:13:22-75
+16    <uses-permission android:name="android.permission.CAMERA" />
+16-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:14:5-65
+16-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:14:22-62
+17    <!--
+18    <uses-feature android:name="android.hardware.camera2" android:required="false"/>
+19
+20    <uses-feature android:name="android.hardware.camera.front" />
+21    <uses-feature android:name="android.hardware.microphone" />
+22    <uses-feature
+23        android:name="android.hardware.camera.autofocus"
+24        android:required="true" />
+25    <uses-feature android:name="android.hardware.camera.flash" />
+26    -->
+27
+28    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+28-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:24:5-75
+28-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\camera_deep_ar-0.0.2+3\android\src\main\AndroidManifest.xml:24:22-72
+29
+30</manifest>
