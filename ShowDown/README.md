@@ -18,8 +18,9 @@ Sports news api
 
 The APP:
      
-     
-![tia626732475791332918](https://user-images.githubusercontent.com/76583677/148654862-c42f3242-def1-4a09-a973-1491c7883f46.png)
+<img src="https://user-images.githubusercontent.com/76583677/148654862-c42f3242-def1-4a09-a973-1491c7883f46.png" width=50% height=50%>   
+<img src="https://user-images.githubusercontent.com/76583677/148654863-057ab670-a1d9-4d79-803e-2d4a49b94abe.png" width=50% height=50%>   
+
 ![tia2250168149642913040](https://user-images.githubusercontent.com/76583677/148654863-057ab670-a1d9-4d79-803e-2d4a49b94abe.png)
 ![tia3474320105311302371](https://user-images.githubusercontent.com/76583677/148654866-563b01d0-2701-467c-9719-1854c86d0702.png)
 ![tia3775979477906260752](https://user-images.githubusercontent.com/76583677/148654868-08a26583-326d-488b-8b41-16a3b54dbc6b.png)
