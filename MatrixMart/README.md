@@ -1,8 +1,24 @@
 # MATRIX-MART
 
+## TEAM DETAILS
+
+### TEAM NAME: DATA PIRATES:
+<br/> MAYANKESH JHA
+<br/> AYUSH SHARMA 
+<br/> SAMRIDHI SINHA
+
 ## DOMAIN
 WEB DEVELOPMENT (MERN STACK)
 
+
+<code><img height="50" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png"></code>
+<code><img height="50" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png"></code>
+<code><img height="50" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/nodejs/nodejs.png"></code>
+<code><img height="50" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/mongodb/mongodb.png"></code>
+<code><img height="50" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png"></code>
+<code><img height="50" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/css/css.png"></code>
+<br/>
+<br/>
 ## IDEA
 We strived to create a full fletched e-commerce web application that enables a user to have a full fletched online shopping experience.Now you a get access to a fully functional e-commerce website that allows user                       
 to do all the primary necessary commodities  for an e-commerce website. In order to  achieve it we have to understand the cocnepts of node js,express js,restful api,redux implementation,react js,html ,css, javascript.We went through online documenatation from various sources and refer many repositories as well as youtube channels.
@@ -47,7 +63,7 @@ Link: https://matrix-mart.herokuapp.com/
 
 
 <!-- CONTACT -->
-## Contact
+## CONTACT
 [![Linkedin: Mayankesh Jha](https://img.shields.io/badge/-Mayankesh-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/mayankesh-jha-15446b206/)](https://www.linkedin.com/in/mayankesh-jha-15446b206/)
 [![Linkedin: Ayush Sharma](https://img.shields.io/badge/-Ayush-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/mayankesh-jha-15446b206/)](https://www.linkedin.com/in/ayush-sharma-b37929223/)
 [![Linkedin: Samridhi Sinha](https://img.shields.io/badge/-Samridhi-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/mayankesh-jha-15446b206/)](https://www.linkedin.com/in/samridhi-sinha-8542041ba/)
