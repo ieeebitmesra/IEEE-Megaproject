@@ -1,12 +1,5 @@
 # MATRIX-MART
 
-## TEAM DETAILS
-
-### TEAM NAME: DATA PIRATES
-<br/> MAYANKESH JHA
-<br/> AYUSH SHARMA 
-<br/> SAMRIDHI SINHA
-
 ## DOMAIN
 WEB DEVELOPMENT (MERN STACK)
 
@@ -61,6 +54,15 @@ The techs used in this are:
 ## HOW TO RUN:
 Link: https://matrix-mart.herokuapp.com/
 
+## Team Mentor
+[Utkrisht Sharma](https://github.com/utkrisht3108)
+
+## TEAM DETAILS
+
+### TEAM NAME: DATA PIRATES
+<br/> MAYANKESH JHA
+<br/> AYUSH SHARMA 
+<br/> SAMRIDHI SINHA
 
 <!-- CONTACT -->
 ## CONTACT
