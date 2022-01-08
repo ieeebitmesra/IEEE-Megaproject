@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Page</title>
+    <link rel="icon" href="https://res.cloudinary.com/dewansh/image/upload/v1641149333/BitMart/Products/logo_lexsox.png">
+</head>
+<!-- Bootstrap -->
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+crossorigin="anonymous"
+/>
+<!-- FontAwesome -->
+<script
+src="https://kit.fontawesome.com/f6f38a44e9.js"
+crossorigin="anonymous"
+></script>
+<link rel="stylesheet" href="css/search.css">
+<link rel="stylesheet" href="/css/navbar.css">
+<body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light py-3">
+        <div class="container-fluid">
+            <a href="/"><img class="logo"
+                src="https://res.cloudinary.com/dewansh/image/upload/v1641149333/BitMart/Products/logo_lexsox.png"
+                alt="logo">
+        </a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+                <!-- <form action="/products" class="d-flex mx-auto" method="get">
+                    <div class="input-group">
+                        <input name="keyword" type="text" class="form-control" placeholder="Search For Products and More"
+                            aria-label="Recipient's username" aria-describedby="button-addon2" id="nav_search">
+                        <div class="input-group-append">
+                            <button class="btn" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </form> -->
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">HOME<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products?type=sell">BUY<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products?type=rent">RENT<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products/new">SELL<span class="sr-only">(current)</span></a>
+                    </li>
+                    <% if (user==undefined) { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signin">SIGN IN<span class="sr-only">(current)</span></a>
+                        </li>
+                        <% } else { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">LOG OUT<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/wishlist"> <i class="fas fa-heart"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/users/<%= user.id %> "><i class="fas fa-user"></i></a>
+                            </li>
+                            <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    </header>
+    <form action="/products" class="searchBox" method="get">
+        <input hidden name="type" value="<%= query.type %>" />
+        <input hidden name="page" value="1" />
+        <input hidden name="category" value="<%= query.category %>" />
+        <input hidden name="lte" value="<%= 10000 %>" />
+        <input hidden name="gte" value="<%= 0 %>" />
+        <input type="text"
+        placeholder="Search a Product ..." id="inputSearch" name="keyword">
+        <button type="submit" id="btnSubmit"><i class="fas fa-search"></i></button>
+    </form>
+    <!-- JavaScript Bundle with Popper -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+        <!-- JavaScript Bundle with Popper -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+          crossorigin="anonymous"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Edit Product Info</title>
+    <link rel="icon" href="https://res.cloudinary.com/dewansh/image/upload/v1641149333/BitMart/Products/logo_lexsox.png">
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="/css/sell.css" rel="stylesheet">
+    <!-- FONT -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <%- include('../partials/flash2') %>
+    <%- include('../partials/navbar.ejs') %> 
+    <%- include('../partials/backtotop') %> 
+        <div class="container d-flex align-items-center min-vh-100">
+            <div class="row g-0 justify-content-center">
+                <!-- TITLE -->
+                <div class="col-lg-4 offset-lg-1 mx-0 px-0">
+                    <div id="title-container">
+                        <img class="mb-5" src="https://miro.medium.com/max/320/1*ed9Gs7eIWhNQzN_jRcNexg.jpeg">
+                        <h2>BIT MART</h2>
+                        <p id="tohide">A multi-step form that will assist individuals on Editing their product info
+                            on
+                            BIT-Mart</p>
+                    </div>
+                </div>
+                <!-- FORMS -->
+                <div class="col-lg-7 mx-0 px-0">
+                    <div class="progress">
+                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="50"
+                            class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                            style="width: 0%"></div>
+                    </div>
+                    <div id="qbox-container">
+                        <form action="/products/<%= product.id %>?_method=PUT" class="needs-validation"
+                            id="form-wrapper" method="post" name="form-wrapper" enctype="multipart/form-data"
+                            novalidate>
+                            <!-- STEPS HERE -->
+                            <div id="steps-container">
+                                <div class="step">
+                                    <div class="form-check ps-0 q-box">
+                                        <h4>Product Name:<%= product.name %>
+                                        </h4>
+                                    </div>
+                                    <h4>Product is on <%= product.type %> Platform </h4>
+                                </div>
+                                <div class="step">
+                                    <% if (product.images.length==0) { %>
+                                        <h1>No Images Uploaded</h1>
+                                        <% } else { %>
+                                            <h3 class="mb-3">Currently Uploaded Images: </h3>
+                                            <div class="container">
+                                                <div class="row">
+                                                    <% for( let index=0; index < product.images.length; index++) { %>
+                                                        <div class="col">
+                                                            <div class="form-check-inline">
+                                                                <input type="checkbox" id="image-<%= index %>"
+                                                                    name="deleteImages[]"
+                                                                    value="<%=product.images[index].public_id %>">
+                                                                <label for="image-<%= index %>">Delete?</label>
+                                                            </div>
+                                                            <img src="<%= product.images[index].url %> "
+                                                                alt="<%= product.images[index].public_id %>"
+                                                                class="img-fluid img-thumbnail">
+                                                        </div>
+                                                        <% } %>
+                                                </div>
+                                            </div>
+                                            <% } %>
+                                </div>
+                                <div class="step">
+                                    <div class="mt-2">
+                                        <label class="form-label">Change Price: <span class="fs-8">*[TOTAL FOR SELL
+                                                /
+                                                PER
+                                                MONTH FOR
+                                                RENT]</span></label>
+                                        <input required class="form-control" id="price" name="price" type="number"
+                                            value=<%=product.price %>>
+                                    </div>
+                                    <div class="mt-3">
+                                        <label class="form-label">Change Product Description:</label>
+                                        <input required class="form-control" id="description" name="description"
+                                            type="text" value="<%= product.description %> ">
+                                    </div>
+                                    <div class="mt-3">
+                                        <label class="form-label">Upload More Images</label>
+                                        <input class="form-control" type="file" name="images" multiple>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="mt-1">
+                                        <div class="closing-text">
+                                            <h4>That's about it! Stay healthy!</h4>
+                                            <p>We will assess your information and list your Product in Our Site.
+                                            </p>
+                                            <p>Click on the submit button to continue.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="q-box__buttons" class="mt-2">
+                                <button class="mx-2 mb-2" id="prev-btn" type="button">Previous</button>
+                                <button class="mx-2 mb-2" id="next-btn" type="button">Next</button>
+                                <button class="mx-2 mb-2" id="submit-btn" type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+            integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+            integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+            crossorigin="anonymous"></script>
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                'use strict'
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms=document.querySelectorAll('.needs-validation')
+
+                // Loop over them and prevent submission
+                Array.prototype.slice.call(forms)
+                    .forEach(function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (!form.checkValidity()) {
+                                event.preventDefault()
+                                event.stopPropagation()
+                            }
+
+                            form.classList.add('was-validated')
+                        }, false)
+                    })
+            })()
+        </script>
+        <script src="/js/sell.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<% if (success.length) { %>
+<div
+  class="alert alert-success text-center alert-dismissible fade show"
+  role="alert"
+>
+  <%= success %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% } %> <% if (error.length) { %>
+<div
+  class="alert alert-danger text-center alert-dismissible fade show"
+  role="alert"
+>
+  <%= error %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% } %>

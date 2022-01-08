@@ -1,0 +1,85 @@
+:root {
+  --primary-color: #45ccb8;
+}
+.logo {
+  height: 10vh;
+}
+.navbar {
+  font-size: 16px;
+  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg");
+  background-color: #2a2b38;
+}
+.navbar i {
+  font-size: 1.2rem;
+  padding: 0 7px;
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+.navbar i {
+  color: rgb(32, 169, 211);
+  font-size: 2rem;
+  margin: auto auto;
+}
+.navbar i:hover,
+.navbar i:active {
+  color: var(--primary-color);
+}
+.navbar-toggler-icon {
+  background-color: #45ccb8;
+}
+.navbar-light .navbar-nav .nav-link {
+  padding: 0 20px;
+  color: rgb(32, 169, 211);
+  transition: 0.3s ease;
+  font-size: 1.5rem;
+}
+.navbar-light .navbar-nav .nav-link:hover {
+  color: var(--primary-color);
+}
+form-group {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+#navbarSupportedContent form {
+  width: 50%;
+}
+#navbarSupportedContent form i {
+  font-size: 1.2rem;
+}
+#navbarSupportedContent form .form-control {
+  letter-spacing: 0.5px;
+  outline: none;
+  color: #c4c3ca;
+  background-color: #1f2029;
+  border: none;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+  box-shadow: 0 4px 8px 0 rgba(21, 21, 21, 0.2);
+}
+.navbar-light .navbar-nav .active {
+  border: 2px solid;
+  color: var(--primary-color) !important;
+  border-radius: 1rem;
+}
+.navbar-light .navbar-nav .active .nav-link {
+  color: var(--primary-color) !important;
+}
+.navbar-light .navbar-nav .active i {
+  color: var(--primary-color) !important;
+}
+@media only screen and (max-width: 996px) {
+  .navbar-light .navbar-nav .nav-item {
+    display: block;
+  }
+  .navbar-light .navbar-nav .nav-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #navbarSupportedContent form {
+    width: 90%;
+  }
+}
