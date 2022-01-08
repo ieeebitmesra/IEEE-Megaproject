@@ -1,0 +1,83 @@
+html {
+    background-color: #e2e8f0;
+    font-family: Arial, Helvetica, sans-serif;    
+}
+
+p {
+    display: inline-block;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+input {
+    width: 35%;
+    padding: 10px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid white;
+    box-sizing: border-box;
+    font-size: 18px;
+    font-weight: lighter;
+}
+
+.submit {
+    width: 35%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    margin-top: 2%;
+}
+
+label {
+    font-size: 1.40em;
+}
+
+.container {
+    margin: 1% 5%;
+}
+
+.signup {
+    margin-top: 1%;
+}
+
+.title {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.home {
+    margin-left: 12%;
+    font-size: 1.5em;
+    font-weight: 100;
+}
+
+.home:hover {
+    color: grey;
+}
+
+.heading {
+    font-size: 3em;
+    margin-bottom: 0.75%;
+}
+
+.login {
+    color: green;
+}
+
+.login:hover {
+    color:lightgreen;
+}
+
+.submit:hover {
+    background-color: darkgreen;
+}
+
+.hidden {
+    display: none;
+}

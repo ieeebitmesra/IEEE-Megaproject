@@ -1,0 +1,139 @@
+a {
+    text-decoration: none;
+    color: black;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#logo {
+    color: white;
+}
+
+.navbar {
+    padding:  3% 5% ;
+}
+
+.navbar-brand {
+    font-size: 2.5em;
+    font-weight: 400;
+    color: white;
+    text-transform: uppercase;
+}
+
+.nav-item {
+    font-size: 1.2em;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.navbar-light .navbar-nav .nav-item .nav-link:hover,
+.navbar-light .navbar-nav .nav-item .active .nav-link {
+    color: turquoise;
+}
+
+.navbar-light .navbar-nav .nav-item .nav-link {
+    color: white;
+    padding: 10px 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 2% 8%;
+    background-color: turquoise;
+}
+
+.container{
+    margin-top: 12% ;
+    margin-bottom: 2%;
+    text-align: center;
+}
+
+@media (max-width:992px){
+
+}
+
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'Poppins' ;
+}
+
+body{
+    
+    height: 130vh;
+    
+    
+    background: linear-gradient(135deg, #71b7e6, #9b59b6) no-repeat;
+
+
+}
+.container{
+    margin-top: 8%;
+    margin-bottom: 5%;
+    height: 70%;
+    width: 50%;
+    background: #fff;
+    padding-bottom: 3px;
+    border-radius: 5px;
+}
+.title{
+    
+    font-weight: 500;
+    font-size: 50%;
+
+    position: relative;
+    
+}
+.input-box input{
+    height: 45px;
+    width: 50%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+     font-size: 16px;
+     text-align: justify;
+     border-bottom-width: 2px ;
+     border-color: #9b59b6;
+     
+     
+}
+.input-box .select1 select{
+    height: 45px;
+    width: 50%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+     font-size: 16px;
+     
+     border-bottom-width: 2px ;
+     border-color: #9b59b6;
+
+}
+
+
+
+.details{
+    font-size: 20px;
+}
+
+
+
+.post{
+    height: 100%;
+    width: 30%;
+    outline: none;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+}

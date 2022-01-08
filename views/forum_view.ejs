@@ -1,0 +1,38 @@
+<%- include("partials/header1"); -%>
+<link rel="stylesheet" href="/css/forum_view.css">
+<%- include("partials/header2"); -%>
+
+<div class="container">
+    <div class="contents">
+        <h3>
+            <%= result.title %>
+        </h3>
+        <p>
+            <%= result.content %>
+        </p>
+        <a href="/user/<%=result.author%>">
+            <i><%= result.author %></i>
+        </a>
+    </div><br>
+    <% for(var i=0; i<result.reply.length; i++) { %>
+    <div class="reply">
+        <h4>
+            <a href="/user/<%=result.reply[i].respondent%>">
+                <%= result.reply[i].respondent %>
+            </a>
+        </h4>
+        <p>
+            <%= result.reply[i].content %>
+        </p>
+    </div><br>
+    <% } %>
+    <form class="reply-form" action="/forum/<%=result._id%>" method="post">
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1"><h4>Comment</h4></label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write here..." name="reply" required></textarea>
+          </div><br>
+        <button type="submit" class="btn btn-primary">Reply</button>
+    </form>
+</div>
+
+<%- include("partials/footer"); -%>

@@ -1,0 +1,19 @@
+<%- include("partials/header1"); -%>
+<link rel="stylesheet" href="/css/profile_edit.css">
+<%- include("partials/header2"); -%>
+
+<div class="container">
+    <form action="/profile/edit" method="post" enctype="multipart/form-data">
+        <label for="image">Upload Image</label><br>
+        <input type="file" name="image" id="image" class="form-control-file"/><br>
+        <label for="designation">Your Designation</label><br>
+        <input type="text" name="designation" required><br>
+        <label for="institute">Institute</label><br>
+        <input type="text" name="institute" required><br>
+        <label for="portfolio">Portfolio</label><br>
+        <input type="text" name="portfolio" required><br>
+        <button class="submit" type="submit">Submit</button>
+    </form>
+</div>
+
+<%- include("partials/footer"); -%>
