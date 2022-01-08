@@ -37,28 +37,25 @@ The code is well arranged into sub-directories which are -
 <img src="assets/Icons/10.png" width="5000" height="400">
 
 1. Make sure Flutter is installed in your system.
-2. Fork this repository.
-3. Clone the forked repository:
-~~~
-git clone https://github.com/<your github username>/student_store
-~~~
-4. Add a remote to the upstream repository:
-~~~
-# typing the command below should show you only 1 remote named origin with the URL of your forked repository
-git remote -v
-# adding a remote for the upstream repository
-git remote add upstream https://github.com/bodhi996/IEEE_Comp.github
-~~~
+2. Install Anroid in your system. 
+3. In the event you want to understand the installation process in detail [Youtube](https://www.youtube.com/watch?v=x0uinJvhNxI&t=5071s) will be very helpful
+4. For Windows 41:32 and for Linux/iOs 18:34.
 5. Open the repository in Android Studio.
 6. Crate an emulator in AVD manager. 
 7. Run the application.
 8. Create a new issue if you face any difficulties or call Bodhisatwa at 8910602015 or Safal at 9123169595 😁
 
+## Team Mentor
 
+Saurav Priadarshini 
 
+## Team Members
 
+<img src="assets/Icons/DS%20Back.png" width="170" height="170"> <img src="assets/Icons/Pal.png" width="170" height="170"> <img src="assets/Icons/ESDS%20Front.png" width="170" height="170">
 
-
+1. The first picture is of ```Bodhisatwa Bhattacharya``` who is the team leader
+2. The second picture is of ```Shivam Sharma      ```
+3. The third picture is of picture is of ```Rana Safal```
 
 
 
