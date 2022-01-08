@@ -1,0 +1,15 @@
+.search-item-text{
+    color: white;
+    margin-left: 1.4rem;
+}
+.noSearchRes{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    height: 43vh;
+    justify-content: center;
+    margin-top: 8rem;
+
+
+}

@@ -1,0 +1,119 @@
+.page{
+  display: flex;
+  flex-direction: row;
+}
+.recommendedforSmallScreen{
+  display: none;
+}
+@media screen and (max-width: 858px){
+  .recommendedforSmallScreen{
+    display: flex;
+    flex-direction: column;
+  }
+  .desccomm{
+    flex: 1 !important;
+  }
+  .recommended{
+    display: none;
+    flex: 0;
+  }
+
+}
+.sidemenuExplore{
+  flex: 0.2;
+  position: sticky;
+  margin-top: 3rem;
+
+}
+
+@media screen and (max-width: 768px){
+  .coverVide{
+    margin-right: 1.5rem;
+  }
+
+
+
+}
+@media screen and (max-width: 485px){
+  .sidemenu_channel{
+    display: none;
+  }
+  .sidemenuExplore{
+    display: none;
+  }
+  .channelpage{
+    width: 100vw;
+    flex: 1 !important;
+  }
+  .navigation_Channel{
+    justify-content: space-between;
+  }
+  .searchPage{
+    flex: 1;
+    margin-left: 0rem !important;
+  }
+}
+
+.sidemenu{
+  width: 20vw;
+ position: sticky;
+ margin-top: 3rem;
+}
+.videogrid{
+  margin-left: 1rem;
+  margin-top: 3.7rem;
+  width: 80vw;
+  
+}
+.videogridSub{
+  margin-left: 1rem;
+  margin-top: 3.7rem;
+  width: 80vw;
+  
+}
+.desccomm{
+  flex: 0.65;
+  margin-left: 1rem;
+}
+.recommended{
+  flex: 0.35;
+}
+.other{
+  width: 100%;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: row;
+}
+.channelpage{
+ flex: 0.8;
+  margin-top: 3rem;
+  width: 80vw;
+  
+  height: 100vh;
+  
+  
+  
+}
+.sidemenu_channel{
+  flex: 0.2;
+  position: sticky;
+  margin-top: 3rem;
+
+}
+.channel{
+  display: flex;
+ 
+}
+.coverVide{
+  margin-top: 2rem;
+  margin-left: 1rem;
+}
+.searchPage{
+  margin-top: 3rem;
+  margin-left: 20vw;
+}
+a{
+  text-decoration: none !important;
+  color: white !important;
+}
+

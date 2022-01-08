@@ -1,0 +1,9 @@
+.avatar3 {
+    vertical-align: middle;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }

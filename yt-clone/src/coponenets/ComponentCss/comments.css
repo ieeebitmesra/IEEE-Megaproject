@@ -1,0 +1,42 @@
+.postComment{
+    background-color: #3ea6ff;
+    color: #030303;
+    border-radius: 2px,3px;
+    float: right;
+    margin-right: 3.4rem;
+    margin-left: 1rem;
+    outline: none;
+}
+.CommentForm input {
+    background-color: #181818;
+    box-shadow: none !important;
+    border: none !important;
+    border-bottom: rgb(80, 80, 80) solid 2px;
+    border-width: 14px;
+    border-bottom: 2px solid dimgrey;
+    width: 100%;
+    color:white !important;
+    outline: none;
+    
+}
+.CommentForm{
+    border-bottom: 2px solid dimgrey;
+    width: 59%;
+    transition: 0.4s ease-out;
+
+}
+.CommentForm input[type="text"]:focus{
+ 
+    border-bottom: 2px solid rgb(0, 0, 0) !important;
+    
+    
+}
+.inputcomment{
+    display: flex;
+    align-items: center;
+    
+   
+}
+@media screen and (max-width: 563px){
+
+}

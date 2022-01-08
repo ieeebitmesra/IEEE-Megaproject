@@ -1,0 +1,12 @@
+.others{
+  height: 100vh;
+   transform: translateY(2rem);
+}
+.all{
+    overflow-x: hidden;
+    margin-top: 3rems;
+}
+*{
+    margin: 0;
+    padding: 0;
+}

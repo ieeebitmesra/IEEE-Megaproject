@@ -1,0 +1,22 @@
+
+
+.bannerimg{
+    
+    position: relative;
+    background-color: grey;
+    
+    height: 30vh;
+    object-fit: contain;
+   
+   width: 100%;
+    
+}
+.editBanner{
+    position:relative;
+    float: right;
+    margin: 1rem;
+    cursor: pointer;
+}
+.editBanner:hover{
+    color: #36a6a1;
+}

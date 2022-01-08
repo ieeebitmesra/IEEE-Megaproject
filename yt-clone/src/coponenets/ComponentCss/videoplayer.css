@@ -1,0 +1,106 @@
+.vidContainer {
+    width: 100vw;
+    object-fit: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    position: relative;
+    overflow: hidden;
+}
+
+.video {
+    width: 63%;
+    object-fit: contain;
+}
+
+.videoOpenpage {
+    background-color: rgb(85, 85, 85);
+    margin-top: 3rem;
+    overflow-x: hidden;
+}
+.onEnd:hover{
+    color: #37a6f1;
+    text-shadow: 2px 2px black;
+}
+
+.controls {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    padding-top: 30%;
+    justify-content: space-between;
+    transform: translateY(67px);
+    transition: 0.3s ease-in;
+}
+
+@media screen and (max-width: 858px) {
+    .video {
+        width: 90%;
+        object-fit: cover;
+    }
+
+    .vidContainer {
+        height: max-content
+    }
+
+}
+
+.controls:hover {
+    /*background-color: rgba(0,0,0,0.5);*/
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.0));
+    transform: translateY(0px);
+}
+
+.playPause {
+    flex: 0.1;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.timebar_container {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 67px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.timebar {
+    color: orangered;
+    width: 97%;
+    height: 10px;
+    cursor: pointer;
+}
+.Loading{
+    position: absolute;
+}
+.onEnd{
+    width: 63%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 7rem;
+    transition: 0.3s;
+    text-shadow: 2px 2px black;
+}
+.fullScreen {
+
+    display: flex;
+    align-items: flex-end;
+}
+
+.fullscreenIcon {
+    cursor: pointer;
+    transition: 0.2s;
+    padding-bottom: 1rem;
+}
+.fullscreenIcon:hover{
+    color:#37a6f1;
+}

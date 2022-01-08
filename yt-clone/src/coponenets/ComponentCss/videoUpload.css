@@ -1,0 +1,177 @@
+.mainContainerVideoUpload{
+    margin-top: 4rem;
+    background-color: #282828;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 3rem;
+}
+.uploaded{
+    margin-top: 4rem;
+    color: whitesmoke;
+    height: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.VideoUploadDetailsEntry{
+    flex: 0.7 ;
+    margin-right: 4rem;
+    border-right: solid 1px;
+    padding-right: 3rem;
+}
+.imgassurance{
+    flex: 0.3;
+}
+
+.videoUploadForm{
+    display: flex;
+    flex-direction: column;
+}
+.progress{
+    height: 3px;
+    margin-top: -1rem;
+    width: 100vw;
+}
+.title-video-upload{
+width: 100%;
+padding: 0.5rem 1rem;
+margin-bottom: 0.3rem;
+background-color: #3f3f3f !important;
+border: none;
+color: white !important;
+/*transition: 0.4s ease-in;*/
+border-radius: 14px;
+}.title-video-upload:focus{
+    outline: none;
+}
+
+.formandDetails{
+    display: flex;
+    flex-direction: row;
+}
+.videoUploadButton{
+    box-shadow: none;
+    border-radius: 14px;
+    margin-top: 1rem;
+}
+.description-video-upload{
+    resize:none;
+    width:100%;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.3rem;
+    background-color: #3f3f3f !important;
+    border: none;
+    color: white !important;
+    /*transition: 0.4s ease-in;*/
+    border-radius: 14px;
+}
+.description-video-upload:focus{
+    outline: none;
+}
+.createWithYoutube{
+  margin-left: 2.3rem;
+  font: message-box;
+}
+.custom-thumbnail-input {
+    color: white;
+    margin-left: 1.5%;
+    margin-top: 2%;
+    }
+    .custom-thumbnail-input::-webkit-file-upload-button {
+      visibility:hidden;
+    }
+    .custom-thumbnail-input::before {
+      content: 'Select Thumbnail';
+      color: white;
+      display: inline-block;
+      background: -webkit-linear-gradient(top, #808080, #808080);
+      border: 1px solid #999;
+      border-radius: 3px;
+      padding: 5px 8px;
+      outline: none;
+      white-space: nowrap;
+      -webkit-user-select: none;
+      cursor: pointer;
+     
+    
+    }
+    .custom-thumbnail-input:hover::before {
+      border-color: white;
+    }
+    .custom-thumbnail-input:active {
+      outline: 0;
+    }
+    .custom-thumbnail-input:active::before {
+      background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
+    }
+
+    
+.custom-videoUpload-input {
+    color: white;
+    margin-left: 1.5%;
+    margin-top: 2%;
+    }
+    .custom-videoUpload-input::-webkit-file-upload-button {
+      visibility:hidden;
+    }
+    .custom-videoUpload-input::before {
+      content: 'Select Video';
+      color: white;
+      display: inline-block;
+      background: -webkit-linear-gradient(top, #808080, #808080);
+      border: 1px solid #999;
+      border-radius: 3px;
+      padding: 5px 8px;
+      outline: none;
+      white-space: nowrap;
+      -webkit-user-select: none;
+      cursor: pointer;
+     
+    
+    }
+    .custom-videoUpload-input:hover::before {
+      border-color: white;
+    }
+    .custom-videoUpload-input:active {
+      outline: 0;
+    }
+    .custom-videoUpload-input:active::before {
+      background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
+    }
+
+    @media screen and (max-width: 841px){
+      .VideoUploadDetailsEntry{
+        padding-left: 2rem;
+      }
+      .imgassurance{
+        padding-right: 2rem;
+      }
+
+    }
+    @media screen and (max-width: 673px){
+      .formandDetails{
+        flex-direction: column;
+      }
+      .VideoUploadDetailsEntry{
+        border-right: none ;
+        border-bottom: solid 1px;
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 2rem;
+        margin-right: 0rem;
+      }
+
+    }
+    @media screen and (max-width: 425px){
+        .VideoUploadDetailsEntry{
+          padding: 1rem;
+        }
+        .imgassurance{
+          display: flex;
+          flex-direction: column;
+        }
+        .createWithYoutube{
+          margin-left: 6.2rem;
+        }
+    }

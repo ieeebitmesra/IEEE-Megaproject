@@ -1,0 +1,54 @@
+.MainNavContainer {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1e1e1e;
+    color: white;
+    margin-top: 0.8rem;
+
+}
+.avatarAndSubscribe{
+    display: flex;
+   width: 92%;
+   justify-content: space-between;
+   align-items: center;
+}
+.btn-subscribe_channel{
+    background-color: #cc0000;
+    color: whitesmoke;
+    border-radius: 4px;
+    box-shadow: none !important;
+    text-decoration: none;
+    border-width: 0 !important;
+    cursor: pointer;
+}
+.btn-subscribe_channel:hover{
+    transform: scale(1.1);
+}
+.navigation_Channel{
+    display: flex;
+    width: 22rem;
+    justify-content: space-between;
+
+}
+.li{
+    text-decoration: none;
+    list-style: none;
+    color: #808080;
+    cursor: pointer;
+    font-size: medium;
+}
+.li:hover{
+    color: aliceblue;
+    
+   
+}
+.active{
+    
+    list-style: none;
+    text-decoration: underline;
+    color: white;
+    cursor: pointer;
+    font-size: medium;
+}
