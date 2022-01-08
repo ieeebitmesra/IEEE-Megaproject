@@ -2,7 +2,7 @@
 
 ## Domain 
 
-The project is a mobile application developed in Flutter using Dart as a programming language, wireframe as UI and Firestore as backend server. This app can be operated in both iOS and Anroid  
+The project is a mobile application developed in Flutter using Dart as a programming language, wireframe as UI and Firestore as backend server. This app can be operated in both iOS and Android  
 
 ## Idea
 
@@ -27,9 +27,9 @@ Our application boasts of several features:
        
 The code is well arranged into sub-directories which are -
 1. The first page is the ```home``` page. 
-2. The second page is the ```product``` catalog page. 
-3. The thrid page is the ```Cart/Basket``` page. 
-4. The fourth Page is the ```Connect With``` page so that the user can connect with prospective client. 
+2. The second page is the ```product```catalogue page. 
+3. The third page is the ```Cart/Basket``` page. 
+4. The fourth Page is the ```Connect With``` page so that the user can connect with prospective clients. 
 5. Finally, the fifth page is the ```payment``` gateway.
 
 # How to Run
@@ -37,7 +37,7 @@ The code is well arranged into sub-directories which are -
 <img src="assets/Icons/10.png" width="5000" height="400">
 
 1. Make sure Flutter is installed in your system.
-2. Install Anroid in your system. 
+2. Install Android in your system. 
 3. In the event you want to understand the installation process in detail [Youtube](https://www.youtube.com/watch?v=x0uinJvhNxI&t=5071s) will be very helpful
 4. For Windows 41:32 and for Linux/iOS 18:34.
 5. Open the repository in Android Studio.
@@ -48,7 +48,7 @@ The code is well arranged into sub-directories which are -
 ## Team Mentor
 
 Saurav Priadarshini <br />
-Special thanks and appriciation for our mentor who entertained even our stupidest doubt without hesitation. 😁
+Special thanks and appreciation for our mentor who entertained even our stupidest doubt without hesitation. 😁
 
 ## Team Members
 
@@ -56,9 +56,9 @@ Special thanks and appriciation for our mentor who entertained even our stupides
 
 1. The first picture is of ```Bodhisatwa Bhattacharya``` who is the ```team leader```
 2. The second picture is of ```Shivam Sharma      ```
-3. The third picture is of picture is of ```Rana Safal```
+3. The third picture is of ```Rana Safal```
 
-## APK Verion
+## APK Version
 
 You can find the apk version of [Skill Hub](https://github.com/bodhi996/IEEE-Megaproject/blob/master/student_store/SkillHub.apk) here 
 
