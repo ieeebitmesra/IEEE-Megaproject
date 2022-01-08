@@ -1,34 +1,64 @@
-<h1 align="center">IEEE MegaProject</h1>
-<h3 align="center">Organised by IEEE Student Branch BIT Mesra</h3>
+# Skill Hub
 
-# About the Event
-"Talent wins games, but teamwork and intelligence win championships." – Michael Jordan
+## Domain 
 
-After six successful editions, we are here to present you with an opportunity of prototyping your imagination with the IEEE Mega Project.
+The project is a mobile application developed in Flutter using Dart as a programming language, wireframe as UI and Firestore as backend server. This app can be operated in both iOS and Anroid  
 
-IEEE Mega Project is a platform to learn and experience the entire process of making a project, from ideation to execution and then it's presentation. It is a platform for students to showcase their innovative ideas in working.
-It's a team-based project building event, where college students collaborate together to bring their ideas to reality.
+## Idea
 
-# Our Sponsors
-<p align="left"> 
-  <a href="https://www.geeksforgeeks.org/" target="_blank"> <img src="https://media-exp1.licdn.com/dms/image/C4E0BAQFnv4gI-bzgIw/company-logo_200_200/0/1640713604210?e=1649894400&v=beta&t=8dn1EKbMDzoW-L0s73QC_tjfRVMxJka9AzVE1y-4AzQ" alt="geeks for geeks" width="160" height="160" /> </a> 
-  <a href="https://www.codingninjas.com/" target="_blank"> <img src="https://www.codingninjas.com/assets-landing/images/CNLOGO.svg" alt="coding ninjas" width="160" height="160"/> </a> 
-  <a href="https://psyberduck.com/" target="_blank"> <img src="https://media-exp1.licdn.com/dms/image/C4D0BAQFoxMGZCig3bg/company-logo_200_200/0/1600269356604?e=1649894400&v=beta&t=U4L119URFC066xJlu3Z8GG1y0fzo4jgNAFBmWINIjHg" alt="psyber duck" width="160" height="160"/> </a> 
-  <a href="https://www.lemonerd.in/" target="_blank"> <img src="https://www.lemonerd.in/icon.svg" alt="lemonerd" width="160" height="160"/> </a> 
-  <a href="https://floxus.co/" target="_blank"> <img src="https://media-exp1.licdn.com/dms/image/C4D0BAQHIowJ2w91oAQ/company-logo_200_200/0/1616690411282?e=2159024400&v=beta&t=0R7BnUTuJwhLnZOVSi8OvG0AQ5Yse1SXqvWXgItbnZM" alt="floxus" width="160" height="160"/> </a> 
-  <a href="" target="_blank"> <img src="https://lh3.googleusercontent.com/MBznB5hCF1RtQE8kXmd8A3ljUtO4KjhHH00RhBNI7O3I3_DzLcyjXaMOENmakCuxM8IIwllNui159LIMrzH_IKeFEZVq19dK7f4M3A=w600" alt="" width="160" height="160"/> </a> 
-</p>
+The idea of the project is as an intra-organizational employment-oriented service that operates via mobile apps. 
+The organization that we have used as a test case is BIT Mesra, however, it can be oriented towards any other organization as well. The main goal is to bring convenience to freelancers and startups to hire people from within the community from where they are based.<br />
+The app can be very useful to foster expirence of networking to those who has no prior industry exprence and also to those looking for a cost competative employbility from within their organizational structure. 
 
-# Timeline
-December 5, 2021 - January 8, 2022
+# Achievements
 
-# How to create a Pull Request
-- Fork this repository, clone it to your system, and **make a folder of your project name.**
-- Add all your project files inside that folder.
-- Then commit and push it to your forked repository.
-- Finally make a pull request to the IEEE Megaproject repository.
+Our application boasts of several features:
+1. The application differentiates between verified and non-verified users. The algorithm will give verification symbols to those who have been consistent users of this platform.
+2. The app also uses third party features such as Linkedin to give out users better depth into their prospective employees.
+3. The app provides for a basket so that the user can select multiple people at one time without having to go through the same process recursively. 
+4.  The app also provides for payment gateway so that the user doesn't have to deal with the hassle of negotiation and engage with third party payments procedure. 
+5.  The user also has the feature of deleting any of this selection from the Cart/Basket page if he/she reconsiders their decesion. 
 
-For doubts regarding pull requests ping your project coordinators.
+## Description of the codebase
 
-# Note
-Make sure that your README file is complete and up to date with details asked to mention - **Team Details, Domain of your project, Idea, Achievements thus far, and How to execute your code sample**. These are the mandatory details that you need to mention, you can add more if you want.
+<img src="assets/Icons/Screenshot%20(173).png" width="200" height="400"> <img src="assets/Icons/Screenshot%20(174).png" width="200" height="400"> 
+<img src="assets/Icons/Screenshot%20(175).png" width="200" height="400">
+<img src="assets/Icons/Screenshot%20(176).png" width="200" height="400">
+       
+The code is well arranged into sub-directories which are -
+1. The first page is the ```home``` page. 
+2. The second page is the ```product``` catalog page. 
+3. The thrid page is the ```Cart/Basket``` page. 
+4. Finally, the fourth page is the ```payment``` gateway.
+
+# How to Run
+
+<img src="assets/Icons/10.png" width="5000" height="400">
+
+1. Make sure Flutter is installed in your system.
+2. Fork this repository.
+3. Clone the forked repository:
+~~~
+git clone https://github.com/<your github username>/student_store
+~~~
+4. Add a remote to the upstream repository:
+~~~
+# typing the command below should show you only 1 remote named origin with the URL of your forked repository
+git remote -v
+# adding a remote for the upstream repository
+git remote add upstream https://github.com/bodhi996/IEEE_Comp.github
+~~~
+5. Open the repository in Android Studio.
+6. Crate an emulator in AVD manager. 
+7. Run the application.
+8. Create a new issue if you face any difficulties (after browsing through StackOverflow on your own) and someone will help you 😁
+
+
+
+
+
+
+
+
+
+
