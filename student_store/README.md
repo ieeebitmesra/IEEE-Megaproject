@@ -39,7 +39,7 @@ The code is well arranged into sub-directories which are -
 1. Make sure Flutter is installed in your system.
 2. Install Anroid in your system. 
 3. In the event you want to understand the installation process in detail [Youtube](https://www.youtube.com/watch?v=x0uinJvhNxI&t=5071s) will be very helpful
-4. For Windows 41:32 and for Linux/iOs 18:34.
+4. For Windows 41:32 and for Linux/iOS 18:34.
 5. Open the repository in Android Studio.
 6. Crate an emulator in AVD manager. 
 7. Run the application.
