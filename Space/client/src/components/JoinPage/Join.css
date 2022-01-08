@@ -1,0 +1,146 @@
+.join {
+   width: 100%;
+}
+
+.button {
+   width: 50px;
+   height: 50px;
+   border-radius:50%;
+   border-color: #ffffff;
+   border-style: solid;
+   border-width: 1px;
+   background: transparent;
+   color: #ffffff;
+   margin: 10px;
+   position: relative;
+   bottom: 8px;
+   justify-content: center;
+   transition: all .25s linear;
+   outline: none;
+}
+.button i{
+   
+}
+
+.button:hover {
+   background: rgba(255, 255, 255, 0.3);
+}
+
+.button:focus {
+   outline: none;
+}
+
+.boxmeet {
+   z-index: 3;
+   width: 80%;
+   
+   padding: 2.3rem;
+   box-sizing: border-box;
+   background: rgba(196, 196, 196, 0.7);
+   border-radius: 0.625rem;
+   box-shadow: 0px 2px 20px #d8d8d8;
+}
+
+.boxmeet h2 {
+   margin: 0 0 1.875rem;
+   padding: 0;
+   color: rgb(0, 0, 0);
+   text-align: center;
+}
+
+.boxmeet .inputBoxJoin {
+   position: relative;
+}
+
+.boxmeet .inputBoxJoin input {
+   width: 100%;
+   padding: 0.625rem 0;
+   font-size: 1rem;
+   color: rgb(0, 0, 0);
+   letter-spacing: 0.062rem;
+   margin-bottom: 1.875rem;
+   border: none;
+   border-bottom: 0.065rem solid rgb(0, 0, 0);
+   outline: none;
+   background: transparent;
+}
+
+.boxmeet .inputBoxJoin label {
+   position: absolute;
+   top: 0;
+   left: 0;
+   padding: 0.625rem 0;
+   font-size: 15px;
+   color: rgb(0, 0, 0);
+   pointer-events: none;
+   transition: 0.5s;
+}
+
+.boxmeet .inputBoxJoin input:focus~label,
+.boxmeet .inputBoxJoin input:valid~label,
+.boxmeet .inputBoxJoin input:not([value=""])~label {
+   top: -1.125rem;
+   left: 0;
+   color: #000000;
+   font-size: 0.75rem;
+}
+
+.boxmeet input[type="submit"] {
+   border: none;
+   outline: none;
+   color: rgb(7, 7, 7);
+   margin: auto;
+   background-color: #03a9f4;
+   padding: 0.625rem 1.25rem;
+   cursor: pointer;
+   border-radius: 0.312rem;
+   font-size: 1rem;
+}
+
+.boxmeet input[type="submit"]:hover {
+   background-color: #000000;
+}
+
+#localVideo {
+   object-fit: cover;
+   width: inherit;
+   height: inherit;
+   display: block;
+   background: #424242;
+   transition: right 0.5s linear;
+   z-index: 2;
+   transform: rotateY(180deg);
+   -webkit-transform: rotateY(180deg);
+   -moz-transform: rotateY(180deg);
+   box-shadow: 0 3px 9px 0 rgb(226, 225, 225);
+}
+
+.video-mask {
+   top: 18.5%;
+   
+   width: 55vw;
+   height: 30vw;
+   border-radius: 20px;
+   overflow: hidden;
+   position: relative;
+   z-index: 8;
+   box-shadow: 0px 2px 20px #d8d8d8;
+}
+
+.video-mask .buttons {
+   position: absolute;
+   bottom: 0;
+   z-index: 12;
+   width: 100%;
+   text-align: center;
+}
+@media screen and (max-width: 768px) {
+   .video-mask {
+     width:75vw;
+     height:50vw;
+   }
+}
+@media screen and (max-width: 500px) {
+   
+   
+}

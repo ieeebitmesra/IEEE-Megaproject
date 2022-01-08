@@ -1,0 +1,17 @@
+.card-css{
+    flex-direction: row;
+}
+.but-c{
+    margin-top: 100%;
+}
+#problem-container{
+    width:100%;
+    margin-bottom: 4%;
+    box-shadow: 0 3px 10px 0 rgb(0 0 0 / 10%);
+}
+#inner-problem-div{
+    border:none;
+}
+#button-container{
+    padding-bottom: 2%;
+}

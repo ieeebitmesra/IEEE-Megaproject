@@ -1,0 +1,31 @@
+.card-css{
+    flex-direction: row;
+}
+.but-c{
+    margin-top: 100%;
+}
+#problem-container{
+    width:100%;
+    margin-bottom: 4%;
+    box-shadow: 0 3px 10px 0 rgb(0 0 0 / 10%);
+}
+#inner-problem-div{
+    border:none;
+}
+#button-container{
+    padding-bottom: 2%;
+}
+#problem-container:hover{
+    -moz-transform: scale(1.03);
+    -webkit-transform: scale(1.03);
+    -o-transform: scale(1.03);
+    -ms-transform: scale(1.03);
+    transform: scale(1.03);
+}
+#inner-problem-div:hover{
+    -moz-transform: scale(1.01);
+  -webkit-transform: scale(1.01);
+  -o-transform: scale(1.01);
+  -ms-transform: scale(1.01);
+  transform: scale(1.01);
+}

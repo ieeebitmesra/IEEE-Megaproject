@@ -1,0 +1,13 @@
+.problem-container {
+    box-shadow: 0px 2px 10px #e0e0e0;
+    white-space: pre-line;
+}
+.acc-btn{
+    color:white!important;
+}
+.accordion-button::after{
+    color:white!important;
+}
+.puzzle-text{
+    overflow-wrap: break-word;
+}
