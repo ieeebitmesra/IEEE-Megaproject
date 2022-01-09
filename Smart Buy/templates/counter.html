@@ -1,0 +1,859 @@
+{% load static %}
+<!doctype html>
+                        <html>
+                            <head>
+                                <meta charset='utf-8'>
+                                <meta name='viewport' content='width=device-width, initial-scale=1'>
+                                <title>Smart Buy</title>
+                                <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>
+                                <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css' rel='stylesheet'>
+                                <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+                                <style>body {
+    background: linear-gradient(to right, #c04848, #480048);
+    min-height: 100vh
+}
+
+.text-gray {
+    color: #aaa
+}
+
+img {
+    height: auto;
+    width: 140px
+}</style>
+                                </head>
+                                <nav class="navbar navbar-light bg-light static-top">
+                                    <div class="container">
+                                        <a class="navbar-brand" href="#!">Smart Buy</a>
+                                        <!-- <a class="btn btn-primary" href="#signup">Sign Up</a>
+                                        <a class="btn btn-primary" href="#signup">Log In</a> -->
+                                        <!-- <button type="button" class="btn btn-outline-primary">Sign Up</button>
+                                        <button type="button" class="btn btn-outline-primary">Log In</button> -->
+                                        <!-- <button class="btn btn-outline-primary mr-1" href="#">Sign up</button>
+                                        <button class="btn btn-outline-primary" href="#">Login</button> -->
+                                        {% if user.is_authenticated %}
+                                        <!-- <form action="logout" method="GET">
+                                            <button type="submit" class="btn btn-outline-primary" >Log Out</button>
+                                        </form> -->
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <form action="My_Cart" method="GET">
+                                             <input type="hidden" name="username" id="username" value="{{user.username}}"/>
+                                             <button type="submit" class="btn btn-outline-primary" >My Cart</button>
+                                             
+                                            </form>
+                                            <form action="logout" method="GET">
+                                            <button type="submit" class="btn btn-outline-primary" >Log Out</button>
+                                             </form>
+                                        {% else %}
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                        <form action="register" method="GET">
+                                         <button type="submit" class="btn btn-outline-primary" >Sign up</button>
+                                        </form>
+                                        <form action="login" method="GET">
+                                        <button type="submit" class="btn btn-outline-primary" >Log In</button>
+                                         </form>
+                                        <!-- <button type="submit" btn btn-outline-primary mr-1" href="register">Sign up</button>
+                                        <button class="btn btn-outline-primary" href="#">Log In</button> -->
+                                            <!-- <button type="button" class="btn btn-secondary">Right</button> -->
+                                        </div>
+                                        {% endif %}
+                                        <!-- <button type="button" class="btn btn-outline-warning">Log In</button>
+                                        <button type="button" class="btn btn-outline-warning">Sign up</button> -->
+                                    </div>
+                                </nav>
+                                <body oncontextmenu='return false' class='snippet-body'>
+                                <div class="container py-5">
+    <div class="row text-center text-white mb-5">
+        <div class="col-lg-7 mx-auto">
+            <h1 class="display-4">Product List</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- List group-->
+            <ul class="list-group shadow">
+                <!-- list group item-->
+                <li class="list-group-item">
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1">
+                            <a style="text-decoration: none;color: black;" href={{f_prod_id1.link}} target="_blank">
+                            <h5 class="mt-0 font-weight-bold mb-2">{{f_prod_id1.id|truncatewords:15}}</h5>
+                            </a>
+                            <!-- <p class="font-italic text-muted mb-0 small">128 GB ROM | 15.49 cm (6.1 inch) Display 12MP Rear Camera | 7MP Front Camera A12 Bionic Chip Processor</p> -->
+                            <div class="d-flex align-items-center justify-content-between mt-1">
+                                <h5 class="font-weight-bold my-2" style="color: rgb(48, 146, 226);">₹ {{f_prod_id1.price}}</h5>
+                                <!-- <ul class="list-inline small">
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                </ul> -->
+                                <img src="{% static 'assets/flogo.png' %}" alt="Flipkart Logo" style="width: 50px;;height: 30px;" />
+                                {% if user.is_authenticated %}
+                                <form id = "post-form1" method="POST">
+                                    <input type="hidden" name="username" id="username1" value="{{user.username}}"/>
+                                    <input type="hidden" name="productid" id="productid1" value="{{f_prod_id1.id}}"/>
+                                    <input type="hidden" name="productlink" id="productlink1" value="{{f_prod_id1.link}}"/>
+                                    <input type="hidden" name="productpic" id="productpic1" value="{{f_prod_id1.pic}}"/>
+                                    <button type="submit" class="btn btn-outline-primary" id="button1">Add to cart</button>
+                                </form>
+                                {% else %}
+                                <form action="register" method="GET">
+                                    <button type="submit" class="btn btn-outline-primary" >Add to cart</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div><img src={{f_prod_id1.pic}} alt="Image_could_Not_Be_Found" width="200" class="ml-lg-5 order-1 order-lg-2">
+                    </div> <!-- End -->
+                </li> <!-- End -->
+            </ul> <!-- End -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- List group-->
+            <ul class="list-group shadow">
+                <!-- list group item-->
+                <li class="list-group-item">
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1">
+                            <a style="text-decoration: none;color: black;" href={{a_prod_id1.link}} target="_blank">
+                            <h5 class="mt-0 font-weight-bold mb-2">{{a_prod_id1.id|truncatewords:15}}</h5>
+                            </a>
+                            <!-- <p class="font-italic text-muted mb-0 small">128 GB ROM | 15.49 cm (6.1 inch) Display 12MP Rear Camera | 7MP Front Camera A12 Bionic Chip Processor</p> -->
+                            <div class="d-flex align-items-center justify-content-between mt-1">
+                                <h5 class="font-weight-bold my-2" style="color: rgb(48, 146, 226);">₹ {{a_prod_id1.price}}</h5>
+                                <!-- <ul class="list-inline small">
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                </ul> -->
+                                <img src="{% static 'assets/alogo.png' %}" alt="Amazon Logo" style="width: 60px;;height:20px;" />
+                                {% if user.is_authenticated %}
+                                <form id = "post-form2" method="POST">
+                                    <input type="hidden" name="username" id="username2" value="{{user.username}}"/>
+                                    <input type="hidden" name="productid" id="productid2" value="{{a_prod_id1.id}}"/>
+                                    <input type="hidden" name="productlink" id="productlink2" value="{{a_prod_id1.link}}"/>
+                                    <input type="hidden" name="productpic" id="productpic2" value="{{a_prod_id1.pic}}"/>
+                                    <button type="submit" class="btn btn-outline-primary" id="button2">Add to cart</button>
+                                    </form>
+                                {% else %}
+                                <form action="register" method="GET">
+                                    <button type="submit" class="btn btn-outline-primary" >Add to cart</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div><img src={{a_prod_id1.pic}} alt="Image_could_Not_Be_Found" width="200" class="ml-lg-5 order-1 order-lg-2">
+                    </div> <!-- End -->
+                </li> <!-- End -->
+            </ul> <!-- End -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- List group-->
+            <ul class="list-group shadow">
+                <!-- list group item-->
+                <li class="list-group-item">
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1">
+                            <a style="text-decoration: none;color: black;" href={{f_prod_id2.link}} target="_blank">
+                            <h5 class="mt-0 font-weight-bold mb-2">{{f_prod_id2.id|truncatewords:15}}</h5>
+                            </a>
+                            <!-- <p class="font-italic text-muted mb-0 small">128 GB ROM | 15.49 cm (6.1 inch) Display 12MP Rear Camera | 7MP Front Camera A12 Bionic Chip Processor</p> -->
+                            <div class="d-flex align-items-center justify-content-between mt-1">
+                                <h5 class="font-weight-bold my-2" style="color: rgb(48, 146, 226);">₹ {{f_prod_id2.price}}</h5>
+                                <!-- <ul class="list-inline small">
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                </ul> -->
+                                <img src="{% static 'assets/flogo.png' %}" alt="Flipkart Logo" style="width: 50px;;height: 30px;" />
+                                {% if user.is_authenticated %}
+                                <form id = "post-form3">
+                                    <input type="hidden" name="username" id="username3" value="{{user.username}}"/>
+                                    <input type="hidden" name="productid" id="productid3" value="{{f_prod_id2.id}}"/>
+                                    <input type="hidden" name="productlink" id="productlink3" value="{{f_prod_id2.link}}"/>
+                                    <input type="hidden" name="productpic" id="productpic3" value="{{f_prod_id2.pic}}"/>
+                                    <button type="submit" class="btn btn-outline-primary" value="Send">Add to cart</button>
+                                    </form>
+                                {% else %}
+                                <form action="register" method="GET">
+                                    <button type="submit" class="btn btn-outline-primary" >Add to cart</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div><img src={{f_prod_id2.pic}} alt="Image_could_Not_Be_Found" width="200" class="ml-lg-5 order-1 order-lg-2">
+                    </div> <!-- End -->
+                </li> <!-- End -->
+            </ul> <!-- End -->
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- List group-->
+            <ul class="list-group shadow">
+                <!-- list group item-->
+                <li class="list-group-item">
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1">
+                            <a style="text-decoration: none;color: black;" href={{a_prod_id2.link}} target="_blank">
+                            <h5 class="mt-0 font-weight-bold mb-2">{{a_prod_id2.id|truncatewords:15}}</h5>
+                            </a>
+                            <!-- <p class="font-italic text-muted mb-0 small">128 GB ROM | 15.49 cm (6.1 inch) Display 12MP Rear Camera | 7MP Front Camera A12 Bionic Chip Processor</p> -->
+                            <div class="d-flex align-items-center justify-content-between mt-1">
+                                <h5 class="font-weight-bold my-2" style="color: rgb(48, 146, 226);">₹ {{a_prod_id2.price}}</h5>
+                                <!-- <ul class="list-inline small">
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                </ul> -->
+                                <img src="{% static 'assets/alogo.png' %}" alt="Amazon Logo" style="width: 60px;;height:20px;" />
+                                {% if user.is_authenticated %}
+                                <form id = "post-form4">
+                                    <input type="hidden" name="username" id="username4" value="{{user.username}}"/>
+                                    <input type="hidden" name="productid" id="productid4" value="{{a_prod_id2.id}}"/>
+                                    <input type="hidden" name="productlink" id="productlink4" value="{{a_prod_id2.link}}"/>
+                                    <input type="hidden" name="productpic" id="productpic4" value="{{a_prod_id2.pic}}"/>
+                                    <button type="submit" class="btn btn-outline-primary" value="Send">Add to cart</button>
+                                    </form>
+                                {% else %}
+                                <form action="register" method="GET">
+                                    <button type="submit" class="btn btn-outline-primary" >Add to cart</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div><img src={{a_prod_id2.pic}} alt="Image_could_Not_Be_Found" width="200" class="ml-lg-5 order-1 order-lg-2">
+                    </div> <!-- End -->
+                </li> <!-- End -->
+            </ul> <!-- End -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- List group-->
+            <ul class="list-group shadow">
+                <!-- list group item-->
+                <li class="list-group-item">
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1">
+                            <a style="text-decoration: none;color: black;" href={{f_prod_id3.link}} target="_blank">
+                            <h5 class="mt-0 font-weight-bold mb-2">{{f_prod_id3.id|truncatewords:15}}</h5>
+                            </a>
+                            <!-- <p class="font-italic text-muted mb-0 small">128 GB ROM | 15.49 cm (6.1 inch) Display 12MP Rear Camera | 7MP Front Camera A12 Bionic Chip Processor</p> -->
+                            <div class="d-flex align-items-center justify-content-between mt-1">
+                                <h5 class="font-weight-bold my-2" style="color: rgb(48, 146, 226);">₹ {{f_prod_id3.price}}</h5>
+                                <!-- <ul class="list-inline small">
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                </ul> -->
+                                <img src="{% static 'assets/flogo.png' %}" alt="Flipkart Logo" style="width: 50px;;height: 30px;" />
+                                {% if user.is_authenticated %}
+                                <form id = "post-form5">
+                                    <input type="hidden" name="username" id="username5" value="{{user.username}}"/>
+                                    <input type="hidden" name="productid" id="productid5" value="{{f_prod_id3.id}}"/>
+                                    <input type="hidden" name="productlink" id="productlink5" value="{{f_prod_id3.link}}"/>
+                                    <input type="hidden" name="productpic" id="productpic5" value="{{f_prod_id3.pic}}"/>
+                                    <button type="submit" class="btn btn-outline-primary" value="Send">Add to cart</button>
+                                    </form>
+                                {% else %}
+                                <form action="register" method="GET">
+                                    <button type="submit" class="btn btn-outline-primary" >Add to cart</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div><img src={{f_prod_id3.pic}} alt="Image_could_Not_Be_Found" width="200" class="ml-lg-5 order-1 order-lg-2">
+                    </div> <!-- End -->
+                </li> <!-- End -->
+            </ul> <!-- End -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- List group-->
+            <ul class="list-group shadow">
+                <!-- list group item-->
+                <li class="list-group-item">
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1">
+                            <a style="text-decoration: none;color: black;" href={{a_prod_id3.link}} target="_blank">
+                            <h5 class="mt-0 font-weight-bold mb-2">{{a_prod_id3.id|truncatewords:15}}</h5>
+                            </a>
+                            <!-- <p class="font-italic text-muted mb-0 small">128 GB ROM | 15.49 cm (6.1 inch) Display 12MP Rear Camera | 7MP Front Camera A12 Bionic Chip Processor</p> -->
+                            <div class="d-flex align-items-center justify-content-between mt-1">
+                                <h5 class="font-weight-bold my-2" style="color: rgb(48, 146, 226);">₹ {{a_prod_id3.price}}</h5>
+                                <!-- <ul class="list-inline small">
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                </ul> -->
+                                <img src="{% static 'assets/alogo.png' %}" alt="Amazon Logo" style="width: 60px;;height:20px;" />
+                                {% if user.is_authenticated %}
+                                <form id = "post-form6">
+                                    <input type="hidden" name="username" id="username6" value="{{user.username}}"/>
+                                    <input type="hidden" name="productid" id="productid6" value="{{a_prod_id3.id}}"/>
+                                    <input type="hidden" name="productlink" id="productlink6" value="{{a_prod_id3.link}}"/>
+                                    <input type="hidden" name="productpic" id="productpic6" value="{{a_prod_id3.pic}}"/>
+                                    <button type="submit" class="btn btn-outline-primary" value="Send">Add to cart</button>
+                                    </form>
+                                {% else %}
+                                <form action="register" method="GET">
+                                    <button type="submit" class="btn btn-outline-primary" >Add to cart</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div><img src={{a_prod_id3.pic}} alt="Image_could_Not_Be_Found" width="200" class="ml-lg-5 order-1 order-lg-2">
+                    </div> <!-- End -->
+                </li> <!-- End -->
+            </ul> <!-- End -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- List group-->
+            <ul class="list-group shadow">
+                <!-- list group item-->
+                <li class="list-group-item">
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1">
+                            <a style="text-decoration: none;color: black;" href={{f_prod_id4.link}} target="_blank">
+                            <h5 class="mt-0 font-weight-bold mb-2">{{f_prod_id4.id|truncatewords:15}}</h5>
+                            </a>
+                            <!-- <p class="font-italic text-muted mb-0 small">128 GB ROM | 15.49 cm (6.1 inch) Display 12MP Rear Camera | 7MP Front Camera A12 Bionic Chip Processor</p> -->
+                            <div class="d-flex align-items-center justify-content-between mt-1">
+                                <h5 class="font-weight-bold my-2" style="color: rgb(48, 146, 226);">₹ {{f_prod_id4.price}}</h5>
+                                <!-- <ul class="list-inline small">
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                </ul> -->
+                                <img src="{% static 'assets/flogo.png' %}" alt="Flipkart Logo" style="width: 50px;;height: 30px;" />
+                                {% if user.is_authenticated %}
+                                <form id = "post-form7">
+                                    <input type="hidden" name="username" id="username7" value="{{user.username}}"/>
+                                    <input type="hidden" name="productid" id="productid7" value="{{f_prod_id4.id}}"/>
+                                    <input type="hidden" name="productlink" id="productlink7" value="{{f_prod_id4.link}}"/>
+                                    <input type="hidden" name="productpic" id="productpic7" value="{{f_prod_id4.pic}}"/>
+                                    <button type="submit" class="btn btn-outline-primary" value="Send">Add to cart</button>
+                                    </form>
+                                {% else %}
+                                <form action="register" method="GET">
+                                    <button type="submit" class="btn btn-outline-primary" >Add to cart</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div><img src={{f_prod_id4.pic}} alt="Image_could_Not_Be_Found" width="200" class="ml-lg-5 order-1 order-lg-2">
+                    </div> <!-- End -->
+                </li> <!-- End -->
+            </ul> <!-- End -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- List group-->
+            <ul class="list-group shadow">
+                <!-- list group item-->
+                <li class="list-group-item">
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1">
+                            <a style="text-decoration: none;color: black;" href={{a_prod_id4.link}} target="_blank">
+                            <h5 class="mt-0 font-weight-bold mb-2">{{a_prod_id4.id|truncatewords:15}}</h5>
+                            </a>
+                            <!-- <p class="font-italic text-muted mb-0 small">128 GB ROM | 15.49 cm (6.1 inch) Display 12MP Rear Camera | 7MP Front Camera A12 Bionic Chip Processor</p> -->
+                            <div class="d-flex align-items-center justify-content-between mt-1">
+                                <h5 class="font-weight-bold my-2" style="color: rgb(48, 146, 226);">₹ {{a_prod_id4.price}}</h5>
+                                <!-- <ul class="list-inline small">
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                </ul> -->
+                                <img src="{% static 'assets/alogo.png' %}" alt="Amazon Logo" style="width: 60px;;height:20px;" />
+                                {% if user.is_authenticated %}
+                                <form id = "post-form8">
+                                    <input type="hidden" name="username" id="username8" value="{{user.username}}"/>
+                                    <input type="hidden" name="productid" id="productid8" value="{{a_prod_id4.id}}"/>
+                                    <input type="hidden" name="productlink" id="productlink8" value="{{a_prod_id4.link}}"/>
+                                    <input type="hidden" name="productpic" id="productpic8" value="{{a_prod_id4.pic}}"/>
+                                    <button type="submit" class="btn btn-outline-primary" value="Send">Add to cart</button>
+                                    </form>
+                                {% else %}
+                                <form action="register" method="GET">
+                                    <button type="submit" class="btn btn-outline-primary" >Add to cart</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div><img src={{a_prod_id4.pic}} alt="Image_could_Not_Be_Found" width="200" class="ml-lg-5 order-1 order-lg-2">
+                    </div> <!-- End -->
+                </li> <!-- End -->
+            </ul> <!-- End -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- List group-->
+            <ul class="list-group shadow">
+                <!-- list group item-->
+                <li class="list-group-item">
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1">
+                            <a style="text-decoration: none;color: black;" href={{f_prod_id5.link}} target="_blank">
+                            <h5 class="mt-0 font-weight-bold mb-2">{{f_prod_id5.id|truncatewords:15}}</h5>
+                            </a>
+                            <!-- <p class="font-italic text-muted mb-0 small">128 GB ROM | 15.49 cm (6.1 inch) Display 12MP Rear Camera | 7MP Front Camera A12 Bionic Chip Processor</p> -->
+                            <div class="d-flex align-items-center justify-content-between mt-1">
+                                <h5 class="font-weight-bold my-2" style="color: rgb(48, 146, 226);">₹ {{f_prod_id5.price}}</h5>
+                                <!-- <ul class="list-inline small">
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                </ul> -->
+                                <img src="{% static 'assets/flogo.png' %}" alt="Flipkart Logo" style="width: 50px;;height: 30px;" />
+                                {% if user.is_authenticated %}
+                                <form id = "post-form9">
+                                    <input type="hidden" name="username" id="username9" value="{{user.username}}"/>
+                                    <input type="hidden" name="productid" id="productid9" value="{{f_prod_id5.id}}"/>
+                                    <input type="hidden" name="productlink" id="productlink9" value="{{f_prod_id5.link}}"/>
+                                    <input type="hidden" name="productpic" id="productpic9" value="{{f_prod_id5.pic}}"/>
+                                    <button type="submit" class="btn btn-outline-primary" value="Send">Add to cart</button>
+                                    </form>
+                                {% else %}
+                                <form action="register" method="GET">
+                                    <button type="submit" class="btn btn-outline-primary" >Add to cart</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div><img src={{f_prod_id5.pic}} alt="Image_could_Not_Be_Found" width="200" class="ml-lg-5 order-1 order-lg-2">
+                    </div> <!-- End -->
+                </li> <!-- End -->
+            </ul> <!-- End -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- List group-->
+            <ul class="list-group shadow">
+                <!-- list group item-->
+                <li class="list-group-item">
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1">
+                            <a style="text-decoration: none;color: black;" href={{a_prod_id5.link}} target="_blank">
+                            <h5 class="mt-0 font-weight-bold mb-2">{{a_prod_id5.id|truncatewords:15}}</h5>
+                            </a>
+                            <!-- <p class="font-italic text-muted mb-0 small">128 GB ROM | 15.49 cm (6.1 inch) Display 12MP Rear Camera | 7MP Front Camera A12 Bionic Chip Processor</p> -->
+                            <div class="d-flex align-items-center justify-content-between mt-1">
+                                <h5 class="font-weight-bold my-2" style="color: rgb(48, 146, 226);">₹ {{a_prod_id5.price}}</h5>
+                                <!-- <ul class="list-inline small">
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                </ul> -->
+                                <img src="{% static 'assets/alogo.png' %}" alt="Amazon Logo" style="width: 60px;;height:20px;" />
+                                {% if user.is_authenticated %}
+                                <form id = "post-form10">
+                                    <input type="hidden" name="username" id="username10" value="{{user.username}}"/>
+                                    <input type="hidden" name="productid" id="productid10" value="{{a_prod_id5.id}}"/>
+                                    <input type="hidden" name="productlink" id="productlink10" value="{{a_prod_id5.link}}"/>
+                                    <input type="hidden" name="productpic" id="productpic10" value="{{a_prod_id5.pic}}"/>
+                                    <button type="submit" class="btn btn-outline-primary" value="Send">Add to cart</button>
+                                    </form>
+                                {% else %}
+                                <form action="register" method="GET">
+                                    <button type="submit" class="btn btn-outline-primary" >Add to cart</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div><img src={{a_prod_id5.pic}} alt="Image_could_Not_Be_Found" width="200" class="ml-lg-5 order-1 order-lg-2">
+                    </div> <!-- End -->
+                </li> <!-- End -->
+            </ul> <!-- End -->
+        </div>
+    </div>
+
+</div>
+
+<footer class="footer bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+                <ul class="list-inline mb-2">
+                    <li class="list-inline-item"><a href="#!">About</a></li>
+                    <!-- <li class="list-inline-item">⋅</li> -->
+                    <li class="list-inline-item"><a href="#!">Contact Us</a></li>
+                </ul>
+                <p class="text-muted small mb-4 mb-lg-0">&copy; Smart Buy</p>
+            </div>
+            <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item me-4">
+                        <a href="#!"><i class="bi-facebook fs-3"></i></a>
+                    </li>
+                    <li class="list-inline-item me-4">
+                        <a href="#!"><i class="bi-twitter fs-3"></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!"><i class="bi-instagram fs-3"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+                                <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
+                                <script type='text/javascript' src=''></script>
+                                <script type='text/javascript' src=''></script>
+                                <script type='text/Javascript'></script>
+                                </body>
+
+                                <script>
+                                    $('#post-form1').on('submit', function(e){
+                                        
+                                    e.preventDefault();
+                                    var form = $(this).closest('form');
+                                      $.ajax({
+                                           type : "POST", 
+                                           url: '/add_to_cart',
+                                           data: {
+                                            username : $('#username1').val(),
+                                            productid : $('#productid1').val(),
+                                            productlink : $('#productlink1').val(),
+                                            productpic : $('#productpic1').val(),
+                                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                                            dataType: "json",
+                                           },
+                                           
+                                           success: function(data){
+                                              $('#output').html(data.msg) /* response message */
+                                           },
+                                    
+                                           failure: function() {
+                                               
+                                           }
+                                    
+                                    
+                                       });
+                                    
+                                    
+                                            });    
+                                 </script>
+                                 <script>
+                                    $('#post-form2').on('submit', function(e){
+                                        
+                                    e.preventDefault();
+                                    var form = $(this).closest('form');
+                                      $.ajax({
+                                           type : "POST", 
+                                           url: '/add_to_cart',
+                                           data: {
+                                            username : $('#username2').val(),
+                                            productid : $('#productid2').val(),
+                                            productlink : $('#productlink2').val(),
+                                            productpic : $('#productpic2').val(),
+                                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                                            dataType: "json",
+                                           },
+                                           
+                                           success: function(data){
+                                              $('#output').html(data.msg) /* response message */
+                                           },
+                                    
+                                           failure: function() {
+                                               
+                                           }
+                                    
+                                       });
+                                    
+                                    
+                                            });    
+                                 </script>
+
+                                 <script>
+                                    $('#post-form3').on('submit', function(e){
+                                        
+                                    e.preventDefault();
+                                    var form = $(this).closest('form');
+                                      $.ajax({
+                                           type : "POST", 
+                                           url: '/add_to_cart',
+                                           data: {
+                                            username : $('#username3').val(),
+                                            productid : $('#productid3').val(),
+                                            productlink : $('#productlink3').val(),
+                                            productpic : $('#productpic3').val(),
+                                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                                            dataType: "json",
+                                           },
+                                           
+                                           success: function(data){
+                                              $('#output').html(data.msg) /* response message */
+                                           },
+                                    
+                                           failure: function() {
+                                               
+                                           }
+                                    
+                                       });
+                                    
+                                    
+                                            });    
+                                 </script>
+
+                                 <script>
+                                    $('#post-form4').on('submit', function(e){
+                                        
+                                    e.preventDefault();
+                                    var form = $(this).closest('form');
+                                      $.ajax({
+                                           type : "POST", 
+                                           url: '/add_to_cart',
+                                           data: {
+                                            username : $('#username4').val(),
+                                            productid : $('#productid4').val(),
+                                            productlink : $('#productlink4').val(),
+                                            productpic : $('#productpic4').val(),
+                                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                                            dataType: "json",
+                                           },
+                                           
+                                           success: function(data){
+                                              $('#output').html(data.msg) /* response message */
+                                           },
+                                    
+                                           failure: function() {
+                                               
+                                           }
+                                    
+                                       });
+                                    
+                                    
+                                            });    
+                                 </script>
+
+                                 <script>
+                                    $('#post-form5').on('submit', function(e){
+                                        
+                                    e.preventDefault();
+                                    var form = $(this).closest('form');
+                                      $.ajax({
+                                           type : "POST", 
+                                           url: '/add_to_cart',
+                                           data: {
+                                            username : $('#username5').val(),
+                                            productid : $('#productid5').val(),
+                                            productlink : $('#productlink5').val(),
+                                            productpic : $('#productpic5').val(),
+                                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                                            dataType: "json",
+                                           },
+                                           
+                                           success: function(data){
+                                              $('#output').html(data.msg) /* response message */
+                                           },
+                                    
+                                           failure: function() {
+                                               
+                                           }
+                                    
+                                       });
+                                    
+                                    
+                                            });    
+                                 </script>
+
+                                 <script>
+                                    $('#post-form6').on('submit', function(e){
+                                        
+                                    e.preventDefault();
+                                    var form = $(this).closest('form');
+                                      $.ajax({
+                                           type : "POST", 
+                                           url: '/add_to_cart',
+                                           data: {
+                                            username : $('#username6').val(),
+                                            productid : $('#productid6').val(),
+                                            productlink : $('#productlink6').val(),
+                                            productpic : $('#productpic6').val(),
+                                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                                            dataType: "json",
+                                           },
+                                           
+                                           success: function(data){
+                                              $('#output').html(data.msg) /* response message */
+                                           },
+                                    
+                                           failure: function() {
+                                               
+                                           }
+                                    
+                                       });
+                                    
+                                    
+                                            });    
+                                 </script>
+
+                                 <script>
+                                    $('#post-form7').on('submit', function(e){
+                                        
+                                    e.preventDefault();
+                                    var form = $(this).closest('form');
+                                      $.ajax({
+                                           type : "POST", 
+                                           url: '/add_to_cart',
+                                           data: {
+                                            username : $('#username7').val(),
+                                            productid : $('#productid7').val(),
+                                            productlink : $('#productlink7').val(),
+                                            productpic : $('#productpic7').val(),
+                                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                                            dataType: "json",
+                                           },
+                                           
+                                           success: function(data){
+                                              $('#output').html(data.msg) /* response message */
+                                           },
+                                    
+                                           failure: function() {
+                                               
+                                           }
+                                    
+                                       });
+                                    
+                                    
+                                            });    
+                                 </script>
+
+                                 <script>
+                                    $('#post-form8').on('submit', function(e){
+                                        
+                                    e.preventDefault();
+                                    var form = $(this).closest('form');
+                                      $.ajax({
+                                           type : "POST", 
+                                           url: '/add_to_cart',
+                                           data: {
+                                            username : $('#username8').val(),
+                                            productid : $('#productid8').val(),
+                                            productlink : $('#productlink8').val(),
+                                            productpic : $('#productpic8').val(),
+                                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                                            dataType: "json",
+                                           },
+                                           
+                                           success: function(data){
+                                              $('#output').html(data.msg) /* response message */
+                                           },
+                                    
+                                           failure: function() {
+                                               
+                                           }
+                                    
+                                       });
+                                    
+                                    
+                                            });    
+                                 </script>
+                                 <script>
+                                    $('#post-form9').on('submit', function(e){
+                                        
+                                    e.preventDefault();
+                                    var form = $(this).closest('form');
+                                      $.ajax({
+                                           type : "POST", 
+                                           url: '/add_to_cart',
+                                           data: {
+                                            username : $('#username9').val(),
+                                            productid : $('#productid9').val(),
+                                            productlink : $('#productlink9').val(),
+                                            productpic : $('#productpic9').val(),
+                                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                                            dataType: "json",
+                                           },
+                                           
+                                           success: function(data){
+                                              $('#output').html(data.msg) /* response message */
+                                           },
+                                    
+                                           failure: function() {
+                                               
+                                           }
+                                    
+                                       });
+                                    
+                                    
+                                            });    
+                                 </script>
+
+                                 <script>
+                                    $('#post-form10').on('submit', function(e){
+                                        
+                                    e.preventDefault();
+                                    var form = $(this).closest('form');
+                                      $.ajax({
+                                           type : "POST", 
+                                           url: '/add_to_cart',
+                                           data: {
+                                            username : $('#username10').val(),
+                                            productid : $('#productid10').val(),
+                                            productlink : $('#productlink10').val(),
+                                            productpic : $('#productpic10').val(),
+                                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                                            dataType: "json",
+                                           },
+                                           
+                                           success: function(data){
+                                              $('#output').html(data.msg) /* response message */
+                                           },
+                                    
+                                           failure: function() {
+                                               
+                                           }
+                                    
+                                       });
+                                    
+                                    
+                                            });    
+                                 </script>
+
+                            </html>
