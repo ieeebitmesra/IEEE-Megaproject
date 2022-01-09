@@ -34,6 +34,7 @@
     "react-firebase-hooks": "^4.0.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.0",
+    "react-sketch-canvas": "^6.1.0",
     "react-use": "^17.3.2",
     "simple-react-footer": "^1.0.2",
     "styled-components": "^5.3.3",
