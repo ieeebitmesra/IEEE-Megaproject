@@ -1,0 +1,10 @@
+.problem-container {
+    box-shadow: 0px 2px 10px #e0e0e0;
+    white-space: pre-line;
+}
+
+@media screen and (max-width:600px){
+    .problem-statement{
+        width:80vw;
+    }
+}

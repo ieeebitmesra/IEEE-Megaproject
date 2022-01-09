@@ -1,0 +1,10 @@
+.modal-in {
+   border:none !important;
+   outline:none !important;
+   border-bottom: 1px solid black !important;
+   width:30vw !important;
+}
+
+.input-area{
+   margin: 10px 0;
+}
