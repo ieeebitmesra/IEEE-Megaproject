@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Hub</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+    <p class="title">Sudent Hub</p>
+    <a href="/"><p class="home">home</p></a>
+    <div class="signup">
+    <p class="heading">Let's get started</p><br>
+    <p>Already signed up. <span><a class="login" href="/signin">Log in</a></span></p>
+    <form id="signup_form" action="/signup" method="POST">
+        <label  for="username">Username</label><br>
+        <input type="text" name="username" required><br>
+        <label for="email">Email</label><br>
+        <input type="email" name="email" required><br>
+        <label for="password">Password</label><br>
+        <input type="password" name="password" required><br>
+        <label for="institute">Institution name</label><br>
+        <input type="text" name="institute"><br>
+        <button class="submit" type="submit">Sign Up</button>
+    </form>
+    </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

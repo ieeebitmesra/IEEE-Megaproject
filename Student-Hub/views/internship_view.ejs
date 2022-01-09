@@ -1,0 +1,22 @@
+<%- include("partials/header1"); -%>
+<link rel="stylesheet" href="/css/internship_view.css">
+<%- include("partials/header2"); -%>
+
+<div class="container">
+    <div class="contents">
+        <h3>
+            <%= result.title %>
+        </h3>
+        <h6>
+            Company: <%= result.company %>
+        </h6>
+        <p>
+            <%= result.content %>
+        </p>
+        <a href="/user/<%=result.author%>">
+            <i><%= result.author %></i>
+        </a>
+    </div>
+</div>
+
+<%- include("partials/footer"); -%>

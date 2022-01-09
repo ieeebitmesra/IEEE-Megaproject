@@ -1,0 +1,15 @@
+<%- include("partials/header1"); -%>
+<link rel="stylesheet" href="/css/helpdesk.css">
+<%- include("partials/header2"); -%>
+
+<div class="container">
+    <p class="heading">Contact Us</p>
+    <form style="margin-top: 4%;" id="signup_form" action="/helpdesk" method="post">
+        <input type="text" name="name" placeholder="Full Name" required><br>
+        <input type="email" name="email" placeholder="What's your email?" required><br>
+        <textarea rows="5" name = "description" placeholder="Your Message.."></textarea><br>
+        <button class="submit" type="submit">SEND MESSAGE</button>
+    </form>
+</div>
+
+<%- include("partials/footer"); -%>
