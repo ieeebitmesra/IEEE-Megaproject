@@ -1,0 +1,131 @@
+<%- include("partials/header1"); -%>
+<link rel="stylesheet" href="/css/forum.css">
+<%- include("partials/header2"); -%>
+
+<div class="container">
+    <div class="col topics">
+        <div class="heading">
+            <h3>Topics</h3>
+        </div>
+        <ul class="list-group">
+            <a href="/forum/topics/Web-Development">
+                <div class="topic">
+                    <li class="list-group-item">Web-Development</li>
+                </div>
+            </a>
+            <a href="/forum/topics/App-Development">
+                <div class="topic">
+                    <li class="list-group-item">App-Development</li>
+                </div>
+            </a>
+            <a href="/forum/topics/Programming">
+                <div class="topic">
+                    <li class="list-group-item">Programming</li>
+                </div>
+            </a>
+            <a href="/forum/topics/Machine-Learning">
+                <div class="topic">
+                    <li class="list-group-item">Machine-Learning</li>
+                </div>
+            </a>
+            <a href="/forum/topics/Artificial-Intelligence">
+                <div class="topic">
+                    <li class="list-group-item">Artificial-Intelligence</li>
+                </div>
+            </a>
+            <a href="/forum/topics/Robotics">
+                <div class="topic">
+                    <li class="list-group-item">Robotics</li>
+                </div>
+            </a>
+            <a href="/forum/topics/Engineering">
+                <div class="topic">
+                    <li class="list-group-item">Engineering</li>
+                </div>
+            </a>
+            <a href="/forum/topics/Finance">
+                <div class="topic">
+                    <li class="list-group-item">Finance</li>
+                </div>
+            </a>
+            <a href="/forum/topics/Photography">
+                <div class="topic">
+                    <li class="list-group-item">Photography</li>
+                </div>
+            </a>
+            <a href="/forum/topics/Art">
+                <div class="topic">
+                    <li class="list-group-item">Art</li>
+                </div>
+            </a>
+            <a href="/forum/topics/Graphic-Design">
+                <div class="topic">
+                    <li class="list-group-item">Graphic-Design</li>
+                </div>
+            </a>
+        </ul>
+    </div>
+    <div class="col content">
+        <% for (var i=result.length-1; i>=0; --i){ %>
+            <div class="contents">
+                <a href="/forum/<%=result[i]._id%>">
+                <h3>
+                    <%= result[i].title %>
+                </h3>
+                </a>
+                <h6>
+                    topic: <%= result[i].topic %>
+                </h6>
+                <p style="
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 60ch;">
+                    <%= result[i].content %>
+                </p>
+                <a href="/user/<%=result[i].author%>">
+                    <i><%= result[i].author %></i>
+                </a>
+            </div>
+        
+        <% } %>
+    </div>
+    <div class="col search">
+        <div class="input-group">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+            aria-describedby="search-addon" onkeyup="showResults(this.value)"/>
+            <button type="button" class="btn btn-outline-primary">search</button>
+        </div>
+        <div id="livesearch" class="hide"></div>
+        <a href="/forum/add">
+            <div class="add-button">
+                <button type="button" class="btn btn-lg btn-primary">Add</button>
+            </div>
+        </a>
+    </div>
+</div>
+<script>
+      function showResults(str){
+        if(str.length === 0){
+          $("#livesearch").addClass("hide")
+        } else {
+          $("#livesearch").removeClass("hide")
+        }
+        $.ajax({
+          url: "/forum",
+          type: "POST",
+          dataType: "json",
+          data: {
+            query: str
+          },
+          success: function(result){
+            $("#livesearch").html(result.response)
+          }
+          });
+      }
+  </script>
+</body>
+</html>
+
+
+
