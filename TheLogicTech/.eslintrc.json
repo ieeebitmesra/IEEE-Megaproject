@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "no-console": 1
+  },
+  "extends": ["next/core-web-vitals", "prettier"]
+}
