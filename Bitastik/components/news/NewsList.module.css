@@ -1,0 +1,13 @@
+.kya{
+  margin: 0 5vw;
+}
+.list {
+  list-style: none;
+  margin-top: 10px;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-wrap:wrap;
+  flex-direction: row;
+  justify-content: center;
+}
