@@ -65,7 +65,9 @@ Our aim was to automate the proccess of event planning hassle free .
   You can also edit your profile you want to change or add detail .There is also event details of events that you have created wether it's a Upcoming Event or a Completed Event .
   <br/>
   
-  ![profile](https://user-images.githubusercontent.com/79051028/148653780-fd675dc6-4e61-4e2e-9bff-7df000b7d736.JPG)
+![profile](https://user-images.githubusercontent.com/79051028/148684592-ca5c2f8f-5537-451f-92e1-c7877d195fa6.JPG)
+
+
 
 
  <br/>
@@ -97,7 +99,9 @@ You can register venue if you want to add your venue to the website it will ask 
 
 <br/>
 
-![registerform](https://user-images.githubusercontent.com/79051028/148650233-994664b6-ea4a-4da1-bb9a-838c13da373d.JPG)
+![registration](https://user-images.githubusercontent.com/79051028/148684560-679624f4-5bc1-4101-8283-4968e18633cc.JPG)
+
+
 
 <br/>
 
