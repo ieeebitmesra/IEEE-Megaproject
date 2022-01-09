@@ -1,0 +1,49 @@
+.navbar
+{
+    padding-bottom: -50px;
+    padding-top: 0px;
+
+} 
+.navbar-brand{
+    font-family: 'Meow Script', cursive;
+}
+.nav-item{
+    font-family: 'Fuzzy Bubbles', cursive;
+}
+
+.carousel-item{
+    object-fit:cover;
+        width:100%;
+        height:500px;
+
+}
+.body{
+    background-image: url("https://freefrontend.com/assets/img/css-background-patterns/simple-pattern-with-css3.png");
+
+}
+.row{
+    margin: 40px;
+}
+.card{
+    margin: 40px;
+}
+.list-group{
+    margin: 40px;
+}
+.stock-heading{
+
+    font-family:'Times New Roman', Times, serif;
+    color: rgb(0, 0, 0);
+}
+.footer{
+    background-color: black;
+    color: aliceblue;
+    text-align: center;
+}
+#click2{
+    color: 	aliceblue;
+    font-size:25px;
+}
+.cryptocoin{
+    margin-right: 10px;
+}

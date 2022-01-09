@@ -1,0 +1,77 @@
+h1 {
+    font-variant: small-caps;
+}
+.contact {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    transition: .5s;
+    background-image: url("https://freefrontend.com/assets/img/css-background-patterns/simple-pattern-with-css3.png");
+}
+.contact section {
+    text-align: right;
+    padding: 10px;
+}
+    .contact section a {
+        border: none;
+        text-decoration: none;
+        outline: none;
+        color: #a102e0;
+    }
+.contact:target {
+    visibility: visible;
+    opacity: 1;
+}
+.contact-form {
+    position: absolute;
+    max-width: 500px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    width:90%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+.contact-form-input,
+.contact-form button {
+    font-family: inherit;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 24px;
+    letter-spacing: 1px;
+    border: none;
+    width: 100%;
+    outline: none;
+}
+.contact-form button {
+    background-color: #460583;
+    padding: 20px;
+    color: #fff;
+}
+.contact-form div:nth-child(1),
+.contact-form div:nth-child(2) {
+    position: relative;
+}
+.contact-form div:nth-child(1)::after,
+.contact-form div:nth-child(2)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: rgba(0,0,0,0.15);
+}
+.contact-form textarea {
+    overflow: auto;
+    height: 100px;
+    text-transform: none;
+}
