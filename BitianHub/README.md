@@ -12,4 +12,4 @@ notes and materials if they want to.
 
 How to execute your code - The code file is properly uploaded which can be accessed and used using any code editor and the data can be seen at the firebase.
 
-Link - https://queencyanand.github.io/IEEE-Megaproject/
+Link - https://amitsoren-2021.github.io/BITIAN/
