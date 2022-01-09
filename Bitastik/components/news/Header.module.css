@@ -1,0 +1,11 @@
+.head{
+    display: flex;
+    width: 100%;
+   margin: auto;
+    border-radius:  0 0 25px 25px;
+    background: #222024;
+    position: relative;
+    justify-content: space-between;
+    text-align: center;
+    padding: 15px 30px;
+ }

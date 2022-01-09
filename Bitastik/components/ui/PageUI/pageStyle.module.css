@@ -1,0 +1,20 @@
+.main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* zoom: 80%; */
+  /* overflow: hidden; */
+}
+.main h1 {
+  /* font-family: ; */
+  font-size: calc(2rem + 2vw);
+  /* font-size:90px; */
+  /* background: linear-gradient(to right, #803bec 30%, #1b1b1b 100%); */
+  background:#ffffff;
+  /* opacity: 0.8; */
+  -webkit-background-clip: text;
+  /* background-clip: content-box; */
+  /* -webkit-text-fill-color: transparent; */
+}

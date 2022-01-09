@@ -1,0 +1,113 @@
+/* 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+*{
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: 'Poppins',sans-serif;
+} */
+nav{
+   display: flex;
+   width: 100%;
+   border-radius:  0 0 25px 25px;
+   background: #222024;
+   position: relative;
+   justify-content: space-between;
+   text-align: center;
+   padding: 15px 30px;
+}
+nav .icon{
+   font-size: 35px;
+   font-weight: 200;
+
+   color: #fff;
+   cursor: pointer;
+}
+
+nav .search_box{
+   display: flex;
+   margin: auto 0;
+   height: 35px;
+   line-height: 35px;
+}
+form {
+    display: flex;
+  align-items: center;
+}
+nav .search_box textarea{
+   border: none;
+   border-radius: 5px;
+   outline: none;
+   background: #fff;
+   /* width: fit-content; */
+   height: 100%;
+   padding: 0 10px;
+   font-size: 1rem;
+   width: 350px;
+}
+nav .search_box span{
+   color: #0a5071;
+   font-size: 20px;
+   background: #fff;
+   height: 100%;
+   padding: 8px;
+   position: relative;
+   cursor: pointer;
+   z-index: 1;
+}
+nav .search_box span:hover{
+   color: #fff;
+}
+nav .search_box span::after{
+   height: 100%;
+   width: 0%;
+   content: '';
+   background: #ff003c;
+   position: absolute;
+   top: 0;
+   right: 0;
+   z-index: -1;
+   transition: 0.3s;
+}
+nav .search_box span:hover::after{
+   width: 100%;
+}
+
+.wow{
+    background-image: url('./love-letterrr.png');
+    background-color: #222024;
+    border: none;
+    width: 3rem;
+    height: 3rem;
+    margin-left: 0.5rem;
+}
+
+@media screen and (max-width: 800px){
+   nav{
+      display: block;
+      padding: 0;
+   }
+   nav .icon{
+      display: inline-block;
+      padding: 15px 30px;
+   }
+   nav .search_box{
+      width: 100%;
+      display: inline-flex;
+      justify-content: center;
+      margin-bottom: 15px;
+   }
+   nav .search_box textarea{
+      width: 60vw;
+      height: fit-content;
+      font-size: 1rem;
+   }
+   
+} 
+
+/* @media screen and (max-width: 400px){
+    nav .search_box textarea{
+        width: 90%;
+        font-size: 0.7rem;
+     }
+} */

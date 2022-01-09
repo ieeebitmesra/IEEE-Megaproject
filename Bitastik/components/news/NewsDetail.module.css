@@ -1,0 +1,9 @@
+.detail{
+    text-align: center;
+    border: 2px solid black;
+    height: 40vw;
+    width: 40vw;
+}
+.detail .img{
+    width: 300px;;
+}
