@@ -1,0 +1,17 @@
+R_DEF: Internal format may change without notice
+local
+color colorAccent
+color colorPrimary
+color colorPrimaryDark
+drawable arrow_left
+drawable arrow_right
+drawable camera_white
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable record_selector
+drawable screenshot_btn
+drawable screenshot_btn_pressed
+id surface
+layout activity_camera
+string app_name
+style AppTheme

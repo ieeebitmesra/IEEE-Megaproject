@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "D:\\s_chat\\s_chat\\build\\rwa_deep_ar\\intermediates\\res\\merged\\release\\interpolator-v21\\mtrl_fast_out_slow_in.xml",
+        "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\a99db0b7e4e426808eb6bdf3a1c95756\\material-1.0.0\\res\\interpolator-v21\\mtrl_fast_out_slow_in.xml"
+    },
+    {
+        "merged": "D:\\s_chat\\s_chat\\build\\rwa_deep_ar\\intermediates\\res\\merged\\release\\interpolator-v21\\mtrl_linear_out_slow_in.xml",
+        "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\a99db0b7e4e426808eb6bdf3a1c95756\\material-1.0.0\\res\\interpolator-v21\\mtrl_linear_out_slow_in.xml"
+    },
+    {
+        "merged": "D:\\s_chat\\s_chat\\build\\rwa_deep_ar\\intermediates\\res\\merged\\release\\interpolator-v21\\mtrl_fast_out_linear_in.xml",
+        "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\a99db0b7e4e426808eb6bdf3a1c95756\\material-1.0.0\\res\\interpolator-v21\\mtrl_fast_out_linear_in.xml"
+    }
+]

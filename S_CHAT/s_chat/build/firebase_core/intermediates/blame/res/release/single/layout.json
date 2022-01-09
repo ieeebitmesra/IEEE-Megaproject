@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "D:\\s_chat\\s_chat\\build\\firebase_core\\intermediates\\res\\merged\\release\\layout\\notification_template_part_time.xml",
+        "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\8ada7a6f2e95e7556e6fd76a8d4d3974\\core-1.6.0\\res\\layout\\notification_template_part_time.xml"
+    },
+    {
+        "merged": "D:\\s_chat\\s_chat\\build\\firebase_core\\intermediates\\res\\merged\\release\\layout\\custom_dialog.xml",
+        "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\8ada7a6f2e95e7556e6fd76a8d4d3974\\core-1.6.0\\res\\layout\\custom_dialog.xml"
+    },
+    {
+        "merged": "D:\\s_chat\\s_chat\\build\\firebase_core\\intermediates\\res\\merged\\release\\layout\\notification_template_part_chronometer.xml",
+        "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\8ada7a6f2e95e7556e6fd76a8d4d3974\\core-1.6.0\\res\\layout\\notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "D:\\s_chat\\s_chat\\build\\firebase_core\\intermediates\\res\\merged\\release\\layout\\notification_action.xml",
+        "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\8ada7a6f2e95e7556e6fd76a8d4d3974\\core-1.6.0\\res\\layout\\notification_action.xml"
+    },
+    {
+        "merged": "D:\\s_chat\\s_chat\\build\\firebase_core\\intermediates\\res\\merged\\release\\layout\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\8ada7a6f2e95e7556e6fd76a8d4d3974\\core-1.6.0\\res\\layout\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "D:\\s_chat\\s_chat\\build\\firebase_core\\intermediates\\res\\merged\\release\\layout\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\8ada7a6f2e95e7556e6fd76a8d4d3974\\core-1.6.0\\res\\layout\\notification_action_tombstone.xml"
+    }
+]

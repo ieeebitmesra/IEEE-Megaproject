@@ -1,0 +1,82 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\s_chat\\s_chat\\build\\firebase_core\\intermediates\\res\\merged\\release\\values-fr-rCA\\values-fr-rCA.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\8ec5a4192b12a309556d408337153575\\core-1.6.0\\res\\values-fr-rCA\\values-fr-rCA.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "325",
+                        "endColumns": "100",
+                        "endOffsets": "421"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\e31537fb3ca3accaea0d4d9ddb9631cc\\jetified-play-services-basement-17.0.0\\res\\values-fr-rCA\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "251",
+                        "endColumns": "219",
+                        "endOffsets": "470"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "105",
+                        "endColumns": "219",
+                        "endOffsets": "320"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "D:\\s_chat\\s_chat\\build\\firebase_core\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-fr-rCA\\values-fr-rCA.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\8ec5a4192b12a309556d408337153575\\core-1.6.0\\res\\values-fr-rCA\\values-fr-rCA.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "325",
+                        "endColumns": "100",
+                        "endOffsets": "421"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\e31537fb3ca3accaea0d4d9ddb9631cc\\jetified-play-services-basement-17.0.0\\res\\values-fr-rCA\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "251",
+                        "endColumns": "219",
+                        "endOffsets": "470"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "105",
+                        "endColumns": "219",
+                        "endOffsets": "320"
+                    }
+                }
+            ]
+        }
+    ]
+}

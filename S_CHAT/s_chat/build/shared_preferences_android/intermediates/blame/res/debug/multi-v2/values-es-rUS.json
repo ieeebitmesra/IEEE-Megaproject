@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\s_chat\\s_chat\\build\\shared_preferences_android\\intermediates\\res\\merged\\debug\\values-es-rUS\\values-es-rUS.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\8ada7a6f2e95e7556e6fd76a8d4d3974\\core-1.6.0\\res\\values-es-rUS\\values-es-rUS.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "D:\\s_chat\\s_chat\\build\\shared_preferences_android\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-es-rUS\\values-es-rUS.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\visha\\.gradle\\caches\\transforms-2\\files-2.1\\8ada7a6f2e95e7556e6fd76a8d4d3974\\core-1.6.0\\res\\values-es-rUS\\values-es-rUS.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}
