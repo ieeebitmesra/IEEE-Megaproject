@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="..//Styles/myaccount.css">
+	<link rel="stylesheet" href="..//Styles/mycoupons.css">
+	<link rel="stylesheet" href="..//Styles/home.css">
+	<script src="https://kit.fontawesome.com/247795ac81.js" crossorigin="anonymous"></script>
+	<link rel="icon" type="image" href="..//Images/logo.png">
+	<title>Rozgar-My Coupons</title>
+</head>
+<body>
+
+
+<div id="first_menu">
+<nav id="navigation">
+    <a href="home.html" id="roz_logo_tag" style="text-decoration: none; color: navy;">
+        <div id="roz_logo">
+            <img src="..///Images/logo.png" id="logo">
+            <h3 id="roz">Rozgar</h3>
+        </div>
+        <div id="tag">
+            Sabka Kalyan...
+        </div>
+    </a>
+    <div id="searchbar_icon">
+        <div id="searchbar">
+            <input type="text" name="search" id="search" placeholder="Search for Services...">
+        </div>
+        <div id="searchicon">
+            <i class="fas fa-search" id="searchicon"></i>
+        </div>
+    </div>
+
+    <div id="myaccount" class="options" onmouseenter="show1()" onmouseleave="hide1()">
+        <span>My Account&nbsp;&nbsp;<i class="fas fa-caret-down" id="down1"></i><i class="fas fa-caret-up" id="up1"></i></span>
+        <span><ul id="myaccountlist">
+            <li><a href="myaccount.html"><i class="fas fa-user"></i>&nbsp;&nbsp;My Profile</a></li><hr>
+            <li><a href="#"><i class="fas fa-network-wired"></i>&nbsp;&nbsp;Service Details</a></li><hr>
+            <li><a href="mycoupons.html"><i class="fas fa-ticket-alt"></i>&nbsp;&nbsp;Coupons</a></li><hr>
+            <li><a href="login.html"><i class="fas fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li><hr>
+        </ul></span>
+    </div>
+    <div id="more" class="options" onmouseenter="show2()" onmouseleave="hide2()">
+        <span>More&nbsp;&nbsp;<i class="fas fa-caret-down" id="down2"></i><i class="fas fa-caret-up" id="up2"></i></span>
+        <span><ul id="morelist">
+            <li><a href="notification.html"><i class="fas fa-bell"></i>&nbsp;&nbsp;Notification details</a></li><hr>
+            <li><a href="#"><i class="fas fa-laptop-house"></i>&nbsp;&nbsp;Provide Service</a></li><hr>
+            <li><a href="#"><i class="fas fa-question"></i>&nbsp;&nbsp;Customer Care</a></li><hr>
+            <li><a href="#"><i class="fas fa-download"></i>&nbsp;&nbsp;Download App</a></li><hr>
+        </ul></span>
+    </div>
+    <div id="Lang">
+        <select id="lang">
+            <option value="English">English</option>
+            <option value="Hindi">Hindi</option>
+        </select>
+    </div>
+</nav>
+
+<nav class="box1">
+        <div class="subBox subBox1"> Teacher
+            <!-- <button class="option option1">Teacher</button> -->
+            <div class="list list1">
+                <a href="#" target="_blank" rel="noopener noreferrer">Class 1-5 tutor</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Class 6-10 tutor</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Jee Mains Tutor</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Home Tutor</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Only Maths Tutor</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Only Physics Tutor</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Only Chemistry Tutor</a>
+
+            </div>
+        </div>
+
+        <div class="subBox subBox2">Home Repairing
+            <!-- <button class="option option2">Home Repairing</button> -->
+            <div class="list list2">
+                <a href="#" target="_blank" rel="noopener noreferrer">Electrician</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Plumber</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Painter</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Carpenter</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Cleaner</a>
+
+            </div>
+        </div>
+
+        <div class="subBox subBox3">Mechanic
+            <!-- <button class="option option2">Home Repairing</button> -->
+            <div class="list list3">
+                <a href="#" target="_blank" rel="noopener noreferrer">Car Mechanic</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Bike Mechanic</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Truck Mechanic</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Truck Mechanic</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Bus Mechanic</a>
+                
+                <a href="#" target="_blank" rel="noopener noreferrer">Maintainence and Repairing</a>
+
+            </div>
+        </div>
+
+        <div class="subBox subBox4">Other
+            <!-- <button class="option option2">Home Repairing</button> -->
+            <div class="list list4">
+                <a href="#" target="_blank" rel="noopener noreferrer">Tailor</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Driver</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Cobler</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Watchman</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Barber</a>
+
+                <a href="#" target="_blank" rel="noopener noreferrer">Personnel</a>
+
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+
+
+
+
+<div id="menu" onclick="show()" style="color: green; font-size: 2rem; cursor: pointer; background-color: white; width: 10%;"><i class="fas fa-bars"></i></div>
+<div id="greet_nav_current">
+<div id="greet_nav">
+
+<div id="greet">
+	<span  id="photo"><i class="fas fa-user-circle"></i></span><span id="content">Hello User</span>
+</div>
+<nav id="vertical_navbar">
+	<ul id="Account_settings" class="acc"><i class="fas fa-user"></i>&nbsp;&nbsp;Account Settings
+	<a href="myaccount.html"><li>Profile Information</li></a>
+	<a href="manageadd.html"><li>Manage Address</li></a>
+	<a href="pancard.html"><li>PAN Card Information</li></a>
+	</ul>
+
+	<ul id="Service_Details" class="acc"><i class="fas fa-network-wired"></i>&nbsp;&nbsp;Service Details
+	<a href="#"><li>Past Services</li></a>
+	<a href="#"><li>Ongoing Services</li></a>
+	<a href="#"><li>Upcoming Requests</li></a>
+	</ul>
+
+	<ul id="MyStuff" class="acc"><i class="fas fa-inbox"></i>&nbsp;&nbsp;My Stuff
+	<a href="#"><li class="activenav">My Coupons</li></a>
+	<a href="notification.html"><li>All Notifications</li></a>
+	<a href="#"><li>My Wishlist</li></a>
+	</ul>
+
+
+	<ul id="Logout" class="acc">
+		<a href="login.html"><li><i class="fas fa-power-off"></i>&nbsp;&nbsp;Log Out</li></a>
+	</ul>
+
+</nav>
+</div>
+<div id="Profile_info" class="current">
+	<div id="personal_info" class="pro">
+		<h3>Available Coupons</h3>
+<br><br>
+		<div class="coup">
+		<a href="#">
+			<div class="small">
+			<h4 style="color: #400472;">Tutor Class 5<sup>th</sup>-9<sup>th</sup></h4>
+			<p style="color: grey;">Valid Till 10<sup>th</sup> Jan,2022</p>
+			</div><br>
+			<div class="small">
+				<p style="color: black;">Get free class upto One Week</p>
+				<p><a href="#">View T&C</a></p>
+			</div>
+		</a><br>
+		</div>
+
+		<div class="coup">
+		<a href="#">
+			<div class="small">
+			<h4 style="color: #400472;">Carpenter</h4>
+			<p style="color: grey;">Valid Till 10<sup>th</sup> Jan,2022</p>
+			</div><br>
+			<div class="small">
+				<p style="color: black;">Get upto 8% Cashback</p>
+				<p><a href="#">View T&C</a></p>
+			</div>
+		</a><br>
+		</div>
+
+		<div class="coup">
+		<a href="#">
+			<div class="small">
+			<h4 style="color: #400472;">Laptop Repair</h4>
+			<p style="color: grey;">Valid Till 10<sup>th</sup> Jan,2022</p>
+			</div><br>
+			<div class="small">
+				<p style="color: black;">Get a chance to win a PS3</p>
+				<p><a href="#">View T&C</a></p>
+			</div>
+		</a><br>
+		</div>
+
+		<div class="coup">
+		<a href="#">
+			<div class="small">
+			<h4 style="color: #400472;">Hair Dresser</h4>
+			<p style="color: grey;">Valid Till 10<sup>th</sup> Jan,2022</p>
+			</div><br>
+			<div class="small">
+				<p style="color: black;">Free Head Massage</p>
+				<p><a href="#">View T&C</a></p>
+			</div>
+		</a><br>
+		</div>
+
+		<div class="coup">
+		<a href="#">
+			<div class="small">
+			<h4 style="color: #400472;">Painter</h4>
+			<p style="color: grey;">Valid Till 10<sup>th</sup> Jan,2022</p>
+			</div><br>
+			<div class="small">
+				<p style="color: black;">Get 5% cashback</p>
+				<p><a href="#">View T&C</a></p>
+			</div>
+		</a><br>
+		</div>
+
+		<div class="coup">
+		<a href="#">
+			<div class="small">
+			<h4 style="color: #400472;">Stationery</h4>
+			<p style="color: grey;">Valid Till 10<sup>th</sup> Jan,2022</p>
+			</div><br>
+			<div class="small">
+				<p style="color: black;">Get a Classmate Register Free</p>
+				<p><a href="#">View T&C</a></p>
+			</div>
+		</a><br>
+		</div>
+	</div>
+	<br><br><br>
+<div id="personal_info" class="pro">
+		<h3>Expired Coupons</h3>
+<br><br>
+		<div class="coup">
+		<a href="#">
+			<div class="small">
+			<h4 style="color: #440E02 ;">Tutor Class 5<sup>th</sup>-9<sup>th</sup></h4>
+			<p style="color: grey;">Valid Till 4<sup>th</sup> Jan,2022</p>
+			</div><br>
+			<div class="small">
+				<p style="color: black;">Get 4 free trial classes</p>
+				<p><a href="#">View T&C</a></p>
+			</div>
+		</a><br>
+		</div>
+
+		<div class="coup">
+		<a href="#">
+			<div class="small">
+			<h4 style="color: #440E02;">Carpenter</h4>
+			<p style="color: grey;">Valid Till 4<sup>th</sup> Jan,2022</p>
+			</div><br>
+			<div class="small">
+				<p style="color: black;">Get upto 10% Cashback</p>
+				<p><a href="#">View T&C</a></p>
+			</div>
+		</a><br>
+		</div>
+
+		<div class="coup">
+		<a href="#">
+			<div class="small">
+			<h4 style="color: #440E02;">Laptop Repair</h4>
+			<p style="color: grey;">Valid Till 4<sup>th</sup> Jan,2022</p>
+			</div><br>
+			<div class="small">
+				<p style="color: black;">Get a chance to win a PS4</p>
+				<p><a href="#">View T&C</a></p>
+			</div>
+		</a><br>
+		</div>
+
+		<div class="coup">
+		<a href="#">
+			<div class="small">
+			<h4 style="color: #440E02;">Hair Dresser</h4>
+			<p style="color: grey;">Valid Till 4<sup>th</sup> Jan,2022</p>
+			</div><br>
+			<div class="small">
+				<p style="color: black;">Free Tide Washing Powder</p>
+				<p><a href="#">View T&C</a></p>
+			</div>
+		</a><br>
+		</div>
+
+		<div class="coup">
+		<a href="#">
+			<div class="small">
+			<h4 style="color: #440E02;">Painter</h4>
+			<p style="color: grey;">Valid Till 4<sup>th</sup> Jan,2022</p>
+			</div><br>
+			<div class="small">
+				<p style="color: black;">Get 3% cashback</p>
+				<p><a href="#">View T&C</a></p>
+			</div>
+		</a><br>
+		</div>
+
+		<div class="coup">
+		<a href="#">
+			<div class="small">
+			<h4 style="color: #440E02;">Stationery</h4>
+			<p style="color: grey;">Valid Till 4<sup>th</sup> Jan,2022</p>
+			</div><br>
+			<div class="small">
+				<p style="color: black;">Get a Pencil Box free</p>
+				<p><a href="#">View T&C</a></p>
+			</div>
+		</a><br>
+		</div>
+	</div>
+</div>
+
+
+</div>
+	<br><br><br><br><br><br><br><br>
+<footer>
+	<hr>
+	<div id="icons">
+	Get in Touch&nbsp;&nbsp;
+	<a href="" title="Facebook"><i class="fab fa-facebook-square"></i></a>&nbsp;
+	<a href="" title="Instagram"><i class="fab fa-instagram"></i></a>&nbsp;
+	<a href="#" title="Mail"><i class="fas fa-envelope"></i></a><br>
+	</div>
+	<div id="copy">
+		<i class="far fa-copyright"></i>  Copyright 2021 | Rozgar <p>T&C | Policy </p>
+	</div>
+</footer>
+<script src="..//Scripts/home.js"></script>
+	<script src="..//Scripts/myaccount.js"></script>
+</body>
+</html>

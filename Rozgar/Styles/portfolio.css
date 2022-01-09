@@ -1,0 +1,210 @@
+*{
+    list-style-type: none;
+}
+.photo {
+    margin-left: 10%;
+}
+.photo img{
+    border: 2px solid lightblue;
+    border-radius: 2%;
+    width: 100%;
+}
+
+.container{
+    margin-top: 5%;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.leftPart{
+    margin: 0% 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.info{
+    background-color: #7DFE80 ;
+    border-radius: 2%;
+    padding: 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 0.5px solid green;
+}
+
+.overview{
+    border-radius: 2%;
+    padding: 2%;
+    margin-top: 2%;
+    background-color: #7DFE80 ;
+    border: 0.5px solid green;
+}
+
+
+.overviewBox{
+    padding: 2% 0%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    
+}
+
+.overviewBox div{
+    margin-left: 5%;
+}
+
+
+
+.description{
+    padding: 2%;
+    margin-top: 2%;
+    border-radius: 2%;
+    background-color: #7DFE80 ;
+    border: 0.5px solid green;
+}
+.description p{
+    padding-top: 2%;
+}
+.hd3 span{
+    font-weight: bold;
+}
+
+.description p span{
+    font-weight: bold;
+}
+.rightPart{
+    width: 100%;
+    margin-right: 10%;
+}
+
+.price{
+    background-color: #7DFE80 ;
+    border: 0.5px solid green;
+    padding-left: 6%;
+    padding-top: 1%;
+    padding-bottom: 7%;
+    font-size: 1.1rem;
+    border-radius: 2%;
+}
+
+
+.service{
+    margin-top: 3%;
+    padding: 1%;
+    padding-left: 5%;
+    background-color: #7DFE80 ;
+    border: 0.5px solid green;
+    border-radius: 2%;
+}
+
+.service p{
+    font-weight: bold;
+    padding: 2%;
+    font-size: 1.1rem;
+}
+
+.name{
+    font-size: 200%;
+    font-weight: bold;
+}
+
+.contact{
+    text-align: left;
+}
+
+img{
+    width: 90%;
+    padding-bottom: 2%;
+}
+
+button{
+    border: 3px solid blue;
+    color:blue;
+    background-color: aqua;
+    padding: 2%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 90%;
+}
+
+button:hover{
+    background-color: blue;
+    color:aqua;
+    cursor: pointer;
+}
+
+.service img:hover{
+    cursor: pointer;
+}
+
+.price span{
+    margin-top: 1%;
+    font-size: 1.2rem;
+    font-weight: bolder;
+}
+.service a{
+    margin: 3%;
+    
+}
+
+
+@media screen and (max-width: 890px){
+    h1,.service span{
+        font-size: 1.5rem;
+    }
+    .rightPart{
+        width: 120%;
+    }
+}
+@media screen and (max-width: 730px){
+    .rightPart{
+        width: 180%;
+    }
+    button{
+        font-size: 1rem;
+    }
+}
+@media screen and (max-width: 560px){
+    .rightPart{
+        width: 250%;
+        margin: 0% 5%;
+    }
+    button{
+        font-size: 0.8rem;
+    }
+    .leftPart{
+        margin: 0% 5%;
+    }
+}
+@media screen and (max-width: 468px){
+    .rightPart{
+        width: 350%;
+        margin: 0% 3%;
+    }
+    button{
+        font-size: 0.8rem;
+    }
+    .leftPart{
+        margin: 0% 3%;
+    }
+}
+@media screen and (max-width: 468px){
+    .container{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .rightPart{
+        width: 70%;
+        margin: 0% 10%;
+    }
+    button{
+        font-size: 0.8rem;
+    }
+    .leftPart{
+        width: 70%;
+        margin: 0% 10%;
+    }
+}

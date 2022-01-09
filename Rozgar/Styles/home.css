@@ -1,0 +1,323 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+::selection{
+	background-color: white;
+	color: blue;
+}
+
+body{
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	background-color: #E2FC97;
+	font-family: "Times New Roman", "Arial", "sans-serif","Calibri";
+}
+/*------------------------------------------------------------------------*/
+#first_menu{
+	display: flex;
+	flex-direction: column;
+	background-color: lightgreen;
+}
+#navigation{
+	background-color: lightgreen;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	gap: 5px;
+}
+/*------------------------------------------------------------------------*/
+#roz_logo_tag{
+	display: flex;
+	flex-direction: column;
+}
+#roz_logo{
+	margin-left: 1%;
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	align-items: center;
+}
+#logo{
+	width: 10%;
+}
+#roz{
+	font-size: 2rem;
+}
+#tag{
+	margin-left: 20%;
+	font-size: 1.3rem;
+	font-weight: bold;
+	align-self: flex-start;
+	margin-top: -2%;
+}
+/*------------------------------------------------------------------------*/
+#searchbar_icon{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+}
+#searchbar input{
+	font-size: 1.3rem;
+}
+#searchicon{
+	float: left;
+	font-size: 1.5rem;
+	cursor: pointer;
+}
+#searchstate{
+	align-self: center;
+}
+#searchstate select{
+	width: 80%;
+	font-size: 1rem;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+/*------------------------------------------------------------------------*/
+#myacc{
+	align-self: flex-end;
+	cursor: pointer;
+	background-color: white;
+	padding: 0.5%;
+	margin: 0.5%;
+	border: 0.5px solid black;
+	font-size: 1rem;
+	border-radius: 5px;
+	text-decoration: none;
+	color: navy;
+	text-align: center;
+	margin-bottom: 0;
+	margin-right: 3%;
+}
+#myacc ul{
+	list-style: none;
+}
+#full_list{
+	background-color: white;
+	padding: 1%;
+	text-align: left;
+	position: absolute;
+	display: none;
+	right: 5%;
+	box-shadow: 2px 2px #013010;
+}
+#full_list li a{
+	text-decoration: none;
+	color: navy;
+}
+#full_list li a:hover{
+	color: blue;
+}
+#full_list li{
+	margin: 5% 0%;
+}
+#up{
+	display: none;
+}
+#lang{
+	position: absolute;
+	right: 1%;
+	top: 1%;
+}
+
+.box1{
+    display: flex;
+    background-color: lightgreen;
+    padding: 2% 5%;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    height: 60px;
+    width: 100%;
+}
+
+.list{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    background-color: white;
+    border: 0.5px solid black;
+    padding: 0.5%;
+}
+
+.list a{
+	width: 100%;
+    color: black;
+    text-decoration: none;
+}
+.list a:hover{
+    color: blue;
+    background-color: lightskyblue;
+}
+.subBox{
+	cursor: pointer;
+    font-weight: 700;
+    /* line-height: 0.5; */
+}
+.subBox a{
+	text-decoration: none;
+	color: black;
+}
+.subBox1{
+    /* border: 1px solid; */
+
+    width: 7%;
+    text-align: center;
+    height: 20px;
+
+    font-size: 110%;
+    /* font-weight: ; */
+    letter-spacing: 3px;
+    cursor:default;
+}
+
+.subBox2{
+    /* border: 1px solid; */
+    width: auto;
+    text-align: center;
+    height: 20px;
+    
+    font-size: 110%;
+    letter-spacing: 3px;
+    cursor:default;
+}
+
+.subBox3{
+    /* border: 1px solid; */
+    width: 18%;
+    text-align: center;
+    height: 20px;
+    
+    font-size: 110%;
+    letter-spacing: 3px;
+    cursor:default;
+}
+
+.subBox4{
+    /* border: 1px solid; */
+    width: 6%;
+    text-align: center;
+    height: 20px;
+    
+    font-size: 120%;
+    letter-spacing: 3px;
+    cursor:default;
+}
+
+/*.list1{
+    width: 100%;
+}*/
+
+/*.list2{
+    width: 150%;
+}
+
+.list3{
+    width: 210%;
+}*/
+
+.subBox1:hover .list1,
+.subBox2:hover .list2,
+.subBox3:hover .list3,
+.subBox4:hover .list4{
+    display: flex;
+    flex-direction: column;
+}
+
+#logout{
+	width: 8%; 
+	float: right; 
+	align-self: flex-end; 
+	margin: 0.2%;
+}
+
+@media screen and (max-width:710px){
+	#logout{
+		width: 10%;
+	}
+}
+
+@media screen and (max-width:570px){
+	#logout{
+		width: 14%;
+	}
+}
+@media screen and (max-width:390px){
+	#logout{
+		width: 18%;
+	}
+}
+
+@media screen and (max-width:887px) {
+    .box1{
+        display: flex;
+        flex-direction: column;
+        height: 180px;
+
+        justify-content: center;
+    }
+
+    .subBox{
+        /* border: 1px solid; */
+        width: 100%;
+        margin: 1%;
+        height: 20px;
+    }
+    .list a{
+    	display: none;
+    }
+}
+
+
+
+footer{
+	background-color: #013010;
+	display: flex;
+	flex-direction: column;
+	margin-top: auto;
+	width: 100%;
+}
+#all_lists,#tc{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	color: white;
+}
+.flist ul{
+	padding-top: 5%;
+	margin: 1%;
+	width: 100%;
+	list-style: none;
+	color: white;
+	font-size: 1.1rem;
+}
+.flist ul li a{
+	color: white;
+	font-size: 1rem;
+	text-decoration: none;
+}
+.flist ul li a:hover{
+	text-decoration: underline;
+}
+#tc{
+	padding: 1%;
+}
+#footericons a{
+	color: white;
+	font-size: 1.1rem;
+}
+@media screen and (max-width: 925px){
+	.add,footer hr{
+		display: none;
+	}
+}
+
+

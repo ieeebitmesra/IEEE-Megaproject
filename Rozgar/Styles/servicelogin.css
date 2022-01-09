@@ -1,0 +1,95 @@
+#main{
+	display: flex;
+	flex-direction: column;
+	padding: 1%;
+	background-color: white;
+	margin: 0% 20%;
+}
+form{
+	margin: 1% 1%;
+	border: 1px solid grey;
+	border-radius: 5px;
+	padding: 3%;
+}
+#main form h2{
+	padding-left: 0%;
+}
+.smallbox{
+	display: flex;
+	flex-direction: column;
+/*	justify-content: space-between;
+	flex-wrap: wrap;*/
+}
+input[type=text],input[type=number],select,textarea{
+	border: 1px solid black;
+	font-size: 1rem;
+	padding: 0.5%;
+	width: 30%;
+	border-radius: 5px;
+}
+input[type=submit]{
+	border: 1px solid black;
+	font-size: 1rem;
+	padding: 0.5%;
+	width: 20%;
+	border-radius: 5px;
+	background-color: lightgreen;
+	cursor: pointer;
+}
+.subcategory{
+	display: none;
+}
+textarea{
+	width: 50%;
+	height: 100px;
+	border-radius: 5px;
+}
+label{
+	font-size: 1rem;
+	font-weight: bold;
+}
+input[type=file]{
+	font-size: 1rem;
+	padding: 0.5%;
+	width: 100%;
+	border-radius: 5px;
+}
+@media screen and (max-width: 820px){
+	input[type=text],input[type=number],select{
+		width: 40%;
+	}
+	textarea{
+		width: 70%;
+	}
+}
+
+@media screen and (max-width: 580px){
+	input[type=text],input[type=number],select{
+		width: 60%;
+		font-size: 0.8rem;
+	}
+	textarea{
+		width: 90%;
+		font-size: 0.8rem;
+	}
+	input[type=submit]{
+		width: 30%;
+	}
+	input[type=file]{
+		font-size: 0.8rem;
+	}
+	#main{
+		margin: 0% 12%;
+	}
+}
+@media screen and (max-width: 380px){
+	input[type=text],input[type=number],select{
+		width: 80%;
+	}
+	textarea{
+		width: 100%;
+	}
+	#main{
+		margin: 0% 10%;
+	}
+}
