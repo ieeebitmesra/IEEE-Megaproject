@@ -1,0 +1,38 @@
+.Friends{
+    height: calc(100vh - 64px);
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    font-size: 1.2rem;
+}
+
+.dashboard-nav-left{
+    display: flex;
+    overflow: hidden;
+    gap: 1ch;
+    align-items: center;
+    flex-direction: row;
+    flex-grow: 1;
+    font-size: 1.4rem;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+.Mui-disabled{
+    color: gray !important;
+}
+
+@media(max-width: 768px){
+    .Friends, .Options-List, .All-User-List-Container, .All-sender-list-container, .Friends-list-container{
+        width: 100vw;
+    }
+}
+@media(max-width: 1100px){
+    .Friends{
+        grid-template-columns: 30vw 70vw;
+    }
+}
+
+@media(prefers-color-scheme: dark){
+    .Mui-disabled{
+        color: rgb(75, 75, 75) !important;
+    }
+}

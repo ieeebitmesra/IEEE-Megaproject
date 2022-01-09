@@ -1,0 +1,41 @@
+.Friends-list-container{
+    /* display: flex; */
+    height: calc(100vh - 64px);
+    /* overflow-y: hidden; */
+    /* justify-content: center;
+    align-items: center; */
+    background-color:#131516;
+}
+
+.Friends-card-container{
+    overflow-y: scroll;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    /* gap: 1rem; */
+    background-color: #0984e3;
+    grid-row-gap: 1rem;
+    height: calc(100vh - 128px);
+    /* flex: 90%; */
+}
+@media(max-width: 600px){
+    .Friends-card-container{
+        height: calc((100vh - 112px));
+    }
+}
+@media (max-width: 768px) {
+    .Friends-card-container{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media(prefers-color-scheme: dark){
+    .Friends-card-container{
+        background-color: #0C5DAF;
+    }
+}
+@media(max-width: 1110px){
+    .Friends-card-container{
+        grid-template-columns: 1fr 1fr;
+    }
+}

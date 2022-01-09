@@ -1,0 +1,91 @@
+{
+  "name": "vsbuddies",
+  "publisher": "Lohitaksha",
+  "displayName": "VSBuddies",
+  "description": "Chat with your vsbuddies using vscode",
+  "version": "6.9.0",
+  "repository": {
+    "type": "git",
+    "url": "github.com/lohit244/vsbuddiesExtension"
+  },
+  "engines": {
+    "vscode": "^1.63.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:vsbuddies.authenticate",
+    "onView:vsbuddies-sidebar"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "vsbuddies-sidebar-view",
+          "title": "VSBuddies",
+          "icon": "media/comment-discussion.svg"
+        }
+      ]
+    },
+    "views": {
+      "vsbuddies-sidebar-view": [
+        {
+          "type": "webview",
+          "id": "vsbuddies-sidebar",
+          "name": "VSBuddies",
+          "icon": "media/comment-discussion.svg",
+          "contextualTitle": "VSBuddies"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "vsbuddies.authenticate",
+        "category": "VSBuddies",
+        "title": "Login Using Github"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "tsc && npm run compile",
+    "compile": "rollup -c && webpack --mode production",
+    "lint": "eslint src --ext ts",
+    "watch": "concurrently \"rollup -c -w\" \"webpack --mode development --watch\"",
+    "pretest": "npm run compile && yarn run lint",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.1.1",
+    "@rollup/plugin-typescript": "^8.3.0",
+    "@tsconfig/svelte": "^2.0.1",
+    "@types/glob": "^7.1.4",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "14.x",
+    "@types/polka": "^0.5.4",
+    "@types/vscode": "^1.63.0",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
+    "@vscode/test-electron": "^1.6.2",
+    "concurrently": "^6.4.0",
+    "eslint": "^8.1.0",
+    "glob": "^7.1.7",
+    "mocha": "^9.1.3",
+    "rollup": "^2.61.1",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-svelte": "^7.1.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "svelte": "^3.44.3",
+    "svelte-check": "^2.2.10",
+    "svelte-preprocess": "^4.10.0",
+    "ts-loader": "^9.2.5",
+    "typescript": "^4.4.4",
+    "webpack": "^5.52.1",
+    "webpack-cli": "^4.8.0"
+  },
+  "dependencies": {
+    "polka": "^0.5.2"
+  }
+}

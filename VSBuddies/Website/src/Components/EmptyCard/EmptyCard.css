@@ -1,0 +1,22 @@
+.empty-card{
+  background-color: #0984e3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-family: "Poppins";
+  flex-direction: column;
+  grid-column: 1/5;
+  height: inherit;
+}
+.empty-card>svg{
+  height: 30vh;
+  width: auto;
+}
+
+@media(prefers-color-scheme: dark){
+  .empty-card{
+    background-color: #004a98;
+  }
+}

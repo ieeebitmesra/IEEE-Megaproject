@@ -1,0 +1,39 @@
+.Options-List{
+    height: calc(100vh - 64px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: white;
+}
+
+.option-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: start;
+    border-top: none;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.option-card>button{
+    border-bottom: 0.5px solid #363c3d;
+    border-radius: 0%;
+    width: 100%;
+    padding: 10% 5%;
+    justify-content: start;
+    overflow-wrap: break-word;
+    font-size: 1rem;
+}
+.optionIcon{
+    margin-right: 15px;
+}
+
+@media (prefers-color-scheme : dark) {
+    .Options-List{
+        background-color: #181a1b;
+    }
+}
+@media(max-width: 600px){
+    .Options-List{
+        height: calc((100vh - 56px));
+    }
+}

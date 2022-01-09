@@ -1,0 +1,41 @@
+.Sender-Card{
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    font-size: 1.2rem;
+    width: 75%;
+    text-align: center;
+    border-radius: 8px;
+    margin-left: 12.5%;
+    min-height: 35vh;
+    margin-top: 5%;
+    background-color: white;
+    color: black;
+}
+
+.Card-head{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:1rem;
+}
+/* 
+.Spacer-small{
+    flex: 0.3;
+} */
+
+.Spacer-large{
+    flex:1;
+}
+.button-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+@media(prefers-color-scheme: dark){
+    .Sender-Card{
+        background-color: #004A98;
+        color: #fff;
+
+    }
+}

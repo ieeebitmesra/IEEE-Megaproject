@@ -1,0 +1,10 @@
+.MuiBox-root .MuiSvgIcon-root{
+    vertical-align: middle;
+    margin: 0 2px !important;
+}
+
+@media (max-width:550px) {
+    .MuiBox-root{
+        width: 60% !important;
+    }
+}

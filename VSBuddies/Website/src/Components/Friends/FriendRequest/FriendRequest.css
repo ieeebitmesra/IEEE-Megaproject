@@ -1,0 +1,42 @@
+.All-sender-list-container{
+    /* display: flex; */
+    height: calc(100vh - 64px);
+    /* overflow-y: hidden; */
+    /* justify-content: center;
+    align-items: center; */
+    background-color:#131516;
+}
+
+.Sender-card-container{
+    overflow-y: scroll;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    /* gap: 1rem; */
+    grid-row-gap: 1rem;
+    height: calc(100vh - 128px);
+    background-color: #0984e3;
+    /* flex: 90%; */
+}
+@media(max-width: 600px){
+    .Sender-card-container{
+        height: calc((100vh - 112px));
+    }
+}
+@media(max-width: 768px){
+    .Sender-card-container{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media(prefers-color-scheme: dark){
+    .Sender-card-container{
+        background-color: #0C5DAF;
+    }
+}
+
+@media(max-width: 1110px){
+    .Sender-card-container{
+        grid-template-columns: 1fr 1fr;
+    }
+}
