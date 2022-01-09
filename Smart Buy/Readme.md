@@ -94,7 +94,8 @@ For Product Database we Have Used Mongodb as it has PyMongo library which stores
 
 <!-- GETTING STARTED -->
 ## Getting Started
-
+You can head over to the website by clicking on the link <a href="https://smartbuybitmesra.herokuapp.com/">SmartBuy</a> 
+or you can clone our project to run a local copy on your device.
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
