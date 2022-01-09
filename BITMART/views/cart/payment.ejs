@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="icon" href="https://res.cloudinary.com/dewansh/image/upload/v1641149333/BitMart/Products/logo_lexsox.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/f6f38a44e9.js" crossorigin="anonymous"></script>
+
+  <!-- Slider -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick-theme.min.css" />
+
+  <!-- Style -->
+    <link rel="stylesheet" href="/css/payment.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+</head>
+
+<body>
+    <%- include('../partials/navbar') %>
+    <%- include('../partials/backtotop') %>  
+    <div class="container mt-5 px-5">
+        <div class="mb-4">
+            <h2>Confirm order and Pay</h2> <span>Please make the payment, after that you can enjoy all the
+                features
+                and
+                benefits.</span>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <form action="/order" method="post">
+                    <div class="card p-3">
+                        <h4 class="text-uppercase" style="text-decoration: underline;">Payment details</h4>
+                        <br>
+
+                        <h6 class="text-uppercase">
+                            Available Bucks:
+                            <span>
+                                <%= bucks %>
+                            </span>
+                        </h6>
+
+                        <div class="mt-4 mb-4">
+                            <h6 class="text-uppercase">Billing Address</h6>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="roomNo"
+                                            class="form-control" required="required" placeholder="Room No."> </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="hostelNo"
+                                            class="form-control" required="required" placeholder="Hostel No.">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-12">
+                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="phoneNo"
+                                            class="form-control" required="required" placeholder="Phone No."> </div>
+                                </div>
+                                <!-- <div class="col-md-6">
+                                <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control"
+                                        required="required" placeholder="Pincode"> </div>
+                            </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 mb-4 d-flex justify-content-between">
+                        <a href="/cart"><button class="b-btn px-3" type="button">Back To Cart</button></a>
+                        <button type="submit" class="b-btn  px-3">Pay <%= totalPrice %> </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-blue p-3 text-white mb-3">
+                    <span>You have to pay</span>
+                    <div class="d-flex flex-row align-items-end mb-3">
+                        <h1 class="mb-0 yellow">
+                            <%= totalPrice %>
+                        </h1>
+                    </div>
+                    <span>No. Of Items</span>
+                    <div class="d-flex flex-row align-items-end mb-3">
+                        <h1 class="mb-0 yellow">
+                            <%= totalItems %>
+                        </h1>
+                    </div>
+                    <span>Enjoy all the features and perk after you complete the payment</span>
+                    <div class="hightlight"> <span>100% Guaranteed support </span> </div>
+                    <div class="hightlight"> <span>Contact us in Case of issues </span> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+        <!-- JavaScript Bundle with Popper -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+          crossorigin="anonymous"></script>
+</body>
+
+</html>

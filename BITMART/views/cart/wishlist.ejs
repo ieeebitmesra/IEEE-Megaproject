@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <link rel="icon" href="https://res.cloudinary.com/dewansh/image/upload/v1641149333/BitMart/Products/logo_lexsox.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link href="/css/cart.css" rel="stylesheet">
+    <!-- FONT -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <%- include('../partials/flash') %>
+        <%- include('../partials/navbar') %>
+        <%- include('../partials/backtotop') %> 
+        <div class="container" style="min-height: 100vh;">
+            <h1 style="color: #45ccb8;"> Wish List</h1>
+            <div class="cart">
+                <div class="products">
+                    <% if (curUser.wishList.length) { %>
+                    <% for( let index=0;index<Math.min(total,curUser.wishList.length);index++ ) { %>
+                        <div class="product" id="<%= index+1 %> ">
+                            <img src="<%= curUser.wishList[index].images[0].url %> ">
+                            <div class="product-info">
+                                <h3 class="product-name">
+                                    <%= curUser.wishList[index].name %>
+                                </h3>
+                                <h4 class="product-price">
+                                    <i class="fab fa-bitcoin"></i><%= curUser.wishList[index].price %>
+                                </h4>
+                                <br>
+                                <div class="product-remove">
+                                    <a class="mr-3" href="/products/<%=curUser.wishList[index].id%> "><button
+                                            class="b-btn"><i class="fas fa-eye"></i>View</button></a>
+                                    <form class="d-inline" method="post"
+                                        action="/wishlist/<%= curUser.wishList[index].id %>?_method=DELETE">
+                                        <button class="b-btn submit"><i class="fa fa-trash"
+                                                aria-hidden="true"></i>Remove</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                        <% } else { %>
+                            <h2 style="text-align: center; color: #ffeba7;" class="mt-5">Hey,it feels so light!</h2>
+                            <h6 style="text-align: center; color: #ffeba7;" class="mb-5">There is nothing in your wishlist.Let's add some items</h6>
+                                <img src="https://res.cloudinary.com/dewansh/image/upload/v1641390675/BitMart/Products/b1-removebg-preview_j0b84g.png" class="img-fluid text-center" style="height: 60vh; text-align: center;">
+                          <% } %>
+                        <nav aria-label="Page navigation example">
+                            <% if (curUser.wishList.length) { %>
+                                <p class="text-center" style="color: #ffeba7;"><%= Math.min(curUser.wishList.length,total) %>/<%= curUser.wishList.length%> </p>
+                            <% } %>
+                            <ul class="pagination justify-content-center">
+                              <form action="/wishlist" method="get">
+                                <li class="page-item disabled">
+                                  <% if (total<curUser.wishList.length) { %>
+                                    <label class="b-btn mx-2" for="prev">View More</label>
+                                    <input id="prev" type="submit" name="total" value="<%= total+2%> " hidden>
+                                    <% } %>
+                                      <!-- <a class="page-link" href="#" tabindex="-1">Previous</a> -->
+                                </li>
+                            </ul>
+                          </nav>
+                </div>
+            </div>
+        </div>
+            <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+                crossorigin="anonymous"></script>
+            <script src="/js/sell.js"></script>
+            <%- include('../partials/footer') %>
+</body>
+
+</html>

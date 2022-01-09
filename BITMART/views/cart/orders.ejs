@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Page</title>
+    <link rel="icon" href="https://res.cloudinary.com/dewansh/image/upload/v1641149333/BitMart/Products/logo_lexsox.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link href="/css/order.css" rel="stylesheet">
+    <!-- FONT -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <%- include('../partials/flash') %>
+        <%- include('../partials/navbar') %>
+        <%- include('../partials/backtotop') %> 
+            <div class="container" style="min-height: 100vh;">
+                <h1 style="color: #45ccb8;"> Order List</h1>
+                <div class="cart">
+                    <div class="products d-flex flex-column">
+                        <% if (curUser.orders.length) { %>
+                        <% for( let index=0;index<Math.min(curUser.orders.length,orders);index++ ) { %>
+                            <div class="product" id="<%= index+1 %> ">
+                                <img src="<%= curUser.orders[index].orderItem.images[0].url %> ">
+                                <div class="product-info">
+                                    <div class="row d-flex justify-content-around">
+                                        <div class="col-md-4 col-sm-12">
+                                            <h3 class="product-name">
+                                                <%= curUser.orders[index].orderItem.name %>
+                                            </h3>
+                                            <h4 class="product-price">
+                                                <%= curUser.orders[index].orderItem.price %>
+                                            </h4>
+                                        </div>
+                                        <div class="col-md-7 col-sm-12">
+                                            <h4 class="product-price">
+                                                Address: <%= curUser.orders[index].shippingInfo.RoomNumber %> ,<%=
+                                                        curUser.orders[index].shippingInfo.HostelNumber %>
+                                            </h4>
+                                            <h4 class="product-price mt-3">
+                                                Phone Number: <%= curUser.orders[index].shippingInfo.phoneNo %>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <h5 class="product-price mt-5">
+                                        Ordered At: <%= curUser.orders[index].createdAt %>
+                                    </h5>
+                                    <br>
+                                    <div class="product-remove">
+                                        <a class="mr-3"
+                                            href="/products/<%=curUser.orders[index].orderItem.id%> "><button
+                                                class="b-btn"><i class="fas fa-eye"></i>View</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <% } %>
+                    <% } else { %>
+                        <h2 style="text-align: center; color: #ffeba7;" class="my-5">No orders to show</h2>
+                        <img src="https://res.cloudinary.com/dewansh/image/upload/v1641390675/BitMart/Products/b1-removebg-preview_j0b84g.png" class="img-fluid text-center" style="height: 60vh; text-align: center;">
+                      <% } %>
+                    <nav aria-label="Page navigation example">
+                        <% if (curUser.orders.length) { %>
+                            <p class="text-center" style="color: #ffeba7;"><%= Math.min(curUser.orders.length,orders) %>/<%= curUser.orders.length%> </p>
+                        <% } %>
+                        <ul class="pagination justify-content-center">
+                          <form action="/order/my" method="get">
+                            <li class="page-item disabled">
+                              <% if (orders<curUser.orders.length) { %>
+                                <label class="b-btn mx-2" for="prev">View More</label>
+                                <input id="prev" type="submit" name="orders" value="<%= orders+2%> " hidden>
+                                <% } %>
+                                  <!-- <a class="page-link" href="#" tabindex="-1">Previous</a> -->
+                            </li>
+                        </ul>
+                      </nav>
+                </div>
+            </div>
+            </div>
+            <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+                crossorigin="anonymous"></script>
+            <script src="/js/sell.js"></script>
+            <%- include('../partials/footer') %>
+</body>
+
+</html>

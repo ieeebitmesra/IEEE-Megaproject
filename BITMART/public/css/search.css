@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900");
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+body {
+  font-family: "Poppins", sans-serif;
+  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg");
+  background-color: #2a2b38;
+}
+:root {
+  --primary-color: #45ccb8;
+  --light-gray: #2b3032a1;
+  --border: #2b303218;
+  --text-color: #ff686b;
+  --roboto: "Roboto", sans-serif;
+  --gugi: "Gugi", cursive;
+  --sofia: "Sofia", cursive;
+}
+.searchBox {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+}
+
+.searchBox > input[type="text"] {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.274);
+  background-color: white;
+  border: none;
+  color: rgba(0, 0, 0, 0.637);
+  padding: 1vmax 2vmax;
+  width: 50%;
+  outline: none;
+  border-radius: 0%;
+  font-weight: 300;
+  font-size: 1.3rem;
+  box-sizing: border-box;
+  height: 8%;
+}
+
+#btnSubmit {
+  height: 8%;
+  border-radius: 0%;
+  background-color: var(--primary-color);
+  border: none;
+  padding: 1vmax;
+  width: 10%;
+  font-weight: 300;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: white;
+  transition: all 0.5s;
+}
+#btnSubmit:hover {
+  background-color: coral;
+}
+@media only screen and (max-width: 967px) {
+  #btnSubmit {
+    width: 25%;
+    font-size: 1.5rem;
+  }
+  .searchBox > input[type="text"] {
+    font-size: 1.3rem;
+  }
+  .searchBox {
+    top: 0;
+  }
+}
