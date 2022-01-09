@@ -1,0 +1,92 @@
+.SignUpForm{
+    margin-top: 15vh;
+    display: flex;
+    justify-content: center;
+}
+.brandIamgeAtSignUpForm{
+    width: 22rem;
+    border-left: solid #808080 1px;
+}
+.SignForm{
+display: flex;
+flex-direction: column;
+margin-right: 3rem;
+
+}
+.continueToYtSingIn{
+    box-shadow: none;
+    margin-left: 0.7rem;
+    display: flex;
+    padding: 2%;
+    border-radius: 13px;
+    margin-top: 1rem;
+}
+
+.custom-file-input {
+  color: transparent;
+  margin-left: 1.5%;
+  margin-top: 2%;
+  }
+  .custom-file-input::-webkit-file-upload-button {
+    visibility:hidden;
+  }
+  .custom-file-input::before {
+    content: 'Select ProfilePic';
+    color: white;
+    display: inline-block;
+    background: -webkit-linear-gradient(top, #808080, #808080);
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+   
+  
+  }
+  .custom-file-input:hover::before {
+    border-color: white;
+  }
+  .custom-file-input:active {
+    outline: 0;
+  }
+  .custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
+  }
+
+
+
+.signIndetailForm{
+    display: flex;
+    flex-direction: column;
+    margin-top: 4rem;
+}
+.SingUpFormContainer{
+    background-color: rgba(59, 59, 59,0.5);
+    display: flex;
+
+    padding: 2rem;
+}
+.inputSignUpdetailFormBtnSubmit{
+    margin-top: 2rem;
+    width: 10rem;
+    margin-left: 4%;
+    padding: 0.6rem;
+    border-radius: 12px;
+}
+
+.inputSignUpdetailForm{
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.3rem;
+    background-color: #3f3f3f !important;
+    border: none;
+    color: white !important;
+    /*transition: 0.4s ease-in;*/
+    border-radius: 14px;
+}
+.inputSignUpdetailForm:focus{
+   background-color: #d8d8d8 !important;
+    outline: none;
+
+}

@@ -1,0 +1,31 @@
+ <div className='exploreWholeCard'>
+            <div className="cardmb-3 exploreWholeCardmb3 " style={{ maxWidth: '700px', marginBottom: '1.5rem', marginLeft: '1rem' }}>
+
+                <div className=" imageContainerOfExploreCard" >
+                    <Link to={`/video/${id}`}>
+                        <img style={{width:'245px',height:'140px'}} src={thumbnail} className="img-fluid rounded-start" alt="..." />
+                    </Link>
+                </div>
+                <div className="">
+                    <div className="card-body exploreCardBody " >
+                        <Link to={`/video/${id}`}>
+                            <h5 className="card-title SearchVidCarTitle">{title}</h5>
+                        </Link>
+                        <p className="card-text" style={{ display:'flex',alignItems:'flex-end',fontSize: 'smaller', color: "rgb(123,145,161)", marginBottom: '0.1rem' }} >
+                            <Link className='SmallScreen' style={{padding:'0 0.3rem'}} to={`/channelPage/${channelId}/channelhome`}>
+                                <small style={{color:'white',fontWeight:'bold'}}>{channelData.channelName ? channelData.channelName : 'loading....'}</small>
+                            </Link><small >{views} views<strong>·</strong>3 mins ago</small></p>
+                        <Link className="vidCardChannelLink LargeScreen" to={{
+                            pathname: `/channelPage/${channelId}/channelhome`,
+
+                        }}> <Avatar3 username="jnfkan" image={channelData.profilePic ? channelData.profilePic : test} /></Link>
+                        <Link className='LargeScreen' to={`/channelPage/${channelId}/channelhome`}>
+                            <small className='channelNameinsideVidCard'>{channelData.channelName ? channelData.channelName : 'loading....'}</small>
+                        </Link>
+                        <p className="card-text exploreCardDescription" style={{ fontSize: 'x-small' }}>{(description.length > 90) ? (description.substring(0, 87) + '....') : description}</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>

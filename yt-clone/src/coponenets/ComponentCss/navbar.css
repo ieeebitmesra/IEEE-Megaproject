@@ -1,0 +1,119 @@
+.container-fluid {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(63, 63, 63);
+    color: white;
+    position: fixed;
+    top: 0;
+    height: 3rem;
+    z-index: 44;
+    align-items: center;
+}
+.logo2{
+    width: 75%;
+    cursor: pointer;
+    object-fit: contain;
+    transition: 0.3s;
+    display: none;
+}
+
+.logo {
+    width: 75%;
+    cursor: pointer;
+    object-fit: contain;
+    transition: 0.3s;
+}
+.logo:hover{
+    filter: grayscale(0.4);
+    box-shadow: black 2px 2px;
+}
+
+.logoa {
+    object-fit: contain;
+    width: 10rem;
+}
+
+.container-fluid a {
+    width: auto;
+}
+
+.d-flex {
+    height: 65%;
+    margin-right: 0% !important;
+    color: white;
+}
+.userNavbar{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: baseline;
+    justify-content: center;
+}
+.createIcon{
+    padding-right: 1em;
+    align-self: center;
+    cursor: pointer;
+    transition: 0.2s ease-in;
+  
+}
+@media screen and (max-width: 655px){
+#inputsearch{
+    width: 10rem !important;
+}
+}
+@media screen and (max-width: 457px){
+    .logo{
+        display: none;
+
+    }
+    .logo2{
+        display: block;
+        width: 43% !important;
+    }
+}
+@media screen and (max-width: 385px){
+    .logo2{
+        width: 85%;
+    }
+}
+.createIcon:hover{
+    color: rgb(48,112,166);
+}
+
+#search-btn {
+    margin-left: -22%;
+    transition: 0.3s;
+   
+}
+
+#search-btn:hover {
+    box-shadow: 1px 1px 1px 1px rgb(178, 211, 178) !important;
+}
+
+#inputsearch {
+    background-color: #202020 !important;
+    color: white !important;
+    width: 20rem;
+}
+@media screen and (max-width: 490px){
+    .notSignedInAvatar{
+        display: none !important;
+    }
+
+}
+.notSignedInAvatar{
+   
+        vertical-align: middle;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        
+        cursor: pointer;
+        transition: 0.3s;
+      
+      
+}
+.notSignedInAvatar:hover{
+    transform: scale(1.05);
+        filter: grayscale(0.4);
+}

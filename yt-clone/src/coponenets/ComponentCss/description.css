@@ -1,0 +1,57 @@
+.channelsRelated {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.channelDetail {
+    margin-left: 1rem;
+    line-height: 2px;
+    align-self: baseline;
+}
+.response{
+    margin-left: 13rem;
+    display: flex;
+    flex-direction: row;
+    
+}
+@media screen and (max-width: 569px){
+    .response{
+        display: contents;
+    }
+
+}
+.aboutvid{
+    margin-top: 1.7rem;
+}
+.like-views-count{
+    display: flex;
+    align-items: baseline;
+    
+}
+.channelrel1 {
+    display: flex;
+    align-items: center;
+}
+.channelrel2{
+    padding: 1rem;
+}
+
+.btn-subscribe {
+    background-color: #cc0000;
+    color: whitesmoke;
+    border-radius: 4px;
+    box-shadow: none !important;
+    text-decoration: none;
+    border-width: 0 !important;
+
+}
+.like{
+    cursor: pointer;
+    transition: 0.4s;
+    padding-left: 1rem;
+    margin-left:0.5rem;
+}
+.like:hover{
+    transform: scale(1.05);
+}

@@ -1,0 +1,31 @@
+.sidemenu-butt{
+    color: white !important;
+}
+.link-dark {
+    color: white !important;
+    text-decoration: none !important;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+.link-dark:hover{
+    box-shadow: 1px 1px 1px 1px rgb(178, 211, 178) !important;
+}
+#sidemenu{
+    height: 100vh;
+    background-color: #202020 !important;
+    position: fixed;
+    /*margin-top: 3rem;*/
+}
+.sidemenu-butt{
+    transition: 0.3s ease-in;
+}
+.sidemenu-butt:hover{
+    box-shadow: 1px 1px 1px 1px rgb(178, 211, 178) !important;
+}
+@media screen and (max-width: 605px){
+    .sidemenuText{
+        display: none;
+    }
+
+}

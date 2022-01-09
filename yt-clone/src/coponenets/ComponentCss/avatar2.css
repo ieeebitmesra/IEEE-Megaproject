@@ -1,0 +1,13 @@
+.avatar2 {
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .avatar2:hover{
+    transform: scale(1.05);
+    filter: grayscale(0.4);
+  }
