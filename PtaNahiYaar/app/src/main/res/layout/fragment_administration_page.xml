@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/user_profile_bg"
+    tools:context=".app.fragments.Administration_page">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:verticalScrollbarPosition="defaultPosition"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp"
+                android:layout_gravity="center">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    >
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:text="Administration
+"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="25dp"
+                        android:padding="2dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="25dp">
+
+                    </TextView>
+
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Deputy Registrar (Land Records, Planning &amp; Development)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Mr. Ritesh Kumar"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4525"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="dr.lrpd@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Deputy Registrar (Academic/HR &amp; Establishment)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Mr. Rahul Rai"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4725"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="dr.acad@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:inputType="textWebEmailAddress"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Administrative Officer (Estb.- Non Teaching)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. Rajesh Sinha"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="0dp"
+                                android:background="@drawable/custom_input"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="10dp"
+                                android:padding="0dp"
+                                android:text="Ext - 4450"
+                                android:textColor="@color/black"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="ao.estb.hr@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:inputType="textWebEmailAddress"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Assistant Registrar (General Office)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Mr. Abhilas Mohapatra"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4446"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="ar.go@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:inputType="textEmailAddress"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Assistant Registrar (Academic Program)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Md. Nadim Quaiser"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4585"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="ar.ap@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:inputType="textWebEmailAddress"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="AR (Admission &amp; Academic Coordination)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Mr. Chiranjee Lal Semwal"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="0dp"
+                                android:background="@drawable/custom_input"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="10dp"
+                                android:padding="0dp"
+                                android:text="Ext - 4449"
+                                android:textColor="@color/black"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="ar.aac@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:inputType="textWebEmailAddress"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Assistant Registrar (Faculty Affairs, Research Innovation and entrepreneurship &amp; General Store)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. Sameer Kumar"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4447"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="ar.fa@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Assistant Registrar (Legal)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Mrs. Nidhi Jaiswal"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4630"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="ar.legal@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:inputType="textWebEmailAddress"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="AR (Estate, Garden, Transport &amp; Guest House)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Mr. Sanjay Kumar Shukla"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4632"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="ar.estate@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:inputType="textWebEmailAddress"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Assistant Registrar (Purchase)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Mr. Saurabh Prasad"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4453"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="ar.purchase1@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:inputType="textWebEmailAddress"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Assistant Registrar (Student Affairs)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Ms. Shruti Sharma"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4640"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="ar.studaff@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:inputType="textWebEmailAddress"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</FrameLayout>

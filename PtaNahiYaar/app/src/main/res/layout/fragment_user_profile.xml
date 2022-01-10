@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="@drawable/user_profile_bg"
+    tools:context=".app.fragments.UserProfile">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<!--        <LinearLayout-->
+<!--            android:padding="8dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="?attr/actionBarSize">-->
+<!--&lt;!&ndash;            <RelativeLayout&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="match_parent">&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <ImageView&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_width="40dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_alignParentStart="true"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:padding="5dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:src="@drawable/ic_arrow_back" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;                <ImageView&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    android:layout_width="45dp"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    android:layout_height="45dp"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    android:layout_alignParentEnd="true"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    android:layout_marginStart="5dp"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    android:layout_marginTop="5dp"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    android:layout_marginEnd="5dp"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    android:layout_marginBottom="5dp"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    android:padding="1dp"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    android:src="@drawable/ic_settings" />&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;            </RelativeLayout>&ndash;&gt;-->
+
+<!--        </LinearLayout>-->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="My"
+                android:textStyle="normal"
+                android:letterSpacing="0.02"
+                android:textColor="@color/teal_900"
+                android:textSize="30sp"
+                android:layout_marginStart="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:text="Profile"
+                android:letterSpacing="0.02"
+                android:textStyle="bold"
+                android:textColor="@color/teal_900"
+                android:textSize="33sp"
+                android:layout_marginStart="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <include
+        android:layout_gravity="center"
+        layout="@layout/item_image"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_width="match_parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+<!--            <include layout="@layout/item_user_clubs"/>-->
+            <include layout="@layout/item_phone"/>
+            <include layout="@layout/item_email"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>

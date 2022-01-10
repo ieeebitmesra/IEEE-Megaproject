@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/primary"
+    android:layout_height="match_parent"
+    tools:context=".app.activities.SplashActivity">
+
+    <ImageView
+        android:id="@+id/logoIv"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/splash_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="215dp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/logoTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="216dp"
+        android:fontFamily="@font/nanum_extrabold"
+        android:text="SARVASVA"
+        android:textColor="@color/white"
+        android:textSize="42sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoIv"
+        app:layout_constraintVertical_bias="0.5" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:elevation="3dp"
+    tools:context=".app.activities.SyallabusActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topSyllabusCL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="3dp"
+        android:background="@color/primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/titleSyllabusTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="32dp"
+            android:elevation="3dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="SYLLABUS"
+            android:textSize="24sp"
+            android:textColor="@color/teal_50"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/courseTv"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="32dp"
+            android:elevation="3dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="SELECT COURSE  :"
+            android:textColor="@color/teal_50"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleSyllabusTv" />
+
+        <Spinner
+            android:id="@+id/spinnerCourseSpin"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/teal_50"
+            android:elevation="3dp"
+
+            android:spinnerMode="dropdown"
+
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/courseTv"
+            app:layout_constraintTop_toTopOf="@+id/courseTv" />
+
+        <TextView
+            android:id="@+id/branchTv"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:elevation="3dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="SELECT BRANCH  :"
+            android:textColor="@color/teal_50"
+
+
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/courseTv"
+            app:layout_constraintTop_toBottomOf="@id/courseTv" />
+
+        <Spinner
+            android:id="@+id/spinnerBranchSpin"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+
+            android:backgroundTint="@color/teal_50"
+            android:elevation="3dp"
+            android:paddingTop="4dp"
+
+            android:paddingBottom="4dp"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center"
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/branchTv"
+            app:layout_constraintTop_toTopOf="@+id/branchTv" />
+
+        <TextView
+            android:id="@+id/semTv"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:elevation="3dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="SELECT SEMESTER  :"
+
+            android:textColor="@color/teal_50"
+
+
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/branchTv"
+            app:layout_constraintTop_toBottomOf="@id/branchTv" />
+
+        <Spinner
+            android:id="@+id/spinnerSem1"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+
+            android:backgroundTint="@color/teal_50"
+            android:elevation="3dp"
+            android:paddingTop="4dp"
+
+            android:paddingBottom="4dp"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/semTv"
+            app:layout_constraintTop_toTopOf="@+id/semTv" />
+
+        <TextView
+            android:id="@+id/subjectTv"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="4dp"
+            android:elevation="3dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+
+            android:text="SELECT SUBJECT  :"
+            android:textColor="@color/teal_50"
+
+
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/semTv"
+            app:layout_constraintTop_toBottomOf="@id/semTv" />
+
+
+        <Spinner
+            android:id="@+id/spinnerSubject"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+
+            android:backgroundTint="@color/teal_50"
+            android:elevation="3dp"
+
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center"
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/subjectTv"
+            app:layout_constraintTop_toTopOf="@+id/subjectTv" />
+
+        <Button
+            android:id="@+id/nextBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            android:background="@color/teal_50"
+            android:text="NEXT"
+            android:textSize="20dp"
+            android:textColor="@color/teal_900"
+            android:textStyle="bold"
+            android:letterSpacing="0.07"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/subjectTv" />
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/study"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nextBtn"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

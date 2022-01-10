@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".app.activities.GoogleMapsInSarvasva">
+
+
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:id="@+id/Google_Map"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?attr/actionBarSize"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:background="@color/primary"-->
+<!--        >-->
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/Top_GOOgleMaps"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:fontFamily="sans-serif-condensed-light"-->
+<!--            android:padding="10dp"-->
+<!--            android:text="Map"-->
+<!--            android:textAlignment="viewStart"-->
+
+<!--            android:textAppearance="@style/TextAppearance.AppCompat.Large"-->
+<!--            android:textColor="#0D0505"-->
+<!--            android:textSize="25sp"-->
+<!--            android:textStyle="bold"-->
+<!--           />-->
+
+
+<!--    </androidx.appcompat.widget.Toolbar>-->
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/maps"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        />
+
+
+</RelativeLayout>

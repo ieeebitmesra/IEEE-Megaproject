@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".app.fragments.Colledge_Directory_bitmesra"
+    android:background="@drawable/user_profile_bg">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:verticalScrollbarPosition="defaultPosition"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    >
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:text="Top Officials"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="25dp"
+                    android:padding="2dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="25dp">
+
+                </TextView>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    >
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Vice Chancellor"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. Indranil Manna"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_phone"
+                                android:drawablePadding="3dp"
+                                android:text="PH - 0651-2275402"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="1dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:padding="1dp"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_fax"
+                                android:drawablePadding="3dp"
+                                android:text="FAX - 2275401"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="vc@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Registrar"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Colonel Sukhpal Singh Khetarpal (Retd.)"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_phone"
+                                android:drawablePadding="3dp"
+                                android:text="PH - 0651-2276052"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="1dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:padding="1dp"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_mobile"
+                                android:drawablePadding="3dp"
+                                android:text="MOB - 7830080889"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="registrar@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:inputType="textWebEmailAddress"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="left"
+                        android:gravity="center"
+                        >
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="15dp"
+                            >
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                >
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="20dp"
+                                    android:textColor="@color/red"
+                                    android:textStyle="bold"
+                                    android:gravity="center"
+                                    android:text="Controller of Examination (CoE)"
+                                    android:layout_marginBottom="5dp"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:drawableLeft="@drawable/ic_person"
+                                    android:drawablePadding="3dp"
+                                    android:text="Dr. Sanjay Kumar Jha"
+                                    android:textColor="@color/black"
+                                    android:padding="1dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_marginTop="1dp"
+                                    android:background="@drawable/custom_input"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:drawableLeft="@drawable/ic_person_phone"
+                                    android:drawablePadding="3dp"
+                                    android:text="PH - 0651-2275138"
+                                    android:textColor="@color/black"
+                                    android:layout_marginBottom="1dp"
+                                    android:layout_marginTop="1dp"
+                                    android:background="@drawable/custom_input"
+                                    android:padding="1dp"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="0dp"
+                                    android:layout_marginBottom="0dp"
+                                    android:background="@drawable/custom_input"
+                                    android:drawableLeft="@drawable/ic_person_telephone"
+                                    android:drawablePadding="10dp"
+                                    android:padding="0dp"
+                                    android:text="Ext - 4483"
+                                    android:textColor="@color/black"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:drawableLeft="@drawable/ic_person_email"
+                                    android:drawablePadding="3dp"
+                                    android:text="coe@bitmesra.ac.in"
+                                    android:padding="1dp"
+                                    android:textColor="@color/black"
+                                    android:layout_marginBottom="0dp"
+                                    android:layout_marginTop="0dp"
+                                    android:background="@drawable/custom_input"
+                                    android:inputType="textWebEmailAddress"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+
+                        </androidx.cardview.widget.CardView>
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</FrameLayout>

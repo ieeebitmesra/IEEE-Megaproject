@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".app.fragments.president_edit">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/teal_200">
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/club_about"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:card_view="http://schemas.android.com/tools"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="10dp"
+                app:cardUseCompatPadding="true"
+                card_view:cardCornerRAdius="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#E0F2F1">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:padding="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:padding="2dp"
+                            android:src="@drawable/ic_edit"
+                            android:layout_marginStart="5dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"/>
+                        <TextView
+                            android:text="About"
+                            android:layout_marginStart="10dp"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                            android:textColor="#605E5E"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <EditText
+                        android:id="@+id/club_about_EV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textCursorDrawable="@null"
+                        android:text="@string/club_about"
+                        android:textSize="16dp"
+                        android:layout_margin="8dp"/>
+
+
+
+                </LinearLayout>
+
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/club_announcements"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:card_view="http://schemas.android.com/tools"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="10dp"
+                app:cardUseCompatPadding="true"
+                card_view:cardCornerRAdius="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#E0F2F1">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:padding="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:padding="2dp"
+                            android:src="@drawable/ic_edit"
+                            android:layout_marginStart="5dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"/>
+                        <TextView
+                            android:text="Announcements"
+                            android:layout_marginStart="10dp"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                            android:textColor="#605E5E"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <EditText
+                        android:id="@+id/club_announcements_EV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Type in your announcements here"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@null"
+                        android:textSize="16dp"
+                        android:layout_margin="8dp"/>
+
+
+
+                </LinearLayout>
+
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/club_general_info"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:card_view="http://schemas.android.com/tools"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="10dp"
+                app:cardUseCompatPadding="true"
+                card_view:cardCornerRAdius="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#E0F2F1">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:padding="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:padding="2dp"
+                            android:src="@drawable/ic_edit"
+                            android:layout_marginStart="5dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"/>
+                        <TextView
+                            android:text="General Information"
+                            android:layout_marginStart="10dp"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                            android:textColor="#605E5E"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/club_head1"
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:card_view="http://schemas.android.com/tools"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="10dp"
+                        app:cardUseCompatPadding="true"
+                        card_view:cardCornerRAdius="5dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="16dp"
+                                android:layout_margin="8dp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/ic_person"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Club Head 1"
+                                    android:textSize="16sp"
+                                    android:layout_marginLeft="8dp"
+                                    android:textColor="@color/teal_900"/>
+
+                            </LinearLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/teal_900"/>
+                                <EditText
+                                    android:id="@+id/clubhead_title_ev"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textCursorDrawable="@null"
+                                    android:hint="Club Head's Position"
+                                    android:textSize="16sp"
+                                    android:layout_margin="8dp"
+                                    android:textStyle="bold"/>
+                            <EditText
+                                android:id="@+id/clubhead_name_ev"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Club Head's Name"
+                                android:textCursorDrawable="@null"
+                                android:textSize="16sp"
+                                android:layout_margin="8dp"
+                                android:textStyle="bold"/>
+                            <EditText
+                                android:id="@+id/clubhead_link_ev"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textCursorDrawable="@null"
+                                android:hint="Club Head's Linkedin Profile Link"
+                                android:textSize="16sp"
+                                android:layout_margin="8dp"
+                                android:textStyle="bold"/>
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/club_head2"
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:card_view="http://schemas.android.com/tools"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="10dp"
+                        app:cardUseCompatPadding="true"
+                        card_view:cardCornerRAdius="5dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="16dp"
+                                android:layout_margin="8dp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/ic_person"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Club Head 2"
+                                    android:textSize="16sp"
+                                    android:layout_marginLeft="8dp"
+                                    android:textColor="@color/teal_900"/>
+
+                            </LinearLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/teal_900"/>
+                            <EditText
+                                android:id="@+id/clubhead2_title_ev"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Club Head's Position"
+                                android:textSize="16sp"
+                                android:textCursorDrawable="@null"
+                                android:layout_margin="8dp"
+                                android:textStyle="bold"/>
+                            <EditText
+                                android:id="@+id/clubhead2_name_ev"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Club Head's Name"
+                                android:textCursorDrawable="@null"
+                                android:textSize="16sp"
+                                android:layout_margin="8dp"
+                                android:textStyle="bold"/>
+                            <EditText
+                                android:id="@+id/clubhead2_link_ev"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Club Head's Linkedin Profile Link"
+                                android:textSize="16sp"
+                                android:textCursorDrawable="@null"
+                                android:layout_margin="8dp"
+                                android:textStyle="bold"/>
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/club_head3"
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:card_view="http://schemas.android.com/tools"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="10dp"
+                        app:cardUseCompatPadding="true"
+                        card_view:cardCornerRAdius="5dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="16dp"
+                                android:layout_margin="8dp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/ic_person"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Club Head 3"
+                                    android:textSize="16sp"
+                                    android:layout_marginLeft="8dp"
+                                    android:textColor="@color/teal_900"/>
+
+                            </LinearLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/teal_900"/>
+                            <EditText
+                                android:id="@+id/clubhead3_title_ev"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Club Head's Position"
+                                android:textSize="16sp"
+                                android:textCursorDrawable="@null"
+                                android:layout_margin="8dp"
+                                android:textStyle="bold"/>
+                            <EditText
+                                android:id="@+id/clubhead3_name_ev"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Club Head's Name"
+                                android:textSize="16sp"
+                                android:textCursorDrawable="@null"
+                                android:layout_margin="8dp"
+                                android:textStyle="bold"/>
+                            <EditText
+                                android:id="@+id/clubhead3_link_ev"
+                                android:layout_width="match_parent"
+                                android:textCursorDrawable="@null"
+                                android:layout_height="wrap_content"
+                                android:hint="Club Head's Linkedin Profile Link"
+                                android:textSize="16sp"
+                                android:layout_margin="8dp"
+                                android:textStyle="bold"/>
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/club_head4"
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:card_view="http://schemas.android.com/tools"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="10dp"
+                        app:cardUseCompatPadding="true"
+                        card_view:cardCornerRAdius="5dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="16dp"
+                                android:layout_margin="8dp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/ic_person"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Club Head 4"
+                                    android:textSize="16sp"
+                                    android:layout_marginLeft="8dp"
+                                    android:textColor="@color/teal_900"/>
+
+                            </LinearLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/teal_900"/>
+                            <EditText
+                                android:id="@+id/clubhead4_title_ev"
+                                android:layout_width="match_parent"
+                                android:textCursorDrawable="@null"
+                                android:layout_height="wrap_content"
+                                android:hint="Club Head's Position"
+                                android:textSize="16sp"
+                                android:layout_margin="8dp"
+                                android:textStyle="bold"/>
+                            <EditText
+                                android:id="@+id/clubhead4_name_ev"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textCursorDrawable="@null"
+                                android:hint="Club Head's Name"
+                                android:textSize="16sp"
+                                android:layout_margin="8dp"
+                                android:textStyle="bold"/>
+                            <EditText
+                                android:id="@+id/clubhead4_link_ev"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textCursorDrawable="@null"
+                                android:hint="Club Head's Linkedin Profile Link"
+                                android:textSize="16sp"
+                                android:layout_margin="8dp"
+                                android:textStyle="bold"/>
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </LinearLayout>
+
+
+
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="16dp"
+                android:text="Save Changes"
+                android:textColor="@color/teal_50"
+                android:textSize="20dp"
+                android:background="@color/teal_900"
+                />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>
