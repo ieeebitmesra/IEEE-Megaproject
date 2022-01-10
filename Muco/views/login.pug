@@ -1,0 +1,192 @@
+doctype html
+html(lang='en')
+ head
+ 
+   meta(charset='UTF-8') 
+   meta(http-equiv='X-UA-Compatible' content='IE=edge')
+   meta(name='viewport' content='width=device-width, initial-scale=1.0')
+   title=title
+   link(rel='preconnect' href='https://fonts.googleapis.com')
+   link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin)
+   link(href='https://fonts.googleapis.com/css2?family=Kanit:wght@800&family=Open+Sans:wght@400;500;600;700;800&family=Readex+Pro:wght@300;400;500;600;700&display=swap' rel='stylesheet')
+   link(rel='stylesheet' href='css/signupstyle.css') 
+   link(rel='stylesheet' href='css/loginstyle.css') 
+   
+   
+ body
+    .main-login-page
+      .alert-login-page.hidden
+         .main-alert-content simple primary alert—check it out!
+         
+      .conatiner-loginpage
+        .main-login-content
+          .intro
+            .imgBox
+              img(src='/img/login/1.jpg'
+                class='intro-img first'
+                style='cursor: pointer')
+              img(src='/img/login/2.jpg' class='intro-img second')
+              img(src='/img/login/3.jpg' class='intro-img third')
+            
+
+          .login
+            .banner
+              .contentforloginpage
+                span(class='welcome-div banner-highlight') Welcome to
+                br 
+                <!-- Welcome to -->
+                span(class='banner-highlight m') m
+                span(class='banner-highlight u') u
+                span(class='banner-highlight c') c
+                span(class='banner-highlight o') o
+                span(class='banner-highlight') !
+              
+              .below-banner
+                .user Username 
+                  br
+                  input(type='text' class='login-user') 
+                
+                br 
+                .password Password
+                    a(href='password-recovery' class='forgot-pwd') Forgot Password
+                      
+                    br 
+                    input(type='password' class='login-password')
+                
+                button(class='submit login' href='/home') Login
+                br
+                a(href='#signup' id='sign-up-link') New to MUCO? Sign up!
+                br 
+                a(id='admin-up-link') Register Admin!
+                //-a href='#admin' id='admin-up-link'>Admin! 
+             
+            .login_img_main 
+                img(src='/img/login/banner.jpg' alt='f')
+      .alert-signin-page.hidden
+       .main-alert-sigin-content A simple primary alert—check it out
+        
+       //-/////////////////////////// 
+      div(id='signup' class='hidden')
+        h1(class='head-signup') Sign Up
+          .cross-modal x
+        .signup-border
+        .form-container
+          form(class='form' data-type='signup')
+            .name-details
+              label(for='fname') First Name 
+              input(type='text' id='fname' name='fname' required)
+              br 
+              label(for='lname') Last Name 
+              input(type='text' id='lname' name='lname' required)
+              br
+              label(for='mail') Email 
+              input(type='email' id='mail' name='mail' required)
+
+              br 
+              label(for='city') City
+               input(type='text'
+                placeholder='Choose City'
+                id='city'
+                name='city'
+                list='city-list'
+                required)
+             
+              datalist(id='city-list')
+                option(value='Delhi')
+                option(value='Mumbai')
+                option(value='Ranchi')
+                option(value='Chennai')
+                option(value='Pune')
+              br
+            
+
+            .password-entry
+              label(for='password') Password
+              input(type='password' id='init-pwd' required)
+
+              <br />
+
+              label(for='confirm password') Confirm Password
+              input(type='password' id='re-pwd' required)
+            
+            .tnc
+              input(type='checkbox' id='tcs' required)
+              label(for='tcs' class='tcs') I agree to use this app responsibly
+              
+           
+            .subm
+              button(type='submit') SUBMIT
+            
+         
+      .overlay.hidden
+
+      <!-- admin -->
+      div(id='admin' class='hidden')
+        h1(class='head-admin')
+          Register Admin
+          .cross-modal.cross-admin x
+        
+        .admin-border
+        .form-container
+          form(class='form' data-type='admin')
+            .admin-content
+              .name-details-admin
+                label(for='mail') Email 
+                input(type='email' id='admin-mail' name='mail' required)
+                br 
+
+                label(for='city') City
+                input(
+                  type='text'
+                  placeholder='Choose City'
+                  id='cityname'
+                  name='city'
+                  list='city-list'
+                  required
+                )
+                datalist(id='city-list')
+                  option(value='Delhi')
+                  option(value='Mumbai')
+                  option(value='Ranchi')
+                  option(value='Chennai')
+                  option(value='Pune')
+                br
+       
+
+              .password-entry-admin
+                label(for='password') Password
+                input(type='password' id='city-password' required)
+                br
+                label(for='secret code') Secret Password
+                input(type='password' id='secret-pwd' required)
+              
+          
+
+            .tncadmin
+              input(type='checkbox' id='tcsadmin' required)
+              label(for='tcs' class='tcsadmin') I agree to use this app responsibly
+            
+
+            .submadmin
+              button(type='submit') Register Admin 
+ 
+      div(id='reset' class='hidden' )
+              h1(class='head-reset') Forgot Password
+                .cross-modal x
+              .reset-border
+              .form-container
+                form(class='form' data-type='forgot-password')
+                  .name-details 
+                    label(for='mail') Email 
+                    input(type='email' id='reset-mail' name='mail' required) 
+                  
+                  
+                  .submReset
+                    button(type='submit') Send Code
+            
+   
+
+
+     
+    script(src='js/login.js' )
+    script( src='js/login2.js' )

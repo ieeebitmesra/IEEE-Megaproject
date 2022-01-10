@@ -1,0 +1,26 @@
+extends base
+
+block splash 
+ .splash
+  .logo-splash
+    span.m M
+    span.u U
+    span.c C
+    span.o O
+block timeline
+   .timeline
+    // TL Banner
+    .tl__banner
+      #barShow.menu_bar-icon
+        i.fas.fa-bars
+      .home_menu_bar.tl__banner-text Home
+      #ratingShow.menu_bar-icon
+        i.fas.fa-star-half-alt
+    // TL posts
+    .posts
+   
+
+block cityReview 
+  include _cityReview
+  script(src='./../js/timeline.js' defer)
+  script(src='./../js/home.js',defer)

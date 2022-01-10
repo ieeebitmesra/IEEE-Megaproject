@@ -1,0 +1,241 @@
+doctype html
+block head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(href=`./../css/homepagestyle.css` rel='stylesheet')
+  link(rel='stylesheet' href='./../css/responsive.css')
+  link(rel='preconnect' href='https://fonts.googleapis.com')
+  link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
+  //
+    <link
+    href="https://fonts.googleapis.com/css2?family==Kanit:wght@800&family=Oxygen&display=swap"
+    rel="stylesheet"
+    />
+  // font awesome cdn
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css' integrity='sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==' crossorigin='anonymous' referrerpolicy='no-referrer')
+  link(href='https://fonts.googleapis.com/css2?family=Kanit:wght@800&family=Noto+Sans&family=Nunito:wght@600;700;800&family=Readex+Pro:wght@300;400;500;600;700&display=swap' rel='stylesheet')
+  script(src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js')
+  link( href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet')
+  script(src='./../js/commonfunction.js' )
+  script(defer='' src='./../js/homepage.js')
+  title #{title}
+// show models for review
+#view_review_container_details.review_container_main.hidden
+
+// end review models
+// /////////////////////////
+// model for give review
+#give_review_container_details.review_container_main.hidden
+  .View_review_icon_cont
+    .edit_give_review
+      i.fas.fa-user-edit
+    .img_Image Share Your Review
+    #icon_cross_give_review x
+  .view_Review_min_content
+    .post__header.post__header__post-1
+      img.tl-users-pf.tl-user-pf__post-1(src='/img/homepage/user-3.svg')
+      .tl-users-info.tl-user-info__post-1
+        .tl-users-name.tl-user-name__post-1
+          | #{user.name}
+        .tl-users-loc.tl-user-loc__post-1
+          | #{user.city}
+    form#from_give_review(action='')
+      textarea#new_post_text(class='your_Review' name='post-content' maxlength='350' placeholder='Start writing Your Reviews!' required='')
+    .give_rating-btn
+      div
+        i.fas.rating_view_review.fa-star(data-number='1')
+        i.fas.rating_view_review.fa-star(data-number='2')
+        i.fas.rating_view_review.fa-star(data-number='3')
+        i.fas.rating_view_review.fa-star(data-number='4')
+        i.fas.rating_view_review.fa-star(data-number='5')
+      div
+        button.btn_give_review_send Send
+// give review models ends
+// alert div
+.alert.hidden
+  p #{title}
+block splash
+// App Blur Div
+// <div class="app-blur hidden"></div>
+.app-wrapper
+  // Left navigation pane ist div
+  #navMenuRight.nav
+    .nav__logo
+      span.m M
+      span.u U
+      span.c C
+      span.o O
+    .nav__options.nav__profile(data-userId=`${user.id}`)
+      img.nav__profile__user-img(src='/img/homepage/user-2.svg')
+      .nav__profile__user-name #{user.name}
+      .nav__profile__user-loc #{user.city}
+    .nav__options.nav__buttons.nav__user-home.active-nav
+      | Home
+    .nav__options.nav__buttons.nav__city City
+    .nav__options.nav__city-dropdown.hidden
+      li.nav_cities-list
+        ul.select_nav_city.select-ranchi(data-cityId='61bef3700f7e8f4704443c90')
+          | Ranchi
+          // <div class="active-dot"></div>
+        ul.select_nav_city.select-mumbai(data-cityId='61bef3700f7e8f4704443c91')
+          | Mumbai
+        ul.select_nav_city.select-pune(data-cityId='61bef3700f7e8f4704443c92')
+          | Pune
+        ul.select_nav_city.select-kolkata(data-cityId='61bef3700f7e8f4704443c94')
+          | Chennai
+       
+    .nav__options.nav__buttons.nav__user-posts Your Posts
+    .nav__options.nav__buttons.nav__liked-posts
+      | Liked Posts
+    .nav__options.nav__buttons.nav__Logout Logout
+    button.nav__post Post!
+    
+  // post models starts
+  // Modals
+  .modals-wrapper.hidden
+    #img_container_details.img_model_slide.hidden
+      .img_model_cont_01
+        .content_img_model IMAGE
+        #icon_corss_main x
+      .img-slide_container_02
+        .img_slide_model
+          img.slide-img(src='/img/homepage/p4.jpg' alt='')
+        
+      .img_model_cont_03
+        .prev_btn_cont_img_slide
+          i.fas.fa-arrow-circle-left
+        .next_btn_cont_img_slide
+          i.fas.fa-arrow-circle-right
+
+    // post models
+    .post__modal.hidden
+      .post-md-header
+        .cross-modal.new-post-md-cross x
+        h5 New Post
+        button#up-new-post(type='submit') Post
+        // <button type="submit" id="up-new-post">Post</button>
+      form.create_post(action='' method='post')
+        textarea#new_post_text1(name='post-content' maxlength='350' placeholder='Start writing your issue here!' required='')
+        textarea#new_post_text2(name='post-content' maxlength='350' placeholder=' write your address here!' required='')
+        .row-cont
+          label(for='upload-imgs') Choose Images within 500KB: 
+          input#new_post_imgs(name='upload-imgs' type='file' multiple=true  accept='image/*')
+          //
+            <button id="new-img-post-alt">Upload</button>
+            <input
+            name="upload-imgs"
+            id="new_post_imgs"
+            type="file"
+            style="display: none"
+            multiple="true"
+            accept=".jpeg, .jpg, .png"
+            />
+          label(for='issue-loc') Add Address
+          button.address-add +
+        #map.add-address-map.hidden
+    // /////////////////////////////////////////////
+    // <div class="modals-container">
+    .profile__modal.hidden
+      .usr_prf-md-header
+        .usr_prf-md-head Profile
+        .cross-modal.usr_prf-md-cross x
+      .usr_prf-md-head-border
+      .usr_prf-edit
+        form.usr_prf-info
+          .usr_prf-boxes
+            label(for='email') Email
+            input#usr-mail(type='text' placeholder=user.email readonly='readonly')
+          br
+          .usr_prf-boxes
+            label#usr_prf-firstname(for='first_name') First Name
+            input(type='text' placeholder=`${user.name.split(' ')[0]}`)
+          br
+          .usr_prf-boxes
+            label#usr_prf-firstname(for='last_name') Last Name
+            input(type='text' placeholder=`${user.name.split(' ')[1]}`)
+          br
+          .usr_prf-boxes
+            label(for='city') City 
+            input#city(type='text' placeholder=`${user.city}` name='city' list='city-list')
+            datalist#city-list
+              option(value='Delhi')
+              option(value='Mumbai')
+              option(value='Kolkata')
+              option(value='Chennai')
+          br
+          button#usr_info_save-changes(type='submit')
+            | Save Changes
+          br
+        form.usr_pwd-change
+          .usr_pwd-boxes
+            label(for='curr-pwd') Current Password
+            input#usr_curr-pwd(type='password' name='curr-pwd')
+          .usr_pwd-boxes
+            label(for='new-pwd') New Password
+            input#usr_new-pwd(type='password' name='new-pwd')
+          .usr_pwd-boxes
+            label(for='confirm-pwd') Confirm Password
+            input#usr_confirm-pwd(type='password' name='confirm-pwd')
+          button#usr_confirm-change-pwd(type='submit')
+            | Change Password
+    // img model starts
+    #img_container_details.img_container_details.hidden
+        //- .View_review_icon_cont
+        //- .img_Image Image
+        //- #icon_corss_main x
+        //- .img_model_content
+        //- .prev_btn_img_model
+        //-     i#prev_btn_img_model.fas.fa-arrow-circle-left
+        //- .img_main_final_model
+        //-     img#img_model_main.img_model_main(src='./p2.jpg' alt='')
+        //- .next_btn_img_model
+        //-     i#next_btn_img_model.fas.fa-arrow-circle-right
+
+
+    // img model ends
+  // models End
+  // --------------------  ----------------------
+  .app-pane.hidden
+    // your posts starts
+    #your_post_Main_container.user_posts-pg.pane-app.hidden
+      .first_container_your_posts
+        .status_your_post
+          #icon_yourPost.icon_yourPost
+            | Filter
+        #crossModel_yourPost.crossModel
+          .cross_yourPost
+            | x
+      li.usr_post-cat
+        ul.usr_pending-post.usr_post-cat-button(data-status='Pending')
+          | Pending
+        ul.usr_Inprogress-post.usr_post-cat-button(data-status='Inprogress')
+          | Inprogress
+        ul.usr_accepted-post.usr_post-cat-button(data-status='Accepted')
+          | Accepted
+        ul.usr_completed-post.usr_post-cat-button(data-status='Success')
+          | Completed
+        ul.usr_rejected-post.usr_post-cat-button(data-status='Rejected')
+          | Rejected
+        ul.usr_failed-post.usr_post-cat-button(data-status='Failed')
+          | Failed
+      #usr_posts-container.usr_posts-container
+    .likedPosts.hidden
+      .user_liked_post
+        |Liked Posts
+      .usr_liked_container
+        
+  block timeline
+
+
+    //- 
+      // Closing brace of post 1
+    // Posts closing brace
+  // TL closing brace
+  // Right menu 3rd div
+  block cityReview
+  script(src='./../js/profile.js' defer)
+  script(src='./../js/yourPosts.js' defer)
+  script(src='./../js/likedPosts.js' defer)
+  script(src='./../js/mapbox.js' )
+  script(src='./../js/post.js')

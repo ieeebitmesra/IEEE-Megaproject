@@ -1,0 +1,121 @@
+extends base
+
+block append head 
+   link(href='./../css/postdetail.css' rel='stylesheet')
+
+block timeline 
+ .timeline
+  .tl__banner
+    #barShow.menu_bar-icon
+      i.fas.fa-bars
+    .home_menu_bar.tl__banner-text POST DETAIL
+    #ratingShow.menu_bar-icon
+      i.fas.fa-star-half-alt
+    #menu_post_details.menu_post_details
+      i.fas.fa-angle-double-down
+  #menu_bar_PostDetails.menu_bar_PostDetails
+    ul.post_details_ul
+      li.post_details_li.seeReview See Review
+      li.post_details_li.giveReview Give Review
+      li#show_view_address_model.post_details_li.viewAddress View Address
+      li.post_details_li.DeletePost Delete
+  // TL posts
+  #post_details.posts
+    // Sample post
+    .post__box.post-1(data-address=`${post.address}` data-coordinate_lng=`${post.coordinate_lng}` data-coordinate_lat=`${post.coordinate_lat}` data-postid=`${post.id}`)
+      .post__header.post__header__post-1
+        img.tl-users-pf.tl-user-pf__post-1(src='/img/homepage/user-3.svg')
+        .tl-users-info.tl-user-info__post-1
+          .tl-users-name.tl-user-name__post-1 #{post.user.name}
+          .tl-users-loc.tl-user-loc__post-1 #{post.user.city}
+      // Post header
+      .post__status.post-1--status #{post.status}
+      .post__text-field.post-1--text-field
+        | #{post.discription}
+      .post__imgs--div.post--1__img--div
+        img.post__img.post--1__img--1(src=`/img/users/${post.images[0]}`)
+        each image in post.images
+         img.post__img.post--1__img--1.slider-img.hidden(src=`/img/users/${image}`)
+        .post__img-counter.post--1__img--counter +3
+      .post__foot.post-1--foot.post_div_last_para
+        button.post__view.post-1--view View Less
+        -if(user.role=='user')
+         button#post_reply_model_btn.post__view.post-1--view Reply
+        -if(user.role=='admin')
+         button#post_reply_model_btn.post__view.post-1--view Fix Problem
+        button.post__view.post-1--view.view_All_Reply(data-filter="View Reply")  View Reply
+        button.post__like
+          img.post__like-img.post__like-img-0(src='/img/homepage/like-0.svg')
+          .post__like-counter
+            span.post__like-count #{post.likes}
+            |  Likes
+    p.status_post_details Status
+    // view reply
+  
+    #post_detail_reply_cont.post_detail_reply_cont
+      #view_address_post.replymodel_post.hidden
+        .icon_replymodel
+          .icon_content_reply_model.view_address_name View Address
+          #cross_view_address_model.icon_cross_reply_model x
+        .reply_div_form_sec
+          .post__text-field.post-1--text-field(style='font-size: 15px; text-align: left;')
+            | #{post.address}
+          #mapView.choose_map_view_addr
+      -if(user.role =='user')
+      #replymodel_post.replymodel_post
+        .icon_replymodel
+          #cross_reply_model.icon_cross_reply_model x
+          .icon_content_reply_model Reply
+          .icon_post_btn_reply_model.post-reply-button Post
+        .reply_div_form_sec
+          form(action='')
+            .comment_reply_model
+              textarea#new_post_text3(name='post-content' maxlength='350' class='post-reply' placeholder='Start writing your Comment!' required='')
+            .row-cont.row-cont--admin
+              label(for='upload-imgs') 
+              input#new_post_imgs1(name='upload-imgs' class='post-reply-images' type='file' multiple=true  accept='image/*') 
+                
+      -if(user.role=='admin')
+      #replymodel_post.replymodel_post.reply_another_main_Conti
+        .icon_replymodel
+          #cross_reply_model.icon_cross_reply_model x
+          .icon_content_reply_model Reply
+          .icon_post_btn_reply_model.post-fixproblem Post
+        .menu_bar_another_m
+
+          input#city3(type='text' list='give_review-list' class='problem-give-status' placeholder='Give Status')
+          datalist#give_review-list
+            option(value='Inprogress' )
+            option(value='Success')
+            option(value='Rejected')
+            option(value='Failed')
+        .reply_div_form_sec
+          form(action='')
+            .comment_reply_model
+              textarea#new_post_text4(name='post-content' class='problem-solution' maxlength='350' placeholder='Start writing your Comment!' required='')
+            .row-cont.row-cont--admin
+              label(for='upload-imgs') 
+              input#new_post_imgs2(name='upload-imgs' type='file' class='problem-images' multiple=true  accept='image/*') 
+      
+      // view addresss
+     
+      // ist reply
+      .view_all_reply_container
+        
+        
+
+    
+      
+      // ////////////////
+      // 2nd reply
+      // ////////
+      // reply models
+
+    
+
+block cityReview
+   include _cityReview
+   script(src='.././public/js/postdetail.js' defer)
+   script(src='./../js/viewreply.js' defer)
+   script(src='./../js/viewAddress.js' defer)
+   

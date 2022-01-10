@@ -1,0 +1,20 @@
+extends base
+
+block timeline
+  .timeline(data-cityId=`${cityid}`)
+    .tl__banner
+        #barShow.menu_bar-icon
+        i.fas.fa-bars
+        .home_menu_bar.tl__banner-text Review
+        #ratingShow.menu_bar-icon
+        i.fas.fa-star-half-alt
+    // TL posts
+    #post_details.posts
+        // Sample post
+        // review container
+        
+
+
+block cityReview 
+  include _cityReview
+  script(src='./../js/viewReview.js' defer)
