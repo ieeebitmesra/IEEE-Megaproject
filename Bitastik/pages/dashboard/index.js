@@ -2,8 +2,7 @@ import MotionHoc from "../../components/animation/Motionhoc";
 import { useState, useEffect } from 'react'
 import * as React from 'react';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
-import { background } from '../../assets/background.jpg'
-const uid = 'usershivam'
+import  background from '../../assets/background.jpg'
 
 const HomeComponent = () => {
     // const [data, setData] = useState({})
@@ -28,13 +27,14 @@ const HomeComponent = () => {
     // )
     return (
         <>
-            <div style={{ position: "fixed" ,userSelect:"none"}}>Waitt...you expected some shitty dashboard? Draw your self and that's your fucking dashboard :/</div>
+       
+            <div style={{ position: "fixed", userSelect: "none" }}>Waitt...you expected a boring dashboard? Just hold the cursor and Happy Drawing!!! ❤️:/</div>
             <ReactSketchCanvas
                 style={styles}
                 width="100%"
                 height="100%"
                 strokeWidth={4}
-                strokeColor="red"
+                strokeColor="black"
                 backgroundImage={background}
             />
         </>

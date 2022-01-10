@@ -41,7 +41,7 @@
   </p>
 </div>
 
-
+[Website Link](https://bitastik.vercel.app)
 
 
 
@@ -58,11 +58,12 @@ WEB DEVELOPMENT (MERN STACK)
 <BR>
 
 <h3>IDEA</h3>
-<p>We have created a social media app for the students of BIT MESRA, a platform to bring together a variety of platforms into one.<BR>
+<p>With the shift in the mode of learning and our lives being digitalized, the college experience has been nothing but an exhausting experience for all of us. After the voracious college expectation soon turned into disappointment, we decided to come to the following solution.
 
-An event calender to keep the students up to date with various upcomming events of differnt clubs and societies  to avoid the hassle due to presence of so many newsrooms whatsapp groups;
-Additional features like Bit notes to keep a track of to do activities;
-Different fun elements like the confession page.
+BITASTIK a social media platform for the students of BIT Mesra to cater to their day-to-day college needs. A culmination of multitudes of ideas and platforms into one.
+
+This app consists of an event to keep each one of you up to date with the latest happenings across the college without the fuss of being added to the newsrooms and various WhatsApp groups. Another key feature includes BIT notes that keep track of your to-do activities and makes your life hassle-free. 
+The most fun and exciting element of this app that catches your attention is the confession page which anonymously posts everything you want, from your daily rants to secret love confessions, thus adding much entertainment to your exhausting e-college life.
 </p>
 
 
@@ -100,6 +101,7 @@ This section list any major frameworks/libraries used in our project. Here are a
 
 <h2>TEAM MENTOR</h2>
  Utkrisht sharma
+ He is the best mentor we ever had and he is super helpful and awesome ❤️
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>

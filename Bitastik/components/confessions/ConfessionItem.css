@@ -1,14 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 .post {
   width: 80vw;
   border-radius: 10px;
-  -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+  -webkit-box-shadow: 0px 0px 16px -8px rgba(56, 23, 23, 0.68);
   box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
   margin:25px auto;
- 
-  
-  background-color: #f8f9d2;
-background-image: linear-gradient(315deg, #f8f9d2 0%, #e8dbfc 74%);
-  
+background-color: #f7eae8;
+background-image: url("https://www.transparenttextures.com/patterns/lined-paper-2.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
 }
 
 .postWrapper {
@@ -84,6 +84,8 @@ background-image: linear-gradient(315deg, #f8f9d2 0%, #e8dbfc 74%);
 
 .postText{
   
-   color: #222024;
+   color: #686262;
     font-weight: 500;
+    font-size: 1.8rem;
+    font-family: 'Indie Flower', cursive;
 }
