@@ -25,7 +25,7 @@
     "mapbox-gl": "^2.6.1",
     "mongoose": "^5.13.13",
     "multer": "^1.4.4",
-    "nodemailer": "^6.1.1",
+    "nodemailer": "^6.6.1",
     "path": "^0.12.7",
     "pug": "^2.0.1",
     "sharp": "^0.29.3",
