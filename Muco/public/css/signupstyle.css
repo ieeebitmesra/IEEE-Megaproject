@@ -1,0 +1,527 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.main-login-page {
+  font-family: "Kanit", sans-serif;
+}
+.conatiner-loginpage {
+  /* border: 2px solid rgb(33, 116, 12); */
+  height: 80vh;
+  width: 70vw;
+  margin: auto;
+  display: flex;
+  margin-top: 4.6rem;
+}
+
+.main-login-content {
+  overflow: hidden;
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.35);
+  border-radius: 1rem;
+}
+/* //////////////// */
+.intro {
+  width: 70%;
+  border-right: 0.15rem solid rgba(0, 0, 0, 0.25);
+  background-image: url(/img/homepage/login/bg-intro.jpg);
+  overflow: hidden;
+  background-size: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.imgBox {
+  left: 20%;
+  border-radius: 0.5rem;
+  width: 38%;
+  bottom: 0%;
+  top: 19%;
+  position: absolute;
+  overflow: hidden;
+}
+
+.intro-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 75%;
+  position: absolute;
+  transition: transform 1s;
+  overflow: hidden;
+}
+/* ///////////////////// */
+
+.login {
+  width: 30%;
+}
+.banner {
+  /* border: 2px solid rgb(255, 0, 0); */
+  text-transform: uppercase;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.75);
+  margin: 5%;
+}
+.contentforloginpage {
+  margin: 5%;
+  padding: 1px 1px;
+}
+
+.banner-highlight {
+  font-size: 2.4rem;
+}
+
+.m,
+.u {
+  color: coral;
+}
+
+.c,
+.o {
+  color: rgb(255, 200, 0);
+}
+
+button.submit {
+  margin-top: 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.25rem;
+  height: 2.5rem;
+  width: 100%;
+  color: white;
+  background-image: linear-gradient(
+    to right bottom,
+    rgba(0, 0, 255, 0.9),
+    rgba(0, 0, 255, 0.95)
+  );
+  border: 0;
+  border-radius: 0.5rem;
+}
+button.submit:hover {
+  background-image: linear-gradient(
+    to right bottom,
+    rgba(0, 0, 255, 0.7),
+    rgba(0, 0, 255, 0.7)
+  );
+  animation: forwards ease-in clicked 200;
+  cursor: pointer;
+}
+
+@keyframes clicked {
+  0% {
+    height: 2.5rem;
+    width: 99.9%;
+  }
+  20% {
+    height: 2.47rem;
+    width: 99.75%;
+    margin-bottom: 0.03rem;
+  }
+  50% {
+    height: 2.45rem;
+    width: 99.5%;
+    margin-bottom: 0.05rem;
+  }
+  80% {
+    height: 2.42rem;
+    width: 98.75%;
+    margin-bottom: 0.08rem;
+  }
+  100% {
+    height: 2.4rem;
+    width: 98%;
+    margin-bottom: 0.1rem;
+  }
+}
+#sign-up-link {
+  color: rgb(47, 67, 128);
+  text-decoration: none;
+  font-size: 0.75rem;
+}
+
+#login-up-link {
+  color: rgb(47, 67, 128);
+  text-decoration: none;
+  font-size: 0.75rem;
+}
+
+.below-banner {
+  text-align: center;
+  text-transform: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+.banner input {
+  /* padding-left: 1rem;
+      padding-right: 1rem; */
+  border-radius: 0.25rem;
+  /* border: 0.1rem solid rgb(50, 50, 50); */
+  color: rgb(30, 30, 30);
+  background-color: rgb(234, 234, 234);
+  outline: none;
+}
+.password,
+.user {
+  text-align: left;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.login-user,
+.login-password {
+  margin-top: 0.75rem;
+  height: 2rem;
+  width: 90%;
+}
+
+.forgot-pwd {
+  height: 1.2rem;
+  font-size: 0.8rem;
+  padding: 0.3rem;
+  display: inline-block;
+  color: rgb(255, 60, 60);
+  text-decoration: none;
+}
+
+/* ////////////////// */
+#signup {
+  height: 30em;
+  width: 45em;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  /* background-color: rgb(255, 255, 255); */
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.91);
+  border-radius: 1rem;
+  box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.35);
+  z-index: 1000;
+}
+#reset {
+  height: 18em;
+  width: 45em;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  /* background-color: rgb(255, 255, 255); */
+  overflow: hidden;
+  background: rgba(158, 151, 151, 0.91);
+  border-radius: 1rem;
+  box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.35);
+  z-index: 1000;
+}
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  z-index: 100;
+}
+
+.login_img_main {
+  /* background-color: blue; */
+  margin: -16px 3px;
+}
+.login_img_main img {
+  z-index: 1000;
+
+  width: 100%;
+}
+/* ***************************************************************************** */
+
+.head-signup {
+  font-family: "Readex Pro", sans-serif;
+  padding-left: 3rem;
+  padding-right: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+.head-reset {
+  font-family: "Readex Pro", sans-serif;
+  padding-left: 3rem;
+  padding-right: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cross-modal {
+  font-weight: 400;
+  height: 1.5rem;
+  color: white;
+  border-radius: 100rem;
+  text-align: center;
+  width: 1.5rem;
+  background: rgba(128, 128, 128, 0.7);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.signup-border {
+  height: 0.2rem;
+  background-image: linear-gradient(to right, #de6262, #ffb88c);
+  width: 30%;
+}
+.reset-border {
+  height: 0.2rem;
+  background-image: linear-gradient(to right, #de6262, #ffb88c);
+  width: 50%;
+}
+.form-container {
+  font-family: "Readex Pro", sans-serif;
+  margin-top: 1rem;
+  padding-left: 3rem;
+  padding-right: 2rem;
+  overflow: hidden;
+  display: grid;
+  position: relative;
+}
+.form {
+  padding: 1.5rem;
+  width: 100%;
+}
+
+/* /////// The 4 divs ////// */
+.name-details {
+  width: 50%;
+  position: relative;
+  float: left;
+}
+
+.subm {
+  margin-top: 1rem;
+}
+
+.submReset {
+  margin-top: 1rem;
+}
+input[type="checkbox"] {
+  width: 0.8rem;
+}
+
+.password-entry {
+  /* background-color: cornflowerblue; */
+  width: 50%;
+  position: relative;
+  float: left;
+}
+
+.form label {
+  /* display: block; */
+  color: rgb(50, 50, 50);
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding-bottom: 0.5rem;
+}
+
+input {
+  font-family: "Readex Pro", sans-serif;
+  font-size: 0.9rem;
+  color: rgb(87, 87, 87);
+  width: 80%;
+  display: block;
+  height: 2.1rem;
+  border: 0rem;
+  outline: none;
+  border-radius: 0.3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+#signup button {
+  font-family: "Readex Pro", sans-serif;
+  background: orange;
+  border: 0 solid;
+  font-size: 0.8rem;
+  color: rgb(250, 250, 250);
+  border-radius: 0.2rem;
+  height: 2.5rem;
+  width: 7rem;
+  font-weight: 700;
+}
+
+#reset button {
+  font-family: "Readex Pro", sans-serif;
+  background: orange;
+  border: 0 solid;
+  font-size: 0.8rem;
+  color: rgb(250, 250, 250);
+  border-radius: 0.2rem;
+  height: 2.5rem;
+  width: 7rem;
+  font-weight: 700;
+}
+#reset button:hover {
+  height: 2.4rem;
+  color: white;
+  background: rgb(255, 187, 60);
+}
+
+#signup button:hover {
+  height: 2.4rem;
+  color: white;
+  background: rgb(255, 187, 60);
+}
+
+/* alert */
+.alert-login-page {
+  top: 1%;
+  left: 15%;
+  display: flex;
+  position: absolute;
+  border: 2px solid transparent;
+  height: 50px;
+  border-radius: 5px;
+  font-style: normal;
+  font-family: sans-serif;
+  font-weight: 100;
+  justify-content: center;
+  background-color: cadetblue;
+  align-items: center;
+  color: rgb(20, 16, 16);
+  width: 70vw;
+  margin: auto;
+}
+
+.alert-signin-page {
+  height: 50px;
+  top: 9.4%;
+  left: 26.3%;
+  display: flex;
+  position: absolute;
+  border: 2px solid transparent;
+  width: 47vw;
+  margin: auto;
+  background-color: rgb(190, 149, 130);
+  border-radius: 5px;
+  color: rgb(31, 28, 28);
+  font-style: normal;
+  font-family: sans-serif;
+  font-weight: 100;
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px 5px 1px 1px;
+  margin: auto;
+}
+.main-alert-sigin-content {
+  text-align: center;
+  line-height: 50px;
+}
+
+.success {
+  background: rgb(209, 231, 221);
+  color: #529745;
+}
+.failure {
+  background: #f8d7da;
+  color: #db5965;
+}
+
+.warning {
+  background: #fff3cd;
+  color: #61501c;
+}
+
+@media only screen and (max-width: 800px) {
+  .main-login-page {
+    margin: 0;
+    /* border: 2px solid red; */
+  }
+  .main-login-page {
+    width: 100%;
+  }
+  .conatiner-loginpage {
+    height: 97vh;
+    width: 97vw;
+    max-height: 100vh;
+    display: block;
+    margin-top: 0rem;
+  }
+  .main-login-content {
+    flex-direction: column;
+    box-shadow: none;
+  }
+
+  .intro {
+    display: none;
+  }
+  .login {
+    width: 100%;
+  }
+  .banner {
+    padding: 3px 0px;
+  }
+
+  .banner-highlight {
+    font-size: 2.7rem;
+  }
+
+  .login_img_main {
+    /* margin: 14px 3px; */
+    position: absolute;
+    /* bottom: 0; */
+    z-index: -1;
+  }
+
+  /* **************************** */
+  #signup {
+    width: 95%;
+    height: 100%;
+    top: 52%;
+    left: 50%;
+    border-radius: 1rem;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+  .form-container {
+    padding-right: 0rem;
+    padding-left: 2rem;
+  }
+  .name-details {
+    width: 90%;
+  }
+  input {
+    font-size: 0.9rem;
+    height: 1.5rem;
+    width: 90%;
+  }
+  label {
+    font-size: 0.7rem;
+  }
+  .tnc {
+    margin: 0rem 0rem;
+  }
+  .subm {
+    margin-top: 8px;
+  }
+
+  /* alert  */
+  .alert-login-page {
+    width: 100%;
+    top: 0%;
+    left: 0%;
+  }
+  .alert-signin-page {
+    width: 100%;
+    top: 0%;
+    left: 0%;
+  }
+}

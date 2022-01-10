@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Ranchi",
+    "state": "Jharkhand",
+    "password": "JoharJharkhand"
+  },
+  {
+    "name": "Mumbai",
+    "state": "Maharastra",
+    "password": "JaiMaharastra"
+  },
+  {
+    "name": "Pune",
+    "state": "Maharastra",
+    "password": "MachiBhat"
+  },
+  {
+    "name": "Delhi",
+    "state": "-",
+    "password": "HelloDelhi"
+  },
+  {
+    "name": "Kolakata",
+    "state": "West Bengal",
+    "password": "WestBengal"
+  }
+]

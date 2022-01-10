@@ -1,0 +1,171 @@
+#admin {
+  height: 30em;
+  width: 45em;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  /* background-color: rgb(255, 255, 255); */
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.91);
+  border-radius: 1rem;
+  box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.35);
+  z-index: 1000;
+}
+#admin-up-link {
+  color: rgb(47, 67, 128);
+  text-decoration: none;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.hiddenadmin {
+  display: none;
+  visibility: hidden;
+}
+.overlayadmin {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  z-index: 100;
+}
+.head-admin {
+  font-family: "Readex Pro", sans-serif;
+  padding-left: 3rem;
+  padding-right: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+.cross-modal-admin {
+  font-weight: 400;
+  height: 1.5rem;
+  color: white;
+  border-radius: 100rem;
+  text-align: center;
+  width: 1.5rem;
+  background: rgba(128, 128, 128, 0.7);
+  font-size: 1rem;
+  cursor: pointer;
+}
+.admin-border {
+  height: 0.2rem;
+  background-image: linear-gradient(to right, #de6262, #ffb88c);
+  width: 46%;
+}
+.form-admin {
+  padding: 1.5rem;
+  width: 100%;
+}
+
+.name-details-admin {
+  width: 50%;
+  position: relative;
+  float: left;
+}
+.submadmin {
+  margin-top: 1rem;
+}
+.password-entry-admin {
+  width: 50%;
+  position: relative;
+  float: left;
+}
+label {
+  /* display: block; */
+  color: rgb(50, 50, 50);
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding-bottom: 0.5rem;
+}
+#tcsadmin {
+  position: absolute;
+}
+
+.tcsadmin {
+  font-size: 0.8rem;
+  color: rgb(80, 80, 80);
+  margin-top: 5rem;
+}
+
+#admin button {
+  font-family: "Readex Pro", sans-serif;
+  background: orange;
+  border: 0 solid;
+  font-size: 0.8rem;
+  color: rgb(250, 250, 250);
+  border-radius: 0.2rem;
+  height: 2.5rem;
+  width: 7rem;
+  font-weight: 700;
+}
+
+#admin button:hover {
+  height: 2.4rem;
+  color: white;
+  background: rgb(255, 187, 60);
+}
+@media only screen and (max-width: 800px) {
+  #admin {
+    width: 91%;
+    height: 100%;
+    top: 53%;
+    left: 50%;
+    border-radius: 1rem;
+  }
+  #tcsadmin {
+    display: block;
+    height: 0.8rem !important;
+    width: 3% !important;
+    position: static;
+  }
+
+  .form-admin {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+  .form-container-admin {
+    padding-right: 0rem;
+    padding-left: 2rem;
+  }
+  .name-details-admin {
+    width: 90%;
+  }
+  #admin input {
+    font-size: 0.9rem;
+    height: 1.5rem;
+    width: 90%;
+  }
+  #admin label {
+    font-size: 1.1rem;
+  }
+  .tncadmin {
+    margin: 0rem 0rem;
+  }
+  .submadmin {
+    margin-top: 8px;
+  }
+}
+.forgot_pass {
+  width: 35vw;
+  height: 40vh;
+}
+
+.forgot_password_form {
+  margin: 12px 0px 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.forgot_password_form input {
+  padding: 5px 0px 5px 25px;
+  font-size: 16px;
+}
+
+.forgot_password_btn {
+  margin-top: 12px;
+  width: 50%;
+}

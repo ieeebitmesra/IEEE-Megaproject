@@ -1,0 +1,247 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Readex Pro", sans-serif;
+  /* font-family: "Kanit", sans-serif; */
+}
+/* logo  */
+.logoinresetform {
+  display: flex;
+  justify-content: center;
+
+  /* align-items: center; */
+}
+.contentfor {
+  /* margin: 5% ; */
+  padding: 1px 1px;
+  font-family: "Kanit", sans-serif;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.banner-highlight {
+  font-size: 2.4rem;
+}
+
+.m,
+.u {
+  color: coral;
+}
+
+.c,
+.o {
+  color: rgb(255, 200, 0);
+}
+
+/* Create New Passwor : - reset passsword */
+.resetpass {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.reset_2_password {
+  display: block;
+}
+.reset-content {
+  height: 48vh;
+  width: 38vw;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  padding: 21px 25px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.reset-content h4 {
+  font-size: 30px;
+  font-weight: 700;
+  color: black;
+  font-family: sans-serif;
+}
+.para-reset-first {
+  font-size: 18px;
+  font-weight: 400;
+  color: black;
+  padding: 10px 0px 10px 0px;
+}
+#form-reset label {
+  font-size: 16px;
+  color: rgb(48, 41, 41);
+  font-weight: 400;
+}
+#form-reset input {
+  font-size: 16px;
+  color: rgb(48, 41, 41);
+  font-weight: 400;
+  padding: 5px 6px;
+  margin-top: 6px;
+}
+
+.confirmPassword {
+  margin-top: 12px;
+}
+.btn-reset {
+  margin-top: 12px;
+  border: 1px solid transparent;
+  background: #a84849;
+  color: #fff;
+  padding: 8px 32px;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+  line-height: 2em;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* verify  */
+.verifypassword {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+.Verifypass_content {
+  width: 35vw;
+  height: 35vh;
+
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  padding: 21px 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.Verifypass_content h4 {
+  font-size: 26px;
+  font-weight: 500;
+  color: black;
+  padding: 0px 0px 15px 0px;
+}
+.thanks_para_verify {
+  font-size: 15px;
+  font-weight: 400;
+  color: black;
+  padding: 0px 0px 24px 0px;
+}
+.confirm_para_verify {
+  font-size: 15px;
+  font-weight: 400;
+  color: black;
+  padding: 0px 0px 16px 0px;
+}
+.verifypassword a {
+}
+
+.Team_para_verify {
+  font-size: 15px;
+  font-weight: 400;
+  color: black;
+  padding: 15px 0px 0px 0px;
+}
+
+/* /////////////// */
+.btn_email {
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+  line-height: 2em;
+  font-weight: bold;
+  text-align: center;
+  display: inline-block;
+  border-radius: 5px;
+  text-transform: capitalize;
+  background-color: #a84849;
+  margin: 0;
+  border-color: #a84849;
+  border-style: solid;
+  border-width: 10px 20px;
+}
+
+/* //////////////// */
+/* resetpassword button */
+.resetpassword-content {
+  width: 35vw;
+  height: 35vh;
+
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  padding: 21px 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.ignoreemial {
+  padding-top: 10px;
+}
+.resetpassword-content h4 {
+  font-size: 24px;
+}
+
+@media only screen and (max-width: 800px) {
+  /* Create nerw password */
+  .resetpass {
+    height: 100vh;
+    width: 100vw;
+    /* border: 2px solid blue; */
+    justify-content: flex-start;
+  }
+  .logoinresetform {
+    padding-top: 26px;
+  }
+  .reset-content {
+    /* height: 100vh; */
+    width: 100vw;
+    box-shadow: none;
+    /* border: 2px solid red; */
+  }
+  .reset-content h4 {
+    font-size: 26px;
+  }
+  .para-reset-first {
+    font-size: 15px;
+  }
+
+  /* verify emai address */
+  .Verifypass_content {
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .resetpassword-content {
+    height: 100vh;
+    width: 100vw;
+  }
+}
+.alert {
+  position: absolute;
+  font-family: "Nunito", sans-serif;
+  background: cornsilk;
+  outline: 0.05rem solid rgb(255, 164, 132);
+  outline-offset: -0.15rem;
+  font-weight: 200;
+  font-size: 1rem;
+  color: rgb(80, 80, 80);
+  border-radius: 0.5rem;
+  text-align: center;
+  top: 0.5rem;
+  min-width: 36rem;
+  max-width: 90%;
+  padding: 0.75rem 1.5rem 0.75rem 1.5rem;
+  z-index: 10000;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+.hidden {
+  display: none !important;
+}

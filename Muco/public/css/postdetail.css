@@ -1,0 +1,505 @@
+.menu_bar_PostDetails {
+  /* border: 2px solid red; */
+  width: 42.3%;
+  margin: auto;
+  padding: 0rem 4rem;
+  z-index: 5000;
+  position: absolute;
+  display: none;
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+  cursor: pointer;
+}
+.fas {
+  cursor: pointer;
+}
+.post_details_ul {
+  list-style: none;
+}
+.post_details_li {
+  cursor: pointer;
+  padding: 0 1rem 0 1rem;
+  background: rgb(229, 231, 231);
+  color: darkgrey;
+  border-radius: 10rem;
+  text-align: center;
+  padding: 1rem 0 1rem 0;
+  display: flex;
+  flex: 1;
+  font-size: 1rem;
+  justify-content: space-evenly;
+  border-bottom: rgb(239, 243, 244) solid 0.1rem;
+
+  margin: 12px 0px;
+}
+
+.bg_change {
+  /* background: yellow; */
+  opacity: 0.2;
+}
+.hidden_post_details {
+  display: block;
+}
+
+/* view reply post  details section */
+.post_detail_reply_cont {
+  /* height: 4rem; */
+  margin-top: 1rem;
+  /* border: 2px solid blue; */
+}
+.div_01_reply_sec {
+  margin-top: 2px;
+  /* border: 2px solid rgb(255, 153, 0); */
+}
+
+/* reply model */
+.replymodel_post {
+  /* border: 2px solid red; */
+  position: absolute;
+  top: 4rem;
+  left: 30%;
+  height: 34vh;
+  width: 40vw;
+  z-index: 10010;
+  padding: 0.5rem 2rem;
+  display: none;
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+
+  font-size: 2rem;
+  font-family: "Readex Pro", sans-serif;
+  color: rgb(80, 80, 80);
+}
+.show_reply_model {
+  display: block;
+}
+
+.icon_replymodel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon_cross_reply_model {
+  font-weight: 400;
+  height: 1.5rem;
+  color: white;
+  border-radius: 100rem;
+  width: 1.5rem;
+  background: rgb(200, 200, 200, 0.8);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon_post_btn_reply_model {
+  margin-right: 1rem;
+  color: white;
+  background: coral;
+  border: 0;
+  height: 2rem;
+  font-size: 1.1rem;
+  border-radius: 0.5rem;
+  width: 4rem;
+  cursor: pointer;
+  padding: 4px 13px;
+}
+
+.reply_div_form_sec {
+  margin-top: 1.5rem;
+}
+
+.comment_reply_model input {
+  display: flex;
+  width: 80%;
+  margin: auto;
+  height: 4rem;
+}
+.file_model_reply {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  padding: 0 1rem;
+  /* width: 100%; */
+  height: 4rem;
+  width: 6rem;
+  text-align: left;
+}
+.row-cont--admin {
+  margin-top: 1rem;
+}
+#new_post_imgs4 {
+  font-size: 0.95rem;
+  font-family: "Nunito", sans-serif;
+  border: 0;
+  align-self: flex-start;
+  background: transparent;
+}
+#new_post_imgs3 {
+  font-size: 0.95rem;
+  font-family: "Nunito", sans-serif;
+  border: 0;
+  align-self: flex-start;
+  background: transparent;
+}
+.bg_less_opactity {
+  background: #fff;
+  /* opacity: 0.2; */
+}
+.file_model_reply input[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 0px 32px;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+/*  img_container_details*/
+
+.img_container_main {
+  top: 10%;
+  left: 20vw;
+  width: 60vw;
+  height: 65vh;
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+  /* border: 2px solid blueviolet; */
+  position: absolute;
+}
+
+.icon_cross_model_img_content {
+  height: 3rem;
+  /* border: 2px solid burlywood; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0rem 2rem;
+}
+.img_Image {
+  font-size: 2rem;
+  font-family: "Readex Pro", sans-serif;
+  color: rgb(80, 80, 80);
+}
+#icon_corss_main {
+  color: darkgray;
+  background: rgb(229, 231, 231);
+  border-radius: 50%;
+  font-size: 29px;
+  border: 1px solid transparent;
+  background: rgb(107, 107, 107);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  color: darkgray;
+  background: rgb(229, 231, 231);
+  border-radius: 50%;
+
+  font-size: 1.5rem;
+  font-family: "Nunito", sans-serif;
+}
+.img_model_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 5px solid rgb(11, 216, 199); */
+  padding: 0px 2rem;
+  margin: 12px 1rem;
+}
+.icon_cross_model_img_content {
+}
+.prev_btn_img_model {
+  font-size: 5rem;
+}
+.img_main_final_model {
+  /* border: 2px solid rgb(55, 214, 16); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.img_model_content img {
+  width: 75%;
+  border-radius: 0.5rem;
+}
+.next_btn_img_model {
+  font-size: 5rem;
+  /* border: 2px solid rgb(255, 6, 101); */
+}
+
+/* model :view review  */
+
+.review_container_main {
+  top: 10%;
+  left: 30vw;
+  width: 40vw;
+  height: 40vh;
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+  /* border: 2px solid blueviolet; */
+  position: absolute;
+  z-index: 1000;
+}
+.icon_cross_model_review_content {
+  height: 3rem;
+  /* border: 2px solid burlywood; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0rem 2rem;
+}
+.view_Review_min_content {
+  margin-top: 1rem;
+  /* border: 2px solid red; */
+  margin: 12px 1rem;
+}
+.View_review_icon_cont {
+  /* border: 2px solid rgb(27, 209, 118); */
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  margin: 12px 1rem 0px;
+}
+
+#icon_cross_view_review {
+  background: rgb(107, 107, 107);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  color: darkgray;
+  background: rgb(229, 231, 231);
+  border-radius: 50%;
+  /* font-weight: 400;
+      height: 1.5rem;
+      color: white;
+      border-radius: 100rem;
+      width: 1.5rem;
+      background: rgb(200, 200, 200, 0.8);
+      cursor: pointer; */
+
+  font-size: 1.5rem;
+  font-family: "Nunito", sans-serif;
+}
+
+.rating_view_review {
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+}
+.active_view_review {
+  color: #f6cb23;
+}
+
+/* give reviews */
+.give_review_container_details {
+  height: 60vh;
+}
+.edit_give_review {
+  font-size: 32px;
+  color: rgb(80, 80, 80);
+  cursor: pointer;
+}
+#from_give_review {
+  margin: 12px 0;
+}
+#from_give_review textarea {
+  display: flex;
+  min-height: 3rem;
+  resize: none;
+  padding: 1rem;
+  font-family: Nunito, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  background: rgb(238, 238, 238);
+  line-height: 1.5rem;
+  color: rgb(51, 51, 51);
+  outline: none;
+  border: none;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease 0s;
+}
+#icon_cross_give_review {
+  font-size: 29px;
+  border: 1px solid transparent;
+  background: rgb(107, 107, 107);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  color: darkgray;
+  background: rgb(229, 231, 231);
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-family: "Nunito", sans-serif;
+}
+.give_rating-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn_give_review_send {
+  color: white;
+  background: coral;
+  border: 0;
+  height: 2.2rem;
+  font-size: 1.1rem;
+  border-radius: 0.5rem;
+  width: 6rem;
+  cursor: pointer;
+}
+
+/* view address */
+
+#view_address_post {
+  display: block;
+  z-index: 4;
+  height: 80%;
+  overflow: hidden;
+}
+.view_address_name {
+  font-size: 20px;
+  font-family: "Readex Pro", sans-serif;
+}
+
+.choose_map_view_addr {
+  border: 2px solid red;
+  position: absolute;
+  left: -1%;
+  top: 20%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 40em;
+}
+
+/* /////////////////////////////////////////////////////////////// */
+.div_01_reply_sec {
+  font-family: "Readex Pro", sans-serif;
+  display: grid;
+  font-size: 1rem;
+  padding: 2.5% 5% 2.5% 5%;
+  margin-bottom: 0.1rem;
+  border-bottom: rgb(239, 243, 244) solid 0.1rem;
+  text-align: left;
+}
+.status_post_details {
+  padding: 12px 0px 12px 24.35px;
+  text-align: left;
+  font-family: "Nunito", sans-serif;
+  color: rgb(80, 80, 80);
+  font-size: 1.25rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  border-bottom: rgb(239, 243, 244) solid 0.1rem;
+  margin-top: 0;
+  /* margin-bottom: 0; */
+}
+.post_details_li:hover {
+  background: rgba(240, 240, 240, 0.9);
+  color: rgb(62, 62, 62);
+}
+
+.comment_reply_model textarea {
+  display: flex;
+  /* height: 3rem; */
+  min-height: 3rem;
+  /* flex: 1; */
+  resize: none;
+  padding: 1rem;
+  font-family: "Nunito", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  background: #eee;
+  line-height: 1.5rem;
+  color: #333;
+  outline: none;
+  /* margin: 0 auto; */
+  /* border: solid 0.1rem black; */
+  border: none;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+.file_model_reply {
+  width: 100%;
+}
+.custom-file-upload {
+  border-radius: 50%;
+  /* border: 1px solid red; */
+  color: white;
+  cursor: pointer;
+  height: 44px;
+  width: 44px;
+  padding: 0px;
+  font-weight: 700;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  background: royalblue;
+  font-size: 2rem;
+}
+
+/* post icon  */
+.post_icon_cont {
+  position: absolute;
+  bottom: 10%;
+  left: 65%;
+}
+.pos_icon_main {
+  /* border: 2px solid red; */
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  padding: 0px;
+  font-weight: 700;
+  font-family: "Nunito", sans-serif;
+  background: royalblue;
+  font-size: 37px;
+  height: 52px;
+  width: 52px;
+}
+.reply__like {
+  background: whitesmoke;
+  color: black;
+  /* border: 2px solid blueviolet; */
+  height: 2rem;
+  width: 30%;
+  font-size: 0.85rem;
+  border: 0;
+  border-radius: 0.5rem;
+
+  padding: 0.2rem 1.5rem 0.2rem 1.5rem;
+  display: flex;
+  height: 2rem;
+  justify-content: space-evenly;
+  align-items: center;
+  grid-column-start: 4;
+}
+.reply_another_main_Conti {
+  height: 40vh;
+}
+
+.menu_bar_another_m label {
+  font-size: 16px;
+  position: relative;
+  float: left;
+  padding-top: 12px;
+}
+.menu_bar_another_m input {
+  position: relative;
+  float: left;
+  /* padding-top:12px ; */
+  margin: 8px 4px;
+}
+.menu_bar_another_m datalist {
+  z-index: 100;
+}
