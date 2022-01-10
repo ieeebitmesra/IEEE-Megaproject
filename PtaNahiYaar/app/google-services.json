@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "919338688317",
+    "project_id": "sarvasva-89fee",
+    "storage_bucket": "sarvasva-89fee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919338688317:android:d0c572cc5f9a6cb38c6f54",
+        "android_client_info": {
+          "package_name": "com.example.sarvasva"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "919338688317-6lpp1amkkqnt4tnn426inq3f8ajt0n2h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyi0WK38o_D3idcGXvQoYVPsFmqngJLWg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "919338688317-6lpp1amkkqnt4tnn426inq3f8ajt0n2h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

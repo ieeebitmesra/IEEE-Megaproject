@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".app.fragments.aboutus">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Developers"
+            android:padding="16dp"
+            android:textSize="32dp"
+            android:background="@color/teal_200"
+            android:gravity="center"
+            android:fontFamily="@font/nanum_extrabold"
+            android:textStyle="bold"
+            android:textColor="@color/teal_900"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/user_profile_bg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:card_view="http://schemas.android.com/tools"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="10dp"
+                app:cardUseCompatPadding="true"
+                card_view:cardCornerRAdius="5dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:text="RAHUL SRIVASTAVA"
+                        android:drawableLeft="@drawable/ic_person"
+                        android:drawablePadding="8dp"
+                        android:textSize="18sp"
+                        android:padding="8dp"
+                        android:textStyle="bold"
+                        android:background="@color/teal_50"
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"/>
+
+                    <TextView
+                        android:id="@+id/rs_branch"
+                        android:drawableLeft="@drawable/ic_study"
+                        android:drawablePadding="8dp"
+                        android:text="ECE"
+                        android:padding="8dp"
+                        android:background="@color/teal_50"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"/>
+
+                    <TextView
+                        android:id="@+id/rs_mail"
+                        android:padding="8dp"
+                        android:background="@color/teal_50"
+                        android:drawableLeft="@drawable/ic_email"
+                        android:drawablePadding="8dp"
+                        android:text="btech10080.20@bitmesra.ac.in"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="8dp"
+                        android:background="@color/teal_50">
+
+                        <ImageView
+                            android:id="@+id/rslkdin"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/linkedin"
+                            />
+
+                        <View
+                            android:layout_width="16dp"
+                            android:layout_height="match_parent"/>
+
+                        <ImageView
+                            android:id="@+id/rsinsta"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/insta"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:card_view="http://schemas.android.com/tools"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="10dp"
+                app:cardUseCompatPadding="true"
+                card_view:cardCornerRAdius="5dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:text="SUDHANSHU RANJAN"
+                        android:drawableLeft="@drawable/ic_person"
+                        android:drawablePadding="8dp"
+                        android:textSize="18sp"
+                        android:padding="8dp"
+                        android:textStyle="bold"
+                        android:background="@color/teal_50"
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"/>
+
+                    <TextView
+                        android:id="@+id/sr_branch"
+                        android:drawableLeft="@drawable/ic_study"
+                        android:drawablePadding="8dp"
+                        android:text="ECE"
+                        android:padding="8dp"
+                        android:background="@color/teal_50"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"/>
+
+                    <TextView
+                        android:id="@+id/sr_mail"
+                        android:padding="8dp"
+                        android:background="@color/teal_50"
+                        android:drawableLeft="@drawable/ic_email"
+                        android:drawablePadding="8dp"
+                        android:text="btech10373.20@bitmesra.ac.in"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="8dp"
+                        android:background="@color/teal_50">
+
+                        <ImageView
+                            android:id="@+id/srlkdin"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/linkedin"
+                            />
+
+                        <View
+                            android:layout_width="16dp"
+                            android:layout_height="match_parent"/>
+
+                        <ImageView
+                            android:id="@+id/srinsta"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/insta"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:card_view="http://schemas.android.com/tools"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="10dp"
+                app:cardUseCompatPadding="true"
+                card_view:cardCornerRAdius="5dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:text="ARYANK UPADHYAY"
+                        android:drawableLeft="@drawable/ic_person"
+                        android:drawablePadding="8dp"
+                        android:textSize="18sp"
+                        android:padding="8dp"
+                        android:textStyle="bold"
+                        android:background="@color/teal_50"
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"/>
+
+                    <TextView
+                        android:id="@+id/au_branch"
+                        android:drawableLeft="@drawable/ic_study"
+                        android:drawablePadding="8dp"
+                        android:text="ECE"
+                        android:padding="8dp"
+                        android:background="@color/teal_50"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"/>
+
+                    <TextView
+                        android:id="@+id/au_mail"
+                        android:padding="8dp"
+                        android:background="@color/teal_50"
+                        android:drawableLeft="@drawable/ic_email"
+                        android:drawablePadding="8dp"
+                        android:text="btech10100.20@bitmesra.ac.in"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="8dp"
+                        android:background="@color/teal_50">
+
+                        <ImageView
+                            android:id="@+id/aulkdin"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/linkedin"
+                            />
+
+                        <View
+                            android:layout_width="16dp"
+                            android:layout_height="match_parent"/>
+
+                        <ImageView
+                            android:id="@+id/auinsta"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/insta"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+
+    </LinearLayout>
+
+</FrameLayout>

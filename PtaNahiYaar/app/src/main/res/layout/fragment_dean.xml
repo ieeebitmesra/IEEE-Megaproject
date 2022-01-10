@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/user_profile_bg"
+    tools:context=".app.fragments.DeanFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:verticalScrollbarPosition="defaultPosition"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp"
+                android:layout_gravity="center">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    >
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:text="DEANS"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="25dp"
+                        android:padding="2dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="25dp">
+
+                    </TextView>
+
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Dean Faculty Affairs (DoFA)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. Kunal Mukhopadhyay"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_phone"
+                                android:drawablePadding="3dp"
+                                android:text="PH - 0651-2276182"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="1dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:padding="1dp"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4554"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="dofa@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Dean of Admission, Accreditation AND Coordination(DAAC)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. Sudip Das"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_phone"
+                                android:drawablePadding="3dp"
+                                android:text="PH - 0651-2276181"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="1dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:padding="1dp"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4485"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="daac@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:inputType="textWebEmailAddress"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Dean Alumni &amp; International Relations (DAIR)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. Utpal Baul"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_phone"
+                                android:drawablePadding="3dp"
+                                android:text="PH - 0651-2276587"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="1dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:padding="1dp"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="0dp"
+                                android:background="@drawable/custom_input"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="10dp"
+                                android:padding="0dp"
+                                android:text="Ext - 4415"
+                                android:textColor="@color/black"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="dair@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:inputType="textWebEmailAddress"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Dean Student Affairs (DoSA)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. Anand Kumar Sinha"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_phone"
+                                android:drawablePadding="3dp"
+                                android:text="PH - 0651-2276070"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="1dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:padding="1dp"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4419"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="dosa@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:inputType="textEmailAddress"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Dean of Undergraduate Studies (DUGS)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr.(Mrs.) Vibha Rani Gupta"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_phone"
+                                android:drawablePadding="3dp"
+                                android:text="PH-0651-2275338"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="1dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:padding="1dp"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4544"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="dugs@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:inputType="textWebEmailAddress"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Dean of Post Graduate Studies(DPGS)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr.(Mrs.) Nisha Gupta"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="0dp"
+                                android:background="@drawable/custom_input"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="10dp"
+                                android:padding="0dp"
+                                android:text="Ext - 4487"
+                                android:textColor="@color/black"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="dpgs@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:inputType="textWebEmailAddress"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Dean of Research, Innovation &amp; Entrepreneurship (DRIE)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dr. C. Jeganathan"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4835"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="drie@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="@color/red"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:text="Dean of Infrastructure and Planning (DoIP)"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person"
+                                android:drawablePadding="3dp"
+                                android:text="Dean of Infrastructure and Planning (DoIP)"
+                                android:textColor="@color/black"
+                                android:padding="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_phone"
+                                android:drawablePadding="3dp"
+                                android:text="PH - 0651-2275872"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="1dp"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/custom_input"
+                                android:padding="1dp"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_telephone"
+                                android:drawablePadding="3dp"
+                                android:text="Ext - 4625"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:padding="1dp"
+                                android:background="@drawable/custom_input"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_person_email"
+                                android:drawablePadding="3dp"
+                                android:text="doip@bitmesra.ac.in"
+                                android:padding="1dp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="0dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@drawable/custom_input"
+                                android:inputType="textWebEmailAddress"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</FrameLayout>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+
+    tools:context=".app.fragments.SignUpFragment">
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="162dp"
+        android:layout_marginTop="48dp"
+
+        android:src="@drawable/sign_up"
+        app:layout_constraintBottom_toTopOf="@+id/fullNameEt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/fullNameEt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="Full Name"
+        android:textColor="@color/white"
+        android:inputType="textPersonName"
+        android:textColorHint="@color/teal_900"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/emailEt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter College Email Id "
+        android:textColor="@color/white"
+        android:inputType="textEmailAddress"
+        android:textColorHint="@color/teal_900"
+        android:backgroundTint="@color/white"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/fullNameEt"
+        app:layout_constraintStart_toStartOf="@+id/fullNameEt"
+        app:layout_constraintTop_toBottomOf="@+id/fullNameEt" />
+
+    <EditText
+        android:id="@+id/collegeRollNumEt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="Enter Roll Number (BTECH/10XXX/XX)"
+        android:textColor="@color/white"
+        android:inputType="textPersonName"
+        android:textColorHint="@color/teal_900"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailEt"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/branchEt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="Enter Branch Name"
+        android:textColor="@color/white"
+        android:inputType="textPersonName"
+        android:textColorHint="@color/teal_900"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/collegeRollNumEt"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/mobileNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:textColor="@color/white"
+        android:hint="Mobile Number"
+        android:layout_marginTop="16dp"
+        android:inputType="phone"
+        android:textColorHint="@color/teal_900"
+        app:layout_constraintEnd_toEndOf="@+id/branchEt"
+        app:layout_constraintStart_toStartOf="@+id/branchEt"
+        app:layout_constraintTop_toBottomOf="@+id/branchEt" />
+
+    <EditText
+        android:id="@+id/passEt"
+        android:textColor="@color/white"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:hint="Password(minimum 6 characters)"
+        android:inputType="textPassword"
+        android:layout_marginTop="16dp"
+        android:textColorHint="@color/teal_900"
+        app:layout_constraintEnd_toEndOf="@+id/mobileNumber"
+        app:layout_constraintStart_toStartOf="@+id/mobileNumber"
+        app:layout_constraintTop_toBottomOf="@+id/mobileNumber" />
+
+    <EditText
+        android:id="@+id/cnfPassET"
+        android:textColor="@color/white"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:layout_marginTop="16dp"
+        android:textColorHint="@color/teal_900"
+        app:layout_constraintEnd_toEndOf="@+id/passEt"
+        app:layout_constraintStart_toStartOf="@+id/passEt"
+        app:layout_constraintTop_toBottomOf="@+id/passEt" />
+    <Button
+        android:id="@+id/mainsignUpBtn"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:backgroundTint="@color/white"
+        android:text="SIGN UP"
+        android:textSize="20sp"
+        android:textStyle="bold"
+
+        android:layout_marginTop="16dp"
+
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="20dp"
+
+        android:textColor="@color/primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cnfPassET" />
+
+
+
+    <TextView
+        android:id="@+id/OrTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/white"
+        android:text="OR"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainsignUpBtn" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="130dp"
+        android:layout_height="1dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/OrTv"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/OrTv"
+        app:layout_constraintTop_toTopOf="@id/OrTv"
+        />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="130dp"
+        android:layout_height="1dp"
+        android:background="@color/white"
+        android:layout_marginRight="4dp"
+        app:layout_constraintLeft_toRightOf="@id/OrTv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/OrTv"
+        app:layout_constraintBottom_toBottomOf="@id/OrTv"/>
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/black"
+        android:textColor="@color/white"
+
+
+        android:text="LOGIN"
+
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/OrTv" />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/closeBtn"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:layout_width="30dp"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:src="@drawable/closebutton"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        />-->
+
+    <ProgressBar
+        android:id="@+id/progBar"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:indeterminateTint="@color/primary"
+        android:visibility="invisible"
+        android:translationZ="4dp"
+        app:layout_constraintEnd_toEndOf="@+id/mainsignUpBtn"
+        app:layout_constraintBottom_toBottomOf="@+id/mainsignUpBtn"
+        app:layout_constraintStart_toStartOf="@+id/mainsignUpBtn"
+        app:layout_constraintTop_toTopOf="@id/mainsignUpBtn"
+
+
+
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
