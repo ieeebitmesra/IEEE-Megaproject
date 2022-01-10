@@ -24,7 +24,7 @@ const HomeComponent = () => {
                 <h1>
                     <TypeIt
                         getBeforeInit={(instance) => {
-                            instance.pause(1000).type("Making Bit Fantastic").pause(750).delete(6).pause(500).type("FuckingTastic !!!");
+                            instance.pause(1000).type("Making Bit Fantastic").pause(750).delete(9).pause(500).type("Sarcastic").pause(750).delete(9).pause(500).type("Charismatic").pause(750).delete(11).type('Enthusiastic').pause(750).delete(12).pause(500).type('Bombastic');
                             return instance;
                         }}
                         options={{

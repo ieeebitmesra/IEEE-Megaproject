@@ -95,7 +95,7 @@
 }
 
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 768px) {
   .item{
      width: 100%;
      /* min-height: 100%; */

@@ -28,7 +28,7 @@ const HomeComponent = () => {
     return (
         <>
        
-            <div style={{ position: "fixed" ,userSelect:"none"}}>Waitt...you expected some shitty dashboard? Draw your self and that's your fucking dashboard :/</div>
+            <div style={{ position: "fixed", userSelect: "none" }}>Waitt...you expected a boring dashboard? Just hold the cursor and Happy Drawing!!! ❤️:/</div>
             <ReactSketchCanvas
                 style={styles}
                 width="100%"

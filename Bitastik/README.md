@@ -60,10 +60,10 @@ WEB DEVELOPMENT (MERN STACK)
 <h3>IDEA</h3>
 <p>With the shift in the mode of learning and our lives being digitalized, the college experience has been nothing but an exhausting experience for all of us. After the voracious college expectation soon turned into disappointment, we decided to come to the following solution.
 
-BITASTIK a social media website for the students of BIT Mesra to cater to their day - to - day college needs.A culmination of multitudes of ideas and platforms into one.
+BITASTIK a social media platform for the students of BIT Mesra to cater to their day-to-day college needs. A culmination of multitudes of ideas and platforms into one.
 
-This app consists of an event to keep each one of you up to date with the latest happenings across the college without the fuss of being added to the newsrooms and various WhatsApp groups.Another key feature includes BIT notes that keep track of your to -do activities and makes your life hassle - free. 
-The most fun and exciting element of this app that catches your attention is the confession page which anonymously posts everything you want, from your daily rants to secret love confessions, thus adding much entertainment to your exhausting e - college life.
+This app consists of an event to keep each one of you up to date with the latest happenings across the college without the fuss of being added to the newsrooms and various WhatsApp groups. Another key feature includes BIT notes that keep track of your to-do activities and makes your life hassle-free. 
+The most fun and exciting element of this app that catches your attention is the confession page which anonymously posts everything you want, from your daily rants to secret love confessions, thus adding much entertainment to your exhausting e-college life.
 </p>
 
 
@@ -101,6 +101,7 @@ This section list any major frameworks/libraries used in our project. Here are a
 
 <h2>TEAM MENTOR</h2>
  Utkrisht sharma
+ He is the best mentor we ever had and he is super helpful and awesome ❤️
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
