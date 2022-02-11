@@ -20,7 +20,7 @@
     "gsap": "^3.9.1",
     "jquery": "^3.6.0",
     "mdbreact": "^5.2.0",
-    "node-sass": "^6.0.1",
+    "node-sass": "^7.0.0",
     "react": "^17.0.2",
     "react-ace": "^9.5.0",
     "react-bootstrap": "^2.0.3",
