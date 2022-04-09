@@ -21,7 +21,7 @@
     "dayz": "^2.9.1",
     "firebase": "^9.6.1",
     "framer-motion": "^5.5.5",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "moment-range": "^4.0.2",
     "mongodb": "^4.2.2",
     "mongoose": "^6.1.5",
