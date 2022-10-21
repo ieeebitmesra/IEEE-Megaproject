@@ -33,7 +33,7 @@
     "react-native-gesture-handler": "~2.1.0",
     "react-native-gesture-handler-old": "npm:react-native-gesture-handler@^1.10.2",
     "react-native-markdown-display": "^7.0.0-alpha.2",
-    "react-native-reanimated": "~2.3.1",
+    "react-native-reanimated": "~2.10.0",
     "react-native-restart": "^0.0.22",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
