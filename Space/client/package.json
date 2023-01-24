@@ -38,7 +38,7 @@
     "scrollmagic": "^2.0.8",
     "socket.io-client": "^4.4.0",
     "styled-components": "^5.3.3",
-    "ua-parser-js": "^1.0.2",
+    "ua-parser-js": "^1.0.33",
     "vh-check": "^2.0.5",
     "web-vitals": "^1.0.1",
     "yarn": "^1.22.17"
