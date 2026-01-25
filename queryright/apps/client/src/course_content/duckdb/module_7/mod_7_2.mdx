@@ -1,0 +1,68 @@
+# Extensions: Spatial, Search, and Beyond
+
+DuckDB’s core is small, but it can be expanded with **Extensions**. These are "Plugins" that add new powers to the database.
+
+---
+
+## 1. How to use Extensions
+
+You don't need to download anything manually. DuckDB downloads extensions on the fly when you ask for them.
+
+```sql
+INSTALL spatial;
+LOAD spatial;
+```
+
+---
+
+## 2. The `FTS` (Full-Text Search) Extension
+
+Traditional SQL uses `LIKE %word%`, which is very slow. The FTS extension allows you to build an "Index" of your text so you can search it millions of times faster.
+
+```sql
+-- Search for documents containing 'DuckDB' AND 'Analytical'
+SELECT title
+FROM (SELECT fts_main_documents.match_bm25(id, 'DuckDB Analytical') AS score, * FROM documents)
+WHERE score IS NOT NULL
+ORDER BY score DESC;
+```
+
+---
+
+## 3. The `Spatial` (GIS) Extension
+
+This allows you to work with coordinates (Lat/Long) and geometries.
+
+- **Example:** Find all sales that happened within 5 miles of a specific point.
+- It supports `ST_Distance`, `ST_Intersects`, and reading `.geojson` files.
+
+---
+
+## Real-World Example: Finding the Nearest Store
+
+A retail chain has 500 locations. They have a massive CSV of 1 million customers.
+
+- They load the `spatial` extension.
+- They use `ST_Point` to map every customer's Lat/Long.
+- In one query, they find every customer who lives more than 20 miles away from a store so they can target them with a specific "Home Delivery" ad.
+
+---
+
+## Hypothetical Scenario: The "Local Search Engine"
+
+A developer wants to build a search feature for 100,000 blog posts, but they don't want to manage a separate Elasticsearch cluster.
+
+- **The Solution:** They use the `fts` extension in DuckDB.
+- Now, their app has a Google-like search bar that is powered by a 50MB DuckDB file.
+
+## Exercises
+
+1. **Activation:** Which two commands do you need to run to use an extension?
+2. **Search:** Why is `fts_main_documents.match_bm25` better than `WHERE text LIKE '%word%'`?
+3. **Spatial:** What is one real-world use case for geographic (spatial) SQL?
+
+## Summary and Next Steps
+
+Extensions turn DuckDB into a Swiss Army Knife for data.
+
+Next, we look at **ENUMs and Custom Types**—how to enforce data integrity.

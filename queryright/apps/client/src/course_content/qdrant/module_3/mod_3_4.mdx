@@ -1,0 +1,40 @@
+# Dot Product: Similarity + Importance
+
+The Dot Product is a unique metric because it combines **Angle** and **Magnitude** (Length).
+
+---
+
+## The "Intensity" Factor
+
+- **High Dot Product:** The two vectors point in the same direction AND they are both "Strong" (long).
+- **Low Dot Product:** Either they point in different directions OR one of them is very "Weak" (short).
+
+---
+
+## When to use Dot Product
+
+It is the standard for **Recommendation Systems** (like YouTube or Netflix).
+
+**Example:**
+
+- **User Vector:** `[0.1, 0.9]` (Direction = Likes Horror, Length = Loves movies in general).
+- **Movie Vector:** `[0.1, 0.9]` (Direction = Horror Movie, Length = This is a Blockbuster).
+
+If a user _really_ loves movies, and the movie is a _huge_ hit, the Dot Product will be massive. If the user only _slightly_ cares about movies, the Dot Product will be smaller, even if the genre matches.
+
+---
+
+## Real-World Example: Neural Networks
+
+Almost all modern AI models use the Dot Product internally to decide which parts of a sentence are important. This is called **"Attention."**
+
+If you are using vectors specifically from a model that says "Use Dot Product," you should listen to it!
+
+---
+
+## Quick Exercises:
+
+1. **The Formula**: What happens if you multiply a vector by zero? What is its Dot Product with anything else?
+2. **Comparison**: How is Dot Product different from Cosine Similarity? (Hint: Does it care about the length of the vector?)
+3. **Draft**: Why would a "Blockbuster" movie have a longer vector length than an "Indie" movie in a recommendation system?
+   bay.

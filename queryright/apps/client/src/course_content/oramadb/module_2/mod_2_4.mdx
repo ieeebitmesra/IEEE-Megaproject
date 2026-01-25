@@ -1,0 +1,72 @@
+# Stopwords and Boosting
+
+Not all words are created equal. Some words are useless "noise," and some words are strictly more important than others.
+
+---
+
+## 1. Stopwords
+
+Stopwords are common words like "the", "and", "is", and "at."
+
+- Because they appear in almost **every** document, they are useless for search.
+- Orama filters these out by default to save memory and improve speed.
+- **You can also add your own:** If you have a search engine for "Coffee", the word "beans" might appear too often. You can add "beans" to your custom stopwords list.
+
+---
+
+## 2. Term Boosting
+
+Boosting allows you to make certain fields more important.
+
+- If a word appears in the **Title**, it should probably rank higher than if it appears in the **Description**.
+
+```javascript
+const results = await search(db, {
+  term: 'wireless headphones',
+  boost: {
+    title: 2, // The Title is twice as important
+    description: 1, // The Description is standard
+  },
+})
+```
+
+---
+
+## 3. Typo Tolerance
+
+Orama has built-in typo tolerance.
+
+- A search for "iPone" will still find "iPhone."
+- You can configure how "strict" this is using the `tolerance` parameter.
+
+---
+
+## Real-World Example: News Search
+
+A news website wants to prioritize "Breaking News" headlines.
+
+- They boost the `headline` field by **1.5**.
+- They boost the `category` field (like "URGENT") by **2.0**.
+- This ensures that when a user searches for a keyword, the most important alerts appear at the top of the list, even if the keyword appears many times in the body of a less important article.
+
+---
+
+## Hypothetical Scenario: The "Junk" Search
+
+A user keeps searching for the word "What is the best way to..."
+
+- **The Result:** Orama ignores "What", "is", "the", and "to".
+- It only performs the search on the words **"best way"**.
+- This makes the search faster because it has fewer keywords to match.
+
+## Exercises
+
+1. **Definitions:** What is a "Stopword"?
+2. **Relevancy:** Why would you boost a `title` field higher than a `body` field?
+3. **Typos:** If you want to find "Apple" when searching for "Appel," which feature are you using?
+
+## Summary and Next Steps
+
+Boosting and stopwords turn a "Basic" search into a "Professional" search.
+
+We wrap up Module 2 in the next lesson.

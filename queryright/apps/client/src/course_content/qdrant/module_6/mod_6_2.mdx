@@ -1,0 +1,46 @@
+# Chunking Strategies
+
+You cannot turn a 500-page book into a **single** vector. If you did, the "Meaning" would be too diluted (it's about too many things).
+
+Instead, you must **Chunk** your data.
+
+---
+
+## What is a Chunk?
+
+A Chunk is a small piece of text (usually 300 to 1,000 words). Each chunk becomes a separate **Point** in Qdrant.
+
+### Popular Strategies:
+
+1. **Fixed Size:** Split every 500 characters. (Simple, but might cut a sentence in half).
+2. **Recursive / Paragraph:** Split by paragraphs. (Keeps context together).
+3. **Overlapping:** Split by 500 characters, but include the last 50 characters of the previous chunk. (Ensures that if a meaning is split across two chunks, both "Points" have enough context to be found).
+
+---
+
+## Real-World Example: Legal Contracts
+
+In a legal contract, a single sentence in the middle can be the most important part.
+
+- **Bad Chunking:** Splitting by page. The vector for "Page 50" might focus on the general topic of "Insurance" and miss the tiny sentence about "Catastrophic Failure."
+- **Good Chunking:** Small, overlapping chunks. Each chunk has its own vector, ensuring that tiny sentence is "Findable" by Qdrant.
+
+---
+
+## Hypothetical Scenario: The "Lost Context"
+
+A developer chunks a book by every 10 words.
+Search: _"Who is the main character?"_
+Qdrant finds: `"...Harry walked into the room. He was very tired..."` (Chunk: "He was very tired").
+The LLM sees "He was very tired" but doesn't know who "He" is!
+
+**Lesson:** Chunks must be large enough to be self-explanatory.
+
+---
+
+## Quick Exercises:
+
+1. **Definition**: What is "Chunking" in the context of RAG?
+2. **Overlap**: Why do we often "Overlap" chunks (e.g., repeating the last sentence of the previous chunk)?
+3. **Trade-off**: If your chunks are too **Large**, the vector is "unfocused." If they are too **Small**, they lack context. What is a "Safe" starting size for a chunk (in words)?
+   ridge.

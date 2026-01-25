@@ -1,0 +1,92 @@
+# Filtering Grouped Data with HAVING Clause
+
+We have learned how to group data using `GROUP BY` to get summaries like "Total Sales by Region." But often, we don't want to see _every_ group. We might only care about regions with sales over $10,000, or authors who have written more than 5 books.
+
+You might be tempted to use the `WHERE` clause for this, but `WHERE` has a limitation: it cannot filter based on aggregate functions (like `SUM` or `COUNT`). This is because `WHERE` runs _before_ the grouping happens. To filter _after_ the grouping, we use the `HAVING` clause.
+
+## Understanding the HAVING Clause
+
+The `HAVING` clause was added to SQL specifically because the `WHERE` keyword could not be used with aggregate functions. It works almost exactly like `WHERE`, but it applies to the **groups** created by `GROUP BY`, not the individual rows.
+
+### Basic Syntax
+
+```sql
+SELECT column_name, AGGREGATE_FUNCTION(column_name)
+FROM table_name
+GROUP BY column_name
+HAVING AGGREGATE_FUNCTION(column_name) condition value;
+```
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### Scenario 1: Finding Prolific Authors
+
+We want to find authors who have written more than 3 books.
+
+**Query:**
+
+```sql
+SELECT author_id, COUNT(*)
+FROM books
+GROUP BY author_id
+HAVING COUNT(*) > 3;
+```
+
+**Logic Flow:**
+
+1.  **FROM books**: Get all book data.
+2.  **GROUP BY author_id**: Pile the books by author.
+3.  **COUNT(\*)**: Count the books in each pile.
+4.  **HAVING COUNT(\*) > 3**: Look at the counts. If a pile has 3 or fewer books, discard it. Keep only the piles with > 3.
+
+### Scenario 2: High-Value Customers
+
+We want to identify "VIP" customers—those who have spent a total of more than $200.
+
+**Query:**
+
+```sql
+SELECT customer_id, SUM(total_amount)
+FROM orders
+GROUP BY customer_id
+HAVING SUM(total_amount) > 200.00;
+```
+
+### Scenario 3: Categories with Low Stock
+
+We want to find which book categories are running low on stock. Specifically, categories where the _average_ stock quantity per book is less than 10.
+
+**Query:**
+
+```sql
+SELECT category, AVG(stock_quantity)
+FROM books
+GROUP BY category
+HAVING AVG(stock_quantity) < 10;
+```
+
+## Exercises and Practice Activities
+
+To solidify your understanding of `HAVING`, complete the following exercises.
+
+### Exercise 1: Popular Genres
+
+Write a query to find genres that have more than 100 books listed in the `Books` table.
+
+### Exercise 2: Big Spenders
+
+Write a query to find customers (by `customer_id`) who have placed more than 5 orders.
+
+### Exercise 3: Expensive Categories
+
+Write a query to find categories where the average price of a book is greater than $50.00.
+
+## Concluding Thoughts
+
+In this lesson, we learned how to filter our grouped data using `HAVING`. This allows us to ask questions about the _aggregates_ themselves, rather than just the raw data.
+
+It is very common for beginners to confuse `WHERE` and `HAVING`. In the next lesson, we will dedicate an entire chapter to distinguishing between these two clauses, ensuring you know exactly when to use which.
+
+=START_QUESTIONS=Which clause is used to filter groups based on aggregate values?@@Can you use WHERE to filter by COUNT(\*)?@@Does HAVING run before or after GROUP BY?@@What is the main difference between WHERE and HAVING? =END_QUESTIONS=

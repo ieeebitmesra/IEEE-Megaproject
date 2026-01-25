@@ -1,0 +1,59 @@
+# Similarity Algorithms
+
+"Show me someone like Alice." **Similarity Algorithms** use the patterns of your relationships to calculate a "Score" between two nodes.
+
+---
+
+## 1. Node Similarity (Jaccard)
+
+The Jaccard Similarity index compares the number of "Shared Neighbors" against the "Total Neighbors."
+
+- **Example:** If User A and User B both follow 9 of the same 10 people, they are 90% similar.
+
+---
+
+## 2. Cosine Similarity
+
+Used when your relationships have **Weights** (numbers).
+
+- **Example:** User A rated "The Matrix" a 5, and "Titanic" a 1. User B gave them the exact same scores. They are perfectly similar in their tastes.
+
+---
+
+## 3. Creating "Knowledge" from Similarity
+
+Once you find that two nodes are similar, you can draw a **new relationship** between them: `[:SIMILAR_TO]`. This is called **Graph Completion**.
+
+---
+
+## Real-World Example: "Users Also Liked..."
+
+An e-commerce site uses GDS to find similar shoppers.
+
+- Customer A buys `Flour`, `Sugar`, and `Eggs`.
+- Customer B buys `Flour` and `Sugar`.
+- The **Node Similarity** algorithm flags them as highly similar.
+- The site then suggests `Eggs` to Customer B.
+
+---
+
+## Hypothetical Scenario: The "Movie Buddy"
+
+A user is lonely and wants to find someone with the exact same taste in movies.
+
+- **The Graph:** 1,000,000 users and 50,000 movies.
+- **The Problem:** It's too much data for a manual search.
+- **The Solution:** The developer runs **Cosine Similarity** on the "Movie Rating" weights.
+- The algorithm ignores everyone who just likes "Popular" movies and finds the one person who also loves the same 3 obscure Japanese documentaries from the 1970s.
+
+## Exercises
+
+1. **Math:** If User A has 4 friends and User B has 4 friends, and they share 2 friends in common, what is their Jaccard Similarity? (Shared / Total distinct).
+2. **Usage:** When should you use Cosine Similarity instead of Jaccard?
+3. **Logic:** How does "Similarity" power a recommendation engine?
+
+## Summary and Next Steps
+
+Algorithms turn your data into intelligence.
+
+We wrap up Module 5 in the next lesson.

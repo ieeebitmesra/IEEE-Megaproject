@@ -1,0 +1,50 @@
+{
+  "method": "POST",
+  "path": "/api/workflows/sendVerificationEmails",
+  "originalPath": "/api/workflows/sendVerificationEmails",
+  "query": {},
+  "params": {},
+  "body": {
+    "type": "json",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": ["email", "url"]
+    },
+    "example": {
+      "email": "a@a.com",
+      "url": "https://localhost:4000"
+    },
+    "signature": "email:string|url:string"
+  },
+  "customHeaders": {
+    "content-type": "application/json",
+    "user-agent": "PostmanRuntime/7.51.0",
+    "accept": "*/*",
+    "cache-control": "no-cache",
+    "postman-token": "1f38d195-4698-491f-a5b2-966e7227b7da",
+    "host": "localhost:4000",
+    "accept-encoding": "gzip, deflate, br",
+    "connection": "keep-alive",
+    "content-length": "64",
+    "cookie": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwYTNlYjE4Ny00YThlLTRmODUtYmM4MS01MTA0MDAzODVhMDUiLCJpYXQiOjE3NjY4Mjg4MDgsImV4cCI6MTc2NzQzMzYwOH0.NAI5ifMEnqLxL330LasLKQfPxiHXiiFe481u3dynYzo"
+  },
+  "response": {
+    "statusCode": 200,
+    "headers": {
+      "access-control-allow-origin": "http://localhost:3000",
+      "access-control-allow-credentials": "true"
+    },
+    "body": {}
+  },
+  "timestamp": "2026-01-01T21:20:29.957Z",
+  "lastUpdated": "2026-01-01T21:20:29.957Z"
+}

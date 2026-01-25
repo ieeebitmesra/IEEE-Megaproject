@@ -1,0 +1,70 @@
+# PIVOT and UNPIVOT
+
+Data is often stored in a "tidy" format (long and thin), but humans like to read data in a "summary" format (short and wide). DuckDB provides first-class `PIVOT` and `UNPIVOT` statements to handle this transformation.
+
+---
+
+## 1. PIVOT (Rows to Columns)
+
+Imagine a table of sales:
+| Year | Quarter | Sales |
+| :--- | :--- | :--- |
+| 2021 | Q1 | 100 |
+| 2021 | Q2 | 150 |
+
+You want to see:
+| Year | Q1 | Q2 |
+| :--- | :--- | :--- |
+| 2021 | 100 | 150 |
+
+```sql
+PIVOT sales_table
+ON Quarter
+USING sum(Sales);
+```
+
+**DuckDB Secret:** Unlike most databases, DuckDB's PIVOT is "Dynamic." If you add a "Q3" to your data, DuckDB will automatically create a "Q3" column without you changing the SQL code.
+
+---
+
+## 2. UNPIVOT (Columns to Rows)
+
+What if you receive a spreadsheet with columns for "January," "February," and "March"? This is hard to query. You want to turn it back into a "Date" column and a "Value" column.
+
+```sql
+UNPIVOT spread_sheet
+ON Jan, Feb, Mar
+INTO
+    NAME Month
+    VALUE Revenue;
+```
+
+---
+
+## Real-World Example: Survey Results
+
+A survey has questions: "Q1", "Q2", "Q3".
+
+- The raw data has one column per question.
+- To analyze it, you **UNPIVOT** it so you have a `question_id` column and an `answer` column. Now you can easily run `GROUP BY question_id`.
+
+---
+
+## Hypothetical Scenario: The "Automatic" Month-over-Month
+
+A manager wants a report showing Sales by "Product Category" across every Month of the year.
+
+- They expect the developer to manually write `SUM(CASE WHEN Month='Jan' THEN Sales END) AS Jan...` for every month.
+- **The DuckDB Way:** The developer uses `PIVOT`. When January ends and February starts, the report adds the "Feb" column automatically.
+
+## Exercises
+
+1. **Direction:** Does PIVOT turn "Rows into Columns" or "Columns into Rows"?
+2. **Aggregates:** Which part of the PIVOT query defines the math (e.g., sum, avg)?
+3. **Difference:** Why is DuckDB's PIVOT easier to use than standard SQL Case statements?
+
+## Summary and Next Steps
+
+PIVOT and UNPIVOT are the keys to building beautiful reports.
+
+But what if your two tables don't have _exact_ matching keys? What if you need to join a "Timestamp" with the "Most Recent Price" from a different table? Next, we look at the magic of **ASOF Joins**.

@@ -1,0 +1,76 @@
+# DuckDB + Pandas/Arrow (Zero-Copy)
+
+One of DuckDB's biggest strengths is its integration with the Python data ecosystem. It doesn't just "talk" to Pandas and Apache Arrow—it **shares its memory** with them.
+
+---
+
+## 1. Zero-Copy Sharing
+
+In most databases:
+
+1. You run a query.
+2. The DB converts the result to a string/JSON.
+3. Your Python code parses that string back into a Dataframe.
+   _This takes a lot of time and memory._
+
+In DuckDB + Arrow:
+
+- DuckDB puts the result in a specific memory layout.
+- Python just "points" to that same spot in RAM.
+- **The result:** Moving 10 million rows from DuckDB to a Pandas Dataframe takes **0.00 seconds.**
+
+---
+
+## 2. Using DuckDB on DataFrames
+
+You can run SQL directly on Python variables!
+
+```python
+import duckdb
+import pandas as pd
+
+# 1. Create a Pandas DataFrame
+my_df = pd.read_csv("data.csv")
+
+# 2. Query it with DuckDB
+result = duckdb.query("SELECT * FROM my_df WHERE score > 90").df()
+```
+
+_Note: DuckDB looks in your Python variables automatically for something named 'my_df'._
+
+---
+
+## 3. Apache Arrow: The Future
+
+While Pandas is great, **Apache Arrow** is the modern standard for fast data transfer. DuckDB and Arrow use almost identical memory formats, making them the ultimate pair for data engineering pipelines.
+
+---
+
+## Real-World Example: Cleaning Data in a Notebook
+
+A data engineer uses Pandas to clean some messy text (Regex, string stripping).
+
+- Once the text is clean, they need to run several complex aggregations (Joins, Window functions).
+- They find Pandas code for complex joins to be ugly and slow.
+- **The Solution:** They switch to DuckDB for the "Final SQL Step." They get the speed of DuckDB and the convenience of Pandas in the same script.
+
+---
+
+## Hypothetical Scenario: The "RAM Crash"
+
+A scientist tries to merge two 4GB Dataframes in Pandas. Their laptop has 8GB of RAM.
+
+- **The Result:** The laptop freezes and the kernel crashes because Pandas makes a copy of the data during the join (4GB + 4GB + 8GB copy = 16GB needed).
+- **The Fix:** They use DuckDB to join the Dataframes. DuckDB's "Spill-to-disk" capability allows it to run the join even if the data is larger than your RAM.
+
+## Exercises
+
+1. **Terminology:** What does "Zero-Copy" mean?
+2. **Syntax:** In a Python script, how do you convert a DuckDB query result into a Pandas Dataframe? (What is the method name?)
+3. **Logic:** Why is DuckDB often faster than Pandas for joining large tables?
+
+## Summary and Next Steps
+
+DuckDB is the "SQL Engine" for Python.
+
+But what if your data is stuck in a "real" server like PostgreSQL? Next, we'll see how DuckDB can reach out and **Directly Query External Databases**.

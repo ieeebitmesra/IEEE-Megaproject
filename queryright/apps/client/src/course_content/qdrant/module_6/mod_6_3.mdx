@@ -1,0 +1,53 @@
+# The Context Window
+
+Once Qdrant finds the relevant bits of data, we have to "Stuff" them into the LLM's prompt. This is called the **System Prompt** or **Context Window.**
+
+---
+
+## How to build the Prompt
+
+Your app constructs a message like this:
+
+```text
+You are a helpful assistant.
+Use the following context to answer the user's question.
+If the answer is not in the context, say "I don't know."
+
+CONTEXT:
+---
+[Result 1 from Qdrant]
+---
+[Result 2 from Qdrant]
+---
+
+QUESTION:
+"User's Question here"
+```
+
+---
+
+## The "Token Limit" Problem
+
+Every LLM has a "Context Window" limit (e.g., 128,000 tokens).
+If you find 50 matches in Qdrant and try to stuff them all in, the LLM will error out or "Forget" the middle part.
+
+**Pro-tip:** This is why we use `limit: 3` or `limit: 5` in our Qdrant search. We only want the **absolute best** information.
+
+---
+
+## Real-World Example: Coding Assistants
+
+When you ask an AI about your code:
+
+1. It searches Qdrant for similar library documentation.
+2. It injects that documentation into the prompt.
+3. The AI "learns" the library in milliseconds and writes the code for you.
+
+---
+
+## Quick Exercises:
+
+1. **The Role**: Why do we tell the AI "If the answer is not in the context, say I don't know"? (What happens if we don't?)
+2. **Size**: If an LLM has a small context window, do you want _Fewer_ or _More_ results from Qdrant?
+3. **Logic**: Why is it better to send 3 highly relevant paragraphs than 30 moderately relevant ones?
+   beach.

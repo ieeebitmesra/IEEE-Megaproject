@@ -1,0 +1,72 @@
+# Proximity and Slop
+
+Distance matters. In a search for "Apple Computer," a document that says "Apple announced a new Computer" is much more relevant than a document that has "Apple" on page 1 and "Computer" on page 50.
+
+---
+
+## 1. Match Phrase with Slop
+
+We already learned that `match_phrase` requires words to be in order. The `slop` parameter allows us to loosen that rule.
+
+```http
+GET /articles/_search
+{
+  "query": {
+    "match_phrase": {
+      "content": {
+        "query": "quick fox",
+        "slop": 2
+      }
+    }
+  }
+}
+```
+
+_If a document says "quick brown fox," the distance is 1. This query will match._
+
+---
+
+## 2. Using Proximity for Boosting
+
+The most powerful way to use proximity is to "Nudge" results.
+
+1. Use a **`must`** block with a regular `match` query (so you find all docs with both words).
+2. Use a **`should`** block with a `match_phrase` query (so docs where the words are close together get a higher score).
+
+---
+
+## 3. Intervals (Advanced)
+
+Elasticsearch also has an `intervals` query that allows for very complex rules, like: "Find 'Apple' followed by 'Keynote', but only if they are within 10 words of each other and 'iPhone' doesn't appear between them."
+
+---
+
+## Real-World Example: Legal Document Search
+
+A lawyer is searching for "contract breach."
+
+- A contract might say "breach of the signed contract."
+- The words are 3 positions apart.
+- A standard `match_phrase` would miss this. A `match_phrase` with `slop: 5` would find it and rank it as highly relevant.
+
+---
+
+## Hypothetical Scenario: The "Reversed" Phrase
+
+Search term: "Jump Fox". Document: "The Fox Jumps".
+
+- To get from "Jump Fox" to "Fox Jumps", you have to move the words past each other.
+- **The Rule:** Each move (swap) counts as **2 edits**.
+- To match a reversed phrase, you need at least `slop: 2`.
+
+## Exercises
+
+1. **Calculate:** If a document says "The cat in the hat," and you search for "cat hat" with a `match_phrase`, what is the minimum `slop` needed to match?
+2. **Strategy:** Why is it better to put phrase matches in a `should` block rather than a `must` block for a general search?
+3. **Difference:** What is the difference between `match` and `match_phrase` with a very large `slop`?
+
+## Summary and Next Steps
+
+You've completed the Relevancy module! You can now tune your search engine to behave exactly how your users expect.
+
+In **Module 7**, we conclude our Elasticsearch journey with **Mapping Best Practices and Security**.

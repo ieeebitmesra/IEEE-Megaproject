@@ -1,0 +1,131 @@
+# Date Aggregation Operators
+
+Date aggregation operators are a suite of expressions that allow you to extract specific components from Date objects or format them into readable strings. In data analysis, you rarely group by the exact millisecond a record was created. Instead, you typically want to aggregate data by year, month, day, or day of the week. These operators are essential for time-series analysis and reporting.
+
+## Understanding Date Operator Syntax
+
+Most date operators take a single argument: the date expression (usually a field path like `"$createdAt"`). They return a number representing the requested part of the date.
+
+**Common Operators:**
+
+- `$year`: Returns the year (e.g., 2023).
+- `$month`: Returns the month as a number (1-12).
+- `$dayOfMonth`: Returns the day of the month (1-31).
+- `$dayOfWeek`: Returns the day of the week (1=Sunday, 7=Saturday).
+- `$hour`, `$minute`, `$second`: Return time components.
+
+**Syntax:**
+
+```javascript
+{
+  $year: '$dateField'
+}
+{
+  $month: '$dateField'
+}
+```
+
+## The `$dateToString` Operator
+
+While extraction operators return numbers, `$dateToString` converts a date object into a formatted string. This is incredibly useful for generating readable reports or grouping by a custom date format (e.g., "YYYY-MM").
+
+**Syntax:**
+
+```javascript
+{
+  $dateToString: {
+    format: "%Y-%m-%d", // Format string
+    date: "$dateField"  // The date to format
+  }
+}
+```
+
+## Practical Examples and Demonstrations
+
+### Scenario 1: Grouping Sales by Month
+
+**Context:** We have a sales collection and want to see the total revenue for each month, regardless of the year.
+
+**Sample Data:** `sales` collection
+
+```json
+[
+  { "_id": 1, "amount": 100, "date": ISODate("2023-01-15T10:00:00Z") },
+  { "_id": 2, "amount": 200, "date": ISODate("2023-01-20T14:00:00Z") },
+  { "_id": 3, "amount": 150, "date": ISODate("2023-02-05T09:00:00Z") }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.sales.aggregate([
+  {
+    $group: {
+      _id: { $month: '$date' }, // Group by month number (1, 2, etc.)
+      totalRevenue: { $sum: '$amount' },
+    },
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[
+  { "_id": 1, "totalRevenue": 300 }, // January
+  { "_id": 2, "totalRevenue": 150 } // February
+]
+```
+
+### Scenario 2: Weekly Activity Report
+
+**Context:** We want to analyze user activity to see which day of the week is busiest.
+
+**Pipeline Code:**
+
+```javascript
+db.sales.aggregate([
+  {
+    $group: {
+      _id: { $dayOfWeek: '$date' }, // 1=Sun, 2=Mon, ...
+      transactionCount: { $sum: 1 },
+    },
+  },
+  { $sort: { _id: 1 } },
+])
+```
+
+### Scenario 3: Formatting Dates for Reports
+
+**Context:** We want to output a list of sales with a friendly date string like "2023-01-15".
+
+**Pipeline Code:**
+
+```javascript
+db.sales.aggregate([
+  {
+    $project: {
+      amount: 1,
+      dateString: {
+        $dateToString: { format: '%Y-%m-%d', date: '$date' },
+      },
+    },
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[
+  { "_id": 1, "amount": 100, "dateString": "2023-01-15" },
+  { "_id": 2, "amount": 200, "dateString": "2023-01-20" }
+]
+```
+
+## Summary
+
+Date operators transform raw timestamps into meaningful time buckets. Whether you are building a monthly revenue chart or analyzing weekly traffic patterns, these operators provide the granularity needed for effective temporal analysis.
+
+In the next lesson, we will explore **Conditional Expressions (`$cond`, `$switch`)**, which allow us to add if-then-else logic directly into our aggregation pipelines.

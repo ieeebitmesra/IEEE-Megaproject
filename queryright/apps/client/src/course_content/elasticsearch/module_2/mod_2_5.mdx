@@ -1,0 +1,74 @@
+# Segments, Commits, and Refresh
+
+How exactly does a document go from a JSON request to being "searchable"? Elasticsearch is "Near Real-Time" (NRT), meaning there is a slight delay. Let's look at why.
+
+---
+
+## 1. The Write Process (The "Buffer")
+
+When you index a document:
+
+1. It is written to an **In-memory Buffer**.
+2. It is simultaneously written to a **Translog** (Transaction Log) on disk. This ensures that if the server crashes, the data isn't lost.
+
+_At this stage, the document is NOT searchable yet._
+
+---
+
+## 2. The Refresh (Making it Searchable)
+
+By default, every **1 second**, Elasticsearch "refreshes" the index.
+
+- The contents of the in-memory buffer are written into a new **Segment** in the filesystem cache.
+- The document is now **Searchable**.
+
+**Note:** Segments are immutable (they never change).
+
+---
+
+## 3. The Flush (Making it Permanent)
+
+Every 30 minutes (or when the translog is too big), a **Flush** occurs.
+
+- The segments in the filesystem cache are officially committed to the physical disk.
+- The Translog is cleared.
+
+---
+
+## 4. Segment Merging
+
+Over time, you'll end up with hundreds of tiny segments. This would make searching slow.
+Elasticsearch runs a background process to **merge** small segments into larger ones. During this process, "deleted" documents (which are just marked for deletion in the old segments) are finally purged.
+
+---
+
+## Real-World Example: The "Immediate" Search Failure
+
+A developer writes a script:
+
+1. `PUT /users/_doc/1 { "name": "Alice" }`
+2. `GET /users/_search?q=Alice`
+
+Sometimes, step 2 returns 0 results!
+**Why?** Because step 2 happened only 5 milliseconds after step 1—_before_ the 1-second refresh interval.
+
+---
+
+## Hypothetical Scenario: The Huge Bulk Upload
+
+You are uploading 50 million records.
+
+- **The Problem:** Refreshing every 1 second causes hundreds of tiny segments, slowing down the upload.
+- **The Solution:** Temporarily set `"index.refresh_interval": -1` (turn it off). Once the upload is done, turn it back on and run a "Force Merge."
+
+## Exercises
+
+1. **Terminology:** What is a "near real-time" search? How long is the default delay?
+2. **Persistence:** If the power goes out before a "Flush," where does Elasticsearch look for the missing data when it restarts?
+3. **Immutability:** Can you change a document inside an existing segment? (Yes/No).
+
+## Summary and Next Steps
+
+Understanding segments and refreshes helps you tune Elasticsearch for either fast indexing or fast searching.
+
+Now that we understand how the data is stored and analyzed, we are ready for **Module 3: Advanced Querying and Filtering**, where we'll learn to handle complex search logic.

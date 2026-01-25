@@ -1,0 +1,60 @@
+# Connecting DuckDB to BI Tools
+
+Business Intelligence (BI) tools are what decision-makers use to see charts and graphs. DuckDB fits into this world through **JDBC/ODBC** drivers and direct integrations.
+
+---
+
+## 1. The MotherDuck Connection
+
+Because DuckDB is a local file (like SQLite), connecting it to a cloud-based BI tool (like Metabase Cloud) can be tricky.
+
+- **The Solution:** Many people use **MotherDuck**.
+- You upload your DuckDB file to MotherDuck, and MotherDuck provides a standard database connection string (URL) that any BI tool can use.
+
+---
+
+## 2. Metabase (The Open Source Powerhouse)
+
+Metabase is a popular tool for building dashboards.
+
+- To connect a local DuckDB file to a local instance of Metabase, you use the **DuckDB Driver for Metabase**.
+- You simply point Metabase to the file path: `/home/user/my_data.db`.
+
+---
+
+## 3. Why DuckDB is Great for BI
+
+Traditional BI tools struggle with "Large Local Files." If you try to open a 5GB CSV in Tableau, it might crash.
+
+- But if you connect Tableau to DuckDB, and DuckDB queries that 5GB file using **Columnar Scanning**, your charts will load in milliseconds.
+
+---
+
+## Real-World Example: The Marketing Dashboard
+
+A marketing team needs to see "Cost Per Click" (CPC) across 15 different advertising platforms.
+
+- They download 15 CSVs every morning.
+- DuckDB joins these 15 CSVs in one query.
+- Metabase displays a "Global CPC" chart.
+- The whole process, from raw CSV to final chart, takes less than 1 second.
+
+---
+
+## Hypothetical Scenario: The "Serverless" Dashboard
+
+Imagine you want a dashboard but don't want to pay $50/month for a database server.
+
+- **The Solution:** Host a small DuckDB file on a cheap VPS and run Metabase on that same VPS. DuckDB's low memory footprint makes it perfect for "Mini-Servers."
+
+## Exercises
+
+1. **MotherDuck:** Why is it difficult to connect a _local_ DuckDB file to a _cloud_ BI tool?
+2. **Speed:** Why is "Columnar Scanning" beneficial for dashboards?
+3. **Setup:** If you wanted to build a free dashboard, which BI tool would you choose to pair with DuckDB?
+
+## Summary and Next Steps
+
+Connecting to BI tools bridges the gap between the coder and the CEO.
+
+In the next lesson, we look at **Evidence.dev**, a new way to build dashboards using nothing but Markdown and DuckDB.

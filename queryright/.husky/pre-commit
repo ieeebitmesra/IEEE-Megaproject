@@ -1,0 +1,15 @@
+#!/bin/sh
+
+echo "🧹 Running lint-staged..."
+npx lint-staged
+
+if [ $? -ne 0 ]; then
+    echo "❌ Linting failed. Commit aborted."
+    exit 1
+fi
+
+# ❌ REMOVED the 'turbo run build' section
+# Building locally on every commit is too slow and fragile.
+
+echo "✅ Linting passed. Commit allowed."
+exit 0

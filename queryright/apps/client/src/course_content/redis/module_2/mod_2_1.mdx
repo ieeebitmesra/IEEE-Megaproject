@@ -1,0 +1,100 @@
+# Lists: Implementing Queues and Stacks
+
+In the previous module, we looked at Strings and Hashes. While these are great for individual pieces of data, many applications need to manage **Ordered Collections**. This is where **Redis Lists** shine.
+
+A Redis List is a simple list of strings, sorted by insertion order. You can add elements to the head (left) or the tail (right) of the list.
+
+## Why Use Redis Lists?
+
+- **Message Queues:** Storing tasks that need to be processed by a background worker.
+- **Activity Feeds:** Showing the latest updates from people a user follows.
+- **Stacks (LIFO):** Implementing "Undo" functionality.
+- **Recent Items:** Keeping track of the last 5 products a user viewed.
+
+---
+
+## List Operations
+
+Lists use commands that start with an "L" or an "R".
+
+### 1. Adding Elements
+
+You can push elements to the Left (`LPUSH`) or Right (`RPUSH`).
+
+```bash
+# Add tasks to a work queue (to the right)
+RPUSH tasks "send_email"
+RPUSH tasks "resize_image"
+RPUSH tasks "generate_pdf"
+```
+
+### 2. Removing and Getting Elements
+
+Similarly, you can "pop" elements from either end. This combined with `LPUSH`/`RPUSH` is how you build queues and stacks.
+
+```bash
+# Process the oldest task (the one pushed first)
+LPOP tasks
+# Output: "send_email"
+```
+
+### 3. Retrieving a Range of Elements
+
+Unlike `LPOP`, `LRANGE` allows you to look at the list without removing anything.
+
+```bash
+# Get the first 10 items (index 0 to 9)
+LRANGE tasks 0 9
+
+# Get the entire list (0 to -1 means "start to finish")
+LRANGE tasks 0 -1
+```
+
+### 4. Trimming Lists
+
+This is a powerful command for keeping lists at a manageable size.
+
+```bash
+# Keep only the most recent 100 items, discard the rest
+LTRIM my_feed 0 99
+```
+
+---
+
+## Real-World Example: Background Job Processing
+
+Imagine you have a web app where users can upload photos. Resizing a photo takes time, so you don't want the user to wait.
+
+1. **The App:** User uploads a photo. The app saves the photo and runs:
+   `RPUSH photo_tasks "photo_id_7788"`
+2. **The Worker:** A separate program (worker) runs in the background. It uses a "Blocking Pop" command:
+   `BLPOP photo_tasks 0`
+   - `BLPOP` is like `LPOP`, but if the list is empty, it _waits_ (blocks) until something is added.
+3. **The Result:** The worker immediately sees the new task, resizes the photo, and the user's experience remains fast.
+
+---
+
+## Hypothetical Scenario: The "Recent Search" Feature
+
+You want to show users the last 5 things they searched for on your e-commerce site.
+
+- **Step 1:** When a user searches for "Mechanical Keyboard", you run:
+  `LPUSH user:123:searches "Mechanical Keyboard"`
+- **Step 2:** To make sure you only show 5 items, you run:
+  `LTRIM user:123:searches 0 4`
+- **Step 3:** Next time the user clicks the search bar, you fetch the list:
+  `LRANGE user:123:searches 0 -1`
+
+Redis handles this list manipulation in constant time, meaning it's just as fast whether the user has 5 searches or 5,000,000 (though `LTRIM` keeps it at 5!).
+
+## Exercises
+
+1. **Queue Simulation:** Use `RPUSH` to add "Alice", "Bob", and "Charlie" to a list called `waiting_room`. Use `LPOP` once. Who is left in the list?
+2. **Stack Simulation:** Use `LPUSH` to add three book titles to a list called `my_stack`. Use `LPOP` to remove the _last_ book you added. This represents a "Last-In, First-Out" (LIFO) stack.
+3. **Range Practice:** Create a list with 10 numbers (1 to 10). Use `LRANGE` to retrieve only the middle four numbers (index 3 to 6).
+
+## Summary and Next Steps
+
+Redis Lists are the foundation of many powerful features like task queues and activity streams. Their ability to handle operations at both ends of the list makes them incredibly versatile for both FIFO (Queue) and LIFO (Stack) patterns.
+
+Next, we will look at **Sets**, which are similar to lists but with two key differences: they are unordered, and every element must be **unique**.

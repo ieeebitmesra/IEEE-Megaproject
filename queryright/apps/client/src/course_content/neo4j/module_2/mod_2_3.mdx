@@ -1,0 +1,65 @@
+# Deep Dive: Relationships
+
+Relationships are what make Neo4j a Graph Database. They have **Types**, **Directions**, and **Properties**.
+
+---
+
+## 1. Directed vs. Undirected
+
+In Neo4j, all relationships **must** be stored with a direction.
+
+- `(A)-[:PARENT_OF]->(B)` (Directed).
+- `(A)-[:FRIEND_WITH]-(B)` (Undirected in a query, but stored as one direction behind the scenes).
+
+_Tip: If the relationship is always mutual (like a marriage), just store it in one direction and query it without a direction._
+
+---
+
+## 2. Multiple Relationships
+
+Two nodes can have multiple connections.
+
+- `(User)-[:BOUGHT]->(Product)`
+- `(User)-[:REVIEWED]->(Product)`
+- `(User)-[:WISH_LISTED]->(Product)`
+
+---
+
+## 3. Relationship Properties
+
+You can store data **on the relationship itself**.
+
+- `(p:Person)-[:WORKS_AT {salary: 50000, since: 2020}]->(c:Company)`
+
+---
+
+## Real-World Example: Flight Booking
+
+A flight between London and New York.
+
+- Nodes: `City {name: "London"}`, `City {name: "New York"}`.
+- Relationship: `[:FLIGHT {price: 400, airline: "British Airways", distance: 3450}]`.
+- If the price changes, you don't update the London or New York nodes; you update the property on the **Relationship**.
+
+---
+
+## Hypothetical Scenario: The "Family Tree"
+
+A genealogist is modeling a family.
+
+- They have a relationship `[:CHILD_OF]`.
+- To find a "Brother," they search for:
+  `MATCH (me)-[:CHILD_OF]->(parent)<-[:CHILD_OF]-(sibling)`
+- This "Zig-Zag" pattern matching is where Cypher shines. You are literally describing the family tree in text.
+
+## Exercises
+
+1. **Direction:** Does Neo4j store "Undirected" relationships on disk?
+2. **Properties:** Give one example of a property you might store on a `[:FRIEND]` relationship.
+3. **Logic:** How would you represent "User A likes User B, but User B does not like User A" in a graph?
+
+## Summary and Next Steps
+
+Relationships are the bridges between your data points.
+
+Next, we look at **Labels and Filtering**—how to organize your nodes so they are easy to find.

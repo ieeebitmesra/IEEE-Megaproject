@@ -1,0 +1,161 @@
+# Using IN, BETWEEN, LIKE, and IS NULL for Complex Filtering
+
+We have mastered basic comparisons and logical operators. Now, we will add four specialized tools to our SQL toolkit. These operators—`IN`, `BETWEEN`, `LIKE`, and `IS NULL`—allow us to write cleaner, more readable, and more powerful queries for common filtering scenarios.
+
+## 1. The IN Operator (The List Matcher)
+
+Imagine you want to find customers in New York, New Jersey, or Connecticut. Using `OR`, you would write:
+`WHERE state = 'NY' OR state = 'NJ' OR state = 'CT'`
+This gets tedious if you have 10 states. The `IN` operator simplifies this.
+
+**Syntax:**
+
+```sql
+SELECT * FROM table_name
+WHERE column_name IN (value1, value2, value3, ...);
+```
+
+**Example:**
+
+```sql
+SELECT * FROM customers
+WHERE state IN ('NY', 'NJ', 'CT');
+```
+
+- **Logic:** "Is the state in this list? If yes, include it."
+
+## 2. The BETWEEN Operator (The Range Finder)
+
+If you want to find books priced between $10 and $20, you could write:
+`WHERE price >= 10 AND price <= 20`
+The `BETWEEN` operator makes this more natural to read.
+
+**Syntax:**
+
+```sql
+SELECT * FROM table_name
+WHERE column_name BETWEEN value1 AND value2;
+```
+
+**Example:**
+
+```sql
+SELECT * FROM books
+WHERE price BETWEEN 10.00 AND 20.00;
+```
+
+- **Note:** `BETWEEN` is **inclusive**. It includes books that are exactly $10.00 and exactly $20.00.
+
+## 3. The LIKE Operator (The Pattern Matcher)
+
+Sometimes you don't know the exact text you are looking for. Maybe you want all books that start with "Harry" or all customers with a Gmail address. The `LIKE` operator uses **wildcards** to match patterns.
+
+- **`%` (Percent):** Represents zero, one, or multiple characters.
+- **`_` (Underscore):** Represents exactly one single character.
+
+**Examples:**
+
+- `WHERE title LIKE 'Harry%'` -> Matches "Harry Potter", "Harry Styles", "Harry". (Starts with Harry).
+- `WHERE email LIKE '%@gmail.com'` -> Matches any text ending in "@gmail.com".
+- `WHERE title LIKE '%Potter%'` -> Matches "Harry Potter", "Potter's Field", "The Potter". (Contains Potter anywhere).
+- `WHERE code LIKE 'A_Z'` -> Matches "ABZ", "ACZ", "A9Z". (Starts with A, ends with Z, exactly one character in between).
+
+## 4. The IS NULL Operator (The Missing Data Finder)
+
+`NULL` represents missing or unknown data. Crucially, **NULL is not equal to zero, nor is it equal to an empty string.** It is "nothing."
+Because it is not a value, you cannot use `=` to compare it. `WHERE isbn = NULL` will **fail**. You must use `IS NULL`.
+
+**Syntax:**
+
+```sql
+SELECT * FROM table_name
+WHERE column_name IS NULL;
+```
+
+**Example:**
+Find all books that do not have an ISBN yet.
+
+```sql
+SELECT * FROM books
+WHERE isbn IS NULL;
+```
+
+**Inverse:** To find records that _do_ have data, use `IS NOT NULL`.
+
+## Practical Examples and Demonstrations
+
+We continue with our **Online Bookstore** scenario.
+
+### Scenario 1: The Summer Reading List (IN)
+
+We want to feature books from specific categories: 'Fiction', 'Mystery', and 'Romance'.
+
+**Query:**
+
+```sql
+SELECT title, category
+FROM books
+WHERE category IN ('Fiction', 'Mystery', 'Romance');
+```
+
+### Scenario 2: The Budget Search (BETWEEN)
+
+A customer wants a gift in the $15 to $25 range.
+
+**Query:**
+
+```sql
+SELECT title, price
+FROM books
+WHERE price BETWEEN 15.00 AND 25.00;
+```
+
+### Scenario 3: Finding "The" Books (LIKE)
+
+We want to find all books where the title starts with the word "The".
+
+**Query:**
+
+```sql
+SELECT title
+FROM books
+WHERE title LIKE 'The %';
+```
+
+_(Note the space after "The". This ensures we match "The Hobbit" but not "Theseus" or "Theater")._
+
+### Scenario 4: Incomplete Records (IS NULL)
+
+We need to find authors who are missing a birth date in our system so we can research them.
+
+**Query:**
+
+```sql
+SELECT first_name, last_name
+FROM authors
+WHERE birth_date IS NULL;
+```
+
+## Exercises and Practice Activities
+
+To solidify your understanding of advanced filtering, complete the following exercises.
+
+### Exercise 1: Using IN
+
+Write a query to find all orders with status 'Shipped' or 'Delivered'.
+
+### Exercise 2: Using LIKE
+
+Write a query to find all customers whose last name starts with the letter 'S'.
+
+### Exercise 3: Using IS NULL
+
+Write a query to find all orders that have NOT been shipped yet. (Assume the `shipped_date` column is `NULL` for unshipped orders).
+
+## Concluding Thoughts
+
+In this lesson, we expanded our filtering capabilities significantly. We learned to use `IN` for lists, `BETWEEN` for ranges, `LIKE` for fuzzy pattern matching, and `IS NULL` for handling missing data. These tools allow you to ask much more natural and flexible questions of your data.
+
+This concludes Module 2. We have now covered the core CRUD operations (Create/Insert, Read/Select, Update, Delete) and advanced filtering. In Module 3, we will move beyond looking at individual rows and start looking at the "big picture." We will learn about **Aggregation**—how to count records, calculate averages, and sum up totals to derive insights like "What is our total revenue?" or "How many books do we have in each category?"
+
+=START_QUESTIONS=Which operator is used to match a value against a list of options?@@What is the wildcard character for matching any sequence of characters?@@Why can't you use = NULL to find missing data?@@Is the BETWEEN operator inclusive or exclusive? =END_QUESTIONS=

@@ -1,0 +1,110 @@
+# Performing INNER JOINs for Matching Records
+
+The `INNER JOIN` is the most frequently used join type in SQL. It is the default "strict" join. When you ask for an INNER JOIN between two tables, you are saying: "Show me only the records that link up perfectly. If a record in Table A doesn't have a match in Table B, hide it."
+
+## Understanding INNER JOIN
+
+Imagine a Venn diagram with two overlapping circles. The `INNER JOIN` represents the shaded area in the middle where the circles overlap. It filters out any data that is "orphaned" or unconnected.
+
+### Basic Syntax
+
+```sql
+SELECT table1.column_name, table2.column_name
+FROM table1
+INNER JOIN table2
+ON table1.common_column = table2.common_column;
+```
+
+- **`FROM table1`**: The first table (the "Left" table).
+- **`INNER JOIN table2`**: The second table (the "Right" table).
+- **`ON ...`**: The condition that links them. Usually, this is `Primary Key = Foreign Key`.
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### Scenario 1: Books and Authors
+
+We want to see a list of Book Titles alongside the Name of the Author who wrote them.
+
+- `Books` table has `title` and `author_id`.
+- `Authors` table has `author_id` and `name`.
+
+**Query:**
+
+```sql
+SELECT books.title, authors.name
+FROM books
+INNER JOIN authors
+ON books.author_id = authors.author_id;
+```
+
+**Result:**
+
+- "1984" (ID 101) matches "George Orwell" (ID 101). -> **Returned.**
+- "Harry Potter" (ID 102) matches "J.K. Rowling" (ID 102). -> **Returned.**
+- _Edge Case:_ If we have a book with `author_id = NULL` (Anonymous), it is **NOT** returned.
+- _Edge Case:_ If we have an author in the `Authors` table who hasn't written a book yet, they are **NOT** returned.
+
+### Scenario 2: Orders and Customers
+
+We want to see a list of Order IDs and the name of the customer who placed them.
+
+**Query:**
+
+```sql
+SELECT orders.order_id, customers.name, orders.total_amount
+FROM orders
+INNER JOIN customers
+ON orders.customer_id = customers.customer_id;
+```
+
+### Scenario 3: Handling Ambiguous Columns
+
+What if both tables have a column named `created_at`? If you just type `SELECT created_at`, SQL will throw an error: "Ambiguous column name." You must specify which table you mean.
+
+**Correct Syntax:**
+
+```sql
+SELECT orders.order_id, customers.created_at AS customer_joined_date
+FROM orders
+INNER JOIN customers
+ON orders.customer_id = customers.customer_id;
+```
+
+### Scenario 4: Joining Three Tables
+
+We can chain joins together. Let's list Book Titles, Author Names, and the Publisher Name.
+
+**Query:**
+
+```sql
+SELECT books.title, authors.name, publishers.company_name
+FROM books
+INNER JOIN authors ON books.author_id = authors.author_id
+INNER JOIN publishers ON books.publisher_id = publishers.publisher_id;
+```
+
+## Exercises and Practice Activities
+
+To solidify your understanding of `INNER JOIN`, complete the following exercises.
+
+### Exercise 1: The Basic Link
+
+Write a query to join `Orders` and `Customers`. Select the `order_date` and the customer's `email`.
+
+### Exercise 2: Filtering Joins
+
+Write a query to join `Books` and `Authors`. Select the `title` and author `name`, but ONLY for books that cost more than $20. (Hint: Add a `WHERE` clause at the end).
+
+### Exercise 3: The Missing Data
+
+If you run an INNER JOIN between `Books` and `Authors`, and a specific book does not appear in the results, what are two possible reasons why?
+
+## Concluding Thoughts
+
+In this lesson, we learned how to use `INNER JOIN` to connect related data. This is the workhorse of SQL querying. It allows us to reconstruct complete records from our fragmented, normalized tables.
+
+However, sometimes "strict" is too strict. What if we want to see _all_ books, even the ones without authors? Or _all_ customers, even those who haven't placed an order? For that, we need the `LEFT JOIN`, which we will explore in the next lesson.
+
+=START_QUESTIONS=What does an INNER JOIN return?@@What keyword is used to specify the matching column?@@If a row in Table A has no match in Table B, will it appear in an INNER JOIN result?@@How do you handle columns with the same name in both tables? =END_QUESTIONS=

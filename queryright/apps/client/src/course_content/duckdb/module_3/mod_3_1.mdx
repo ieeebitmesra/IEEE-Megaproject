@@ -1,0 +1,86 @@
+# Window Functions
+
+Window functions are the difference between a "Junior" and "Senior" SQL analyst. They allow you to perform calculations across a set of rows that are related to the current row, without collapsing them into a single summary line like `GROUP BY` does.
+
+---
+
+## 1. The `OVER` Clause
+
+The core of a window function is the `OVER()` clause.
+
+```sql
+SELECT
+    employee_name,
+    salary,
+    avg(salary) OVER() as company_avg_salary
+FROM employees;
+```
+
+_In a normal `GROUP BY`, you would only see one row. Here, you see every employee AND the company average next to them._
+
+---
+
+## 2. Partitioning (The "Sub-Groups")
+
+Use `PARTITION BY` to calculate values within specific categories.
+
+```sql
+SELECT
+    department,
+    employee_name,
+    salary,
+    avg(salary) OVER(PARTITION BY department) as dept_avg_salary
+FROM employees;
+```
+
+_Now you can see if an employee is paid more or less than their specific team's average._
+
+---
+
+## 3. Ordering and Running Totals
+
+Window functions are perfect for calculating cumulative sums (Running Totals).
+
+```sql
+SELECT
+    sale_date,
+    amount,
+    sum(amount) OVER(ORDER BY sale_date) as running_total
+FROM sales;
+```
+
+---
+
+## Real-World Example: Sales Performance
+
+You need to rank your salespeople.
+
+- Using **`RANK() OVER(ORDER BY total_sales DESC)`**, you can give everyone a 1st, 2nd, or 3rd place medal.
+- If two people have the exact same sales, they both get 1st place, and the next person gets 3rd.
+
+---
+
+## Hypothetical Scenario: The "Trailing Average"
+
+A stock trader wants to see the "7-Day Moving Average" for a stock price.
+
+- **The Solution:** Use `rows between`.
+  ```sql
+  avg(price) OVER(
+    ORDER BY date
+    ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+  )
+  ```
+- This tells DuckDB: "Look at today and the previous 6 days, and give me the average."
+
+## Exercises
+
+1. **Comparison:** How is a Window Function different from a `GROUP BY`?
+2. **Logic:** What does `PARTITION BY country` do inside an `OVER()` clause?
+3. **Running Total:** Write a query using `sum()` and `OVER()` to create a running total of `user_count` ordered by `join_date`.
+
+## Summary and Next Steps
+
+Window functions allow you to perform local analysis in the context of global data. They are extremely powerful for time-series and ranking.
+
+Next, we look at **CTEs (Common Table Expressions)**—the key to writing readable, maintainable SQL code.

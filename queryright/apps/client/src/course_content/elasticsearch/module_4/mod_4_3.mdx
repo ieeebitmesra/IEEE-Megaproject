@@ -1,0 +1,97 @@
+# Bucket Aggregations
+
+Bucket aggregations don't calculate math; they categorize documents. Think of them as the `GROUP BY` clause of Elasticsearch.
+
+---
+
+## 1. Terms Aggregation
+
+Groups documents by unique values.
+
+- **Example:** "Give me a count of products per category."
+
+```http
+GET /inventory/_search
+{
+  "size": 0,
+  "aggs": {
+    "popular_brands": {
+      "terms": {
+        "field": "brand.keyword",
+        "size": 5
+      }
+    }
+  }
+}
+```
+
+_Note: We use `.keyword` because we want to group by exact names, not analyzed tokens._
+
+---
+
+## 2. Range Aggregation
+
+Groups documents into numerical ranges defined by you.
+
+```http
+"aggs": {
+  "price_ranges": {
+    "range": {
+      "field": "price",
+      "ranges": [
+        { "to": 50 },
+        { "from": 50, "to": 100 },
+        { "from": 100 }
+      ]
+    }
+  }
+}
+```
+
+---
+
+## 3. Date Histogram
+
+This is the most powerful bucket for time-series data (logs, stock prices, sales). It automatically creates buckets based on time intervals (year, month, day, hour, etc.).
+
+```http
+"aggs": {
+  "sales_over_time": {
+    "date_histogram": {
+      "field": "timestamp",
+      "calendar_interval": "month"
+    }
+  }
+}
+```
+
+---
+
+## Real-World Example: Travel Website Filters
+
+1. **Terms Agg:** "Filter by Hotel Stars" (1, 2, 3, 4, 5).
+2. **Range Agg:** "Filter by Distance" (less than 1km, 1-5km, 5km+).
+3. **Date Histogram:** "Number of bookings available per week."
+
+These filter sidebars are often generated dynamically using bucket aggregations.
+
+---
+
+## Hypothetical Scenario: The "Long Tail" Problem
+
+A developer runs a `terms` agg on `product_names`. They have 1 million unique products.
+
+- **The Result:** The result is huge, but they only see the top 10 results. Elastic had to do a lot of work to find the top 10 across all shards.
+- **The Lesson:** Always use `size` to limit how many buckets you get back. If you need everything, consider a `composite` aggregation (which we cover in advanced modules).
+
+## Exercises
+
+1. **Choosing the Agg:** If you want to see how many people signed up for your service every **hour** today, which bucket aggregation should you use?
+2. **Keyword vs Text:** Why is it a bad idea to run a `terms` aggregation on a `text` field?
+3. **Range Logic:** In the `price_ranges` example above, which bucket would a product costing exactly `$50.00` fall into?
+
+## Summary and Next Steps
+
+Buckets are powerful on their own, but they become magical when you **nest** them.
+
+Next, we look at **Nesting Aggregations**—performing math inside your groups (e.g., "What is the average price _within_ each category?").

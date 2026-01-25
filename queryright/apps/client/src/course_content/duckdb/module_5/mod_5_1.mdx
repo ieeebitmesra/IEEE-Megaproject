@@ -1,0 +1,73 @@
+# DuckDB + Python (Jupyter)
+
+For many data scientists, the "Terminal" is not where they work. They work in **Jupyter Notebooks**. DuckDB fits perfectly into this environment.
+
+---
+
+## 1. The `duckdb-engine`
+
+You can use DuckDB with the standard SQL "magic" commands in Jupyter.
+
+```python
+# In a Jupyter cell
+%load_ext sql
+%sql duckdb:///:memory:
+
+%%sql
+SELECT * FROM 'data.csv' LIMIT 5;
+```
+
+---
+
+## 2. DuckDB vs. Pandas
+
+Pandas is flexible, but its syntax can be confusing for complex logic.
+
+- **Pandas:** `df.groupby('A').agg({'B': ['min', 'max']})`
+- **DuckDB:** `SELECT min(B), max(B) FROM df GROUP BY A`
+
+Many developers now use DuckDB for the "Heavy Lifting" (joins, filters, aggregates) and Pandas/Matplotlib for the "Final Mile" (plotting and visualization).
+
+---
+
+## 3. Relational API
+
+If you don't like writing raw SQL strings in your Python code, DuckDB has a "Relational API" that feels like Spark or Polars.
+
+```python
+import duckdb
+con = duckdb.connect()
+
+table = con.from_csv_auto("source.csv")
+result = table.filter("price > 100").project("name, price").order("price")
+```
+
+---
+
+## Real-World Example: Collaborative Analysis
+
+A team of analysts share a single Jupyter Notebook on GitHub.
+
+1. The notebook uses DuckDB to query a CSV file hosted on S3.
+2. Because the logic is written in SQL (which everyone knows), people from the marketing team and the engineering team can both understand and edit the notebook.
+
+---
+
+## Hypothetical Scenario: The "Kernel" Death
+
+A user is trying to process a 5GB dataset in a notebook with only 4GB of RAM.
+
+- **The Pandas way:** The kernel dies immediately.
+- **The DuckDB way:** The user writes their query in SQL using DuckDB. It finishes in 5 seconds because DuckDB's engine is more memory-efficient.
+
+## Exercises
+
+1. **Setup:** What Python command do you run to install DuckDB?
+2. **Magics:** What is the "Magic" command to run a multi-line SQL query in Jupyter?
+3. **Choice:** If you need to make a Pie Chart, should you use DuckDB or a library like Matplotlib/Seaborn?
+
+## Summary and Next Steps
+
+DuckDB is the secret weapon for Python developers.
+
+But what if your users aren't developers? What if you want to give them analytical power inside their **Web Browser**? Next, we look at **DuckDB-WASM**.

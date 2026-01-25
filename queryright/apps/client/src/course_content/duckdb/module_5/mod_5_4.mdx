@@ -1,0 +1,80 @@
+# Testing and Data Quality
+
+"Garbage in, Garbage out." If your raw data is wrong, your analysis is useless. DuckDB provides several ways to verify your data.
+
+---
+
+## 1. Constraints
+
+The first line of defense is a SQL constraint.
+
+```sql
+CREATE TABLE users (
+    user_id INTEGER PRIMARY KEY,
+    age INTEGER CHECK (age >= 0),
+    email VARCHAR UNIQUE
+);
+```
+
+_If someone tries to insert a user with an age of -5, DuckDB will block it._
+
+---
+
+## 2. Using DuckDB for "Diffing"
+
+How do you know if your new code change broke your old results?
+You run a "Diff" query between your `v1` table and `v2` table.
+
+```sql
+(SELECT * FROM table_v1 EXCEPT SELECT * FROM table_v2)
+UNION ALL
+(SELECT * FROM table_v2 EXCEPT SELECT * FROM table_v1);
+```
+
+_If this returns 0 rows, your data matches perfectly._
+
+---
+
+## 3. The `DESCRIBE` and `SUMMARIZE` commands
+
+DuckDB has a unique `SUMMARIZE` command that gives you an instant "Health Check" of your table.
+
+```sql
+SUMMARIZE sales;
+```
+
+**Output:** It shows you the `min`, `max`, `avg`, and—crucially—the `percentage of nulls` for every column. If your `price` column is suddenly 50% `null`, you know something is wrong with your ingestion.
+
+---
+
+## Real-World Example: Automating Data Audits
+
+A financial firm receives a 100MB CSV of transactions every day.
+
+- They have a Python script that runs `SUMMARIZE`.
+- If the "Number of Nulls" in the `transaction_id` column is higher than 0, the script sends an alert to Slack and stops the processing.
+- This prevents bad data from ever reaching the CEO's dashboard.
+
+---
+
+## Hypothetical Scenario: The "Duplicate" Ghost
+
+A developer is worried that they have duplicate rows in an 8GB table.
+
+- **The Solution:**
+  ```sql
+  SELECT count(*), count(distinct id) FROM my_huge_table;
+  ```
+- Because DuckDB is so fast at distinct counting (as we learned in the context of Big Data), this query takes only a few seconds to run, giving the developer peace of mind.
+
+## Exercises
+
+1. **Constraints:** Write a `CHECK` constraint that ensures a `price` column is always greater than 0.0.
+2. **Commands:** What does the `SUMMARIZE` command show you?
+3. **Logic:** Why is "Null checking" one of the most important parts of data quality?
+
+## Summary and Next Steps
+
+Quality data is the foundation of trust.
+
+We finish our journey in the next lesson with some **Real-World Case Studies** and a course wrap-up.

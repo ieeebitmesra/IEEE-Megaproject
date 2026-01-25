@@ -1,0 +1,66 @@
+# DuckDB as a dbt Engine
+
+**dbt** (data build tool) is the standard tool for transforming data in a warehouse. While most people use dbt with BigQuery or Snowflake, **dbt-duckdb** is becoming the favorite for "Local Development" and "Small Data" pipelines.
+
+---
+
+## 1. What is dbt?
+
+dbt allows you to write SQL files that define your tables.
+
+- It handles the dependencies (e.g., "Don't build Table B until Table A is finished").
+- It handles testing (e.g., "Make sure nobody has a negative age").
+
+---
+
+## 2. Why use DuckDB with dbt?
+
+1. **Cost:** You can run your entire data pipeline on a $5/month server instead of paying thousands for Snowflake.
+2. **Speed:** For datasets under 100GB, DuckDB is often faster than a giant distributed cluster because it doesn't have the "Sharding" overhead.
+3. **CI/CD:** You can run your "Data Tests" in a GitHub Action using DuckDB. If the tests pass, only then do you upload the data to your production warehouse.
+
+---
+
+## 3. The `dbt-duckdb` Adapter
+
+You configure dbt to talk to a local file:
+
+```yaml
+# profiles.yml
+my_profile:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: data/warehouse.db
+```
+
+---
+
+## Real-World Example: Fast Development
+
+A data engineer is building a complex set of 50 tables.
+
+- If they used BigQuery, every time they ran `dbt run`, they would have to wait 20 seconds for the cloud to "Spin up."
+- With DuckDB, `dbt run` starts instantly. They can iterate 10 times faster.
+
+---
+
+## Hypothetical Scenario: The "Embedded" Data Product
+
+A company builds a software product that they sell to other businesses.
+
+- Every business has its own data.
+- **The Solution:** They use dbt to define the logic, and DuckDB to execute it. Every customer gets a private `analytics.db` file. The company doesn't have to manage one giant, risky "Multi-tenant" server.
+
+## Exercises
+
+1. **Purpose:** What is the main goal of dbt? (Ingestion or Transformation?)
+2. **Setup:** If you want dbt to use DuckDB, where do you define the file path?
+3. **Benefit:** Why is it useful to run dbt tests in a GitHub Action with DuckDB?
+
+## Summary and Next Steps
+
+dbt + DuckDB is a professional-grade data stack that fits in your pocket.
+
+But how do we know our data is actually "Good"? Next, we look at **Testing and Data Quality**.

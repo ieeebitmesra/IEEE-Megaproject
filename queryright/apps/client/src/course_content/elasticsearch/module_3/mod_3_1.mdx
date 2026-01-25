@@ -1,0 +1,59 @@
+# Query Context vs. Filter Context
+
+In Elasticsearch, there are two ways a clause can affect search results: it can decide **if** a document matches, and it can decide **how well** it matches.
+
+---
+
+## 1. Query Context (How relevant?)
+
+A clause in "Query Context" answers the question: **"How well does this document match this query clause?"**
+
+- It calculates a `_score` for each document.
+- **Example:** "Search for books with 'Java' in the title." A book with "Java" in the title twice might score higher than a book with it once.
+
+## 2. Filter Context (Yes/No?)
+
+A clause in "Filter Context" answers the question: **"Does this document match this query clause?"**
+
+- It is a simple binary Yes or No.
+- It does **NOT** affect the score.
+- **Example:** "Is the price under $20?" or "Is the category 'Education'?"
+
+---
+
+## 3. Why distinguish them?
+
+**Filters are significantly faster.**
+
+1. **No Scoring Logic:** Calculating scores takes CPU time. Filters skip this.
+2. **Caching:** Elasticsearch caches the results of filters. If 100 users all filter for `status: "active"`, Elasticsearch only calculates that set of documents once and stores it in memory.
+
+---
+
+## Real-World Example: An E-commerce Sidebar
+
+Imagine searching for a "Laptop".
+
+- **Query Context (Score matters):** The user types "Gaming Laptop". You want the laptops with "Gaming" in the title to appear at the top.
+- **Filter Context (Score doesn't matter):** The user clicks "Brand: Dell" and "Price: Under $1000". These are strict requirements. A Dell laptop isn't "more Dell" than another; it either is or it isn't.
+
+---
+
+## Hypothetical Scenario: The Performance Spike
+
+A search engine starts getting slow during peak hours.
+
+- **The Problem:** The developers used `match` queries for everything, including checking the `customer_id` and `is_deleted` flags. These were all being scored!
+- **The Solution:** They moved the `customer_id` and `is_deleted` checks into a `filter` block. The CPU usage dropped by 40% because of caching and the removal of unnecessary math.
+
+## Exercises
+
+1. **Categorize:** If you search for "Blue Shirt", should the color "Blue" be in a Query context or Filter context if you want exactly blue shirts only?
+2. **True/False:** Filter results are cached by Elasticsearch.
+3. **The Score:** If a query only has clauses in the `filter` block, what will be the `_score` of all the returned documents?
+
+## Summary and Next Steps
+
+Use **Query** for things where you want "best match" first. Use **Filter** for "Yes/No" criteria.
+
+But how do you combine these? In the next lesson, we will learn about the **`bool` query**, which acts as the "Boolean Logic" center of Elasticsearch.

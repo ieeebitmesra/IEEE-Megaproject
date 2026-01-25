@@ -1,0 +1,69 @@
+# Monitoring and Health Metrics
+
+How do you know if your cluster is about to crash? You monitor the "Signals."
+
+---
+
+## 1. The Cluster Health API
+
+This is the first thing every admin checks.
+
+```http
+GET /_cluster/health
+```
+
+The response includes a **Status**:
+
+- **Green:** All primary and replica shards are allocated. Your cluster is 100% healthy.
+- **Yellow:** All primary shards are allocated, but some **replicas** are missing. (Common in 1-node clusters). Your data is safe but not redundant.
+- **Red:** One or more **primary** shards are missing. **You are losing data.**
+
+---
+
+## 2. Key Metrics to Watch
+
+- **Heap Usage:** Elasticsearch runs on the JVM. If "Heap Usage" stays at 90%+, your nodes will start "Garbage Collecting" constantly, making searches very slow.
+- **Disk Usage:** If a disk hits 95%, Elasticsearch will put the index into `read-only` mode to prevent corruption.
+- **CPU Load:** High CPU usually means complex aggregations or heavy indexing.
+- **Thread Pools:** If "Rejected" counts are high, it means Elasticsearch is too busy to handle new requests.
+
+---
+
+## 3. The `_cat` APIs
+
+The `_cat` (Compact and Aligned Text) APIs are designed for humans to read in a terminal.
+
+- `GET /_cat/nodes?v`: See all nodes and their RAM/CPU usage.
+- `GET /_cat/indices?v`: See all indexes, their document counts, and their disk size.
+- `GET /_cat/shards?v`: See exactly which shard is on which node.
+
+---
+
+## Real-World Example: The "Yellow" Cluster Mystery
+
+A new developer starts a 1-node cluster on their laptop. The status is **Yellow**.
+
+- They check the logs: "Unassigned shards found."
+- They realize that by default, their index wants 1 replica. But since a replica can't live on the same node as a primary, and there is only 1 node, the replica has nowhere to go.
+- **The fix:** They set `number_of_replicas: 0` for their local development.
+
+---
+
+## Hypothetical Scenario: The "Circuit Breaker"
+
+You run a massive aggregation that would require 20GB of RAM, but your server only has 16GB.
+
+- **The Result:** Instead of the whole server crashing with an "Out of Memory" error, the Elasticsearch **Circuit Breaker** detects the threat and kills just that one query.
+- **The Lesson:** If you see "CircuitBreakerException" in your logs, your queries are too heavy for your hardware.
+
+## Exercises
+
+1. **Colors:** What does a "Red" cluster status mean?
+2. **Commands:** Which cat API would you use to see a list of all your indices?
+3. **Hardware:** If you see consistently high "Heap Usage," what part of your server hardware should you upgrade?
+
+## Summary and Next Steps
+
+Monitoring turns "Surprises" into "Tasks." A healthy cluster is a predictable cluster.
+
+You have reached the end of the technical content! One final lesson to wrap everything up.

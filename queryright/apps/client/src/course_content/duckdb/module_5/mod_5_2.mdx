@@ -1,0 +1,63 @@
+# DuckDB in the Browser (WASM)
+
+Usually, databases require a server. But DuckDB has been compiled to **WebAssembly (WASM)**, which means you can run the entire database engine directly inside a user's web browser.
+
+---
+
+## 1. Zero-Backend Analytics
+
+Traditionally, if you wanted to show a chart of 10 million rows, you would:
+
+1. Send a request to a Server.
+2. The Server queries a Database.
+3. The Server sends JSON back to the Browser.
+4. The Browser renders the chart.
+
+With **DuckDB-WASM**, you can skip steps 1-3. The Browser downloads the data file once, and every "Filter" or "Sort" happens locally.
+
+---
+
+## 2. Speed and Privacy
+
+1. **Speed:** Since there is no "Network Round Trip," clicking a filter button updates the UI instantly.
+2. **Privacy:** The user's data never has to leave their computer. You can build a tool that analyzes sensitive "Medical" or "Financial" CSVs without ever seeing the data yourself.
+
+---
+
+## 3. Use-Cases
+
+- **Interactive BI Dashboards:** Let users slice and dice data without loading the server.
+- **SQL Tutorials:** Like the one you are reading now! You can provide a real SQL playground that runs in the browser.
+- **Data Journalism:** Journalists can publish a story with a 10MB data file, and readers can explore it themselves.
+
+---
+
+## Real-World Example: "Evidence" and "Rill"
+
+Tools like [Evidence.dev](https://evidence.dev) or Rill Data use DuckDB-WASM to build high-performance data reports.
+
+- You open a webpage.
+- It "pulls" a Parquet file from a CDN.
+- As you move sliders and change dates, the SQL queries run at 60 frames per second right on your machine.
+
+---
+
+## Hypothetical Scenario: The "Offline" Dashboard
+
+A construction manager is on a remote site with no internet.
+
+- They have a web app they downloaded previously.
+- They drag a CSV from their local machine into the browser.
+- **The Result:** Even without internet, DuckDB-WASM parses the CSV and shows them their progress charts.
+
+## Exercises
+
+1. **Technology:** What is WASM (WebAssembly)? (In simple terms).
+2. **Privacy:** Why is DuckDB-WASM better for privacy than a traditional database?
+3. **Latency:** Why is an interactive dashboard faster with DuckDB-WASM?
+
+## Summary and Next Steps
+
+DuckDB-WASM is the future of interactive data.
+
+But for professional data engineers, there is another tool that is essential: **dbt**. Next, we look at how DuckDB powers the testing and transformation of data.

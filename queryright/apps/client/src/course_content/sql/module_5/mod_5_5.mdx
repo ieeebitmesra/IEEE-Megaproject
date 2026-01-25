@@ -1,0 +1,115 @@
+# Pivoting and Unpivoting Data for Analysis
+
+Databases store data in "long" format (many rows, few columns).
+
+- Row 1: Jan, Sales: 100
+- Row 2: Feb, Sales: 200
+
+However, reports often need data in "wide" format (one row, many columns).
+
+- Row 1: Jan_Sales: 100, Feb_Sales: 200
+
+Transforming rows into columns is called **Pivoting**. While some SQL dialects have a specific `PIVOT` keyword, the most universal and flexible way to do this in standard SQL (and PostgreSQL) is using `CASE` statements with aggregation.
+
+## Understanding the Pivot Logic
+
+To pivot data, we follow a three-step logic:
+
+1.  **Identify the Group:** What will be your single row? (e.g., A Year).
+2.  **Identify the Columns:** What values do you want to become columns? (e.g., Months).
+3.  **Aggregate:** Use `SUM` or `MAX` combined with `CASE` to filter data into the correct column.
+
+### Basic Syntax (The "CASE" Pivot)
+
+```sql
+SELECT
+    group_column,
+    SUM(CASE WHEN condition_col = 'Value1' THEN metric_col ELSE 0 END) AS Column1,
+    SUM(CASE WHEN condition_col = 'Value2' THEN metric_col ELSE 0 END) AS Column2
+FROM table_name
+GROUP BY group_column;
+```
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### Scenario 1: Monthly Sales Report
+
+We have a table of orders. We want a report showing total sales for each Category, with columns for "Q1", "Q2", "Q3", and "Q4".
+
+**Query:**
+
+```sql
+SELECT
+    category,
+    SUM(CASE WHEN quarter = 'Q1' THEN amount ELSE 0 END) AS Q1_Sales,
+    SUM(CASE WHEN quarter = 'Q2' THEN amount ELSE 0 END) AS Q2_Sales,
+    SUM(CASE WHEN quarter = 'Q3' THEN amount ELSE 0 END) AS Q3_Sales,
+    SUM(CASE WHEN quarter = 'Q4' THEN amount ELSE 0 END) AS Q4_Sales
+FROM sales_data
+GROUP BY category;
+```
+
+**Result:**
+| category | Q1_Sales | Q2_Sales | Q3_Sales | Q4_Sales |
+| :--- | :--- | :--- | :--- | :--- |
+| Fiction | 500 | 600 | 400 | 800 |
+| Sci-Fi | 200 | 250 | 300 | 400 |
+
+- **Analysis:** The `CASE` statement acts like a filter. For the `Q1_Sales` column, it only sums up rows where the quarter is Q1. For all other rows, it adds 0.
+
+### Scenario 2: Comparing Statuses
+
+We want to see a count of orders by status (Shipped, Pending, Cancelled) for each customer.
+
+**Query:**
+
+```sql
+SELECT
+    customer_name,
+    COUNT(CASE WHEN status = 'Shipped' THEN 1 END) AS Shipped_Count,
+    COUNT(CASE WHEN status = 'Pending' THEN 1 END) AS Pending_Count,
+    COUNT(CASE WHEN status = 'Cancelled' THEN 1 END) AS Cancelled_Count
+FROM orders
+GROUP BY customer_name;
+```
+
+## Unpivoting (Columns to Rows)
+
+Sometimes you have the opposite problem: data is in a wide format (e.g., an Excel upload), and you need to normalize it into rows for the database.
+In PostgreSQL, we can use `UNION ALL` for a simple unpivot.
+
+**Scenario:** We have a table `Budget` with columns `Jan_Budget`, `Feb_Budget`. We want rows.
+
+**Query:**
+
+```sql
+SELECT 'January' as Month, Jan_Budget as Amount FROM Budget
+UNION ALL
+SELECT 'February' as Month, Feb_Budget as Amount FROM Budget;
+```
+
+## Exercises and Practice Activities
+
+To solidify your understanding, complete the following exercises.
+
+### Exercise 1: The Genre Matrix
+
+Write a query to pivot the `Books` table. Show a count of books, with rows for `Author` and columns for `Genre` (e.g., columns for 'Fiction', 'Non-Fiction').
+
+### Exercise 2: The Year-Over-Year
+
+Write a query to show total sales by month (rows), with columns for '2023' and '2024'.
+
+### Exercise 3: The Logic Check
+
+Why do we need the `ELSE 0` in the `SUM` pivot, but we often omit it (or use `ELSE NULL`) in a `COUNT` pivot?
+
+## Concluding Thoughts
+
+In this lesson, we learned how to reshape our data. Pivoting is a crucial skill for generating readable reports and dashboards directly from SQL.
+
+In the final lesson of Module 5, we will introduce **Stored Procedures**. These allow us to save our complex logic (like the pivots and window functions we just wrote) into reusable scripts stored inside the database itself.
+
+=START_QUESTIONS=What is the purpose of pivoting data?@@Which SQL statement is commonly used to pivot data in standard SQL?@@What does the ELSE 0 ensure in a SUM pivot?@@How can you unpivot data using UNION ALL? =END_QUESTIONS=

@@ -1,0 +1,109 @@
+# The `_analyze` API
+
+Never guess what your analyzer is doing. Use the `_analyze` API to see the exact tokens Elasticsearch is generating.
+
+---
+
+## 1. Using it Globally
+
+You don't even need an index to test built-in analyzers.
+
+```http
+GET /_analyze
+{
+  "analyzer": "standard",
+  "text": "Elasticsearch is AMAZING!"
+}
+```
+
+**Response:**
+
+```json
+{
+  "tokens": [
+    {
+      "token": "elasticsearch",
+      "start_offset": 0,
+      "end_offset": 13,
+      "type": "<ALPHANUM>",
+      "position": 0
+    },
+    {
+      "token": "is",
+      "start_offset": 14,
+      "end_offset": 16,
+      "type": "<ALPHANUM>",
+      "position": 1
+    },
+    {
+      "token": "amazing",
+      "start_offset": 17,
+      "end_offset": 24,
+      "type": "<ALPHANUM>",
+      "position": 2
+    }
+  ]
+}
+```
+
+---
+
+## 2. Testing Specific Components
+
+You can test a tokenizer or a filter without building a full analyzer.
+
+```http
+GET /_analyze
+{
+  "tokenizer": "keyword",
+  "filter": ["lowercase"],
+  "text": "HELLO WORLD"
+}
+# Result: ["hello world"] (one token)
+```
+
+---
+
+## 3. Testing Index-Specific Analyzers
+
+If you've defined a custom analyzer inside an index named `products`, call it like this:
+
+```http
+GET /products/_analyze
+{
+  "analyzer": "my_custom_sku_analyzer",
+  "text": "SKU-99-BLUE"
+}
+```
+
+---
+
+## Real-World Example: Debugging "0 Results"
+
+A developer is confused. They have a document with `"iPhone 15"` and are searching for `"iphone"`, but getting zero results.
+
+1. **Test the field analyze:** They run `GET /my_index/_analyze` with the text "iPhone 15".
+2. **The Discovery:** They see that for some reason, the analyzer is NOT using a lowercase filter. The token in the index is `"iPhone"`.
+3. **The fix:** Because search queries are _also_ analyzed, the search term `"iphone"` (lowercase) doesn't match the index term `"iPhone"`. They add the lowercase filter to the index settings.
+
+---
+
+## Hypothetical Scenario: The "Stopword" Surprise
+
+Someone searches for "To be or not to be" on a Shakespeare site.
+
+- **The Result:** 0 hits.
+- **Why?** They are using the `english` analyzer, which marks "to," "be," "or," "not," and "to," "be" all as **stopwords**.
+- **The Fix:** They use the `_analyze` API to confirm the words are being deleted. They realize they need a custom analyzer that _keeps_ these words for famous quotes.
+
+## Exercises
+
+1. **Try it out:** What is the `_analyze` command to test the `whitespace` tokenizer on the string `"Quick-Brown-Fox"`?
+2. **Result Check:** If you use the `standard` analyzer on `"Elastic@Search!"`, will the `@` symbol be its own token or be removed? (Hint: The standard tokenizer usually removes it).
+3. **Debugging:** Use your knowledge of the `_analyze` API: if a user types `"Running"`, and your analyzer has a stemmer filter, what token will likely be searched for?
+
+## Summary and Next Steps
+
+The `_analyze` API is your best friend when debugging search relevance.
+
+We matches and tokens are great, but how does the data actually get written to disk? In the final lesson of this module, we look at **Segments and Refreshes**.

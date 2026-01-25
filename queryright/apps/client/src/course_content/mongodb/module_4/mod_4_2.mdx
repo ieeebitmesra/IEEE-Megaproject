@@ -1,0 +1,134 @@
+# Conditional Expressions (`$cond`, `$switch`)
+
+Conditional expressions allow you to implement logic within your aggregation pipeline, enabling dynamic field values based on specific criteria. They function similarly to `if-else` statements or `switch` cases in programming languages. These operators are essential for categorizing data, handling edge cases, or customizing output based on document content.
+
+## The `$cond` Operator
+
+The `$cond` operator evaluates a boolean condition and returns one of two expressions: one if the condition is true, and another if it is false. It is effectively a ternary operator.
+
+**Syntax:**
+
+```javascript
+{
+  $cond: {
+    if: /* boolean-expression */,
+    then: /* true-case */,
+    else: /* false-case */
+  }
+}
+```
+
+_Alternative Array Syntax:_ `[ boolean-expression, true-case, false-case ]`
+
+## The `$switch` Operator
+
+When you have multiple conditions to evaluate, nesting multiple `$cond` operators becomes unreadable. The `$switch` operator evaluates a series of case expressions and executes the first one that evaluates to true.
+
+**Syntax:**
+
+```javascript
+{
+  $switch: {
+    branches: [
+      { case: /* expression */, then: /* result */ },
+      { case: /* expression */, then: /* result */ }
+    ],
+    default: /* default-result */
+  }
+}
+```
+
+## Practical Examples and Demonstrations
+
+### Scenario 1: Categorizing Order Size (`$cond`)
+
+**Context:** We want to label orders as "Large" if the amount is over 200, and "Small" otherwise.
+
+**Sample Data:** `orders` collection
+
+```json
+[
+  { "_id": 1, "amount": 500 },
+  { "_id": 2, "amount": 100 }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.orders.aggregate([
+  {
+    $project: {
+      amount: 1,
+      sizeLabel: {
+        $cond: {
+          if: { $gt: ['$amount', 200] },
+          then: 'Large',
+          else: 'Small',
+        },
+      },
+    },
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[
+  { "_id": 1, "amount": 500, "sizeLabel": "Large" },
+  { "_id": 2, "amount": 100, "sizeLabel": "Small" }
+]
+```
+
+### Scenario 2: Multi-Tier Loyalty Program (`$switch`)
+
+**Context:** We want to assign a loyalty tier based on points: Gold (>1000), Silver (>500), Bronze (>100), else "Starter".
+
+**Sample Data:** `users` collection
+
+```json
+[
+  { "_id": 1, "points": 1200 },
+  { "_id": 2, "points": 600 },
+  { "_id": 3, "points": 50 }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.users.aggregate([
+  {
+    $project: {
+      points: 1,
+      tier: {
+        $switch: {
+          branches: [
+            { case: { $gt: ['$points', 1000] }, then: 'Gold' },
+            { case: { $gt: ['$points', 500] }, then: 'Silver' },
+            { case: { $gt: ['$points', 100] }, then: 'Bronze' },
+          ],
+          default: 'Starter',
+        },
+      },
+    },
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[
+  { "_id": 1, "points": 1200, "tier": "Gold" },
+  { "_id": 2, "points": 600, "tier": "Silver" },
+  { "_id": 3, "points": 50, "tier": "Starter" }
+]
+```
+
+## Summary
+
+Conditional operators bring decision-making power into the database layer. By using `$cond` for binary choices and `$switch` for multiple paths, you can enrich your data with computed logic without needing to process it in your application code.
+
+In the next lesson, we will dive into **Array Operators (`$map`, `$filter`, `$size`, `$reduce`)**, which allow for powerful manipulation of array fields within a single document.

@@ -1,0 +1,46 @@
+# Recommendations & Discovery
+
+Qdrant has special APIs that go beyond just "Nearest Neighbor." You can find items based on **"Examples."**
+
+---
+
+## 1. Recommendation API
+
+Instead of a vector, you provide a list of **Positive** and **Negative** IDs.
+
+- _"I like the vectors for ID:1 and ID:2, but I HATE the vector for ID:10."_
+
+Qdrant will calculate a "Sweet Spot" in the middle of your likes, far away from your dislikes, and find results there.
+
+```javascript
+await client.recommend('products', {
+  positive: [1, 2],
+  negative: [10],
+  limit: 5,
+})
+```
+
+---
+
+## 2. Discovery API
+
+Discovery is used when you want to find items that are similar to "Target A" but also close to "Target B."
+It’s like saying: _"Find me a car that has the style of a Ferrari but the price tag of a Toyota."_
+
+---
+
+## Real-World Example: "Pandora" Style Radio
+
+1. Start with a song you like (Positive).
+2. Every time you "Skip" a song, the app adds it to the **Negative** list.
+3. Every time you "Like" a song, it adds it to the **Positive** list.
+4. The next song is chosen via the `recommend` API. The radio gets smarter with every click!
+
+---
+
+## Quick Exercises:
+
+1. **The Difference**: How is `recommend` different from a standard `search`?
+2. **Dislike**: Why is the `negative` list important for a recommendation engine? (What happens if you only have a positive list?)
+3. **Scenario**: You are building a Tinder-style app for Fashion. If a user swipes "Left" on a shirt, which Qdrant parameter should you update?
+   lighthouse.

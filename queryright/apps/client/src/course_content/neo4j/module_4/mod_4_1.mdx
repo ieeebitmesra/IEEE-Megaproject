@@ -1,0 +1,62 @@
+# Constraints in Neo4j
+
+Data integrity is key. **Constraints** ensure that your graph doesn't end up with duplicate users or missing required information.
+
+---
+
+## 1. Uniqueness Constraints
+
+Just like a Primary Key in SQL, a Unique Constraint ensures that a specific property is unique across all nodes of a certain label.
+
+```cypher
+CREATE CONSTRAINT FOR (u:User) REQUIRE u.email IS UNIQUE
+```
+
+_If you try to create another User with the same email, Neo4j will throw an error._
+
+---
+
+## 2. Existence Constraints (Enterprise Only)
+
+This ensures that a property **must** exist on a node or relationship.
+
+```cypher
+CREATE CONSTRAINT FOR (p:Person) REQUIRE p.name IS NOT NULL
+```
+
+---
+
+## 3. Node Key Constraints
+
+This is a "Super-Unique" constraint that combines multiple properties.
+
+- **Example:** Ensure that there is only one `Product` with a specific `brand` AND `model_number`.
+
+---
+
+## Real-World Example: User Registration
+
+A mobile app uses Neo4j.
+
+- They set a **Uniqueness Constraint** on the `phone_number` property of the `User` label.
+- This prevents a common bug where a user accidentally clicks "Sign Up" twice and creates two accounts, which would break their "Friend List" later on.
+
+---
+
+## Hypothetical Scenario: The "Empty Ghost" Node
+
+A developer is importing a billion nodes. Because of a bug in their script, some nodes are being created with no properties at all.
+
+- **The Solution:** By setting an **Existence Constraint** on the `id` property, the import script will fail immediately if it tries to create a "Ghost Node." This forces the developer to fix their script before the database gets messy.
+
+## Exercises
+
+1. **Syntax:** Write a Cypher command to ensure that every `City` has a unique `name`.
+2. **Logic:** Why is a constraint better than a `MERGE` for ensuring uniqueness?
+3. **Comparison:** How is a Node Key different from a simple Uniqueness constraint?
+
+## Summary and Next Steps
+
+Constraints protect the "Health" of your graph.
+
+Next, we look at **Indexing**—how to speed up those initial `MATCH` lookups.

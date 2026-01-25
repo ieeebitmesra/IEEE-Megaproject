@@ -1,0 +1,99 @@
+# Advanced Window Function Applications (LAG, LEAD, FIRST_VALUE, LAST_VALUE)
+
+In Module 5, we introduced Window Functions for calculating running totals and rankings. Now, we will explore a set of functions designed specifically for **Time Series Analysis** and **Comparative Analysis**.
+
+These functions allow you to look at "neighboring" rows. You can peek at the _previous_ row to calculate growth, or look at the _next_ row to calculate gaps. This is incredibly powerful for financial reporting (e.g., "Month-over-Month Growth").
+
+## The Functions
+
+1.  **`LAG(column, n)`**: Returns the value of the column from the row `n` positions _before_ the current row.
+2.  **`LEAD(column, n)`**: Returns the value of the column from the row `n` positions _after_ the current row.
+3.  **`FIRST_VALUE(column)`**: Returns the value from the very first row in the window frame.
+4.  **`LAST_VALUE(column)`**: Returns the value from the very last row in the window frame.
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### Scenario 1: Month-over-Month Sales Growth (LAG)
+
+We want to compare this month's sales to last month's sales to see if we are growing.
+
+**Query:**
+
+```sql
+SELECT
+    month,
+    total_sales,
+    LAG(total_sales, 1) OVER (ORDER BY month) AS previous_month_sales
+FROM monthly_sales;
+```
+
+**Result:**
+| month | total_sales | previous_month_sales |
+| :--- | :--- | :--- |
+| Jan | 1000 | NULL |
+| Feb | 1200 | 1000 |
+| Mar | 1100 | 1200 |
+
+- **Analysis:**
+  - Jan has `NULL` because there is no previous month.
+  - Feb shows 1000 (Jan's sales) next to 1200.
+  - We can now calculate the difference: `total_sales - LAG(...)`.
+
+### Scenario 2: Detecting Gaps in Orders (LEAD)
+
+We want to know how many days pass between a customer's orders.
+
+**Query:**
+
+```sql
+SELECT
+    customer_id,
+    order_date,
+    LEAD(order_date, 1) OVER (PARTITION BY customer_id ORDER BY order_date) AS next_order_date
+FROM orders;
+```
+
+- **Analysis:** This puts the _next_ order date right next to the _current_ one. We can then subtract them (`next_order_date - order_date`) to find the "Days Since Last Order."
+
+### Scenario 3: Comparing to the Best (FIRST_VALUE)
+
+We want to compare every book's price to the _cheapest_ book in its category.
+
+**Query:**
+
+```sql
+SELECT
+    title,
+    category,
+    price,
+    FIRST_VALUE(price) OVER (PARTITION BY category ORDER BY price ASC) AS cheapest_in_category
+FROM books;
+```
+
+## Exercises and Practice Activities
+
+To solidify your understanding, complete the following exercises.
+
+### Exercise 1: The Growth Rate
+
+Using the `LAG` function, write a query to calculate the percentage growth of sales from one month to the next.
+
+- Formula: `(Current - Previous) / Previous * 100`
+
+### Exercise 2: The Price Gap
+
+Using `LEAD`, write a query to find the difference in price between a book and the next most expensive book in the same category.
+
+### Exercise 3: The Frame Trap
+
+Why does `LAST_VALUE` often behave unexpectedly if you don't specify `ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING`? (Hint: The default frame ends at the `CURRENT ROW`).
+
+## Concluding Thoughts
+
+In this lesson, we learned how to look backward and forward in time using SQL. These functions eliminate the need for complex self-joins when doing comparative analysis.
+
+In the next lesson, we will zoom out to the enterprise level. We will discuss **Data Warehousing** and **OLAP Cubes**, concepts used when dealing with massive datasets that are too large for standard transactional databases.
+
+=START_QUESTIONS=Which function looks at the previous row?@@Which function looks at the next row?@@What does FIRST_VALUE return?@@Why is LAG useful for financial reporting? =END_QUESTIONS=

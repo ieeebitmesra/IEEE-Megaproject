@@ -1,0 +1,186 @@
+# Hands-on Lab: Sales Data Aggregation with Grouping
+
+In this hands-on lab, we will apply the concepts of grouping, accumulators, and counting to build a comprehensive revenue report for a fictional electronics retailer, "TechTrendz". We will move beyond simple queries and start deriving business intelligence from raw transaction data.
+
+## Lab Objectives
+
+By the end of this lab, you will be able to:
+
+- Use `$group` to summarize data by single and compound keys.
+- Apply multiple accumulator operators (`$sum`, `$avg`, `$max`) in a single stage.
+- Analyze sales performance across different dimensions (product category, region).
+- Interpret the results of aggregation pipelines.
+
+## Setting Up Your Environment and Dataset
+
+First, let's populate our `techtrendz_sales` collection with a representative dataset. This data includes transaction details such as product category, store region, quantity sold, and unit price.
+
+**Run the following command in your MongoDB shell or Compass:**
+
+```javascript
+use techtrendz_db;
+
+db.sales.drop(); // Clear existing data
+
+db.sales.insertMany([
+  { "_id": 1, "date": ISODate("2023-01-15"), "region": "North", "category": "Laptops", "product": "ProBook X1", "quantity": 2, "unitPrice": 1200 },
+  { "_id": 2, "date": ISODate("2023-01-16"), "region": "South", "category": "Accessories", "product": "Wireless Mouse", "quantity": 10, "unitPrice": 25 },
+  { "_id": 3, "date": ISODate("2023-01-16"), "region": "North", "category": "Laptops", "product": "AirBook Pro", "quantity": 1, "unitPrice": 1500 },
+  { "_id": 4, "date": ISODate("2023-01-17"), "region": "East", "category": "Phones", "product": "Galaxy S22", "quantity": 3, "unitPrice": 800 },
+  { "_id": 5, "date": ISODate("2023-01-18"), "region": "South", "category": "Accessories", "product": "Keyboard", "quantity": 5, "unitPrice": 50 },
+  { "_id": 6, "date": ISODate("2023-01-18"), "region": "North", "category": "Phones", "product": "iPhone 14", "quantity": 2, "unitPrice": 1000 },
+  { "_id": 7, "date": ISODate("2023-01-19"), "region": "East", "category": "Laptops", "product": "ProBook X1", "quantity": 1, "unitPrice": 1200 },
+  { "_id": 8, "date": ISODate("2023-01-20"), "region": "West", "category": "Tablets", "product": "iPad Air", "quantity": 4, "unitPrice": 600 },
+  { "_id": 9, "date": ISODate("2023-01-21"), "region": "North", "category": "Accessories", "product": "Monitor 27", "quantity": 2, "unitPrice": 300 },
+  { "_id": 10, "date": ISODate("2023-01-22"), "region": "West", "category": "Phones", "product": "Pixel 7", "quantity": 2, "unitPrice": 700 }
+]);
+```
+
+## Step 1: Calculating Total Revenue by Region
+
+Our first task is to determine which region is generating the most revenue. We need to calculate the total sales amount for each transaction (quantity \* unitPrice) and then sum these totals by region.
+
+_Note: Since our documents don't have a pre-calculated "total amount" field, we would typically use `$project` first to calculate it. However, for this module, we will assume we can only use `$group` and accumulators on existing fields. Let's simplify and calculate the total quantity sold per region first._
+
+**Pipeline:**
+
+```javascript
+db.sales.aggregate([
+  {
+    $group: {
+      _id: '$region',
+      totalQuantitySold: { $sum: '$quantity' },
+    },
+  },
+])
+```
+
+**Output:**
+
+```json
+[
+  { "_id": "East", "totalQuantitySold": 4 },
+  { "_id": "West", "totalQuantitySold": 6 },
+  { "_id": "South", "totalQuantitySold": 15 },
+  { "_id": "North", "totalQuantitySold": 5 }
+]
+```
+
+**Analysis:**
+The South region has the highest volume of items sold (15), driven largely by the bulk sales of accessories.
+
+## Step 2: Analyzing Revenue by Category (Compound Grouping)
+
+Now, let's dig deeper. Management wants to know the average unit price of products sold in each category within each region. This requires a compound grouping key.
+
+**Pipeline:**
+
+```javascript
+db.sales.aggregate([
+  {
+    $group: {
+      _id: {
+        region: '$region',
+        category: '$category',
+      },
+      averagePrice: { $avg: '$unitPrice' },
+      transactions: { $sum: 1 },
+    },
+  },
+  {
+    $sort: { '_id.region': 1, '_id.category': 1 },
+  },
+])
+```
+
+**Output:**
+
+```json
+[
+  {
+    "_id": { "region": "East", "category": "Laptops" },
+    "averagePrice": 1200,
+    "transactions": 1
+  },
+  {
+    "_id": { "region": "East", "category": "Phones" },
+    "averagePrice": 800,
+    "transactions": 1
+  },
+  {
+    "_id": { "region": "North", "category": "Accessories" },
+    "averagePrice": 300,
+    "transactions": 1
+  },
+  {
+    "_id": { "region": "North", "category": "Laptops" },
+    "averagePrice": 1350,
+    "transactions": 2
+  },
+  {
+    "_id": { "region": "North", "category": "Phones" },
+    "averagePrice": 1000,
+    "transactions": 1
+  },
+  {
+    "_id": { "region": "South", "category": "Accessories" },
+    "averagePrice": 37.5,
+    "transactions": 2
+  },
+  {
+    "_id": { "region": "West", "category": "Phones" },
+    "averagePrice": 700,
+    "transactions": 1
+  },
+  {
+    "_id": { "region": "West", "category": "Tablets" },
+    "averagePrice": 600,
+    "transactions": 1
+  }
+]
+```
+
+**Analysis:**
+We can see that "North - Laptops" has a high average price ($1350) across 2 transactions, indicating it's a high-value segment. Conversely, "South - Accessories" has a low average price ($37.50) but higher transaction volume.
+
+## Step 3: Finding the Most Expensive Sale
+
+Let's identify the single highest-priced item sold in each category, regardless of region.
+
+**Pipeline:**
+
+```javascript
+db.sales.aggregate([
+  {
+    $group: {
+      _id: '$category',
+      maxPrice: { $max: '$unitPrice' },
+      minPrice: { $min: '$unitPrice' },
+    },
+  },
+])
+```
+
+**Output:**
+
+```json
+[
+  { "_id": "Tablets", "maxPrice": 600, "minPrice": 600 },
+  { "_id": "Laptops", "maxPrice": 1500, "minPrice": 1200 },
+  { "_id": "Accessories", "maxPrice": 300, "minPrice": 25 },
+  { "_id": "Phones", "maxPrice": 1000, "minPrice": 700 }
+]
+```
+
+## Exercises
+
+1. **Total Sales Count:** Write an aggregation pipeline to count the total number of sales transactions (documents) for the "North" region only.
+   _Hint: Use `$match` before `$count`._
+
+2. **Category Popularity:** Group by `category` and sum the `quantity` to find which product category moves the most units overall.
+
+3. **Daily Sales Volume:** Group by the `date` field and count how many transactions occurred on each day.
+
+## Summary
+
+In this lab, we transformed raw sales records into structured reports. We used `$group` to categorize data by region and product type, and applied accumulators like `$sum`, `$avg`, and `$max` to extract meaningful metrics. These techniques form the backbone of most reporting dashboards built on MongoDB.

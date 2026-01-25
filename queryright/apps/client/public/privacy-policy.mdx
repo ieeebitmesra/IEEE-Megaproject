@@ -1,0 +1,110 @@
+# Privacy Policy
+
+**Last Updated: December 31, 2025**
+
+Hi! I'm **[Your Name/Kishan]**, and I built **[Project Name]** as an interactive platform to help people learn SQL and MongoDB.
+
+I am a sole developer, not a large corporation. I don't have a legal department, a data mining team, or investors demanding growth metrics. I built this tool because I love databases and teaching.
+
+**Here is the honest summary of how I handle your data:**
+
+1. **I don't sell your data.** I have no interest in doing so.
+2. **Local-First.** Much of the heavy lifting (like the database engine and local AI) runs directly in your browser. That data stays with you.
+3. **Third Parties.** I use standard services (like Google/GitHub for login and Gemini for AI) to make the app work. They handle specific parts of your data.
+4. **Open.** If you want your data deleted, just ask (or use the delete button).
+
+---
+
+## 1. What Information I Collect & Why
+
+I only collect the absolute minimum required to make the application function.
+
+### A. Account Data (If you sign up)
+
+You can explore parts of the site without an account. If you choose to sign up to save your progress, I store:
+
+- **Identity:** Your email address, username, and profile picture (from GitHub/Google).
+- **Authentication:** I use **Better Auth**. I do not see or store your actual passwords. I only store the secure tokens required to keep you logged in.
+
+### B. Your Learning Progress
+
+To provide the "gamified" experience (streaks, completion tracking), I save:
+
+- Which lessons you have completed.
+- Your submitted solutions (code).
+- Your current streak and learning stats.
+
+### C. Technical Logs
+
+Like almost every website on the internet, the hosting provider (e.g., Vercel/Netlify) and database provider may automatically log standard technical data when you visit:
+
+- Your IP address (for security and DDoS protection).
+- User Agent (browser type, to fix bugs).
+
+---
+
+## 2. The "Local-First" Architecture
+
+This app is unique because it runs heavy technologies directly in your browser. This is great for your privacy.
+
+- **PGLite & Mongo (In-Browser Databases):** When you run practice queries, they are often executing inside a database running _inside your browser tab_. This practice data does not constantly stream to my server. It lives in your device's memory/cache.
+- **Local AI (WebLLM):** If you use the "Local AI" features, the model downloads to your browser cache. Your prompts and code discussions with this local bot are processed on your device’s GPU/CPU and are **not** sent to me or any cloud provider.
+
+---
+
+## 3. Third-Party Services (Who actually sees data)
+
+As a solo developer, I can't build everything from scratch. I rely on trusted third-party services.
+
+| Service                      | Purpose         | What they see                                                                                              |
+| ---------------------------- | --------------- | ---------------------------------------------------------------------------------------------------------- |
+| **Google / GitHub**          | Authentication  | They confirm who you are so you can log in.                                                                |
+| **Google Gemini API**        | AI Explanations | **Only if you use the 'Cloud AI' feature.** Your specific question/query is sent to Google for processing. |
+| **Vercel / AWS**             | Hosting         | IP addresses and request logs (for security).                                                              |
+| **PostgreSQL / Mongo Atlas** | Database        | My main database stores your user profile and progress.                                                    |
+
+_Note: I do not control these companies. I strongly recommend reviewing the Google and GitHub privacy policies if you are concerned about how they handle data._
+
+---
+
+## 4. How I Use AI
+
+The platform offers two types of AI. It is important to know the difference:
+
+1. **Cloud AI (e.g., Gemini/OpenAI):** If you ask for a "Deep Explanation" or "Query Optimization," I must send your code snippet to the cloud provider to get an answer.
+2. **Local AI (WebLLM):** If you select the in-browser model, your code **never leaves your device**. It is processed entirely by your hardware.
+
+**I do not use your code submissions to train my own AI models.**
+
+---
+
+## 5. Cookies & Local Storage
+
+I don't use creepy tracking cookies to follow you around the internet. I use:
+
+- **LocalStorage:** To remember your theme preference (Dark/Light mode) and keep you logged in.
+- **IndexedDB:** To store the large AI model files and database engines locally so you don't have to download them every time.
+
+---
+
+## 6. Your Rights
+
+Since I am just one person, I can offer you simple, direct control:
+
+- **Export:** If you want a copy of your data, email me.
+- **Delete:** You can delete your account in the Settings page. This wipes your user row from my database. (Note: Technical logs at the hosting level may rotate out automatically after a standard retention period).
+
+## 7. Children
+
+This site is a technical education tool. It is not designed for children under 13. If you are a parent and discover your child has signed up, let me know, and I will delete the account.
+
+## 8. Changes to this Policy
+
+As the project grows, I might add new features (like a Pro plan or new AI tools). If I do, I will update this page. If the changes are major, I will try to email you or put a notification on the dashboard.
+
+## 9. Contact Me
+
+If you have questions, concerns, or just want to say hi, you can reach me directly.
+
+**Email:** [Your Email]
+**GitHub:** [Your GitHub Profile Link]

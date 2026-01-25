@@ -1,0 +1,101 @@
+# Understanding and Applying Window Functions
+
+For a long time, SQL developers faced a dilemma. You could either see the details (using `SELECT *`) OR you could see the summaries (using `GROUP BY`), but you couldn't easily see both at the same time.
+
+For example, if you wanted to list every employee alongside the average salary of their department, you had to do a complex self-join.
+
+**Window Functions** solve this. They allow you to perform aggregate calculations (like SUM, AVG, COUNT) on a "window" of related rows, _without_ collapsing the result into a single row.
+
+## Understanding the "Window"
+
+Imagine looking at a spreadsheet.
+
+- **`GROUP BY`**: Takes 10 rows, squashes them into 1 summary row. The original detail is lost.
+- **Window Function**: Keeps all 10 rows. But in a new column, it adds the summary value next to each row. It looks through a "window" to calculate that value.
+
+### Basic Syntax
+
+The key to window functions is the `OVER` clause.
+
+```sql
+SELECT column_name,
+       AGGREGATE_FUNCTION(column_name) OVER (PARTITION BY group_column)
+FROM table_name;
+```
+
+- **`OVER`**: Signals that this is a window function.
+- **`PARTITION BY`**: Defines the "window." It's like `GROUP BY`, but for the window only. It tells SQL when to restart the calculation (e.g., restart the average for each department).
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### Scenario 1: Price vs. Category Average
+
+We want to list every single book. Next to each book's price, we want to display the average price of _that book's category_. This lets us instantly see if a book is expensive or cheap for its genre.
+
+**Query:**
+
+```sql
+SELECT title, category, price,
+       AVG(price) OVER (PARTITION BY category) AS category_avg
+FROM books;
+```
+
+**Result:**
+| title | category | price | category_avg |
+| :--- | :--- | :--- | :--- |
+| Space War | Sci-Fi | 10.00 | 15.00 |
+| Alien Attack | Sci-Fi | 20.00 | 15.00 |
+| History of Rome | History | 50.00 | 50.00 |
+
+- **Analysis:** Notice that "Sci-Fi" rows are not collapsed. We see individual books, but `category_avg` is calculated based on the "Sci-Fi" partition ( (10+20)/2 = 15 ).
+
+### Scenario 2: Total Sales per Customer (Attached to Order)
+
+We want to list every order. Next to the order amount, we want to show the _total lifetime spend_ of the customer who placed that order.
+
+**Query:**
+
+```sql
+SELECT order_id, customer_id, total_amount,
+       SUM(total_amount) OVER (PARTITION BY customer_id) AS customer_lifetime_spend
+FROM orders;
+```
+
+### Scenario 3: The "Global" Window
+
+If you omit `PARTITION BY`, the window becomes the _entire result set_.
+We want to compare each book's price to the average price of _all_ books in the store.
+
+**Query:**
+
+```sql
+SELECT title, price,
+       AVG(price) OVER () AS store_wide_avg
+FROM books;
+```
+
+## Exercises and Practice Activities
+
+To solidify your understanding of Window Functions, complete the following exercises.
+
+### Exercise 1: The Count
+
+Write a query to list all authors. Next to each author's name, display the total count of authors in the database (`COUNT(*) OVER ()`). (This is useful for pagination, e.g., "Row 5 of 100").
+
+### Exercise 2: Department Salaries (Concept)
+
+Imagine an `Employees` table. Write a query to show `name`, `salary`, `department`, and the `MAX(salary)` for that employee's department.
+
+### Exercise 3: Partitioning
+
+Explain what happens if you remove the `PARTITION BY category` clause from Scenario 1. What value would be calculated in the `category_avg` column?
+
+## Concluding Thoughts
+
+In this lesson, we introduced the concept of Window Functions and the `OVER` clause. We learned how to mix detail rows with aggregate data.
+
+In the next lesson, we will explore a specific subset of window functions: **Ranking Functions**. These allow us to assign a rank (1st, 2nd, 3rd) to rows based on their values, which is incredibly useful for leaderboards and "Top N" reports.
+
+=START_QUESTIONS=What clause identifies a window function?@@What is the difference between GROUP BY and a Window Function?@@What does PARTITION BY do?@@If you omit PARTITION BY, what is the window size? =END_QUESTIONS=

@@ -1,0 +1,65 @@
+# Multilingual Search
+
+The world is global. If you build a search for a Japanese audience, "English Stemming" will fail completely. Orama makes it easy to handle multiple languages.
+
+---
+
+## 1. Language-Specific Stemmers
+
+Orama supports dozens of languages (French, Spanish, Italian, Japanese, etc.). Each language has its own unique grammar rules.
+
+```javascript
+const db = await create({
+  schema: { ... },
+  components: {
+    tokenizer: {
+      language: 'spanish' // Orama now uses Spanish stemming rules
+    }
+  }
+})
+```
+
+---
+
+## 2. Why Language Matters
+
+In English, to make a word plural, you usually add "s". In other languages, the rules are much more complex.
+
+- Using the correct language setting ensures that your "root" words are accurate.
+
+---
+
+## 3. The "Custom" Dictionary
+
+You can also provide a dictionary of words that should **never** be changed or stemmed. This is great for Brand Names (e.g., you don't want "Nike" to be stemmed to "Nik").
+
+---
+
+## Real-World Example: The Global Travel App
+
+A travel app allows users to search for hotels in Mexico and the USA.
+
+- For the Mexico index, they set the language to `'spanish'`.
+- For the USA index, they set it to `'english'`.
+- When a user searches for "Habitaciones" (rooms), the Spanish index correctly stems it to "Habitacion," finding all relevant results.
+
+---
+
+## Hypothetical Scenario: The "Automatic Detect"
+
+A developer wants Orama to "guess" the user's language.
+
+- **The Reality:** Orama does not detect language automatically. You must tell it which language you are using when you create the index.
+- _A common pattern is to detect the user's browser language on the frontend and then load the corresponding Orama index._
+
+## Exercises
+
+1. **Setup:** How do you set the language for an Orama index?
+2. **Comparison:** Why can't you use the English stemmer for a Spanish website?
+3. **Application:** Name three languages (other than English) that Orama supports.
+
+## Summary and Next Steps
+
+Language support ensures your search feels "Native" to your users.
+
+In the next lesson, we’ll learn about **Stopwords and Boosting**—how to ignore junk words and prioritize important ones.

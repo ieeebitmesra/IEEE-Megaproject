@@ -1,0 +1,89 @@
+# Working with RedisJSON
+
+In Module 1, we saw that you can store JSON in Redis by "stringifying" it. However, if you want to change a user's `age` inside that JSON, you have to download the whole string, parse it, change the number, and send it back.
+
+**RedisJSON** is a module that allows Redis to "understand" JSON. It stores it in a binary format that allows you to read and write specific fields _without_ ever touching the rest of the document.
+
+---
+
+## 1. Why use RedisJSON?
+
+- **Partial Updates:** Update a single nested field in a massive JSON object.
+- **Native Types:** It understands JSON numbers, strings, arrays, and booleans. You can even use `JSON.NUMINCRBY` to increment a number deep inside the JSON.
+- **Integration with RedisSearch:** You can index and search through your JSON documents just like we did with Hashes.
+
+---
+
+## 2. Basic Commands
+
+RedisJSON commands start with `JSON.`.
+
+### Setting and Getting
+
+```bash
+# Save a JSON object
+JSON.SET user:101 $ '{"name":"Alice", "stats": {"level": 5, "gold": 100}, "inventory": ["sword", "shield"]}'
+
+# Get the whole thing
+JSON.GET user:101
+
+# Get just the 'gold' field
+JSON.GET user:101 $.stats.gold
+```
+
+### Modifying the JSON
+
+```bash
+# Add 50 gold to the player
+JSON.NUMINCRBY user:101 $.stats.gold 50
+
+# Add a 'potion' to the inventory array
+JSON.ARRAPPEND user:101 $.inventory '"potion"'
+```
+
+---
+
+## 3. JSONPath Syntax
+
+RedisJSON uses a standard called **JSONPath** (using the `$` symbol) to navigate through your data.
+
+- `$` : The root of the JSON.
+- `$.name` : The value of the "name" field.
+- `$.inventory[0]` : The first item in the inventory list.
+- `$.users[*].id` : All IDs from an array of users.
+
+---
+
+## Real-World Example: A Dynamic Dashboard Settings
+
+Imagine you have a dashboard where users can customize their layout (colors, widgets, position).
+
+1. **The Data:** A large JSON object with dozens of nested settings.
+2. **The Interaction:** The user changes one "Widget Background Color."
+3. **The RedisJSON advantage:** Instead of sending the 10 KB of settings back and forth, your frontend just sends:
+   `JSON.SET user:123:settings $.theme.widget_bg '"#FF0000"'`
+4. **Result:** The update is instant, uses almost no network bandwidth, and there's no risk of accidentally overwriting other settings.
+
+---
+
+## Hypothetical Scenario: The "Game Inventory" Update
+
+A player in an MMO kills a monster and loots a "Common Herb."
+
+1. **Standard Redis (String):** Read JSON (2ms) -> Parse in App (1ms) -> Add to Array (0.1ms) -> Stringify (1ms) -> Write to Redis (2ms). Total = ~6ms.
+2. **RedisJSON:** `JSON.ARRAPPEND user:77 $.inventory '"Common Herb"'`. Total = ~2ms.
+
+Over millions of players, this 3x efficiency improvement allows your servers to handle triple the amount of traffic on the same hardware.
+
+## Exercises
+
+1. **JSON Interaction:** Use `JSON.SET` to create an object representing a car (brand, model, and an array of features).
+2. **Path Selection:** Use `JSON.GET` to retrieve only the list of features you just created.
+3. **Array Operation:** Add a new feature to the car using `JSON.ARRAPPEND`.
+4. **Integration Thought:** Why is `JSON.NUMINCRBY` safer for high-concurrency games than reading a JSON string and updating the number in your application code?
+
+## Summary and Next Steps
+
+RedisJSON brings the flexibility of a document database (like MongoDB) to the high-speed world of Redis. It's the perfect tool for modern applications that deal with complex, nested data structures.
+
+You've now completed the "Standard" Redis modules. But wait—there's more! In the next module, we'll look at a dedicated module for **Probabilistic Data Structures**: **RedisBloom**.

@@ -1,0 +1,82 @@
+# Introduction to Cypher
+
+**Cypher** is the query language for Neo4j. If SQL is about "SELECTing from Tables," Cypher is about **"Matching Patterns."**
+
+The most beautiful thing about Cypher is that it is "ASCII Art" for your data.
+
+---
+
+## 1. Nodes in Cypher
+
+We represent nodes with parentheses `()`. inside the parentheses, we put the labels and properties.
+
+```cypher
+(p:Person {name: "Alice", age: 30})
+```
+
+- `p` is a variable (alias).
+- `:Person` is the label (like a table name).
+- `{...}` are the properties.
+
+---
+
+## 2. Relationships in Cypher
+
+We represent relationships with arrows `-->`.
+
+```cypher
+(p:Person)-[:FOLLOWS]->(m:Person)
+```
+
+- `[:FOLLOWS]` is the relationship type.
+- The arrow `->` shows the direction.
+
+---
+
+## 3. The Pattern Match
+
+A complete query looks like this:
+
+```cypher
+MATCH (a:Person)-[:FRIEND]->(b:Person)
+WHERE a.name = "Alice"
+RETURN b.name
+```
+
+_"Find someone named Alice, follow their 'FRIEND' connection, and tell me the name of the person at the other end."_
+
+---
+
+## Real-World Example: Recommendation Logic
+
+You are on a music app.
+
+```cypher
+MATCH (u:User {name: "Bob"})-[:LIKES]->(s:Song)
+RETURN s.title
+```
+
+- This simple pattern finds all songs Bob likes.
+- In SQL, this would involve joining a `Users` table to a `Likes` table, then to a `Songs` table. In Cypher, it's a single, readable line.
+
+---
+
+## Hypothetical Scenario: The "Lost Connection"
+
+A developer wants to find all their LinkedIn connections, but they can't remember if the person "Follows" them or if they "Follow" the person.
+
+- **The Solution:** In Cypher, you can ignore the direction!
+- `MATCH (me:Person {name: "Me"})-[:CONNECTED]-(them:Person)`
+- By removing the arrow head, Neo4j finds the connection regardless of who started it.
+
+## Exercises
+
+1. **Syntax:** How do you represent a "Node" in Cypher?
+2. **Reading:** Translate this into plain English: `(n:City {name: "Paris"})`.
+3. **Logic:** Why is Cypher called "ASCII Art" for graphs?
+
+## Summary and Next Steps
+
+Cypher makes complex relationships easy to write and read.
+
+Next, we learn how to **CREATE and MATCH** data in Neo4j.

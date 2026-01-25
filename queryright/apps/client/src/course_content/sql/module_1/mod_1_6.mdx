@@ -1,0 +1,136 @@
+# Using WHERE Clause for Filtering Rows
+
+Up to this point, our queries have retrieved every single row from a table. In a real-world database with millions of records, this is rarely what you want. Usually, you need to find specific information: a particular customer, orders placed on a specific date, or products within a certain price range.
+
+The `WHERE` clause is the tool we use to filter data. It allows you to specify a condition; only the rows that meet this condition will be included in the result. This lesson will explore how to use the `WHERE` clause with various comparison operators to precisely target the data you need.
+
+## The WHERE Clause: Filtering Data
+
+The `WHERE` clause is added after the `FROM` clause in a SQL statement. It acts like a gatekeeper: it examines each row in the table and asks, "Does this row satisfy the condition?" If the answer is **True**, the row is returned. If **False**, the row is discarded.
+
+### Basic Syntax
+
+```sql
+SELECT column1, column2
+FROM table_name
+WHERE condition;
+```
+
+### Comparison Operators
+
+To build a condition, you use comparison operators. Here are the most common ones in SQL:
+
+| Operator     | Description              | Example                       |
+| :----------- | :----------------------- | :---------------------------- |
+| `=`          | Equal to                 | `WHERE age = 25`              |
+| `>`          | Greater than             | `WHERE price > 100`           |
+| `<`          | Less than                | `WHERE stock < 10`            |
+| `>=`         | Greater than or equal to | `WHERE age >= 18`             |
+| `<=`         | Less than or equal to    | `WHERE price <= 50`           |
+| `<>` or `!=` | Not equal to             | `WHERE status != 'Cancelled'` |
+
+### Handling Different Data Types
+
+- **Numbers:** Do not use quotes.
+  - Correct: `WHERE price = 10.99`
+  - Incorrect: `WHERE price = '10.99'` (Usually works, but bad practice)
+- **Text/Strings:** Must be enclosed in **single quotes**.
+  - Correct: `WHERE name = 'Alice'`
+  - Incorrect: `WHERE name = Alice` (Database thinks Alice is a column name)
+- **Dates:** Must be enclosed in **single quotes**, typically in 'YYYY-MM-DD' format.
+  - Correct: `WHERE order_date = '2023-12-25'`
+
+## Practical Examples and Demonstrations
+
+Let's apply these filtering techniques to our **Online Bookstore** database.
+
+### Scenario 1: Finding a Specific Book
+
+A customer asks if you have the book "1984" in stock. You need to find that specific record.
+
+**Query:**
+
+```sql
+SELECT title, price, stock_quantity
+FROM books
+WHERE title = '1984';
+```
+
+**Result:**
+The database looks at every book. It skips "The Great Gatsby", skips "Pride and Prejudice", and only returns the row where the title is exactly '1984'.
+
+### Scenario 2: Finding Affordable Books
+
+You want to create a "Bargain Bin" section for books that cost less than $10.
+
+**Query:**
+
+```sql
+SELECT title, price
+FROM books
+WHERE price < 10.00;
+```
+
+**Result:**
+This will return all books with a price like 8.99, 5.00, or 9.99. It will exclude any book costing 10.00 or more.
+
+### Scenario 3: Finding Orders Not Yet Shipped
+
+The logistics team needs a list of all orders that are still pending shipment. In our `Orders` table, we have a boolean column `is_shipped`.
+
+**Query:**
+
+```sql
+SELECT order_id, customer_name
+FROM orders
+WHERE is_shipped = FALSE;
+```
+
+**Result:**
+This returns only the orders where the shipping status is false (pending).
+
+### Scenario 4: Filtering by Date
+
+You want to see all orders placed on New Year's Day, 2024.
+
+**Query:**
+
+```sql
+SELECT *
+FROM orders
+WHERE order_date = '2024-01-01';
+```
+
+## Exercises and Practice Activities
+
+To solidify your understanding of the `WHERE` clause, complete the following exercises.
+
+### Exercise 1: Basic Filtering
+
+Using the `Books` table (columns: `title`, `author`, `price`, `stock_quantity`):
+
+1.  Write a query to find all books written by 'George Orwell'.
+2.  Write a query to find all books that cost exactly $12.50.
+3.  Write a query to find all books where the stock quantity is greater than or equal to 100.
+
+### Exercise 2: Negative Filtering
+
+Using the `Orders` table (columns: `order_id`, `status`, `total`):
+
+1.  Write a query to find all orders where the status is **NOT** 'Completed'. (Hint: Use the `<>` or `!=` operator).
+
+### Exercise 3: Data Type Check
+
+Identify the error in the following query and rewrite it correctly:
+
+```sql
+SELECT * FROM employees WHERE last_name = Smith;
+```
+
+## Concluding Thoughts
+
+In this lesson, we unlocked the power of filtering. The `WHERE` clause is one of the most essential tools in SQL, allowing you to narrow down massive datasets to just the relevant information. We learned how to use standard comparison operators (`=`, `>`, `<`) and how to properly format values for numbers, text, and dates.
+
+Looking ahead, the next module (Module 2) will take our filtering skills to the next level. We will learn how to combine multiple conditions using logical operators like `AND`, `OR`, and `NOT` (e.g., "Find books that are under $10 AND written by Orwell"). We will also explore how to modify data—inserting, updating, and deleting records—transforming us from passive readers of data to active managers of it.
+
+=START_QUESTIONS=Which clause is used to filter rows in SQL?@@How do you represent text strings in a WHERE condition?@@What is the operator for "Not Equal To"?@@Does the WHERE clause come before or after the FROM clause? =END_QUESTIONS=

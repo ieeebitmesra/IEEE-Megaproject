@@ -1,0 +1,91 @@
+# Cuckoo Filters and Count-Min Sketch
+
+In the last lesson, we learned that Bloom Filters are great but have one major flaw: you can't remove items. Today, we'll look at the **Cuckoo Filter**, which adds deletion support, and the **Count-Min Sketch**, which is used for counting things in massive data streams.
+
+---
+
+## 1. Cuckoo Filters
+
+A Cuckoo Filter is very similar to a Bloom Filter—it's a probabilistic data structure that tells you if an item is "Maybe" in a set or "Definitely No."
+
+### The Key Advantage: Deletion
+
+Unlike Bloom Filters, Cuckoo Filters allow you to **delete** items without breaking the rest of the filter.
+
+### Commands
+
+```bash
+# Add an item
+CF.ADD my_cuckoo "item1"
+
+# Delete an item
+CF.DEL my_cuckoo "item1"
+
+# Check if it exists
+CF.EXISTS my_cuckoo "item1"
+```
+
+### When to use Cuckoo instead of Bloom?
+
+Use a Cuckoo Filter if your set changes frequently. For example, a list of "Online Users" in a chat app. You need to `ADD` when they log in and `DEL` when they log out.
+
+---
+
+## 2. Count-Min Sketch (CMS)
+
+What if you don't care _if_ an item is in a set, but you want to know **how many times** it has appeared?
+
+### The Problem
+
+If you want to count how many times every word appears in a 24-hour stream of Twitter data, you would normally need a massive Hash: `{"apple": 500, "banana": 300, ...}`. This would use gigabytes of memory.
+
+### The CMS Solution
+
+A **Count-Min Sketch** provides a _frequency estimate_ for millions of unique items using a fixed amount of memory. Like Bloom Filters, it might overestimate (give a slightly higher count than reality) but never underestimates.
+
+### Commands
+
+```bash
+# Create a sketch
+CMS.INITBYPROB my_sketch 0.001 0.01
+
+# Add occurrences
+CMS.INCRBY my_sketch "apple" 5 "banana" 2
+
+# Get the count
+CMS.QUERY my_sketch "apple"
+# Output: 5
+```
+
+---
+
+## Real-World Example: Trending Hashtags on Social Media
+
+Imagine 100 million tweets are sent per hour. You want to show a "Trending" bar.
+
+1. **The Strategy:** Use **Count-Min Sketch** to track all hashtags.
+2. **Efficiency:** Instead of a giant dictionary, CMS uses a small table of numbers.
+3. **The Result:** Even if there are 10 million different tags being used, your Redis memory usage stays at exactly what you configured (e.g., 2 MB). For "trending" topics, being 99% accurate is plenty good enough!
+
+---
+
+## Hypothetical Scenario: The "Unique Link" Tracker
+
+You have a URL shortener like bit.ly. You want to count how many times each shortened link is clicked.
+
+- **For individual links:** Use `INCR` in a String or Hash. (Good for billing/accuracy).
+- **For a "Top 100" global dashboard:** Use **Count-Min Sketch**.
+  - It’s much faster to update during a traffic spike.
+  - It allows you to see which links are "exploding" in popularity without stressing your main database.
+
+## Exercises
+
+1. **Cuckoo vs Bloom:** You are building a blacklist of 50 million "known scammer" phone numbers. You update the list once a week. Which filter would you use? Why?
+2. **Sketching Practice:** Use `CMS.INCRBY` to simulate a stream of data. Add "view" events for three different video IDs. Use `CMS.QUERY` to find the most popular one.
+3. **Memory Math:** Why would a company use Count-Min Sketch for a dashboard instead of just adding everything to a SQL table?
+
+## Summary and Next Steps
+
+Probabilistic data structures like Cuckoo and CMS allow you to "cheat" the laws of memory usage. They provide enough accuracy for most real-world analytics while using a fraction of the resources.
+
+In the final lesson of this module, we will explore **Top-K and T-Digest**, which help you find the absolute "heaviest" or most common items in a stream.

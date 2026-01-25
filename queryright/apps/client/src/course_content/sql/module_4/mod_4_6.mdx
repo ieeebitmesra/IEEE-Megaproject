@@ -1,0 +1,115 @@
+# Writing Basic Subqueries and Correlated Subqueries
+
+Sometimes, a single query isn't enough to answer a question. You might need to calculate a value first (like an average) and _then_ use that value to filter your data.
+
+For example: "Which books cost more than the average price?"
+To answer this, you need two steps:
+
+1.  Calculate the average price.
+2.  List books with a price higher than that number.
+
+In SQL, we can combine these steps into a single statement using a **Subquery** (also known as a nested query).
+
+## Understanding Subqueries
+
+A subquery is simply a query inside another query. It is usually enclosed in parentheses `()`. The inner query runs first, and its result is passed to the outer query.
+
+### Basic Syntax
+
+```sql
+SELECT column_name
+FROM table_name
+WHERE column_name > (SELECT AVG(column_name) FROM table_name);
+```
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### Scenario 1: Above Average Prices (Scalar Subquery)
+
+We want to find books that are more expensive than the store average.
+
+**Query:**
+
+```sql
+SELECT title, price
+FROM books
+WHERE price > (SELECT AVG(price) FROM books);
+```
+
+- **How it works:**
+  1.  **Inner:** `SELECT AVG(price) FROM books` runs first. Let's say it returns `15.50`.
+  2.  **Outer:** The query becomes `SELECT title, price FROM books WHERE price > 15.50`.
+
+### Scenario 2: Finding Customers Who Ordered "1984" (Subquery with IN)
+
+We want to find the names of all customers who have ordered the book "1984".
+
+**Query:**
+
+```sql
+SELECT name
+FROM customers
+WHERE customer_id IN (
+    SELECT customer_id
+    FROM orders
+    WHERE book_id = (SELECT book_id FROM books WHERE title = '1984')
+);
+```
+
+- _Note:_ While this works, a `JOIN` is often more efficient for this specific task. Subqueries are best when you are aggregating data (like Scenario 1).
+
+## Correlated Subqueries
+
+A **Correlated Subquery** is a more advanced and complex type of subquery. Unlike a regular subquery which runs once, a correlated subquery runs **once for every row** of the outer query. It "relates" to the outer row.
+
+### Scenario 3: Authors with Above-Average Book Prices _for their Genre_
+
+This is complex. We want to find books that are expensive _compared to other books in the same genre_. A $20 comic book is expensive; a $20 textbook is cheap. We can't just compare to the global average.
+
+**Query:**
+
+```sql
+SELECT title, price, genre
+FROM books AS b1
+WHERE price > (
+    SELECT AVG(price)
+    FROM books AS b2
+    WHERE b2.genre = b1.genre
+);
+```
+
+- **How it works:**
+  1.  SQL looks at the first book in the outer table (`b1`). Let's say it's a "Sci-Fi" book costing $25.
+  2.  It pauses and runs the inner query. The inner query calculates the average price of _only_ "Sci-Fi" books (because `WHERE b2.genre = b1.genre`). Let's say the Sci-Fi average is $12.
+  3.  It compares: Is $25 > $12? Yes. The row is returned.
+  4.  It moves to the next book in `b1` and repeats the process.
+
+## Exercises and Practice Activities
+
+To solidify your understanding, complete the following exercises.
+
+### Exercise 1: The Cheap List
+
+Write a query to find all books that are cheaper than the most expensive book in the 'Mystery' category.
+
+- Hint: Use `(SELECT MAX(price) FROM books WHERE category = 'Mystery')`.
+
+### Exercise 2: The VIPs
+
+Write a query to find customers who have placed more orders than the customer with ID 101.
+
+- Hint: First find the count of orders for ID 101. Then find customers with a count higher than that.
+
+### Exercise 3: Subquery vs Join
+
+Rewrite the query from Scenario 2 (Customers who ordered '1984') using an `INNER JOIN` instead of a subquery. Which one do you find easier to read?
+
+## Concluding Thoughts
+
+In this lesson, we learned how to nest queries to solve multi-step problems. We covered simple scalar subqueries (returning one value) and list subqueries (using `IN`). We also touched on Correlated Subqueries, which are powerful but can be slow on large datasets because they run repeatedly.
+
+This concludes Module 4. You now have the ability to link tables horizontally (Joins) and filter them vertically using nested logic (Subqueries). In **Module 5**, we will explore advanced techniques like Window Functions and CTEs, which will take your analytical skills to a professional level.
+
+=START_QUESTIONS=What is a subquery?@@Which runs first: the inner query or the outer query?@@What is the difference between a regular subquery and a correlated subquery?@@Can a subquery return more than one row? =END_QUESTIONS=

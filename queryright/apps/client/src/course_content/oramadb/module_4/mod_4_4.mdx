@@ -1,0 +1,60 @@
+# RAG: Powering AI Chatbots
+
+Retrieval Augmented Generation (**RAG**) is the process of giving an AI (like ChatGPT) access to your private data. OramaDB is the perfect engine for the "Retrieval" step.
+
+---
+
+## 1. The RAG Workflow
+
+1. **User asks a question:** "What is the return policy for electronics?"
+2. **Search (Retrieval):** Orama searches your database for the "Return Policy" documents.
+3. **Context:** You take the text Orama finds and "glue" it to the user's question.
+4. **Generation:** You send the combined package to an LLM: _"Based on this text [Policy Data], answer the user's question: [User Question]."_
+
+---
+
+## 2. Why Orama for RAG?
+
+Most RAG systems are slow because they query a cloud database.
+
+- Because Orama is **In-Memory** and can run on the **Edge**, the "Retrieval" step happens in milliseconds.
+- This makes your chatbot feel much more responsive and "alive."
+
+---
+
+## 3. Summarization and Proximity
+
+When doing RAG, you don't always need the _entire_ document. Orama helps you find the specific **Paragraphs** or "Chunks" that are most relevant to the question.
+
+---
+
+## Real-World Example: Customer Support Bot
+
+An airline has 10,000 pages of travel regulations.
+
+- A user asks: "Can I bring a cat on a flight to London?"
+- Orama performs a **Hybrid Search** and finds 3 paragraphs about "Pet Travel" and "United Kingdom."
+- These 3 paragraphs are sent to ChatGPT.
+- ChatGPT answers: "Yes, but you need a health certificate and a specific carrier size."
+- **Result:** The user gets an accurate answer based _only_ on the airline's official rules.
+
+---
+
+## Hypothetical Scenario: The "Hallucination" Fix
+
+An AI says a product costs $10 when it actually costs $50.
+
+- **The Solution:** By using RAG with Orama, the AI is forced to look at the _actual_ product data first.
+- If Orama says the price is $50, the AI will report $50. This prevents the AI from "making things up" (hallucinating).
+
+## Exercises
+
+1. **Steps:** What are the four steps of the RAG workflow?
+2. **Benefits:** Why does Orama's "In-Memory" nature help with RAG?
+3. **Prevention:** How does RAG prevent AI hallucinations?
+
+## Summary and Next Steps
+
+RAG is the "Killer App" for vector databases.
+
+We've completed the AI portion of the course. Up next: **Module 5 - Orama Cloud & Deployment.**

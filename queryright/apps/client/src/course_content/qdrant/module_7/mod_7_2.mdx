@@ -1,0 +1,59 @@
+# Project: Initializing Qdrant
+
+Time to get your hands dirty. We need to create the collection and prepare it for data.
+
+---
+
+## Step 2: Create the Collection
+
+Run this command (via HTTP or the JS client) to set up your library.
+
+```javascript
+import { QdrantClient } from '@qdrant/js-client-rest'
+
+const client = new QdrantClient({ url: 'http://localhost:6333' })
+
+async function setup() {
+  await client.createCollection('digital_library', {
+    vectors: {
+      size: 1536, // Matching the OpenAI model size
+      distance: 'Cosine', // Best for text search
+    },
+    optimizers_config: {
+      default_segment_number: 2,
+    },
+  })
+
+  // Create a "Payload Index" for the category field.
+  // This makes filtering by "Architecture" or "Frontend" instant.
+  await client.createPayloadIndex('digital_library', {
+    field_name: 'category',
+    field_schema: 'keyword',
+  })
+
+  console.log('Collection ready!')
+}
+```
+
+---
+
+## Real-World Insight
+
+Notice the `createPayloadIndex` step. If you have 10 million books and you only want to search "Architecture" books, adding this index makes your query **100x faster**. Without it, Qdrant has to check every single book's category manually.
+
+---
+
+## Project Task:
+
+1. Initialize the collection.
+2. Confirm it was created by running `GET /collections`.
+3. Verify that the "category" field is indexed.
+
+---
+
+## Quick Exercises:
+
+1. **The Parameter**: What does `size: 1536` represent?
+2. **The Schema**: Why did we choose `field_schema: "keyword"` for the category instead of `text`? (Hint: Does a category name like "Architecture" need to be split into words?)
+3. **Draft**: Write a command to delete the collection if you make a mistake and want to start over.
+   mountain.

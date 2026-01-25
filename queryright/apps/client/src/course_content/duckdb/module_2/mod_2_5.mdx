@@ -1,0 +1,75 @@
+# HTTP and S3 Integration
+
+The modern data world isn't just local files; it's the cloud. DuckDB can reach out over the internet as easily as it reads from your C: drive.
+
+---
+
+## 1. Querying HTTP/HTTPS URLs
+
+If a CSV or Parquet file is public on the web, just provide the URL.
+
+```sql
+SELECT * FROM 'https://raw.githubusercontent.com/datasets/gdp/master/data/gdp.csv' LIMIT 10;
+```
+
+---
+
+## 2. Amazon S3 Integration
+
+For private data stored in buckets, you use the `httpfs` extension and provide your credentials.
+
+```sql
+INSTALL httpfs;
+LOAD httpfs;
+
+-- Set your credentials
+SET s3_region='us-east-1';
+SET s3_access_key_id='...';
+SET s3_secret_access_key='...';
+
+-- Query the bucket
+SELECT count(*) FROM 's3://my-bucket/logs/*.parquet';
+```
+
+---
+
+## 3. Range Requests (Byte-Range Magic)
+
+How does DuckDB search a 10GB file on S3 without downloading it?
+
+1. It requests the first few bytes (the **Footer**) of the file.
+2. The footer tells DuckDB: "The 'price' column is located between byte 5,000,000 and 6,000,000."
+3. DuckDB makes a second request for **only those bytes**.
+4. You get your answer while only downloading 1MB of a 10GB file.
+
+---
+
+## Real-World Example: Serverless Analytics
+
+You build a dashboard for your company.
+
+- The raw data (100GB of taxi trips) lives on S3.
+- The dashboard runs on a cheap, tiny server with only 512MB of RAM.
+- Because DuckDB only "pulls" what it needs from the cloud, the dashboard remains lightning-fast and the server never runs out of memory.
+
+---
+
+## Hypothetical Scenario: The "Public Dataset"
+
+GitHub is full of CSV datasets.
+
+- A developer wants to build a tool that compares "Global Happiness Scores."
+- Instead of downloading the CSV and including it in their GitHub repo, they just hardcode the DuckDB query to point at the raw GitHub URL.
+- **The Result:** The app is always up-to-date with whatever is in the main CSV.
+
+## Exercises
+
+1. **Extension:** Which extension is required to query S3 or HTTP files?
+2. **Efficiency:** How does DuckDB avoid downloading 100% of a remote Parquet file?
+3. **Configuration:** What command do you use to tell DuckDB your AWS region?
+
+## Summary and Next Steps
+
+DuckDB makes the internet your database. This concludes Module 2!
+
+Now that we know how to get data in, it's time to perform some surgery on it. In **Module 3**, we look at **Advanced SQL for Analytics**, including Window functions, CTEs, and ASOF joins.

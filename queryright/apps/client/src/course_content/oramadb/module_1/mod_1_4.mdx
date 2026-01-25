@@ -1,0 +1,86 @@
+# Your First Orama Index
+
+Let's get practical. To start searching, you need two things: a **Schema** and an **Instance**.
+
+---
+
+## 1. Defining the Schema
+
+Orama needs to know what types of data you are storing so it can optimize the index.
+
+```javascript
+import { create } from '@oramacloud/client' // Or @orama/orama for local
+
+const db = await create({
+  schema: {
+    title: 'string',
+    description: 'string',
+    price: 'number',
+    isAvailable: 'boolean',
+    metadata: {
+      category: 'string',
+    },
+  },
+})
+```
+
+---
+
+## 2. Adding Data
+
+Once the index is created, adding data is as simple as calling `insert`.
+
+```javascript
+await insert(db, {
+  title: 'Mechanical Keyboard',
+  description: 'A clicky RGB keyboard for developers.',
+  price: 120,
+  isAvailable: true,
+  metadata: {
+    category: 'electronics',
+  },
+})
+```
+
+---
+
+## 3. The "Batch" Insert
+
+If you have thousands of items, don't insert them one by one. Use `insertMultiple` to speed up the indexing process.
+
+```javascript
+const products = [ { ... }, { ... } ];
+await insertMultiple(db, products);
+```
+
+---
+
+## Real-World Example: Syncing a Website
+
+A blogger uses a Static Site Generator (like Next.js or Astro).
+
+- During the "Build" step, the script reads all 500 Markdown files.
+- It inserts the title and content of each file into an Orama index.
+- It saves the index as `search-index.json`.
+- The website loads this JSON file, and now the entire blog is searchable in milliseconds.
+
+---
+
+## Hypothetical Scenario: The "Schema Mismatch"
+
+A developer tries to insert a price as a string (`"120"`) into a column defined as a `number`.
+
+- **Result:** Orama will throw an error.
+- This protects your search results from being "corrupted" by bad data types.
+
+## Exercises
+
+1. **Setup:** What are the basic data types allowed in an Orama schema?
+2. **Performance:** Why should you use `insertMultiple` for large datasets?
+3. **Action:** Write a schema for a "Movie Database" with fields for `title`, `year`, and `rating`.
+
+## Summary and Next Steps
+
+You've built your first index and added data. Now comes the fun part: **Searching.**
+
+In the next module, we'll dive deep into the **Orama Query DSL**.

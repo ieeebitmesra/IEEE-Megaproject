@@ -1,0 +1,51 @@
+# Collections: The Container
+
+In SQL, you have "Tables." In MongoDB, you have "Collections." In Qdrant, you also have **Collections**.
+
+---
+
+## What is a Collection?
+
+A Collection is a named set of points. Every point in a collection **must** have the same vector size.
+
+**Example:**
+
+- `movies` collection: Vectors must be size **1536**.
+- `audio_clips` collection: Vectors must be size **512**.
+
+You cannot mix different vector sizes in the same collection.
+
+---
+
+## Real-World Example: Multi-tenant Apps
+
+If you are building an app for different companies (Company A and Company B), you should create **Separate Collections** for each.
+This ensures that Company A never accidentally searches through Company B's private data.
+
+---
+
+## Setting up a Collection (HTTP API)
+
+To create a collection, you tell Qdrant the "Shape" of the data:
+
+```json
+PUT /collections/products
+{
+    "vectors": {
+        "size": 1536,
+        "distance": "Cosine"
+    }
+}
+```
+
+- **Size:** How many numbers are in each list.
+- **Distance:** How to calculate "Similarity" (We will cover this in Module 3!).
+
+---
+
+## Quick Exercises:
+
+1. **Rule**: Why can't you put a 512-dimension vector into a 1536-dimension collection?
+2. **Draft**: Write the JSON required to create a collection called "songs" with vectors of size 128.
+3. **Hierarchy**: In the hierarchy of data, where does a "Point" sit relative to a "Collection"?
+   ridge.

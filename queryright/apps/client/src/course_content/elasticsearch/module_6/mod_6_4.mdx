@@ -1,0 +1,79 @@
+# Fuzziness and Levenshtein Distance
+
+Users are bad at typing. **Fuzziness** allows Elasticsearch to find documents even if the search term has a typo.
+
+---
+
+## 1. Levenshtein Edit Distance
+
+Elasticsearch measures "distance" between words. One "edit" is:
+
+1. **Substitution:** `kite` -> `bite`
+2. **Deletion:** `kite` -> `kit`
+3. **Insertion:** `kite` -> `kites`
+4. **Transposition:** `kite` -> `kiet`
+
+---
+
+## 2. Using `fuzziness` in a Query
+
+You can specify a number (0, 1, or 2) or use `AUTO`.
+
+```http
+GET /books/_search
+{
+  "query": {
+    "match": {
+      "title": {
+        "query": "elesticsearch",
+        "fuzziness": "AUTO"
+      }
+    }
+  }
+}
+```
+
+### What is `AUTO`?
+
+It adjusts the fuzziness based on the length of the word:
+
+- 0-2 characters: Must be exact (0 edits).
+- 3-5 characters: 1 edit allowed.
+- 5+ characters: 2 edits allowed.
+
+---
+
+## 3. The Performance Cost
+
+Fuzzy searching is **expensive**.
+Instead of looking up one word in the index, Elasticsearch has to look up thousands of variations of that word and see if any of them exist.
+
+---
+
+## Real-World Example: Name Search
+
+Searching for "Jonathon" when the record says "Jonathan."
+
+- This is a 1-character substitution (`o` for `a`).
+- Fuzziness makes this match, improving user satisfaction in CRM and Directory apps.
+
+---
+
+## Hypothetical Scenario: The "Identity" Crisis
+
+Search term: `500`. Fuzziness: `1`.
+
+- **The Result:** Matches `501`, `502`, `600`, `400`.
+- **The Lesson:** **NEVER** use fuzziness on numeric fields, IDs, or short codes. A "typo" on a zip code isn't a near-match; it's a completely different location.
+
+## Exercises
+
+1. **Calculate:** What is the Edit Distance between `Elastic` and `Elastick`?
+2. **Logic Check:** Why should you avoid `fuzziness: 2` on 3-letter words?
+3. **Performance:** Why is fuzzy search slower than a regular match?
+
+## Summary and Next Steps
+
+Fuzziness handles typos. But sometimes words are spelled correctly; they are just in the wrong order.
+
+In the final lesson of this module, we look at **Proximity and Slope**.

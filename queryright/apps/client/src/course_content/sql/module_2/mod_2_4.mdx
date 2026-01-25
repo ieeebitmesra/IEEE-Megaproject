@@ -1,0 +1,126 @@
+# Filtering with Logical Operators (AND, OR, NOT)
+
+In Module 1, we learned how to filter data using a single condition, like `WHERE price < 10`. But real-world questions are often more complex. You might want to find a product that is affordable _and_ highly rated, or a customer who lives in New York _or_ New Jersey. To handle these multi-part conditions, SQL provides Logical Operators: `AND`, `OR`, and `NOT`.
+
+## Understanding Logical Operators
+
+These operators allow you to combine multiple comparison expressions into a single, powerful filter.
+
+### 1. The AND Operator
+
+The `AND` operator requires **both** conditions to be true for a row to be included.
+
+- **Logic:** "Condition A must be true **AND** Condition B must be true."
+- **Example:** `WHERE price < 10 AND stock_quantity > 0`
+  - A book costing $5 with 50 in stock? **Included.**
+  - A book costing $5 with 0 in stock? **Excluded.**
+  - A book costing $20 with 50 in stock? **Excluded.**
+
+### 2. The OR Operator
+
+The `OR` operator requires **at least one** of the conditions to be true.
+
+- **Logic:** "Condition A is true **OR** Condition B is true (or both)."
+- **Example:** `WHERE category = 'Fiction' OR category = 'Mystery'`
+  - A Fiction book? **Included.**
+  - A Mystery book? **Included.**
+  - A Science book? **Excluded.**
+
+### 3. The NOT Operator
+
+The `NOT` operator reverses the result of a condition.
+
+- **Logic:** "Make True become False, and False become True."
+- **Example:** `WHERE NOT category = 'Romance'`
+  - This is equivalent to `WHERE category != 'Romance'`. It returns everything _except_ Romance novels.
+
+## Practical Examples and Demonstrations
+
+We continue with our **Online Bookstore** scenario.
+
+### Scenario 1: Finding Specific Inventory (AND)
+
+A customer wants a "Harry Potter" book, but only if it costs less than $15.
+
+**Query:**
+
+```sql
+SELECT title, price
+FROM books
+WHERE title = 'Harry Potter' AND price < 15.00;
+```
+
+### Scenario 2: Regional Marketing (OR)
+
+We want to send a promotion to all customers in the "East Coast" region. We define this as customers living in 'NY' (New York) or 'NJ' (New Jersey).
+
+**Query:**
+
+```sql
+SELECT customer_name, state
+FROM customers
+WHERE state = 'NY' OR state = 'NJ';
+```
+
+### Scenario 3: Excluding Data (NOT)
+
+We want to see a list of all books that are _not_ out of stock.
+
+**Query:**
+
+```sql
+SELECT title, stock_quantity
+FROM books
+WHERE NOT stock_quantity = 0;
+```
+
+_(Note: You could also write `WHERE stock_quantity > 0` or `WHERE stock_quantity != 0`, but `NOT` is useful for more complex logic)._
+
+### Scenario 4: Combining AND and OR (Order of Operations)
+
+This is a common trap. Suppose you want "Fiction" or "Mystery" books that are also "Cheap" (< $10).
+
+**Incorrect Query:**
+
+```sql
+SELECT * FROM books
+WHERE category = 'Fiction' OR category = 'Mystery' AND price < 10;
+```
+
+_Problem:_ SQL processes `AND` before `OR`. This query asks for:
+
+1.  Mystery books under $10.
+2.  OR _any_ Fiction book (regardless of price).
+
+**Correct Query (Using Parentheses):**
+
+```sql
+SELECT * FROM books
+WHERE (category = 'Fiction' OR category = 'Mystery') AND price < 10;
+```
+
+_Fix:_ Parentheses force the database to evaluate the `OR` first. "Is it Fiction or Mystery? If yes, THEN check if it is under $10."
+
+## Exercises and Practice Activities
+
+To solidify your understanding of logical operators, complete the following exercises.
+
+### Exercise 1: The "AND" Filter
+
+Write a query to find all books that are in the 'Science' category **AND** have a price greater than $50.
+
+### Exercise 2: The "OR" Filter
+
+Write a query to find all orders that were either placed on '2024-01-01' **OR** have a total amount greater than $500.
+
+### Exercise 3: Complex Logic
+
+Write a query to find customers who live in 'CA' (California) **AND** have joined after '2023-01-01'.
+
+## Concluding Thoughts
+
+In this lesson, we learned how to build sophisticated filters using `AND`, `OR`, and `NOT`. We discovered that `AND` restricts results (making the list smaller), while `OR` expands results (making the list broader). We also learned the vital importance of using parentheses when combining these operators to ensure our logic is applied in the correct order.
+
+In the next lesson, we will explore "Advanced Filtering" techniques. We will introduce shortcuts like `IN` (to replace multiple `OR`s), `BETWEEN` (for ranges), and `LIKE` (for pattern matching, such as finding all emails ending in "@gmail.com").
+
+=START_QUESTIONS=Which operator requires both conditions to be true?@@Which operator requires only one condition to be true?@@Why are parentheses important when mixing AND and OR?@@What does the NOT operator do? =END_QUESTIONS=

@@ -1,0 +1,64 @@
+# Data Persistence: The .db File
+
+What's inside a `.db` file? Unlike other databases that have complex folder structures and configuration files, DuckDB puts everything into one file.
+
+---
+
+## 1. Single File Architecture
+
+A `.db` file contains:
+
+- The **Schema** (Table names, column types).
+- The **Metadata** (Which parts of the file contain which columns).
+- The **Actual Data** (Compressed blocks of columns).
+- The **WAL** (Write-Ahead Log) - a temporary "scratchpad" used during active writing to prevent corruption if your computer crashes.
+
+---
+
+## 2. Portability
+
+Because it's a single file, you can treat it like a Word doc or a PDF.
+
+- You can put it on a USB stick.
+- You can move it from a Linux server to a Windows laptop.
+- You can upload it to S3 or Google Drive.
+
+---
+
+## 3. Storage Efficiency
+
+DuckDB uses several specialized compression techniques:
+
+- **Bitpacking:** Storing small numbers in the minimum number of bits.
+- **RLE (Run Length Encoding):** If you have 1,000 rows with the value "USA", DuckDB stores it as "USA x 1000".
+- **Zstd:** A general-purpose high-speed compression.
+
+---
+
+## Real-World Example: Reproducible Science
+
+A researcher publishes a paper about climate change.
+
+1. Along with the paper, they provide a `climate_data.db` file.
+2. Any other researcher in the world can download that one file, open it with DuckDB, and run the exact same SQL queries to verify the results.
+3. No database setup, no password, no connection strings.
+
+---
+
+## Hypothetical Scenario: The "Corruption" Worry
+
+Someone is halfway through a 1-hour data import and the power goes out.
+
+- **The Result:** The `.db` file is safe. DuckDB uses "ACID" transactions. When the computer restarts, DuckDB looks at the **Write-Ahead Log (WAL)**, realizes the import didn't finish, and rolls the database back to exactly how it was before the power cut.
+
+## Exercises
+
+1. **Comparison:** How is the "Single File" approach of DuckDB similar to or different from SQLite?
+2. **Compression:** Which technique is used to store repetitive values like "Male/Female" efficiently?
+3. **Safety:** What is the purpose of the Write-Ahead Log (WAL)?
+
+## Summary and Next Steps
+
+DuckDB makes data portable and safe. This marks the end of Module 1!
+
+In **Module 2**, we will learn how to get data **into** DuckDB. We'll explore the "Swiss Army Knife" of data ingestion, including CSVs, Parquet, and even connecting directly to other databases like Postgres.

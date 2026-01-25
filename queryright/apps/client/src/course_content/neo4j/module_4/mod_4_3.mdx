@@ -1,0 +1,63 @@
+# Query Profiling (EXPLAIN and PROFILE)
+
+How do you know if your index is working? You use the **Query Profiler**.
+
+---
+
+## 1. EXPLAIN
+
+Use `EXPLAIN` to see the "Query Plan" without actually running the query.
+
+- It shows you the steps Neo4j **thinks** it will take.
+- It's great for checking syntax and basic index usage.
+
+---
+
+## 2. PROFILE
+
+Use `PROFILE` to run the query and see exactly how many resources it used.
+
+- It shows you **DB Hits** (the number of times Neo4j had to touch the storage engine).
+- **Lower DB Hits = Faster Query.**
+
+---
+
+## 3. Identifying the "Cartesian Product"
+
+If you see a query step called "Cartesian Product," it usually means you matched two things that aren't connected, causing the database to multiply them and crash your memory.
+
+- **Example:** `MATCH (a:Person), (b:Movie)` without a relationship between them.
+
+---
+
+## Real-World Example: Optimizing a Slow API
+
+A developer notices that the "User Feed" is taking 5 seconds to load.
+
+- They run a `PROFILE` on the Cypher query.
+- They see 2,000,000 DB Hits on a step called "Filter."
+- They realize they forgot to create an index on the `status` property.
+- They add the index, run `PROFILE` again, and see the DB Hits drop to 100.
+- Load time: 5s -> 0.05s.
+
+---
+
+## Hypothetical Scenario: The "Memory Hog"
+
+A data scientist runs a `MATCH (n)-[*]->(m)` (infinite path search).
+
+- The query never finishes.
+- They run it with `EXPLAIN` and see that Neo4j is trying to traverse trillions of paths.
+- They change the query to a 3-hop limit (`[*..3]`), and the profile shows a healthy, fast execution plan.
+
+## Exercises
+
+1. **Comparison:** What is the difference between `EXPLAIN` and `PROFILE`?
+2. **Metrics:** What is a "DB Hit"?
+3. **Logic:** Why is it bad to see a "Cartesian Product" in your query plan?
+
+## Summary and Next Steps
+
+The Profiler is your microscope. Use it to see the "Internal Life" of your queries.
+
+We wrap up Module 4 in the next lesson.

@@ -1,0 +1,93 @@
+# Publish/Subscribe Messaging
+
+Up until now, we've used Redis as a place to _store_ and _retrieve_ data. But Redis can also act as a **Message Broker**. This means it can help different parts of your application communicate with each other in real-time without them even knowing each other exists. This pattern is called **Pub/Sub** (Publish/Subscribe).
+
+---
+
+## 1. The Pub/Sub Concept
+
+Think of Pub/Sub like a radio station.
+
+- **The Publisher (Radio Station):** Sends out a signal on a specific frequency (a "channel"). They don't know who is listening.
+- **The Subscriber (Listener):** Tunes their radio to that specific "channel." They hear whatever the radio station sends out.
+
+### Key Difference from Lists
+
+In a Redis **List**, data is persistent. If you push a message to a list, it stays there until someone pops it off.
+In **Pub/Sub**, the messaging is "fire and forget." If a subscriber is not "online" when the message is sent, they miss it forever.
+
+---
+
+## 2. Basic Commands
+
+### Subscribing to a Channel
+
+A client can subscribe to one or more channels. As soon as they run this command, the client enters "subscriber mode" and waits for messages.
+
+```bash
+SUBSCRIBE news_channel
+```
+
+### Publishing a Message
+
+Another client (the publisher) can send a message to that channel.
+
+```bash
+PUBLISH news_channel "Breaking: Redis adds more features!"
+```
+
+### Pattern Matching (Wildcards)
+
+You can subscribe to multiple channels at once using a pattern.
+
+```bash
+# Subscribe to news_it, news_politics, news_sports
+PSUBSCRIBE news_*
+```
+
+---
+
+## Real-World Example: A Real-Time Chat App
+
+Imagine you are building a chat application like WhatsApp or Slack.
+
+1. **The Architecture:** You have thousands of users connected to your web servers via WebSockets.
+2. **The Problem:** When User A sends a message to "Room 101", how do you tell all the other users in that room to update their screen?
+3. **The Redis Solution:**
+   - Every time a user opens "Room 101", their browser's connection "subscribes" to a Redis channel called `chat:room:101`.
+   - When User A types a message and hits enter, your backend runs:
+     `PUBLISH chat:room:101 "Hello everyone!"`
+4. **The Result:** Instantly, every user's browser receives the message via Redis and displays it.
+
+---
+
+## Hypothetical Scenario: Decoupling a Microservices System
+
+Imagine you have an e-commerce platform with three services:
+
+1. **Order Service:** Handles the checkout.
+2. **Email Service:** Sends "Order Confirmed" emails.
+3. **Inventory Service:** Reducts stock.
+
+Instead of the Order Service calling the Email and Inventory services directly (which might be slow or fail), it can simply run:
+`PUBLISH new_order "order_id_5599"`
+
+- The **Email Service** is subscribed to `new_order` and sends the email when it "hears" the message.
+- The **Inventory Service** is also subscribed to `new_order` and updates the database.
+
+If the Email Service is temporarily down, the Order Service doesn't care—it has finished its job. (Note: For mission-critical tasks where you _can't_ afford to miss a message, you might use **Redis Streams** or a List instead of Pub/Sub).
+
+## Exercises
+
+1. **Test it out:** Open two terminals. In the first, run `SUBSCRIBE test_channel`. In the second, run `PUBLISH test_channel "Hello world!"`. Did the first terminal see the message?
+2. **Pattern Matching:** If you subscribe to `orders:*`, which of these messages will you receive?
+   - `PUBLISH orders:new "id_1"`
+   - `PUBLISH orders:cancel "id_2"`
+   - `PUBLISH inventory:update "id_3"`
+3. **Architecture Choice:** Why would you use Pub/Sub for a Chat app instead of just checking a SQL database for new messages every 5 seconds?
+
+## Summary and Next Steps
+
+Redis Pub/Sub is a lightweight, ultra-fast way to build real-time communication into your apps. It is the "glue" that holds together real-time dashboards, chat systems, and decoupled microservices.
+
+In the next lesson, we will look at **Redis Transactions**, which ensure that a sequence of commands is executed as a single, uninterrupted unit.

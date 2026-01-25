@@ -1,0 +1,102 @@
+# Indexing and Querying with RedisSearch
+
+In the previous lesson, we learned the basics of creating an index. Now, we will dive deeper into the powerful query language of RedisSearch. Mastering these queries will allow you to build complex features like filters, sorting, and geo-location search.
+
+---
+
+## 1. Advanced Query Syntax
+
+### Boolean Operators
+
+You can combine terms using "AND" (implied), "OR" (`|`), and "NOT" (`-`).
+
+```bash
+# Find items containing 'laptop' AND 'pro'
+FT.SEARCH idx:store "laptop pro"
+
+# Find items containing 'laptop' OR 'tablet'
+FT.SEARCH idx:store "laptop | tablet"
+
+# Find 'laptop' but NOT 'apple'
+FT.SEARCH idx:store "laptop -apple"
+```
+
+### Field-Specific Search
+
+Instead of searching across everything, you can target specific parts of your data.
+
+```bash
+# Search for 'J.K. Rowling' only in the 'author' field
+FT.SEARCH idx:books "@author:Rowling"
+```
+
+---
+
+## 2. Ranking and Scoring
+
+When you search for "Pizza" on Google, how does it know which page to show first? It uses a **Scoring** algorithm. RedisSearch does the same.
+
+### How it Works:
+
+- By default, it uses a technique called **TF-IDF** (Term Frequency-Inverse Document Frequency). Basically, the more times your search term appears in a document (and the rarer that term is in other documents), the higher the score.
+- You can override this by giving different "weights" to your fields (like we did with `title` in the last lesson).
+
+### Sorting Results:
+
+You can also ignore the relevance score and sort by a specific numeric field.
+
+```bash
+# Find laptops, sorted by price (lowest first)
+FT.SEARCH idx:store "laptop" SORTBY price ASC
+```
+
+---
+
+## 3. Geospatial Search
+
+RedisSearch has fantastic support for searching by location.
+
+### How it Works:
+
+1. Define a `GEO` field in your schema.
+2. Search for items within a certain radius of a point.
+
+```bash
+# Find all pizza shops within 5 kilometers of New York City
+FT.SEARCH idx:shops "@location:[ -74.00 40.71 5 km]"
+```
+
+---
+
+## Real-World Example: A Real-Estate App
+
+Imagine a Zillow-style app. A user wants to find "3-bedroom houses" in "Austin" under "$500,000" that were built after "2010".
+
+**The RedisSearch Query:**
+`FT.SEARCH idx:homes "3-bedroom @city:Austin @price:[0 500000] @year_built:[2011 +inf]"`
+
+- **The Power:** This single command replaces what would normally be a massive, slow SQL `JOIN` query. Because RedisSearch keeps these numeric ranges in memory, it is lightning-fast even with millions of listings.
+
+---
+
+## Hypothetical Scenario: The "Fuzzy" Help Desk
+
+A customer types "suport" into the help desk search bar (they missed a 'p').
+
+**The Solution: Fuzzy Matching.**
+In RedisSearch, you can wrap a word in `%` to allow for misspellings.
+`FT.SEARCH idx:help "%%suport%%"`
+
+- Redis will find articles containing "support" even though the user spelled it wrong. This "Levenshtein distance" matching makes your application feel much more "intelligent" and user-friendly.
+
+## Exercises
+
+1. **Query Construction:** Write a query to find a "Blue" "Shirt" that costs between "$10" and "$30".
+2. **Geo Search:** If you were building an app like Yelp, why would `GEO` fields be more efficient in Redis than calculating distances in your application code?
+3. **Fuzzy Search:** When would you NOT want to use fuzzy matching? (Hint: Think about Part Numbers or ID codes).
+
+## Summary and Next Steps
+
+Indexing and Querying are the heart of a modern data-driven application. By combining text search, numeric ranges, and geo-spatial logic, you can provide users with a powerful way to explore your data.
+
+In the next lesson, we will move from searching to structured data with **RedisJSON**, which allows you to store and manipulate JSON documents natively.

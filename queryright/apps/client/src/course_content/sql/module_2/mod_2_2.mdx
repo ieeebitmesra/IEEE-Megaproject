@@ -1,0 +1,103 @@
+# Updating Existing Records (UPDATE)
+
+Data is rarely permanent. Customers change their addresses, product prices fluctuate, and order statuses move from "Processing" to "Shipped." In a relational database, we modify existing records using the `UPDATE` statement. This lesson will guide you through the syntax and safety precautions required when changing data.
+
+## Understanding the UPDATE Statement
+
+The `UPDATE` statement allows you to modify the values of one or more columns in existing rows. Unlike `INSERT`, which adds new rows, `UPDATE` changes the data _inside_ the rows that are already there.
+
+### Basic Syntax
+
+```sql
+UPDATE table_name
+SET column1 = new_value1, column2 = new_value2
+WHERE condition;
+```
+
+- **`UPDATE`**: Specifies the table you want to modify.
+- **`SET`**: Lists the columns to change and the new values they should receive.
+- **`WHERE`**: **Crucial!** Specifies _which_ rows should be updated.
+
+### The Danger of Omitting WHERE
+
+If you omit the `WHERE` clause, the database assumes you want to update **every single row** in the table.
+
+- _Dangerous Example:_ `UPDATE products SET price = 0;`
+- _Result:_ Every product in your store is now free. This is a common and catastrophic mistake for beginners. Always double-check your `WHERE` clause.
+
+## Practical Examples and Demonstrations
+
+We continue with our **Online Bookstore** scenario.
+
+### Scenario 1: Updating a Single Record
+
+A customer, "Alice Wonderland", has moved. We need to update her email address in the `Customers` table.
+
+**Query:**
+
+```sql
+UPDATE customers
+SET email = 'alice.new@example.com'
+WHERE customer_id = 1;
+```
+
+**Result:**
+The database finds the row where `customer_id` is 1 and changes the `email` column. All other columns (name, join date) remain unchanged.
+
+### Scenario 2: Updating Multiple Columns
+
+We realized that for the book "1984", we had the wrong price _and_ the wrong stock count. We need to fix both at once.
+
+**Query:**
+
+```sql
+UPDATE books
+SET price = 14.99, stock_quantity = 50
+WHERE title = '1984';
+```
+
+### Scenario 3: Bulk Updates
+
+The store is having a sale! We want to discount all books in the "Fiction" genre by 10%. We can use a mathematical expression in the `SET` clause.
+
+**Query:**
+
+```sql
+UPDATE books
+SET price = price * 0.90
+WHERE genre = 'Fiction';
+```
+
+**Result:**
+The database looks at every book. If the genre is 'Fiction', it takes the _current_ price, multiplies it by 0.90, and saves the result as the _new_ price. Books in "Non-Fiction" are untouched.
+
+## Exercises and Practice Activities
+
+To solidify your understanding of updating data, complete the following exercises.
+
+### Exercise 1: Correcting a Typo
+
+In the `Authors` table, the author "George Orwell" was accidentally entered as "George Orwel". Write a query to fix his last name. Assume his `author_id` is 2.
+
+### Exercise 2: Updating Status
+
+In the `Orders` table, order #5001 has been shipped. Write a query to change its `is_shipped` status to `TRUE`.
+
+### Exercise 3: Safety Check
+
+You need to update the price of "The Great Gatsby". You write:
+
+```sql
+UPDATE books
+SET price = 12.99;
+```
+
+What will happen when you run this? How should you fix it?
+
+## Concluding Thoughts
+
+In this lesson, we learned how to modify existing data using the `UPDATE` statement. We emphasized the critical importance of the `WHERE` clause to prevent accidental mass updates. We also saw how to update multiple columns simultaneously and how to perform calculations during an update.
+
+In the next lesson, we will cover the final aspect of basic data manipulation: removing data. We will learn how to use the `DELETE` statement to remove records from our tables, and again, why the `WHERE` clause is your best friend in preventing data disasters.
+
+=START_QUESTIONS=Which keyword is used to modify existing data?@@What happens if you omit the WHERE clause in an UPDATE statement?@@Can you update multiple columns in a single query?@@How do you perform a calculation (like a price increase) during an update? =END_QUESTIONS=

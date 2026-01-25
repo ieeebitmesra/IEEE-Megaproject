@@ -1,0 +1,23 @@
+# Module 4 - Summary
+
+Performance is the difference between a "Toy" and a "System."
+
+---
+
+## What we covered:
+
+- **Constraints:** Using Uniqueness and Existence rules to protect data integrity.
+- **Indexing:** Creating Range and Text indexes to find "Seed Nodes" quickly.
+- **Profiling:** Using `EXPLAIN` and `PROFILE` to count DB Hits and avoid Cartesian Products.
+
+---
+
+## Key Takeaway
+
+The "native" speed of Neo4j is a result of **Index-Free Adjacency**, but to get to that first node, you must have a proper **Indexing Strategy**. Without an index, every search starts with a slow scan of the whole database.
+
+---
+
+## Up Next: Module 5 - Graph Data Science (GDS)
+
+Now that your graph is fast, it's time to make it smart. In the next module, we'll introduce the **Graph Data Science Library** and learn about algorithms like **PageRank**, **Community Detection**, and **Similarity**.

@@ -1,0 +1,38 @@
+# Advanced Modeling: Nodes vs. Properties
+
+One of the hardest decisions in Neo4j is: **"Should this piece of data be a Property or a separate Node?"**
+
+---
+
+## The Rule of Thumb
+
+- **Property:** If the data is an attribute that only describes a single node (e.g., `user.date_of_birth`).
+- **Node:** If the data is something you want to **browse through**, **search by**, or use to **connect** multiple nodes.
+
+---
+
+## Real-World Example: "City"
+
+- **Option A (Property):** `(u:User {name: "Alice", city: "New York"})`. This is fine if you only care about Alice.
+- **Option B (Node):** `(u:User {name: "Alice"})-[:LIVES_IN]->(c:City {name: "New York"})`. This is much better if you want to find "All users who live in New York."
+
+Why? Because in Option B, the "New York" node becomes a **Hub**. Neo4j can traverse from the City node to all connected users instantly. In Option A, it has to scan a property index.
+
+---
+
+## Hypothetical Scenario: The "Exploding" Tag List
+
+A developer creates a `Post` node and puts all hashtags as an array property: `(p:Post {tags: ["#tech", "#graph", "#coding"]})`.
+Later, they want to find _Related Posts_. To do this, they have to run a slow text search through every post's array.
+
+**The Graph Way:**
+Make each `#tag` its own node.
+To find related posts, you just go: `(p1:Post)-[:TAGGED]->(t:Tag)<-[:TAGGED]-(p2:Post)`. It’s simple, visual, and fast.
+
+---
+
+## Quick Exercises:
+
+1. **Model Challenge**: If you are building a Movie Database, should "Genre" (e.g., Action, Comedy) be a property on a `Movie` node or its own `Genre` node? Why?
+2. **Cardinality**: What happens if you make "Timestamp" (down to the millisecond) a separate Node? (Is that a good idea? Hint: High-cardinality nodes can be slow).
+3. **Traversability**: Why is it easier to write a query for "Common Friends" if Interests are Nodes instead of just text strings in a list?

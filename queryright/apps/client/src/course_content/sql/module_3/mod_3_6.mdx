@@ -1,0 +1,99 @@
+# Case Study: Calculating Key Performance Indicators (KPIs)
+
+In the corporate world, databases drive decisions through **Key Performance Indicators (KPIs)**. These are specific metrics that tell a business if it is succeeding or failing. As a SQL developer, you will frequently be asked to write queries that calculate these KPIs.
+
+In this final lesson of Module 3, we will calculate three critical KPIs for our **Online Bookstore**:
+
+1.  **Average Order Value (AOV)**
+2.  **Customer Lifetime Value (CLV)** (Simplified)
+3.  **Daily Sales Velocity**
+
+## KPI 1: Average Order Value (AOV)
+
+**Definition:** The average amount a customer spends each time they place an order.
+**Why it matters:** A higher AOV means customers are buying more expensive items or more items per cart.
+
+**Query:**
+
+```sql
+SELECT AVG(total_amount) AS average_order_value
+FROM orders;
+```
+
+- **Refinement:** We can also calculate this by year to see if we are improving.
+  ```sql
+  SELECT EXTRACT(YEAR FROM order_date) AS year, AVG(total_amount) AS aov
+  FROM orders
+  GROUP BY EXTRACT(YEAR FROM order_date);
+  ```
+
+## KPI 2: Customer Lifetime Value (CLV)
+
+**Definition:** The total revenue a business can expect from a single customer account.
+**Why it matters:** It helps identify who the most valuable customers are.
+
+**Query:**
+
+```sql
+SELECT customer_id, SUM(total_amount) AS lifetime_value
+FROM orders
+GROUP BY customer_id
+ORDER BY lifetime_value DESC;
+```
+
+- **Analysis:** This gives us a list of customers ranked by their total spend. The top 10% are usually the ones we want to treat with special care (VIP programs, exclusive offers).
+
+## KPI 3: Daily Sales Velocity
+
+**Definition:** The total revenue generated per day.
+**Why it matters:** It helps track immediate performance and the impact of daily marketing campaigns.
+
+**Query:**
+
+```sql
+SELECT order_date, SUM(total_amount) AS daily_revenue
+FROM orders
+GROUP BY order_date
+ORDER BY order_date DESC;
+```
+
+## Advanced Challenge: The "Whale" Hunter
+
+A "Whale" in business terms is a customer who spends significantly more than the average. Let's try to find customers whose _total_ spend is greater than 3 times the _average_ order value.
+
+_Note: This requires a Subquery, which we will cover in Module 4, but here is a sneak peek at the logic._
+
+```sql
+SELECT customer_id, SUM(total_amount)
+FROM orders
+GROUP BY customer_id
+HAVING SUM(total_amount) > (SELECT AVG(total_amount) * 3 FROM orders);
+```
+
+- **Logic:**
+  1.  Calculate the Average Order Value (e.g., $50).
+  2.  Multiply by 3 ($150).
+  3.  Group orders by customer and sum their total.
+  4.  Keep only customers whose total is > $150.
+
+## Exercises and Practice Activities
+
+### Exercise 1: Minimum Order Threshold
+
+Write a query to calculate the AOV, but only for orders that were greater than $0 (excluding free giveaways or errors).
+
+### Exercise 2: Yearly Growth
+
+Write a query to show the total number of orders (`COUNT(*)`) for each year.
+
+### Exercise 3: The Top 3
+
+Write a query to find the top 3 dates with the highest sales revenue in the company's history.
+
+## Concluding Thoughts
+
+Congratulations! You have completed Module 3. You now possess the ability to summarize vast amounts of data into concise, actionable insights. You can count inventory, calculate revenue, group data by category or time, and filter those groups to find outliers.
+
+In **Module 4**, we will tackle the most powerful feature of relational databases: **Joins**. Up until now, we have mostly looked at one table at a time. In the next module, we will learn how to link the `Customers` table to the `Orders` table and the `Books` table, allowing us to see the full picture of our data ecosystem.
+
+=START_QUESTIONS=What does AOV stand for?@@Which aggregate function is used to calculate total revenue per customer?@@Why is grouping by date useful for sales analysis?@@What is a "Whale" in the context of customer analysis? =END_QUESTIONS=

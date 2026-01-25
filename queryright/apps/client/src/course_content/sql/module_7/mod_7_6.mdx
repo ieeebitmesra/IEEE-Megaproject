@@ -1,0 +1,109 @@
+# Advanced Case Study: Building a Dashboard Data Source
+
+Congratulations! You have reached the final lesson of "The Complete PostgreSQL Mastery Bootcamp."
+
+To graduate, we will tackle a real-world challenge. You have been hired as the Lead Data Architect for **TechTrendz** (our Electronics E-commerce store, which shares the same schema logic as our Bookstore).
+
+**The Request:**
+The CMO needs a single "Master Data Source" for their Tableau/PowerBI dashboard. They need a daily summary that shows:
+
+1.  Total Revenue.
+2.  Total Orders.
+3.  Average Order Value (AOV).
+4.  The Top Selling Product Category of the day.
+5.  The Month-over-Month growth rate for that day's revenue.
+
+This requires combining Aggregates, Joins, Window Functions, and CTEs into one robust query.
+
+## The Solution: Step-by-Step
+
+### Step 1: Daily Aggregates (CTE)
+
+First, we calculate the basic metrics for each day.
+
+```sql
+WITH DailyMetrics AS (
+    SELECT
+        DATE(order_date) AS report_date,
+        SUM(total_amount) AS daily_revenue,
+        COUNT(order_id) AS daily_orders,
+        AVG(total_amount) AS daily_aov
+    FROM orders
+    GROUP BY DATE(order_date)
+),
+```
+
+### Step 2: Top Category per Day (CTE with Ranking)
+
+This is tricky. We need to rank categories by sales _for each day_ and pick #1.
+
+```sql
+CategorySales AS (
+    SELECT
+        DATE(o.order_date) AS report_date,
+        p.category,
+        SUM(oi.quantity * oi.price_at_purchase) AS cat_revenue,
+        RANK() OVER (PARTITION BY DATE(o.order_date) ORDER BY SUM(oi.quantity * oi.price_at_purchase) DESC) as rank_num
+    FROM orders o
+    JOIN order_items oi ON o.order_id = oi.order_id
+    JOIN products p ON oi.product_id = p.product_id
+    GROUP BY DATE(o.order_date), p.category
+),
+TopCategory AS (
+    SELECT report_date, category
+    FROM CategorySales
+    WHERE rank_num = 1
+)
+```
+
+### Step 3: Combining and Adding Growth (Final Select)
+
+Now we join the metrics with the top category, and use `LAG` for the growth calculation.
+
+```sql
+SELECT
+    dm.report_date,
+    dm.daily_revenue,
+    dm.daily_orders,
+    ROUND(dm.daily_aov, 2) AS aov,
+    tc.category AS top_category,
+    -- Calculate Growth: (Today - Yesterday) / Yesterday
+    ROUND(
+        (dm.daily_revenue - LAG(dm.daily_revenue, 1) OVER (ORDER BY dm.report_date)) /
+        NULLIF(LAG(dm.daily_revenue, 1) OVER (ORDER BY dm.report_date), 0) * 100
+    , 2) AS daily_growth_pct
+FROM DailyMetrics dm
+JOIN TopCategory tc ON dm.report_date = tc.report_date
+ORDER BY dm.report_date DESC;
+```
+
+## The Result
+
+This query produces a clean, flat table ready for any visualization tool:
+
+| report_date | daily_revenue | daily_orders | aov    | top_category | daily_growth_pct |
+| :---------- | :------------ | :----------- | :----- | :----------- | :--------------- |
+| 2024-02-02  | 5000.00       | 50           | 100.00 | Laptops      | 25.00            |
+| 2024-02-01  | 4000.00       | 40           | 100.00 | Phones       | NULL             |
+
+## Final Exercises
+
+### Exercise 1: The Weekly View
+
+Modify the query to report by **Week** instead of by Day. (Hint: Use `DATE_TRUNC('week', order_date)`).
+
+### Exercise 2: The Moving Average
+
+Add a column to the final output that shows the **7-Day Moving Average** of revenue.
+
+### Exercise 3: Materialize It
+
+Wrap the entire query in a `CREATE MATERIALIZED VIEW` statement so the dashboard loads instantly.
+
+## Course Conclusion
+
+You have journeyed from the basics of `SELECT *` to building complex, enterprise-grade analytical engines. You now possess the skills to design databases, optimize performance, and extract deep insights from raw data.
+
+The world runs on data, and SQL is the language of data. Go forth and query!
+
+=START_QUESTIONS=What is the purpose of a CTE in a complex query?@@Why did we use RANK() to find the top category?@@What does NULLIF prevent in the growth calculation?@@How does this final query help a business user? =END_QUESTIONS=

@@ -1,0 +1,58 @@
+# Final Project: The Fraud Detection Lab
+
+We are going to build a system to detect **Synthetic Identity Fraud**. This is when criminals share pieces of information (like a phone number or address) to create multiple "fake" people.
+
+---
+
+## The Scenario
+
+You work for a bank. You have a list of applications. You suspect that some applicants are using the same phone number or credit card to open different accounts.
+
+### Step 1: Create the Data
+
+Run this script to set up our suspicious network:
+
+```cypher
+// Create Applicants
+CREATE (a1:Applicant {name: "Alice Smith", id: "A1"})
+CREATE (a2:Applicant {name: "Bob Jones", id: "A2"})
+CREATE (a3:Applicant {name: "Charlie Brown", id: "A3"})
+CREATE (a4:Applicant {name: "David Wilson", id: "A4"})
+
+// Create Shared Resources
+CREATE (p1:Phone {number: "555-0199"})
+CREATE (e1:Email {address: "bob.j@example.com"})
+CREATE (addr1:Address {street: "123 Maple St"})
+
+// Connect them
+CREATE (a1)-[:HAS_PHONE]->(p1)
+CREATE (a2)-[:HAS_PHONE]->(p1) // Alice and Bob share a phone number!
+CREATE (a2)-[:HAS_EMAIL]->(e1)
+CREATE (a3)-[:HAS_EMAIL]->(e1) // Bob and Charlie share an email!
+CREATE (a3)-[:HAS_ADDRESS]->(addr1)
+CREATE (addr1)<-[:HAS_ADDRESS]-(a4)
+```
+
+---
+
+## Real-World Insight
+
+In a relational database (SQL), finding this "Social Chain" would require multiple `JOIN` statements. If the chain is 6 people long, the SQL query becomes unreadable and incredibly slow.
+In Neo4j, it's just a simple path traversal.
+
+---
+
+## Project Task:
+
+1. Copy the code block above into your Neo4j Browser and execute it.
+2. Note how the visualization immediately shows clusters of connections.
+3. Observe: Does David Wilson connect to Alice Smith? (Count the "hops" between them).
+
+---
+
+## Quick Exercises:
+
+1. **Visualization**: Draw (on paper or mentally) the graph you just created.
+2. **Relationships**: How many different _types_ of sharing are happening in this graph? (Phone, Email, Address).
+3. **Intuition**: If you were a bank investigator, why would you be suspicious of "Charlie Brown"?
+   forest.

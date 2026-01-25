@@ -1,0 +1,50 @@
+{
+  "method": "GET",
+  "path": "/api/auth/user/email-cooldown",
+  "originalPath": "/api/auth/user/email-cooldown",
+  "query": {
+    "email": "testifywebdev@gmail.com"
+  },
+  "params": {},
+  "customHeaders": {
+    "host": "localhost:4000",
+    "connection": "keep-alive",
+    "accept": "*/*",
+    "accept-language": "*",
+    "sec-fetch-mode": "cors",
+    "user-agent": "node",
+    "accept-encoding": "gzip, deflate"
+  },
+  "response": {
+    "statusCode": 200,
+    "headers": {
+      "access-control-allow-origin": "http://localhost:3000",
+      "access-control-allow-credentials": "true",
+      "content-type": "application/json; charset=utf-8"
+    },
+    "body": {
+      "type": "json",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "remainingSeconds": {
+            "type": "integer",
+            "example": 30
+          },
+          "nextRetryCount": {
+            "type": "integer",
+            "example": 2
+          }
+        },
+        "required": ["remainingSeconds", "nextRetryCount"]
+      },
+      "example": {
+        "remainingSeconds": 30,
+        "nextRetryCount": 2
+      },
+      "signature": "nextRetryCount:number|remainingSeconds:number"
+    }
+  },
+  "timestamp": "2026-01-11T21:42:18.310Z",
+  "lastUpdated": "2026-01-11T21:42:18.311Z"
+}

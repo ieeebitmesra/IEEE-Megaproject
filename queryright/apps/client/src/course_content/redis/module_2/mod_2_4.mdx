@@ -1,0 +1,102 @@
+# Bitmaps and HyperLogLog: Space-Efficient Data Structures
+
+In our final lesson on Redis data types, we are going to look at two structures designed for **extreme memory efficiency**. If you are dealing with millions or billions of items, standard Sets or Hashes might consume gigabytes of RAM. Redis provides specialized tools to handle these cases using very little space.
+
+---
+
+## 1. Bitmaps (Bitsets)
+
+A **Bitmap** isn't actually a separate data type; it's a set of bit-oriented operations performed on Redis Strings. Since a String can be up to 512 MB, it can store up to $2^{32}$ bits (over 4 billion individual 0s and 1s).
+
+### Why Use Bitmaps?
+
+Bitmaps are the ultimate tool for **Binary Status Tracking**.
+
+- **User Activity:** Did User #588 login today? (1 for Yes, 0 for No).
+- **Feature Flags:** Is "Dark Mode" enabled for this user?
+
+### Operations
+
+```bash
+# Set bit at offset 123 to 1 (Meaning user 123 is active today)
+SETBIT active_users:2023-10-27 123 1
+
+# Check if user 123 was active
+GETBIT active_users:2023-10-27 123
+# Output: (integer) 1
+
+# Count how many total users were active today
+BITCOUNT active_users:2023-10-27
+```
+
+**The Advantage:** Tracking the activity of 100 million users only takes about 12 MB of memory!
+
+---
+
+## 2. HyperLogLog (HLL)
+
+**HyperLogLog** is a probabilistic data structure used to count **unique items** (cardinality).
+
+### The Problem it Solves
+
+Imagine you want to count how many _unique_ IP addresses visited your site today.
+
+- Using a **Set** would work, but storing 1 million IP addresses might take 50 MB.
+- Storing 1 billion IP addresses would take 50 GB!
+
+### The HyperLogLog Solution
+
+HyperLogLog uses a complex mathematical algorithm to _estimate_ the number of unique items.
+
+- **The Tradeoff:** It has a standard error of 0.81%. It's not 100% accurate, but it's very close.
+- **The Advantage:** No matter how many items you add (millions or billions), a single HyperLogLog key only ever takes **12 KB** of memory.
+
+### Operations
+
+```bash
+# Add IP addresses to the counter
+PFADD unique_visitors "192.168.1.1" "1.2.3.4" "5.6.7.8"
+
+# Get the estimated count
+PFCOUNT unique_visitors
+# Output: (integer) 3
+```
+
+---
+
+## Real-World Example: Daily Active Users (DAU)
+
+Most tech companies track "Daily Active Users".
+
+1. **Option A (Set):** `SADD users_today "user_1" ...`. Very accurate, but memory increases as you grow.
+2. **Option B (HLL):** `PFADD users_today "user_1" ...`. Extremely memory-efficient. If you have 100 million users, the difference between 100M and 100.8M isn't important for a dashboard, but saving 5GB of RAM is!
+
+---
+
+## Hypothetical Scenario: The "Read" status for Articles
+
+You have a news app with 10,000 articles. You want to show each user which articles they have already read.
+
+- **Using a Hash:** One hash per user, field = article_id, value = 1.
+- **Using Bitmaps:** Every user has a bitmap `user:123:read_status`. If they read article #5, you run `SETBIT user:123:read_status 5 1`.
+- **Why?** Since article IDs are integers, Bitmaps are incredibly fast and use almost no space. Checking if a user has read an article is a simple `GETBIT`.
+
+## Exercises
+
+1. **Bitmap Activity:** Imagine you want to track which of your friends are online. Your friend "Alice" has ID 7. Set her bit to 1 in a key called `online_friends`.
+2. **Counting Bits:** Use `BITCOUNT` on your `online_friends` key. How many are online?
+3. **Cardinality Estimation:** Use `PFADD` to add 5 duplicate names to a key called `guest_list`. Use `PFCOUNT`. Does it show 5 or 1?
+4. **Space Comparison:** Why would a big company like Netflix use HyperLogLog to count unique viewers instead of a regular Set?
+
+## Summary and Next Steps
+
+You've now mastered the core Redis data structures!
+
+- **Strings:** Basic values and atomic counters.
+- **Hashes:** Objects and structured data.
+- **Lists:** Ordered sequences and queues.
+- **Sets:** Unique collections and relationship math.
+- **Sorted Sets:** Ranking and leaderboards.
+- **Bitmaps/HLL:** Massive-scale efficiency.
+
+In the next module, we will move from _how_ data is stored to _how_ it is kept safe. We will explore **Persistence and High Availability** to ensure your Redis data survives server crashes!

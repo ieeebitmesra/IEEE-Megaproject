@@ -1,0 +1,52 @@
+{
+  "method": "POST",
+  "path": "/api/workflows/sendVerificationEmail",
+  "originalPath": "/api/workflows/sendVerificationEmail",
+  "query": {},
+  "params": {},
+  "body": {
+    "type": "json",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "url": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "required": ["email", "url", "username"]
+    },
+    "example": {
+      "email": "testifywebdev@gmail.com",
+      "url": "http://localhost:3000/auth/verify?token=123",
+      "username": "TestifyUser"
+    },
+    "signature": "email:string|url:string|username:string"
+  },
+  "customHeaders": {
+    "host": "localhost:4000",
+    "user-agent": "Upstash-QStash",
+    "content-length": "112",
+    "content-type": "application/json",
+    "upstash-message-id": "msg_2KxK5GZG9atkXDWrVyvWgRs75m7WaofF2fHiuSEU8QfFsR2ikSGydWBdk1k57ELKXRru6hPtFsRiiGoo3XJ7NLyG3yti3",
+    "upstash-retried": "0",
+    "upstash-signature": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIiLCJib2R5IjoiSUw0WWtyUm1nOWVtak5fMWpwVlBuZUF4T0tTWXVfM1ZsN2tYc2J5ZEtmVT0iLCJleHAiOjE3NjczMDI3MzAsImlhdCI6MTc2NzMwMjQzMCwiaXNzIjoiVXBzdGFzaCIsImp0aSI6Imp3dF82SEhSUDdKNnRycFA0S1RpV3Q4SmczOWtDTlBLIiwibmJmIjotNjIxMzU1OTY4MDAsInN1YiI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDAwMC9hcGkvd29ya2Zsb3dzL3NlbmRWZXJpZmljYXRpb25FbWFpbCJ9.uz0XZy89Zfq_dKIieVwLmslc6gxxFTO9xGt3afQP5Io",
+    "accept-encoding": "gzip"
+  },
+  "response": {
+    "statusCode": 200,
+    "headers": {
+      "access-control-allow-origin": "http://localhost:3000",
+      "access-control-allow-credentials": "true"
+    },
+    "body": {}
+  },
+  "timestamp": "2026-01-01T21:20:31.366Z",
+  "lastUpdated": "2026-01-01T21:20:31.366Z"
+}

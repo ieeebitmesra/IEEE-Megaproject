@@ -1,0 +1,122 @@
+# Grouping Data with GROUP BY Clause
+
+In the previous lesson, we learned how to calculate totals and averages for an entire table. For example, `SELECT AVG(price) FROM books` gives us the average price of _all_ books.
+
+But usually, businesses need more granular insights. They don't just want the total sales; they want total sales _by month_, _by product category_, or _by region_. This is where the `GROUP BY` clause comes in. It allows us to group rows that have the same values into summary rows.
+
+## Understanding GROUP BY
+
+The `GROUP BY` clause works in conjunction with aggregate functions. It tells the database: "First, sort the data into piles based on this column. Then, run the aggregate function on each pile separately."
+
+### Basic Syntax
+
+```sql
+SELECT column_name, AGGREGATE_FUNCTION(column_name)
+FROM table_name
+GROUP BY column_name;
+```
+
+**Key Rule:** Every column in your `SELECT` list must either be:
+
+1.  Used in an aggregate function (like `SUM`, `COUNT`).
+2.  Included in the `GROUP BY` clause.
+
+If you select a column but don't group by it or aggregate it, SQL will throw an error because it doesn't know which row's value to display.
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### Scenario 1: Books per Genre
+
+We want to know how many books we have in each genre (Fiction, Science, History, etc.).
+
+**Query:**
+
+```sql
+SELECT genre, COUNT(*)
+FROM books
+GROUP BY genre;
+```
+
+**How it works:**
+
+1.  SQL looks at the `genre` column.
+2.  It groups all 'Fiction' rows together, all 'Science' rows together, etc.
+3.  It counts the rows in each group.
+4.  **Result:**
+    | genre | count |
+    | :--- | :--- |
+    | Fiction | 150 |
+    | Science | 80 |
+    | History | 45 |
+
+### Scenario 2: Average Price by Author
+
+We want to see which authors tend to write more expensive books.
+
+**Query:**
+
+```sql
+SELECT author_id, AVG(price)
+FROM books
+GROUP BY author_id;
+```
+
+### Scenario 3: Total Sales by Customer
+
+We want to identify our top-spending customers. We need to sum the total order amounts for each customer.
+
+**Query:**
+
+```sql
+SELECT customer_id, SUM(total_amount)
+FROM orders
+GROUP BY customer_id;
+```
+
+### Scenario 4: Grouping by Multiple Columns
+
+You can group by more than one column. For example, we want to count customers by State _and_ City.
+
+**Query:**
+
+```sql
+SELECT state, city, COUNT(*)
+FROM customers
+GROUP BY state, city;
+```
+
+- This will show counts for "NY - New York", "NY - Buffalo", "CA - Los Angeles", etc. separately.
+
+## Exercises and Practice Activities
+
+To solidify your understanding of grouping, complete the following exercises.
+
+### Exercise 1: Inventory by Category
+
+Write a query to find the total stock quantity (`SUM(stock_quantity)`) for each book category.
+
+### Exercise 2: Orders by Status
+
+Write a query to count how many orders exist for each status (e.g., 'Shipped', 'Pending', 'Cancelled').
+
+### Exercise 3: The Error Check
+
+Explain why the following query will result in an error:
+
+```sql
+SELECT genre, title, COUNT(*)
+FROM books
+GROUP BY genre;
+```
+
+(Hint: What happens to the `title` column?)
+
+## Concluding Thoughts
+
+In this lesson, we learned how to use `GROUP BY` to segment our data into meaningful categories. This is a massive step forward in our ability to analyze data. Instead of just seeing "Total Revenue," we can now see "Revenue by Country" or "Revenue by Product Line."
+
+But what if we want to filter these results? For example, what if we only want to see genres that have _more than 50 books_? We can't use `WHERE` for this because `WHERE` filters rows _before_ they are grouped. In the next lesson, we will introduce the `HAVING` clause, which is designed specifically to filter groups _after_ they have been created.
+
+=START_QUESTIONS=What is the purpose of the GROUP BY clause?@@If you SELECT a column that is not aggregated, where must it also appear?@@Can you group by multiple columns?@@Does GROUP BY come before or after WHERE? =END_QUESTIONS=

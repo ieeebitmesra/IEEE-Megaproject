@@ -1,0 +1,96 @@
+# Principles of Relational Database Design and Normalization
+
+Before you write a single line of SQL code, you must design your database. A poorly designed database will be slow, difficult to maintain, and prone to data errors. A well-designed database is efficient, scalable, and ensures data integrity.
+
+The process of organizing data to minimize redundancy is called **Normalization**.
+
+## The Problem: Data Redundancy
+
+Imagine we stored our bookstore data in one giant Excel sheet called `Sales`.
+
+- Row 1: Order 101, Customer: Alice, Address: 123 Main St, Book: 1984, Author: Orwell
+- Row 2: Order 102, Customer: Alice, Address: 123 Main St, Book: Hobbit, Author: Tolkien
+
+**Issues:**
+
+1.  **Wasted Space:** We store "Alice" and "123 Main St" twice.
+2.  **Update Anomalies:** If Alice moves, we have to update every single order she ever placed. If we miss one, her data becomes inconsistent.
+3.  **Insertion Anomalies:** We cannot store a new book without having an order for it first.
+
+## The Solution: Normal Forms
+
+Normalization splits this giant table into smaller, related tables. There are several "Normal Forms" (NF), but usually, reaching the **Third Normal Form (3NF)** is the goal.
+
+### First Normal Form (1NF)
+
+- **Rule:** Each column must contain atomic values (no lists), and each row must be unique.
+- _Bad:_ A column `Books_Ordered` containing "1984, Hobbit, Dune".
+- _Good:_ Separate rows for each book ordered.
+
+### Second Normal Form (2NF)
+
+- **Rule:** Must be in 1NF, and all non-key columns must depend on the _entire_ primary key.
+- _Bad:_ In a table with key (OrderID, BookID), a column `AuthorName` depends only on `BookID`, not `OrderID`.
+- _Good:_ Move `AuthorName` to a separate `Books` table.
+
+### Third Normal Form (3NF)
+
+- **Rule:** Must be in 2NF, and no transitive dependencies (non-key columns depending on other non-key columns).
+- _Bad:_ In a `Books` table, we have `AuthorID` and `AuthorBirthDate`. `AuthorBirthDate` depends on `AuthorID`, not the Book.
+- _Good:_ Move `AuthorBirthDate` to the `Authors` table.
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### The Un-Normalized Mess
+
+Table: `All_Data`
+| OrderID | Customer | CustomerEmail | BookTitle | Author | AuthorBio |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | Alice | a@test.com | 1984 | Orwell | British writer... |
+| 2 | Bob | b@test.com | 1984 | Orwell | British writer... |
+
+### The Normalized Design (3NF)
+
+We split this into three tables:
+
+1.  **Customers Table:** Stores `Customer` and `CustomerEmail`. (Key: `CustomerID`)
+2.  **Authors Table:** Stores `Author` and `AuthorBio`. (Key: `AuthorID`)
+3.  **Books Table:** Stores `BookTitle` and links to `AuthorID`. (Key: `BookID`)
+4.  **Orders Table:** Links `CustomerID` to `BookID`.
+
+**Benefits:**
+
+- We store Orwell's bio **once**.
+- If Alice changes her email, we update it in **one place**.
+
+## Exercises and Practice Activities
+
+To solidify your understanding, complete the following exercises.
+
+### Exercise 1: Identify the Violation
+
+You have a table `Employee_Projects` with columns: `EmployeeID`, `ProjectID`, `ProjectName`, `ManagerName`.
+The Primary Key is (`EmployeeID`, `ProjectID`).
+Which Normal Form is violated, and why? (Hint: Does `ManagerName` depend on the Employee?)
+
+### Exercise 2: Design a Schema
+
+Design a simple schema for a "School" database. You need to track Students, Classes, and Teachers.
+
+- A Teacher teaches many Classes.
+- A Student takes many Classes.
+- A Class has one Teacher.
+
+### Exercise 3: The Trade-off
+
+Why might a Data Analyst sometimes prefer a _denormalized_ table (one big table) over a normalized one? (Hint: Think about the complexity of writing JOINs).
+
+## Concluding Thoughts
+
+In this lesson, we learned the theory of database design. Normalization is about "A place for everything, and everything in its place."
+
+In the next lesson, we will learn the SQL commands to actually build this structure: `CREATE TABLE` and `ALTER TABLE`.
+
+=START_QUESTIONS=What is the main goal of normalization?@@What is a transitive dependency?@@Which Normal Form deals with atomic values?@@Why is data redundancy bad? =END_QUESTIONS=

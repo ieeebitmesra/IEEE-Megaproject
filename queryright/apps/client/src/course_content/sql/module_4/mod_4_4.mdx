@@ -1,0 +1,79 @@
+# Performing RIGHT JOINs (RIGHT OUTER JOIN)
+
+The `RIGHT JOIN` (or `RIGHT OUTER JOIN`) is the exact opposite of the `LEFT JOIN`. Instead of prioritizing the first (left) table, it prioritizes the second (right) table.
+
+It returns **all rows from the Right table**, and the matching rows from the Left table. If there is no match in the Left table, the result will contain `NULL`s on the left side.
+
+## Understanding RIGHT JOIN
+
+### Basic Syntax
+
+```sql
+SELECT table1.column_name, table2.column_name
+FROM table1 -- LEFT table
+RIGHT JOIN table2 -- RIGHT table (Priority)
+ON table1.common_column = table2.common_column;
+```
+
+## Practical Examples and Demonstrations
+
+Let's revisit the "Customers and Orders" scenario from the previous lesson, but flip it.
+
+### Scenario 1: All Orders and Their Customers
+
+We want to list every single order in our system. We also want to see the customer name.
+
+**Query:**
+
+```sql
+SELECT customers.name, orders.order_id
+FROM customers
+RIGHT JOIN orders
+ON customers.customer_id = orders.customer_id;
+```
+
+**Analysis:**
+
+- This query says: "Give me **every** row from `Orders`. If you can find a matching `Customer`, show their name. If not (maybe the customer was deleted?), show `NULL` for the name."
+- In a well-designed database with Foreign Key constraints, every order _should_ have a customer, so this might behave like an INNER JOIN. But if data integrity is broken, this reveals "Orphaned Orders."
+
+## Why RIGHT JOIN is Rarely Used
+
+You might notice that `RIGHT JOIN table A ON ...` produces the exact same result as `LEFT JOIN table B ON ...` if you just swap the order of the tables in your query.
+
+**Example:**
+These two queries are identical in output:
+
+1.  `SELECT * FROM Customers RIGHT JOIN Orders ...`
+2.  `SELECT * FROM Orders LEFT JOIN Customers ...`
+
+Because we read from left to right (and top to bottom), most developers find it cognitively easier to think in terms of "Start with the main table, then Left Join other things to it." Using `RIGHT JOIN` forces you to think backwards ("I want everything from the table I haven't typed yet...").
+
+Therefore, the industry standard best practice is: **Stick to LEFT JOIN.** If you find yourself needing a RIGHT JOIN, just flip the table order and use a LEFT JOIN instead. It makes your code more readable for others.
+
+## Exercises and Practice Activities
+
+To solidify your understanding, complete the following exercises.
+
+### Exercise 1: The Flip
+
+Rewrite the following query using a `LEFT JOIN` so that it produces the exact same result:
+
+```sql
+SELECT authors.name, books.title
+FROM books
+RIGHT JOIN authors
+ON books.author_id = authors.author_id;
+```
+
+### Exercise 2: Orphaned Records
+
+Write a `RIGHT JOIN` query between `Books` (Left) and `Order_Items` (Right). This will list every item ever ordered. If a book has been deleted from the database but the order record remains, the book title will be NULL.
+
+## Concluding Thoughts
+
+In this lesson, we covered the `RIGHT JOIN`. While it is a valid SQL command, it is largely a stylistic alternative to `LEFT JOIN`. We learned that for readability and consistency, `LEFT JOIN` is generally preferred.
+
+In the next lesson, we will look at the `FULL JOIN`, which combines the power of both Left and Right joins to show absolutely everything.
+
+=START_QUESTIONS=What is the difference between LEFT JOIN and RIGHT JOIN?@@Does RIGHT JOIN return all rows from the first table mentioned?@@Why do most developers prefer LEFT JOIN over RIGHT JOIN?@@If Table A has 5 rows and Table B has 5 rows, and they match perfectly, what does a RIGHT JOIN return? =END_QUESTIONS=

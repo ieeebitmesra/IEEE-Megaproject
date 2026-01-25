@@ -1,0 +1,38 @@
+{
+  "method": "OPTIONS",
+  "path": "/api/auth/sign-in/social",
+  "originalPath": "/api/auth/sign-in/social",
+  "query": {},
+  "params": {
+    "*": "/api/auth/sign-in/social"
+  },
+  "customHeaders": {
+    "host": "localhost:4000",
+    "connection": "keep-alive",
+    "accept": "*/*",
+    "access-control-request-method": "POST",
+    "access-control-request-headers": "content-type",
+    "origin": "http://localhost:3000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "sec-fetch-dest": "empty",
+    "referer": "http://localhost:3000/",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "accept-language": "en-US,en;q=0.9"
+  },
+  "response": {
+    "statusCode": 204,
+    "headers": {
+      "access-control-allow-origin": "http://localhost:3000",
+      "access-control-allow-credentials": "true",
+      "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "access-control-allow-headers": "Content-Type, Authorization, X-Requested-With",
+      "access-control-max-age": "86400",
+      "content-length": "0"
+    },
+    "body": {}
+  },
+  "timestamp": "2026-01-14T19:39:49.545Z",
+  "lastUpdated": "2026-01-14T19:39:49.545Z"
+}

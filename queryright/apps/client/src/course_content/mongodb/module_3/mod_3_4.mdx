@@ -1,0 +1,110 @@
+# The `$unset` Stage: Removing Fields from Documents
+
+The `$unset` stage is a dedicated operator for removing specific fields from documents in the aggregation pipeline. While you can achieve similar results using `$project` with exclusion (e.g., `{ field: 0 }`), `$unset` offers a clearer and more semantic way to drop fields, especially when you want to retain all other fields in the document. It is particularly useful for cleaning up temporary fields created during intermediate calculation steps or for removing sensitive information before sending the final result to the client.
+
+## Understanding `$unset` Syntax
+
+The syntax for `$unset` is simple. You can pass either a single string (to remove one field) or an array of strings (to remove multiple fields).
+
+**Syntax:**
+
+```javascript
+// Remove a single field
+{
+  $unset: 'fieldName'
+}
+
+// Remove multiple fields
+{
+  $unset: ['field1', 'field2', 'nested.field']
+}
+```
+
+## Practical Examples and Demonstrations
+
+### Scenario 1: Removing Sensitive Data
+
+**Context:** We are preparing a user report for a dashboard. The user documents contain sensitive fields like `passwordHash` and internal fields like `__v` (version key) that should not be exposed.
+
+**Sample Data:** `users` collection
+
+```json
+[
+  {
+    "_id": 1,
+    "username": "jdoe",
+    "email": "jdoe@example.com",
+    "passwordHash": "a1b2c3d4...",
+    "__v": 0,
+    "role": "admin"
+  }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.users.aggregate([
+  {
+    $unset: ['passwordHash', '__v'],
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[
+  {
+    "_id": 1,
+    "username": "jdoe",
+    "email": "jdoe@example.com",
+    "role": "admin"
+  }
+]
+```
+
+**Explanation:**
+
+- The `$unset` stage strips out the specified fields.
+- All other fields (`username`, `email`, `role`, `_id`) are automatically preserved.
+
+### Scenario 2: Cleaning Up Temporary Fields
+
+**Context:** Often, you will use `$lookup` or `$addFields` to create temporary data for a calculation or filter, which is not needed in the final output.
+
+**Sample Data:** `orders` collection (after a lookup and calculation)
+
+```json
+[
+  {
+    "_id": 101,
+    "total": 200,
+    "customer_info": [{ "name": "Alice" }], // Result of lookup
+    "temp_discount_rate": 0.1 // Temporary calculation
+  }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.orders.aggregate([
+  // ... previous stages ...
+  {
+    $unset: ['customer_info', 'temp_discount_rate'],
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[{ "_id": 101, "total": 200 }]
+```
+
+## Summary
+
+The `$unset` stage provides a straightforward mechanism for field removal. By using `$unset` instead of a complex `$project` stage, you make your pipeline code more readable and easier to maintain, explicitly signaling the intent to discard specific data points.
+
+In the next lesson, we will combine all the transformation stages we've learned—`$unwind`, `$lookup`, `$addFields`, and `$unset`—in a **Hands-on Lab: Normalizing and Joining Customer Order Data**.

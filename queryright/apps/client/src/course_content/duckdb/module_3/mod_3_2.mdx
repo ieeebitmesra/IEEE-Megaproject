@@ -1,0 +1,73 @@
+# Common Table Expressions (CTEs)
+
+Complex SQL queries can quickly become "Spaghetti Code." CTEs allow you to break your logic into small, named parts that look like variables.
+
+---
+
+## 1. The `WITH` Clause
+
+A CTE starts with the `WITH` keyword.
+
+```sql
+WITH top_customers AS (
+    SELECT customer_id, sum(amount) as total
+    FROM orders
+    GROUP BY 1
+    HAVING total > 1000
+)
+SELECT *
+FROM top_customers
+JOIN users USING(customer_id);
+```
+
+---
+
+## 2. Why use CTEs over Subqueries?
+
+Subqueries are "Inside out." You have to read the middle of the query first to understand the top.
+CTEs are "Top down." You read the logic step-by-step, just like a Python or JavaScript script.
+
+1. **Readable:** You name your steps (e.g., `cleaned_data`, `calculated_totals`).
+2. **Reusable:** You can reference the same CTE multiple times in your final `SELECT`.
+
+---
+
+## 3. Recursive CTEs (Advanced)
+
+DuckDB supports recursive CTEs, which allow you to query hierarchical data (like an Org Chart: Managers -> Employees -> Interns).
+
+---
+
+## Real-World Example: Multi-Step Sales Funnel
+
+You need to calculate the "Conversion Rate."
+
+1. **CTE 1:** Find all people who visited the page.
+2. **CTE 2:** Find all people who clicked "Add to Cart."
+3. **CTE 3:** Find all people who finished the checkout.
+4. **Final Select:** Divide the numbers to get the %.
+
+Without CTEs, this query would be a nested mess of subqueries. With CTEs, it's 4 clear blocks of code.
+
+---
+
+## Hypothetical Scenario: The "Legacy" Mess
+
+An analyst inherits a 500-line SQL query with 6 levels of nested subqueries.
+
+- **The Task:** Change the "Tax Rate" logic.
+- **The Problem:** They change it in one subquery, but forget to change it in three others.
+- **The Solution:** They refactor the query into CTEs. They put the "Tax Calculation" in its own CTE at the very top. Now, any change only needs to happen once.
+
+## Exercises
+
+1. **Syntax:** What keyword is used to start a CTE?
+2. **Advantage:** List one reason why CTEs are better than nested subqueries.
+3. **Refactor:** Convert this subquery into a CTE:
+   `SELECT * FROM (SELECT id, price * 1.2 as total FROM items) WHERE total > 100;`
+
+## Summary and Next Steps
+
+CTEs make your code "clean."
+
+But what if your data is "Tall" (one row per date) and you need it to be "Wide" (one column per date for a report)? Next, we look at **PIVOT and UNPIVOT**.

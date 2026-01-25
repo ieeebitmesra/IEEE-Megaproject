@@ -1,0 +1,95 @@
+# Real-time Dashboarding with Aggregation
+
+Building real-time dashboards requires a strategy for delivering up-to-the-second data without overwhelming the database with constant heavy analytical queries. While standard aggregation pipelines are powerful, running a complex `$group` query every second is not scalable. A more robust pattern involves using Change Streams to drive incremental updates to a pre-aggregated "stats" collection.
+
+## The Incremental Update Pattern
+
+Instead of calculating the total revenue from millions of orders every time a user loads the dashboard, we maintain a separate `dashboard_stats` collection.
+
+1.  **Initial State:** Run a one-time aggregation to populate the stats.
+2.  **Real-time Updates:** Listen to the `orders` change stream.
+3.  **Reaction:** When a new order comes in, increment the stats document.
+
+## Practical Demonstration
+
+### Scenario: Live Sales Ticker
+
+**Context:** We want a dashboard showing "Total Revenue Today" and "Orders Count".
+
+**Step 1: The Stats Collection**
+Our `dashboard_stats` collection has a single document for today:
+
+```json
+{ "_id": "2023-10-27", "totalRevenue": 5000, "orderCount": 120 }
+```
+
+**Step 2: The Change Stream Logic (Application Side)**
+We listen for inserts in the `orders` collection.
+
+```javascript
+const pipeline = [{ $match: { operationType: 'insert' } }]
+
+const changeStream = db.orders.watch(pipeline)
+
+changeStream.on('change', (event) => {
+  const newOrder = event.fullDocument
+  const today = newOrder.date.toISOString().split('T')[0]
+
+  // Atomic update to the stats collection
+  db.dashboard_stats.updateOne(
+    { _id: today },
+    {
+      $inc: {
+        totalRevenue: newOrder.amount,
+        orderCount: 1,
+      },
+    },
+    { upsert: true },
+  )
+})
+```
+
+**Step 3: The Dashboard Query**
+The frontend simply polls the `dashboard_stats` collection, which is extremely fast (single document read by ID).
+
+```javascript
+// Frontend polls this every 1-5 seconds
+db.dashboard_stats.findOne({ _id: '2023-10-27' })
+```
+
+## Alternative: Scheduled Aggregation with `$merge`
+
+For metrics that don't need sub-second latency (e.g., "Top 5 Products Last Hour"), a scheduled aggregation using `$merge` is often simpler.
+
+**Pipeline (Run every minute):**
+
+```javascript
+db.orders.aggregate([
+  {
+    $match: {
+      date: { $gte: new Date(Date.now() - 3600000) }, // Last hour
+    },
+  },
+  {
+    $group: {
+      _id: '$productId',
+      sales: { $sum: '$amount' },
+    },
+  },
+  { $sort: { sales: -1 } },
+  { $limit: 5 },
+  {
+    $merge: {
+      into: 'hourly_top_products',
+      whenMatched: 'replace',
+      whenNotMatched: 'insert',
+    },
+  },
+])
+```
+
+## Summary
+
+Real-time dashboarding is about decoupling the _ingestion_ of data from the _presentation_ of data. By using Change Streams for immediate counters or scheduled `$merge` aggregations for complex metrics, you can provide a responsive user experience while keeping your database load predictable.
+
+In the next lesson, we will discuss **Error Handling and Robust Pipeline Design**, ensuring your pipelines can handle unexpected data and failures gracefully.

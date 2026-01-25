@@ -1,0 +1,85 @@
+# Monitoring Redis with INFO and CLI Tools
+
+Building a Redis application is only half the battle. In a production environment, you need to know how the server is performing. Is it running out of memory? Is it too hot (CPU)? Are there too many connected clients?
+
+In this lesson, we'll learn about the tools Redis gives you to peek under the hood.
+
+---
+
+## 1. The INFO Command
+
+The `INFO` command is the "Command Center" of Redis monitoring. It returns a massive amount of technical data.
+
+```bash
+INFO
+```
+
+You can also ask for specific sections:
+
+- `INFO memory`: How much RAM is used? (Critical!)
+- `INFO CPU`: How hard is the processor working?
+- `INFO persistence`: Are RDB and AOF working correctly?
+- `INFO clients`: How many apps are connected right now?
+
+### Key Metric: `used_memory_human`
+
+This is the single most important number. If your server has 4 GB of RAM and this number is 3.9 GB, your app is about to crash.
+
+---
+
+## 2. Real-time Monitoring with `MONITOR`
+
+Want to see every single command happening in Redis right now?
+
+```bash
+MONITOR
+```
+
+**Warning:** Never run this on a high-traffic production server! It will slow down the database significantly as it tries to output thousands of lines to your screen. It is for **debugging only**.
+
+---
+
+## 3. Finding Slow Queries with `SLOWLOG`
+
+If your app feels slow, it might be because of a few specific "heavy" commands (like `SMEMBERS` on a set with 1 million items).
+
+```bash
+# Get the 10 slowest commands recently run
+SLOWLOG GET 10
+```
+
+- It tells you exactly what the command was, when it ran, and how many microseconds it took. Anything over 10,000µs (10ms) is usually considered "slow" for Redis.
+
+---
+
+## Real-World Example: Diagnosing a "Memory Leak"
+
+Imagine your cloud provider sends you an alert: "Redis Memory usage is at 95%."
+
+1. **Step 1:** Run `INFO memory`. You see `used_memory_peak` is much higher than usual.
+2. **Step 2:** Run `DBSIZE` to see the total number of keys.
+3. **Step 3:** Use `SCAN` or `RANDOMKEY` to look at a few keys. You realize thousands of keys named `session:old_user_...` have no TTL. They aren't expiring!
+4. **Reslution:** You update your code to add `EX 86400` (1 day) to all sessions. The memory usage drops back to normal.
+
+---
+
+## Hypothetical Scenario: The "Too Many Connections" Problem
+
+Your web app suddenly starts throwing errors: `Could not connect to Redis`.
+
+- **Monitoring Tool:** `INFO clients`.
+- **The Finding:** You see `connected_clients: 10000`. Your server limit is 10,000.
+- **The Cause:** Every time a user visits your site, your code opens a new connection to Redis but _never closes it_.
+- **The Fix:** You implement a **Connection Pool** in your app, which reuses the same 50 connections over and over.
+
+## Exercises
+
+1. **Self-Inspection:** Run `INFO memory` on your local Redis. How many bytes of RAM is it currently using?
+2. **Slow Log:** If a command takes 50 milliseconds to run, will it show up in the `SLOWLOG`?
+3. **Debugging:** What is the risk of running the `MONITOR` command on a busy production server?
+
+## Summary and Next Steps
+
+Monitoring turns "guessing" into "knowing." By regularly checking `INFO` and `SLOWLOG`, you can catch problems before they affect your users.
+
+In the next lesson, we will learn how to make Redis even faster through **Performance Tuning and Benchmarking**.

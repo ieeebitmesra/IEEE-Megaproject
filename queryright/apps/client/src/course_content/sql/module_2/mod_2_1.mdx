@@ -1,0 +1,132 @@
+# Inserting New Records into Tables (INSERT INTO)
+
+In the previous module, we focused on retrieving data that already existed in the database using the `SELECT` statement. However, a database is not a static archive; it is a dynamic system that grows and changes. To make a database useful, we must be able to add new information to it. This lesson introduces the `INSERT INTO` statement, the primary SQL command used to add new rows (records) to a table.
+
+## Understanding the INSERT Statement
+
+The `INSERT INTO` statement allows you to specify a target table and the values you wish to add to it. When you insert a row, you are essentially creating a new record of the entity that the table represents—whether that's a new customer signing up, a new book being added to the inventory, or a new order being placed.
+
+### Basic Syntax
+
+There are two main ways to write an `INSERT` statement.
+
+**Method 1: Specifying Columns (Recommended)**
+This method lists the columns you want to fill, followed by the values for those columns.
+
+```sql
+INSERT INTO table_name (column1, column2, column3)
+VALUES (value1, value2, value3);
+```
+
+- **Best Practice:** This is the preferred method because it is clear and robust. If the table structure changes (e.g., a new column is added), this query will usually still work because it explicitly maps values to specific columns.
+
+**Method 2: Inserting into All Columns**
+If you are providing a value for _every_ column in the table, in the exact order they were defined, you can omit the column list.
+
+```sql
+INSERT INTO table_name
+VALUES (value1, value2, value3);
+```
+
+- **Warning:** This is risky. If someone changes the order of columns in the table or adds a new one, your query will fail or insert data into the wrong place.
+
+## Practical Examples and Demonstrations
+
+We will continue with our **Online Bookstore** scenario. We have tables for `Authors`, `Books`, and `Orders`.
+
+### Scenario 1: Adding a New Author
+
+We want to add a new author, "J.K. Rowling", to our `Authors` table.
+
+- Table: `Authors`
+- Columns: `author_id`, `first_name`, `last_name`, `birth_date`
+
+**Query:**
+
+```sql
+INSERT INTO authors (author_id, first_name, last_name, birth_date)
+VALUES (101, 'J.K.', 'Rowling', '1965-07-31');
+```
+
+**Result:**
+A new row is added to the `Authors` table.
+
+| author_id | first_name | last_name | birth_date |
+| :-------- | :--------- | :-------- | :--------- |
+| ...       | ...        | ...       | ...        |
+| 101       | J.K.       | Rowling   | 1965-07-31 |
+
+### Scenario 2: Adding a New Book (Handling Nulls)
+
+Now we want to add a book for this author. Suppose we know the title and the author, but we don't have the ISBN yet. If the `isbn` column allows `NULL` values (meaning data is optional), we can simply omit it from our list.
+
+**Query:**
+
+```sql
+INSERT INTO books (book_id, title, author_id, price, stock_quantity)
+VALUES (201, 'Harry Potter and the Sorcerer''s Stone', 101, 19.99, 500);
+```
+
+_Note:_ We used two single quotes (`''`) to escape the apostrophe in "Sorcerer's".
+
+**Result:**
+The database inserts the row. The `isbn` column for this record will automatically be set to `NULL`.
+
+### Scenario 3: Inserting Multiple Rows at Once
+
+You can insert multiple records in a single command by separating the value sets with commas. This is much faster than running separate `INSERT` commands for each row.
+
+**Query:**
+
+```sql
+INSERT INTO books (book_id, title, author_id, price, stock_quantity)
+VALUES
+    (202, 'Harry Potter and the Chamber of Secrets', 101, 19.99, 450),
+    (203, 'Harry Potter and the Prisoner of Azkaban', 101, 19.99, 400);
+```
+
+## Handling Data Integrity
+
+When inserting data, the database enforces the rules (data types and constraints) defined in the schema.
+
+- **Data Types:** You cannot insert text like 'Twenty' into an `INT` column like `stock_quantity`.
+- **Primary Keys:** You cannot insert a row with an `author_id` that already exists. IDs must be unique.
+- **Foreign Keys:** You cannot insert a book with an `author_id` of 999 if author 999 does not exist in the `Authors` table.
+
+## Exercises and Practice Activities
+
+To solidify your understanding of inserting data, complete the following exercises.
+
+### Exercise 1: Single Row Insertion
+
+Write a SQL statement to insert a new customer into a `Customers` table.
+
+- Columns: `customer_id`, `name`, `email`, `join_date`
+- Values: `1`, 'Alice Wonderland', 'alice@example.com', '2024-01-15'
+
+### Exercise 2: Multi-Row Insertion
+
+Write a single SQL statement to insert two new orders into the `Orders` table.
+
+- Columns: `order_id`, `customer_name`, `total_amount`
+- Row 1: `5001`, 'Bob Builder', `150.00`
+- Row 2: `5002`, 'Charlie Brown', `75.50`
+
+### Exercise 3: Troubleshooting
+
+Identify why the following statement might fail:
+
+```sql
+INSERT INTO books (title, price)
+VALUES ('The Hobbit', 'Ten Dollars');
+```
+
+(Hint: Check the data type of the `price` column).
+
+## Concluding Thoughts
+
+In this lesson, we learned how to populate our tables using the `INSERT INTO` statement. We explored how to specify columns for clarity, how to handle missing data by omitting columns, and how to efficiently insert multiple records in one go. We also touched on the importance of adhering to data types and constraints to maintain database integrity.
+
+In the next lesson, we will learn how to modify data that is already in the database using the `UPDATE` statement. This is essential for correcting errors (like a typo in a name) or updating status fields (like changing an order from "Pending" to "Shipped").
+
+=START_QUESTIONS=What is the keyword used to add new rows to a table?@@Why is it recommended to list column names in an INSERT statement?@@How do you insert multiple rows in a single query?@@What happens if you try to insert text into a numeric column? =END_QUESTIONS=

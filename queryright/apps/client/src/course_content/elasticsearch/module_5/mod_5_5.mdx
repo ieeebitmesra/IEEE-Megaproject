@@ -1,0 +1,74 @@
+# Index Lifecycle Management (ILM)
+
+Data changes over time.
+
+- **Day 1:** Your logs are "Hot." Everyone is searching them to debug live issues.
+- **Day 30:** Your logs are "Warm." You only check them for weekly reports.
+- **Day 180:** Your logs are "Cold." You only keep them for legal reasons. They are rarely searched.
+
+---
+
+## 1. Hot-Warm-Cold Architecture
+
+In a large cluster, you use different hardware for different stages:
+
+- **Hot Nodes:** High CPU, NVMe SSDs (Fast).
+- **Warm Nodes:** Medium CPU, standard SSDs.
+- **Cold Nodes:** Low CPU, cheap high-capacity HDDs.
+
+---
+
+## 2. The Four Stages of ILM
+
+Elasticsearch automates moving data through these phases:
+
+1. **Hot:** Active indexing and high search frequency.
+2. **Warm:** No longer being written to, but still searched occasionally. Often "shrunk" (reducing shard counts) or "force merged" to save space.
+3. **Cold:** Stored on cheap storage. Can be "frozen" to use almost zero RAM.
+4. **Delete:** After a set time (e.g., 1 year), the index is automatically deleted.
+
+---
+
+## 3. Policy Example
+
+```json
+"policy": {
+  "phases": {
+    "hot": { "actions": { "rollover": { "max_age": "30d", "max_size": "50gb" } } },
+    "delete": { "min_age": "365d", "actions": { "delete": {} } }
+  }
+}
+```
+
+_This says: Store in Hot for 30 days OR until it hits 50GB, then eventually delete it after a year._
+
+---
+
+## Real-World Example: Logging Infrastructure
+
+A company generates 1TB of logs per day.
+
+- They can't afford 365TB of NVMe storage.
+- They set an ILM policy: Move to **Warm** after 1 day, move to **Cold** after 7 days, and move to **Frozen (S3/Snapshot)** after 30 days.
+- This allows them to store a whole year of data for the price of 1 week of "Hot" storage.
+
+---
+
+## Hypothetical Scenario: The "Missing" HDD Space
+
+A server is running out of space. The admin sees indices from 2018.
+
+- **The Problem:** They were manually deleting indices using a cron job, but the job failed.
+- **The Solution:** Use ILM. It's built into the heart of Elasticsearch and will retry deletions and movements automatically until they succeed.
+
+## Exercises
+
+1. **Phase Matching:** Which phase is best suited for high-speed NVMe drives?
+2. **Optimization:** What is a "Force Merge" and why do we do it when a document moves to the Warm phase?
+3. **Rollover:** What are the two main triggers for a "Rollover" action?
+
+## Summary and Next Steps
+
+Cluster architecture isn't just about setting it up; it's about managing the lifecycle of your data.
+
+In **Module 6**, we leave architecture behind and go deep into the "Secret Sauce" of search engines: **Relevancy and Scoring**.

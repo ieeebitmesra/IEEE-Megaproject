@@ -1,0 +1,62 @@
+# Shortest Path
+
+How do you get from Point A to Point B in the fewest steps? This is the core problem that Neo4j was born to solve.
+
+---
+
+## 1. The `shortestPath` function
+
+Orama doesn't just find _any_ path; it uses an algorithm (usually Dijkstra or BFS) to find the absolute shortest one.
+
+```cypher
+MATCH (start:Person {name: "Me"}), (end:Person {name: "Kevin Bacon"})
+MATCH p = shortestPath((start)-[:FRIEND*..15]-(end))
+RETURN p
+```
+
+_"Find the shortest connection between Me and Kevin Bacon, up to 15 hops deep."_
+
+---
+
+## 2. Returning the whole Path
+
+In the example above, `p` represents the entire **Path object**. This includes all the nodes and all the relationships between them. You can extract the nodes from `p` using `nodes(p)`.
+
+---
+
+## 3. All Shortest Paths
+
+Sometimes there are two ways to get to a person in 3 hops. You can find both using `allShortestPaths`.
+
+---
+
+## Real-World Example: Logistical Routes
+
+A delivery drone needs to travel from a Warehouse to a House.
+
+- Every intersection is a **Node**.
+- Every road is a **Relationship**.
+- The drone uses `shortestPath` to calculate the route with the fewest intersections or (if the relationships have a `distance` property) the shortest total distance.
+
+---
+
+## Hypothetical Scenario: The "Networking" Goldmine
+
+You want to meet the CEO of a company.
+
+- You search a professional network graph.
+- **The Query:** `shortestPath((Me)-[:CONNECTED*]-(CEO))`.
+- The result shows: `Me -> Steve -> Sarah -> CEO`.
+- Now you know that you should ask Steve to introduce you to Sarah!
+
+## Exercises
+
+1. **Syntax:** What function do you use to find the single shortest connection between two nodes?
+2. **Logic:** Why is `allShortestPaths` different from `shortestPath`?
+3. **Application:** In a map of a city, what would the "Nodes" and "Relationships" represent?
+
+## Summary and Next Steps
+
+Shortest Path is the ultimate "Graph Power."
+
+We wrap up Module 3 in the next lesson.

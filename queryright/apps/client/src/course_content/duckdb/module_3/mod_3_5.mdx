@@ -1,0 +1,81 @@
+# Sampling and Random Data
+
+When you have 100 million rows, you don't always want to query all of them while you're still "drafting" your code. DuckDB has built-in features to give you a "taste" of your data quickly.
+
+---
+
+## 1. The `USING SAMPLE` Clause
+
+Instead of reading the whole table and then taking the top 10 (which is slow), you can tell DuckDB to only read a fraction of the data.
+
+```sql
+-- Get a 10% random sample
+SELECT * FROM sales USING SAMPLE 10%;
+
+-- Get exactly 1000 random rows
+SELECT * FROM sales USING SAMPLE 1000 ROWS;
+```
+
+### Bernoulli vs. Reservoir Sampling
+
+- **Bernoulli (Default):** Flips a coin for every row. Fast, but the number of rows is slightly different every time.
+- **Reservoir:** Guarantees you get exactly the number of rows you asked for.
+
+---
+
+## 2. Generating Synthetic Data
+
+DuckDB can create massive tables of fake data for you to practice on.
+
+```sql
+-- Generate 1 million numbers from 1 to 1,000,000
+SELECT * FROM range(1000000);
+
+-- Generate random floats between 0 and 1
+SELECT random() FROM range(10);
+```
+
+---
+
+## 3. Shuffling
+
+Want to randomize the order of your results?
+
+```sql
+SELECT * FROM users ORDER BY random();
+```
+
+---
+
+## Real-World Example: Training an AI Model
+
+A data scientist has 500GB of customer data. They want to train a model to predict churn.
+
+1. They don't want to load 500GB into their Python notebook.
+2. They use `USING SAMPLE 1%` to get a balanced, manageable dataset.
+3. Once their model is written and tested, they swap the sample for the full table on a larger server.
+
+---
+
+## Hypothetical Scenario: The "Repeatable" Random
+
+A developer is debugging a bug that only appears when data is in a specific random order.
+
+- **The Solution:** Use `set seed`.
+  ```sql
+  SET seed = 0.42;
+  SELECT * FROM range(10) ORDER BY random();
+  ```
+- No matter how many times they run this, the "random" order will be exactly the same, allowing them to fix the bug.
+
+## Exercises
+
+1. **Syntax:** Write a query to get a 5% sample of a table named `logs`.
+2. **Comparison:** Why is `USING SAMPLE 1000 ROWS` faster than `SELECT * FROM table LIMIT 1000`?
+3. **Seeding:** What is the purpose of setting a "seed" for random functions?
+
+## Summary and Next Steps
+
+Sampling allows you to work fast; random generation allows you to test anything. This marks the end of Module 3!
+
+Now that you're a DuckDB SQL expert, it's time to become a performance expert. In **Module 4**, we'll look at **Parallelism, Memory Management, and Spill-to-Disk**.

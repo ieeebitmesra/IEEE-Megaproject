@@ -1,0 +1,188 @@
+{
+  "method": "POST",
+  "path": "/api/auth/sign-up/email",
+  "originalPath": "/api/auth/sign-up/email",
+  "query": {},
+  "params": {
+    "*": "sign-up/email"
+  },
+  "body": {
+    "type": "json",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "password": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "callbackURL": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "password",
+        "username",
+        "name",
+        "image",
+        "callbackURL"
+      ]
+    },
+    "example": {
+      "email": "testifywebdev@gmail.com",
+      "password": "12345678A@a",
+      "username": "testifywebdev",
+      "name": "test",
+      "image": "https://ui-avatars.com/api/?name=testifywebdev&background=random&color=fff",
+      "callbackURL": "/auth/mailsent"
+    },
+    "signature": "callbackURL:string|email:string|image:string|name:string|password:string|username:string"
+  },
+  "customHeaders": {
+    "host": "localhost:4000",
+    "connection": "keep-alive",
+    "content-length": "217",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0",
+    "accept": "*/*",
+    "origin": "http://localhost:3000",
+    "sec-fetch-site": "same-site",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-dest": "empty",
+    "referer": "http://localhost:3000/",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "accept-language": "en-US,en;q=0.9",
+    "cookie": "better-auth.oauth_state=b710cc59bd959e968aedbb7b1cccce1586b74a412a6ab7f33c46df4c1d918f6ce7811ad13244b5ac4827645d3ca75be03df97a81ea3c7410a4ebd578d9d864572edd037e84de293333d6588d822a41d5ce490110f1079b07437e6d1b79c379c1bc03281d329369bb8f0d65fff2ae6ecc372c9692919bb0eb9227a2233f33987d6a781afcc032ee0a7fa6464d7da8d3fa111cf02820e9723b86b8f528daf60aab785f45ed71a7914e2b1a33a639b3fff8862303d29a9207de592f98c1fdc050b43688d91a637fedb24ef0a298e09678b12fadecb06cc5d9c361b4c1a9c8dc25361b5420d33663c8acc4f2d78a5bd12a7a08a65540d7d56323628a37d0abcaaae3181fdadb39fe62419925561503bc041b4c50b336dfcec53a0994325591214ff24d6af985ea2c"
+  },
+  "response": {
+    "statusCode": 200,
+    "headers": {
+      "access-control-allow-origin": "http://localhost:3000",
+      "access-control-allow-credentials": "true",
+      "content-type": "application/json; charset=utf-8"
+    },
+    "body": {
+      "type": "json",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "nullable": true
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "emailVerified": {
+                "type": "boolean",
+                "example": false
+              },
+              "image": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "twoFactorEnabled": {
+                "type": "boolean",
+                "example": false
+              },
+              "username": {
+                "type": "string"
+              },
+              "displayUsername": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string",
+                "nullable": true
+              },
+              "age": {
+                "type": "string",
+                "nullable": true
+              },
+              "gender": {
+                "type": "string",
+                "nullable": true
+              },
+              "location": {
+                "type": "string"
+              },
+              "institution": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "emailVerified",
+              "image",
+              "createdAt",
+              "updatedAt",
+              "twoFactorEnabled",
+              "username",
+              "displayUsername",
+              "location",
+              "institution",
+              "id"
+            ]
+          }
+        },
+        "required": ["user"]
+      },
+      "example": {
+        "token": null,
+        "user": {
+          "name": "test",
+          "email": "testifywebdev@gmail.com",
+          "emailVerified": false,
+          "image": "https://ui-avatars.com/api/?name=testifywebdev&background=random&color=fff",
+          "createdAt": "2026-01-11T21:42:14.903Z",
+          "updatedAt": "2026-01-11T21:42:14.903Z",
+          "twoFactorEnabled": false,
+          "username": "testifywebdev",
+          "displayUsername": "testifywebdev",
+          "description": null,
+          "age": null,
+          "gender": null,
+          "location": "unknown",
+          "institution": "unknown",
+          "id": "3Y3YbWkqMzamQWaZu5iQTT8ffnse90Xj"
+        }
+      },
+      "signature": "token:null|user:object:age:null|createdAt:string|description:null|displayUsername:string|email:string|emailVerified:boolean|gender:null|id:string|image:string|institution:string|location:string|name:string|twoFactorEnabled:boolean|updatedAt:string|username:string"
+    }
+  },
+  "timestamp": "2026-01-11T21:42:17.881Z",
+  "lastUpdated": "2026-01-11T21:42:17.881Z"
+}

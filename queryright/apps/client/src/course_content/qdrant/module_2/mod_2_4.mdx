@@ -1,0 +1,45 @@
+# Named Vectors: Multimodal Data
+
+What if a single object has _multiple_ representations? For example, a "Product" has a **Description** (Text) and a **Photo** (Image).
+
+---
+
+## The Old Way
+
+You would create two separate collections: `product_descriptions` and `product_images`. This makes it very hard to keep your data in sync.
+
+---
+
+## The Qdrant Way: Named Vectors
+
+A single **Point** can have multiple vectors, each with a different name and size.
+
+```json
+PUT /collections/products
+{
+    "vectors": {
+        "text_vector": { "size": 1536, "distance": "Cosine" },
+        "image_vector": { "size": 512, "distance": "Euclidean" }
+    }
+}
+```
+
+Now, when you "Upsert" a product, you give it both lists of numbers. When you "Search," you tell Qdrant which vector you want to use.
+
+---
+
+## Real-World Example: Linked Search
+
+- **Search A:** Find products that "Sound" like this description. (Search using `text_vector`).
+- **Search B:** Find products that "Look" like this photo. (Search using `image_vector`).
+
+All the metadata (Price, Name, ID) stays in the same place! This is called **Multimodal Search**.
+
+---
+
+## Quick Exercises:
+
+1. **Capacity**: How many vectors can a single Point have? (One or Multiple?)
+2. **Benefit**: Why is it better to have named vectors in one point instead of two separate collections?
+3. **Scenario**: If you were building a Music Search engine, what two "Named Vectors" might you store for a song? (e.g., Lyrics and ...?).
+   clearing.

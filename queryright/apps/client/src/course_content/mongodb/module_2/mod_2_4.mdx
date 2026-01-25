@@ -1,0 +1,138 @@
+# The `$count` Stage: Efficient Document Counting
+
+The `$count` stage is a specialized aggregation stage designed for a single, specific purpose: counting the number of documents that enter the stage. While you can achieve the same result using the `$group` stage with a `$sum` accumulator, `$count` provides a cleaner, more readable syntax for this common operation. It is particularly useful when you need to know the size of a result set after applying filters or transformations.
+
+## Understanding `$count` Syntax
+
+The syntax for `$count` is straightforward. It takes a single string argument, which specifies the name of the field that will hold the count value in the output document.
+
+**Syntax:**
+
+```javascript
+{
+  $count: 'fieldName'
+}
+```
+
+This stage outputs a single document containing the specified field name and the integer count of documents.
+
+## `$count` vs. `$group` with `$sum`
+
+Functionally, `{ $count: "total" }` is equivalent to:
+
+```javascript
+{
+  $group: {
+    _id: null,
+    total: { $sum: 1 }
+  }
+}
+{
+  $project: {
+    _id: 0
+  }
+}
+```
+
+The `$count` stage is syntactic sugar that simplifies this pattern. However, unlike `$group`, `$count` does not preserve the `_id` field (it doesn't have one) and outputs only the count field you specify.
+
+## Practical Examples and Demonstrations
+
+### Scenario 1: Counting Filtered Documents
+
+**Context:** We have a large collection of orders. We want to know exactly how many orders have a status of "shipped" and a total value greater than $100.
+
+**Sample Data:** `orders` collection
+
+```json
+[
+  { "_id": 1, "status": "shipped", "total": 150 },
+  { "_id": 2, "status": "pending", "total": 200 },
+  { "_id": 3, "status": "shipped", "total": 50 },
+  { "_id": 4, "status": "shipped", "total": 120 },
+  { "_id": 5, "status": "cancelled", "total": 300 }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.orders.aggregate([
+  {
+    $match: {
+      status: 'shipped',
+      total: { $gt: 100 },
+    },
+  },
+  {
+    $count: 'shippedHighValueOrders',
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[{ "shippedHighValueOrders": 2 }]
+```
+
+**Explanation:**
+
+- The `$match` stage filters the stream, passing only documents 1 and 4.
+- The `$count` stage counts these incoming documents and outputs a single document with the field `shippedHighValueOrders` set to 2.
+
+### Scenario 2: Counting Categories (Distinct Count workaround)
+
+**Context:** Sometimes you want to count how many _unique_ categories exist in your product catalog. While `$count` counts documents, we can combine it with `$group` to count unique groups.
+
+**Sample Data:** `products` collection
+
+```json
+[
+  { "_id": 1, "category": "Electronics" },
+  { "_id": 2, "category": "Clothing" },
+  { "_id": 3, "category": "Electronics" },
+  { "_id": 4, "category": "Home" },
+  { "_id": 5, "category": "Clothing" }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.products.aggregate([
+  {
+    $group: {
+      _id: '$category', // Group by category to get unique values
+    },
+  },
+  {
+    $count: 'uniqueCategories', // Count the number of groups
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[{ "uniqueCategories": 3 }]
+```
+
+**Explanation:**
+
+- The `$group` stage condenses the 5 documents into 3 unique documents (one for each category: Electronics, Clothing, Home).
+- The `$count` stage then counts these 3 group documents.
+
+## Performance Implications of `$count`
+
+The `$count` stage can be performant, but its behavior depends on its position in the pipeline:
+
+- If `$count` is the _first_ stage in a pipeline (which is rare, as you'd usually use `countDocuments()`), it can use collection statistics (metadata) for a fast count if no query predicate is present.
+- If `$count` follows a `$match` stage, it must count the documents that pass the filter. If the `$match` is covered by an index, the count can be retrieved from the index without fetching documents.
+- If `$count` follows a transformation stage (like `$project` or `$unwind`), it must process the actual document stream.
+
+## Summary
+
+The `$count` stage provides a simple, readable way to determine the cardinality of your aggregation results. It replaces the more verbose `$group` pattern when you only need a simple count of the documents remaining in the pipeline.
+
+In the next lesson, we will apply everything we've learned about grouping, accumulators, and counting in a **Hands-on Lab: Sales Data Aggregation**, where we will build a comprehensive revenue report.

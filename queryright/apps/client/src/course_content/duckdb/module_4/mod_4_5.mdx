@@ -1,0 +1,57 @@
+# Efficient Compression
+
+Compression is about more than just saving disk space; it's about speed. The less data DuckDB has to read from your slow hard drive, the faster it can process it in your fast CPU.
+
+---
+
+## 1. Zero-Copy Reading
+
+DuckDB's internal format is so efficient that it can often skip the "Decompression" step. It performs math directly on the compressed values.
+
+---
+
+## 2. Specialized Algorithms
+
+DuckDB chooses the best compression based on the **data type**:
+
+- **Bitpacking:** For small integers.
+- **RLE (Run-Length Encoding):** For sorted values (e.g., `1, 1, 1, 1, 2, 2...`).
+- **Chimp/Patas:** For floating point numbers (decimals).
+- **Zstd:** For general text.
+
+---
+
+## 3. The "Cold Storage" Benefit
+
+Because DuckDB files are so small, you can store massive datasets that would cost thousands of dollars in a cloud database on a single $100 external hard drive.
+
+---
+
+## Real-World Example: Sensor Data
+
+Imagine an IoT system recording "Battery Percentage" every second for a year.
+
+- The values are: `100, 100, 100... 99, 99...`.
+- Using **RLE**, DuckDB only stores the number 100 and the number of times it appeared.
+- A year of data (31 million rows) might take up only a few kilobytes.
+
+---
+
+## Hypothetical Scenario: The "Parquet" Surprise
+
+A developer exports a table from DuckDB to a Parquet file.
+
+- **The Observation:** The Parquet file is actually _larger_ than the native DuckDB `.db` file.
+- **Why?** DuckDB's internal compression is optimized specifically for the DuckDB engine, whereas Parquet is designed for general-purpose compatibility.
+
+## Exercises
+
+1. **Tradeoff:** Why is compressed data often _faster_ to query than uncompressed data?
+2. **Identify:** Which algorithm would DuckDB likely use for a column of "Status Codes" (e.g., 200, 404, 500)?
+3. **Storage:** If you have 10 years of history, should you store it in one big `.db` file or many small CSVs?
+
+## Summary and Next Steps
+
+Compression is the ultimate optimization. You've completed Module 4!
+
+In the final module, **Module 5**, we will look at how DuckDB fits into your life—from **Python notebooks** to the **Web browser (WASM)**.

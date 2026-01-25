@@ -1,0 +1,40 @@
+# What is "Distance" in Vector Space?
+
+In a normal world, "Distance" is measured in miles or meters. In a Vector Database, "Distance" refers to **how different** two concepts are.
+
+---
+
+## High Distance vs. Low Distance
+
+- **Low Distance:** Two points are very close. This means their meanings are almost the same. (e.g., "Doctor" and "Physician").
+- **High Distance:** Two points are far apart. This means their meanings have nothing in common. (e.g., "Doctor" and "Toaster").
+
+---
+
+## Searching is a "Nearest Neighbor" Problem
+
+When you search Qdrant, you aren't saying _"Find me this exact item."_
+You are saying: _"Here is a vector. Find the **10 nearest neighbors** to it in space."_
+
+Qdrant uses different formulas to calculate this "Closeness." Choosing the wrong formula can make your search engine feel "Stupid" or "Inaccurate."
+
+---
+
+## Real-World Example: User Preferences
+
+Imagine a music app:
+
+- **User A** likes Jazz.
+- **User B** likes Death Metal.
+- **User C** likes Lounge Music.
+
+In Vector Space, User A and User C will have a **Small Distance** between them (Jazz and Lounge share traits like "Soft" and "Instrumental"). User B will have a **High Distance** from both.
+
+---
+
+## Quick Exercises:
+
+1. **The Goal**: Does a search engine want to find items with _High_ distance or _Low_ distance relative to your query?
+2. **The "Neighbor"**: What does the term "Nearest Neighbor" refer to in search?
+3. **Intuition**: If you search for "Hot Weather," would you expect "Sunny Day" to have a higher or lower distance than "Snowy Night"?
+   mesa.

@@ -1,0 +1,102 @@
+# Sorted Sets: Leaderboards and Ranking
+
+**Sorted Sets** (often called `ZSets`) are arguably the most powerful data structure in Redis. They are similar to Sets in that every member must be unique, but they have one massive addition: every member is associated with a **score** (a floating-point number).
+
+The members are then kept sorted by their score. This makes Sorted Sets the ultimate tool for anything involving ranking or ordering.
+
+## Why Use Redis Sorted Sets?
+
+- **Gaming Leaderboards:** Ranking players by their high scores.
+- **E-Commerce:** Ranking products by "best-sellers" or "most viewed".
+- **Rate Limiting:** Implementing advanced "sliding window" rate limiters.
+- **Priority Queues:** Like a List-based queue, but where high-priority tasks move to the front.
+- **Autocomplete:** Building fast, prefix-based search suggestions.
+
+---
+
+## Sorted Set Operations
+
+Sorted Set commands start with a "Z".
+
+### 1. Adding and Updating Scores
+
+```bash
+# Add players to the leaderboard with their scores
+ZADD global_leaderboard 1500 "Player_Alice"
+ZADD global_leaderboard 2200 "Player_Bob"
+ZADD global_leaderboard 1850 "Player_Charlie"
+
+# If Player_Alice scores more points, just update her score
+ZADD global_leaderboard 2000 "Player_Alice"
+```
+
+### 2. Retrieving by Rank
+
+Ranks are 0-indexed. Rank 0 is the lowest score.
+
+```bash
+# Get the top 3 players (highest scores first)
+ZREVRANGE global_leaderboard 0 2 WITHSCORES
+# Output:
+# 1) "Player_Bob"
+# 2) "2200"
+# 3) "Player_Alice"
+# 4) "2000"
+# 5) "Player_Charlie"
+# 6) "1850"
+```
+
+### 3. Retrieving by Score Range
+
+```bash
+# Find all players with scores between 1500 and 1900
+ZRANGEBYSCORE global_leaderboard 1500 1900
+```
+
+### 4. Getting a Specific Player's Rank
+
+```bash
+# What is Bob's current rank? (0-indexed, highest score is rank 0)
+ZREVRANK global_leaderboard "Player_Bob"
+# Output: (integer) 0
+```
+
+---
+
+## Real-World Example: The "Trending Topics" Feature
+
+Imagine you want to show "Trending Hashtags" on a news site based on how many times they've been used in the last hour.
+
+1. Every time someone uses `#breaking_news`, you run:
+   `ZINCRBY trending_hashtags 1 "breaking_news"`
+2. To show the top 10 trends:
+   `ZREVRANGE trending_hashtags 0 9 WITHSCORES`
+3. **The Magic:** `ZINCRBY` is atomic and fast. It doesn't matter if 50,000 people use the hashtag at once.
+
+---
+
+## Hypothetical Scenario: Task Priority System
+
+You have a system that sends notifications. Most notifications (like "You have a new like") are low priority. But "Security Alert: New Login" is high priority.
+
+1. You use a Sorted Set `notification_queue`.
+2. Low priority notifications get a score of `10`.
+3. High priority notifications get a score of `1`.
+4. Your background worker fetches the item with the _lowest_ score first:
+   `ZRANGE notification_queue 0 0`
+5. After processing, it removes it: `ZREM notification_queue "security_alert_id_99"`.
+
+This ensures that critical alerts are always sent before social notifications!
+
+## Exercises
+
+1. **Leaderboard Creation:** Use `ZADD` to create a `game_score` leaderboard. Add 5 players with different scores.
+2. **Ranking check:** Use `ZREVRANK` to find the rank of your 3rd favorite player.
+3. **Score range:** Use `ZRANGEBYSCORE` to find all players who have at least 100 points.
+4. **Update:** Use `ZINCRBY` to add 50 points to the bottom player. Check their rank again!
+
+## Summary and Next Steps
+
+Sorted Sets combine the uniqueness of Sets with the ordering power of Scores. They are the engine behind some of the most visible features in modern apps, from gaming leaderboards to trending lists.
+
+In the final lesson of this module, we will explore two "specialty" data structures that Redis uses for massive scale: **Bitmaps** and **HyperLogLog**.

@@ -1,0 +1,82 @@
+# Nesting Aggregations
+
+The true power of Elasticsearch aggregations is that they are **hierarchical**. You can put aggregations _inside_ other aggregations.
+
+---
+
+## 1. The Sub-Aggregation Concept
+
+Think of it like a tree:
+
+- **Root Bucket:** Split by Category.
+  - **Sub-Bucket:** Split by Brand (inside that category).
+    - **Sub-Metric:** Calculate the Average Price (for that brand in that category).
+
+---
+
+## 2. Practical Syntax
+
+```http
+GET /products/_search
+{
+  "size": 0,
+  "aggs": {
+    "genres": {
+      "terms": { "field": "genre.keyword" },
+      "aggs": {
+        "avg_price_per_genre": {
+          "avg": { "field": "price" }
+        },
+        "top_authors": {
+          "terms": { "field": "author.keyword", "size": 3 }
+        }
+      }
+    }
+  }
+}
+```
+
+**What this does:**
+
+1. Groups all documents by `genre`.
+2. For each genre, it calculates the `avg_price`.
+3. For each genre, it also lists the top 3 `authors`.
+
+---
+
+## 3. Performance Warning
+
+Every level of nesting multiplies the number of buckets.
+
+- 10 Genres × 10 Authors × 10 Regions = **1,000 buckets**.
+  This can quickly consume all the RAM on your cluster. Keep your nesting levels shallow (usually 2 or 3 deep).
+
+---
+
+## Real-World Example: Server Monitoring
+
+You are monitoring an infrastructure with 1,000 servers.
+
+1. **Level 1 (Bucket):** Group by `Data Center`.
+2. **Level 2 (Bucket):** Group by `Server Type` (Database vs. Web).
+3. **Level 3 (Metric):** Calculate the `Max CPU Usage`.
+
+This allows a sysadmin to quickly see: "The Web servers in the US-EAST data center are hitting 95% CPU."
+
+---
+
+## Hypothetical Scenario: The "Double Group"
+
+A marketing manager asks: "I want to see our total sales per Month, but I want that broken down by Payment Method (Credit Card vs PayPal)."
+
+- **The Solution:** Use a `date_histogram` aggregation (by month) and nest a `terms` aggregation (by payment method) inside it.
+
+## Exercises
+
+1. **Tree Logic:** If you have 5 buckets in your top aggregation, and each bucket has 10 sub-buckets, how many total buckets will be in the response?
+2. **Refactor:** Write the structure for an aggregation that groups by `city` and then finds the `min` and `max` `age` in each city.
+3. **Limits:** Why should you avoid nesting many `terms` aggregations with a large `size` parameter?
+
+## Summary and Next Steps
+
+Nesting allows you to perform complex multi-dimensional analysis. In the final lesson of this module, we will look at a specific problem: **Counting Unique Values** accurately at scale.

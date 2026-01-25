@@ -1,0 +1,111 @@
+# Introduction to Stored Procedures and User-Defined Functions
+
+As you write more SQL, you will find yourself running the same complex queries over and over again. Or, you might need to perform a multi-step task (like "Add a new customer, then create their welcome order, then email them") that requires programming logic.
+
+**Stored Procedures** and **Functions** allow you to save SQL code on the database server, treating it like a reusable program.
+
+## Stored Procedures vs. Functions
+
+While similar, they have key differences in PostgreSQL:
+
+1.  **User-Defined Functions (UDFs):**
+    - Primarily used to calculate and **return a value** (or a table).
+    - Can be used inside a `SELECT` statement (e.g., `SELECT calculate_tax(price) FROM orders`).
+    - Cannot manage transactions (commit/rollback) in older versions.
+
+2.  **Stored Procedures:**
+    - Primarily used to **perform an action** (INSERT, UPDATE, DELETE).
+    - Call them using `CALL procedure_name()`.
+    - **Can** manage transactions (commit/rollback).
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### Scenario 1: A Function to Calculate Discounted Price
+
+We want a reusable way to calculate the price of a book after a percentage discount.
+
+**Creating the Function:**
+
+```sql
+CREATE OR REPLACE FUNCTION get_discounted_price(
+    original_price DECIMAL,
+    discount_percent DECIMAL
+)
+RETURNS DECIMAL AS $$
+BEGIN
+    RETURN original_price - (original_price * discount_percent / 100);
+END;
+$$ LANGUAGE plpgsql;
+```
+
+**Using the Function:**
+
+```sql
+SELECT title, price, get_discounted_price(price, 10) AS sale_price
+FROM books;
+```
+
+- **Benefit:** If we change the math logic later, we update it in one place (the function), and all our queries update automatically.
+
+### Scenario 2: A Stored Procedure to Add a New Book
+
+Adding a book might involve checking if the author exists first. Let's create a procedure for this.
+
+**Creating the Procedure:**
+
+```sql
+CREATE OR REPLACE PROCEDURE add_new_book(
+    p_title TEXT,
+    p_author_id INT,
+    p_price DECIMAL
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Insert the book
+    INSERT INTO books (title, author_id, price, stock_quantity)
+    VALUES (p_title, p_author_id, p_price, 0);
+
+    -- Commit the transaction
+    COMMIT;
+END;
+$$;
+```
+
+**Calling the Procedure:**
+
+```sql
+CALL add_new_book('The SQL Guide', 101, 29.99);
+```
+
+## Why Use Them?
+
+1.  **Security:** You can give a user permission to run a procedure (e.g., `CALL add_order`) without giving them permission to directly `INSERT` into the `Orders` table. This controls exactly _how_ data is modified.
+2.  **Performance:** The database parses and optimizes the code once, storing the plan. This reduces network traffic (sending one short command instead of a massive query).
+3.  **Maintainability:** Logic is centralized.
+
+## Exercises and Practice Activities
+
+To solidify your understanding, complete the following exercises.
+
+### Exercise 1: The Tax Calculator
+
+Write a function `calculate_tax(amount)` that takes a dollar amount and returns the amount plus 8% tax.
+
+### Exercise 2: The Inventory Update
+
+Write a procedure `update_stock(book_id, quantity_sold)` that subtracts the sold quantity from the `Books` table's `stock_quantity`.
+
+### Exercise 3: Security Concept
+
+Explain how a Stored Procedure can protect your database from bad data compared to letting users run raw `INSERT` statements.
+
+## Concluding Thoughts
+
+In this lesson, we learned how to automate and encapsulate our SQL logic. This marks the transition from being a "Query Writer" to a "Database Developer."
+
+This concludes Module 5. We have covered advanced analytical tools (CTEs, Window Functions) and programming constructs (Procedures). In **Module 6**, we will focus on **Database Design and Performance**. We will learn how to structure tables correctly (Normalization), how to speed up queries (Indexes), and how to ensure data consistency (Transactions).
+
+=START_QUESTIONS=How do you execute a Stored Procedure?@@Can a Function be used inside a SELECT statement?@@What is the main benefit of centralizing logic in a procedure?@@Which language is commonly used for PostgreSQL functions? =END_QUESTIONS=

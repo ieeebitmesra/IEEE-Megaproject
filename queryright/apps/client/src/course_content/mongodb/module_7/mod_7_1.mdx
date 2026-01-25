@@ -1,0 +1,97 @@
+# Aggregation with Change Streams
+
+Change streams allow applications to access real-time data changes without the complexity and risk of tailing the oplog. They provide an API to listen for specific changes (inserts, updates, deletes) in a collection, database, or entire deployment. A powerful but often overlooked feature is the ability to pass an aggregation pipeline to the `watch()` method, allowing you to filter and transform change events on the server side before they ever reach your application.
+
+## Understanding Change Stream Pipelines
+
+When you open a change stream, you can provide an array of aggregation stages. However, unlike standard pipelines that process documents, these pipelines process **change event documents**.
+
+**Change Event Structure:**
+
+```json
+{
+  "_id": { ... },
+  "operationType": "insert",
+  "fullDocument": { ... }, // The actual document (for inserts/updates)
+  "ns": { "db": "mydb", "coll": "mycoll" },
+  "documentKey": { ... }
+}
+```
+
+**Syntax:**
+
+```javascript
+const pipeline = [{ $match: { 'fullDocument.amount': { $gte: 100 } } }]
+const changeStream = db.collection.watch(pipeline)
+```
+
+## Practical Examples and Demonstrations
+
+### Scenario 1: Filtering for High-Value Orders
+
+**Context:** We have an order processing system. We want to trigger a notification only when a new order is placed with a total value exceeding $1000. We do not care about updates or deletes, nor do we care about small orders.
+
+**Pipeline Code:**
+
+```javascript
+const pipeline = [
+  {
+    $match: {
+      operationType: 'insert',
+      'fullDocument.total': { $gt: 1000 },
+    },
+  },
+]
+
+// In Node.js driver
+const changeStream = collection.watch(pipeline)
+
+changeStream.on('change', (next) => {
+  console.log('High value order received:', next.fullDocument._id)
+})
+```
+
+### Scenario 2: Monitoring Specific Field Updates
+
+**Context:** We want to monitor the `status` field of orders. We only want to be notified when the status changes to "shipped".
+
+**Pipeline Code:**
+
+```javascript
+const pipeline = [
+  {
+    $match: {
+      operationType: 'update',
+      'updateDescription.updatedFields.status': 'shipped',
+    },
+  },
+  {
+    $project: {
+      documentKey: 1,
+      updatedFields: '$updateDescription.updatedFields',
+    },
+  },
+]
+
+const changeStream = collection.watch(pipeline)
+```
+
+**Explanation:**
+
+- We filter for `update` operations.
+- We check `updateDescription.updatedFields` to see if `status` was the specific field modified.
+- We use `$project` to reduce the network payload, sending only the ID and the changes.
+
+## Performance Implications
+
+Filtering change streams on the server is significantly more efficient than filtering in your application code.
+
+- **Network Traffic:** Only relevant events are sent over the wire.
+- **Driver Load:** The application driver doesn't have to deserialize and process thousands of irrelevant events.
+- **Indexes:** The `$match` stage in a change stream pipeline can utilize indexes on the collection to filter events efficiently.
+
+## Summary
+
+Combining aggregation pipelines with change streams enables powerful event-driven architectures. By pushing the filtering logic to the database, you ensure your application only reacts to the events that truly matter, reducing latency and resource consumption.
+
+In the next lesson, we will expand on this concept to build a **Real-time Dashboard** using aggregation.

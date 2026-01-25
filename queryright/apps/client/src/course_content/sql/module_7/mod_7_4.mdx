@@ -1,0 +1,100 @@
+# Working with JSONB Data Types in PostgreSQL
+
+Relational databases are strict. Every row must have the same columns. But in the real world, data is messy.
+
+- A "Laptop" product has attributes like "CPU", "RAM", "Screen Size".
+- A "T-Shirt" product has "Size", "Color", "Material".
+
+Creating separate columns for all of these (`cpu_speed`, `shirt_size`, `screen_res`) results in a table with hundreds of NULLs.
+
+PostgreSQL solves this with the **JSONB** data type. It allows you to store unstructured JSON data (like a NoSQL document) inside a structured SQL table.
+
+## Understanding JSONB
+
+- **JSON**: Stored as text. Slow to query.
+- **JSONB (Binary)**: Stored in a decomposed binary format. Supports indexing and is very fast to query. **Always use JSONB.**
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**. We sell not just books, but also e-readers and merchandise.
+
+### Scenario 1: Creating a Table with JSONB
+
+We create a `Products` table with a flexible `attributes` column.
+
+```sql
+CREATE TABLE products (
+    product_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    type VARCHAR(50),
+    attributes JSONB
+);
+```
+
+### Scenario 2: Inserting Data
+
+We can insert different structures into the same column.
+
+```sql
+INSERT INTO products (name, type, attributes)
+VALUES
+('Kindle Paperwhite', 'Electronics', '{"screen": "6 inch", "storage": "8GB", "waterproof": true}'),
+('Harry Potter T-Shirt', 'Merch', '{"size": "L", "color": "Red", "material": "Cotton"}');
+```
+
+### Scenario 3: Querying JSON Data
+
+We use special operators to extract data.
+
+- `->` returns JSON object.
+- `->>` returns Text.
+
+**Query:** Find all products that are "Red".
+
+```sql
+SELECT name
+FROM products
+WHERE attributes->>'color' = 'Red';
+```
+
+### Scenario 4: Indexing JSONB (The Power Move)
+
+We can create a GIN (Generalized Inverted Index) on the JSON column. This allows us to search millions of JSON documents instantly.
+
+```sql
+CREATE INDEX idx_products_attributes ON products USING GIN (attributes);
+```
+
+**Query:** Find all electronics that are waterproof.
+
+```sql
+SELECT name
+FROM products
+WHERE attributes @> '{"waterproof": true}';
+```
+
+- **`@>`**: The "Contains" operator. Does the JSON on the left contain the JSON on the right?
+
+## Exercises and Practice Activities
+
+To solidify your understanding, complete the following exercises.
+
+### Exercise 1: The Extraction
+
+Write a query to select the `name` and the `storage` size (as text) for all products where the type is 'Electronics'.
+
+### Exercise 2: The Update
+
+Write a query to update the 'Harry Potter T-Shirt' to change its "color" to "Blue". (Hint: You might need the `jsonb_set` function or a simple overwrite).
+
+### Exercise 3: Hybrid Design
+
+Why is it better to store `price` in a regular SQL column rather than inside the JSONB `attributes` column?
+
+## Concluding Thoughts
+
+In this lesson, we learned how to combine the best of both worlds: the structure of SQL with the flexibility of NoSQL. JSONB is a game-changer for handling dynamic product catalogs or logging API responses.
+
+In the next lesson, we will look at **Regular Expressions**. Sometimes `LIKE '%text%'` isn't enough. We need to find patterns, like "valid email addresses" or "phone numbers starting with 555".
+
+=START_QUESTIONS=Which data type is preferred for storing JSON in PostgreSQL: JSON or JSONB?@@Which operator extracts a value as text?@@What type of index is used for JSONB columns?@@Why shouldn't you store everything in a JSONB column? =END_QUESTIONS=

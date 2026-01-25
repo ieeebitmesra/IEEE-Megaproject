@@ -1,0 +1,157 @@
+# Hands-on Lab: Analyzing Time-Series Data and Complex Conditions
+
+In this lab, we will apply advanced aggregation operators to analyze a dataset of server logs. We will simulate a scenario where we need to monitor system health, categorize error levels, and generate hourly summary reports. This will require us to use date operators for time bucketing, conditional logic for categorization, and string operators for formatting.
+
+## Lab Objectives
+
+By the end of this lab, you will be able to:
+
+- Group time-series data by specific time intervals using Date Operators.
+- Apply business logic to categorize data using `$switch` and `$cond`.
+- Format output strings for reporting using `$concat` and `$toUpper`.
+- Filter and analyze arrays within documents.
+
+## Setting Up Your Environment and Dataset
+
+We will create a `server_logs` collection containing log entries with timestamps, severity levels, and message tags.
+
+**Run the following command to initialize the data:**
+
+```javascript
+use sysadmin_db;
+
+db.server_logs.drop();
+
+db.server_logs.insertMany([
+  { "_id": 1, "timestamp": ISODate("2023-03-01T08:15:00Z"), "level": "INFO", "message": "System start", "tags": ["boot", "system"] },
+  { "_id": 2, "timestamp": ISODate("2023-03-01T08:20:00Z"), "level": "WARN", "message": "High memory usage", "tags": ["memory", "performance"] },
+  { "_id": 3, "timestamp": ISODate("2023-03-01T09:05:00Z"), "level": "ERROR", "message": "Database connection failed", "tags": ["db", "network", "critical"] },
+  { "_id": 4, "timestamp": ISODate("2023-03-01T09:10:00Z"), "level": "INFO", "message": "User login", "tags": ["auth", "security"] },
+  { "_id": 5, "timestamp": ISODate("2023-03-01T09:45:00Z"), "level": "ERROR", "message": "Disk full", "tags": ["disk", "critical"] },
+  { "_id": 6, "timestamp": ISODate("2023-03-01T10:00:00Z"), "level": "INFO", "message": "Scheduled backup", "tags": ["backup"] }
+]);
+```
+
+## Step 1: Hourly Incident Summary
+
+We want to count how many log entries occurred during each hour of the day. We will use `$hour` to extract the hour from the timestamp.
+
+**Pipeline:**
+
+```javascript
+db.server_logs.aggregate([
+  {
+    $group: {
+      _id: {
+        day: { $dayOfMonth: '$timestamp' },
+        hour: { $hour: '$timestamp' },
+      },
+      count: { $sum: 1 },
+    },
+  },
+  { $sort: { '_id.hour': 1 } },
+])
+```
+
+**Output:**
+
+```json
+[
+  { "_id": { "day": 1, "hour": 8 }, "count": 2 },
+  { "_id": { "day": 1, "hour": 9 }, "count": 3 },
+  { "_id": { "day": 1, "hour": 10 }, "count": 1 }
+]
+```
+
+## Step 2: Categorizing Log Severity
+
+We want to add a `priority` field to our logs. If the level is "ERROR", priority is "HIGH". If "WARN", it's "MEDIUM". Otherwise, "LOW". We will use `$switch`.
+
+**Pipeline:**
+
+```javascript
+db.server_logs.aggregate([
+  {
+    $project: {
+      level: 1,
+      message: 1,
+      priority: {
+        $switch: {
+          branches: [
+            { case: { $eq: ['$level', 'ERROR'] }, then: 'HIGH' },
+            { case: { $eq: ['$level', 'WARN'] }, then: 'MEDIUM' },
+          ],
+          default: 'LOW',
+        },
+      },
+    },
+  },
+])
+```
+
+## Step 3: Identifying Critical Issues
+
+Let's filter the logs to find only those that contain the tag "critical" in their `tags` array. We can use `$match` for this, as it works seamlessly with arrays.
+
+**Pipeline:**
+
+```javascript
+db.server_logs.aggregate([
+  {
+    $match: {
+      tags: 'critical', // Matches if "critical" is present in the array
+    },
+  },
+  {
+    $project: {
+      message: 1,
+      timestamp: 1,
+    },
+  },
+])
+```
+
+## Step 4: Generating a Report ID
+
+Finally, let's generate a unique "Report ID" for each log entry by concatenating the log level (in uppercase) and the timestamp string.
+
+**Pipeline:**
+
+```javascript
+db.server_logs.aggregate([
+  {
+    $project: {
+      reportId: {
+        $concat: [
+          { $toUpper: '$level' },
+          '-',
+          { $dateToString: { format: '%H%M', date: '$timestamp' } },
+        ],
+      },
+      message: 1,
+    },
+  },
+])
+```
+
+**Output Preview:**
+
+```json
+[
+  { "_id": 1, "reportId": "INFO-0815", "message": "System start" },
+  {
+    "_id": 3,
+    "reportId": "ERROR-0905",
+    "message": "Database connection failed"
+  }
+]
+```
+
+## Exercises
+
+1. **Weekend Traffic:** Write a pipeline to count how many logs were generated on a weekend (Saturday or Sunday). _Hint: Use `$dayOfWeek`._
+2. **Tag Count:** Add a field `tagCount` that shows how many tags are attached to each log entry. _Hint: Use `$size`._
+
+## Summary
+
+In this lab, we utilized the full power of MongoDB's expression operators. We dissected dates, implemented conditional business logic, and formatted strings to create a structured log analysis report. These skills are fundamental for building complex data processing pipelines.

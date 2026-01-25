@@ -1,0 +1,75 @@
+# ENUMs and Custom Types
+
+As your database grows, you need better ways to categorize data. **ENUMs** (Enumerations) are a powerful tool for performance and data safety.
+
+---
+
+## 1. What is an ENUM?
+
+An ENUM is a fixed list of allowed values.
+
+- Instead of using a `VARCHAR` column where anyone can type anything (e.g., 'Completed', 'complete', 'DONE')...
+- You create an ENUM where only specific words are allowed.
+
+```sql
+CREATE TYPE status_enum AS ENUM ('PENDING', 'SHIPPED', 'DELIVERED');
+
+CREATE TABLE orders (
+    order_id INTEGER,
+    status status_enum
+);
+```
+
+---
+
+## 2. Why use them?
+
+1. **Space Efficiency:** Under the hood, DuckDB stores ENUMs as small integers (0, 1, 2) rather than long strings. This can reduce the size of your database by huge amounts.
+2. **Speed:** Comparing integers is faster for the CPU than comparing strings.
+3. **Safety:** If you try to insert `status = 'LOST'`, DuckDB will throw an error.
+
+---
+
+## 3. Custom Types (Aliases)
+
+You can also create custom names for existing types to make your code more readable.
+
+```sql
+CREATE TYPE usd_currency AS DECIMAL(18, 2);
+
+CREATE TABLE inventory (
+    item_name VARCHAR,
+    price usd_currency
+);
+```
+
+---
+
+## Real-World Example: Log Categorization
+
+A system logs millions of events. Every event has a `severity` Level ('DEBUG', 'INFO', 'WARN', 'ERROR').
+
+- By using an ENUM for `severity`, the developer saves 40% on disk space because DuckDB only stores the number `3` instead of the text `'ERROR'` millions of times.
+- Queries for `WHERE severity = 'ERROR'` are now instant.
+
+---
+
+## Hypothetical Scenario: The "Typo" Disaster
+
+A data entry team is manually typing "State" names into a database.
+
+- **The Problem:** Half the team writes 'California' and the other half writes 'CA'.
+- **The Solution:** The lead developer creates an ENUM with all 50 state names.
+- Now, the software physically prevents "dirty data" from entering the system.
+
+## Exercises
+
+1. **Space:** Why does an ENUM take up less space than a `VARCHAR`?
+2. **Integrity:** What happens if you try to insert a value into an ENUM column that isn't in the allowed list?
+3. **Usage:** When should you NOT use an ENUM? (Hint: Does the list of values change frequently?)
+
+## Summary and Next Steps
+
+Custom types bring structure to your data warehouse.
+
+Up next is our final lesson: **The Final Course Summary and Graduation Project.**

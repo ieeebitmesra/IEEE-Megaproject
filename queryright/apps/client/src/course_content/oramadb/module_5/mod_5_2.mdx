@@ -1,0 +1,62 @@
+# Orama Cloud: Search at the Edge
+
+Managing your own JSON snapshots is fine for small projects, but for global apps, you need **Orama Cloud**.
+
+---
+
+## 1. What is Orama Cloud?
+
+Orama Cloud is a managed service that hosts your Orama indexes on a **Global Edge Network**.
+
+- It works similarly to a Content Delivery Network (CDN) like Cloudflare.
+- Your index is automatically replicated to servers all over the world.
+
+---
+
+## 2. Global Latency
+
+If your server is in New York, a user in Tokyo will experience a 200ms delay while the data travels across the ocean.
+
+- With Orama Cloud, the index lives in a server in Tokyo.
+- The user gets their results in **10ms**.
+
+---
+
+## 3. The Dashboard & Analytics
+
+Orama Cloud provides a GUI (Graphical User Interface) where you can:
+
+1. **Analyze Search Terms:** See what your users are looking for (and what they _can't_ find).
+2. **Preview Changes:** Test new schema or boost settings without writing code.
+3. **Manual Edits:** Correct a specific search result directly in the dashboard.
+
+---
+
+## Real-World Example: The "Zero Results" Report
+
+A shoe company uses Orama Cloud. They look at the analytics and see that 500 people searched for "Yeezy" but got 0 results.
+
+- **The Solution:** The company realizes they don't have that stock, so they create a "Redirect" or a synonym so that people searching for "Yeezy" see their "Adidas Originals" instead.
+- This turns a "Failed Search" into a "Potential Sale."
+
+---
+
+## Hypothetical Scenario: The "Webhook" Sync
+
+A developer has their products in a Shopify store.
+
+- They set up an **Orama Cloud Webhook**.
+- Every time a product is added or updated in Shopify, Orama Cloud automatically updates the search index.
+- The developer doesn't have to write a single line of search-server code.
+
+## Exercises
+
+1. **Deployment:** Why is "Edge Replication" important for global users?
+2. **Insights:** What kind of data can you see in the Orama Cloud Analytics dashboard?
+3. **Automation:** How does a "Webhook" help keep your search index up to date?
+
+## Summary and Next Steps
+
+Orama Cloud removes the "Infrastructure" headache from search.
+
+In the next lesson, we’ll discuss **Deployment Patterns**—deciding between Client-side and Server-side search.

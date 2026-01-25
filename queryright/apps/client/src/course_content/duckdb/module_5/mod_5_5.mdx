@@ -1,0 +1,24 @@
+# Module 5 - The Ecosystem Summary
+
+In this module, we moved away from standalone DuckDB and looked at how it fits into your modern toolkit.
+
+---
+
+## What we covered:
+
+- **Python Integration:** How to use DuckDB inside Jupyter notebooks using `duckdb.sql()`.
+- **WASM (In-Browser):** How DuckDB can power dashboards directly in a user's browser, bypassing the need for an expensive backend server.
+- **dbt-duckdb:** How to use the SQL modeling power of dbt with the raw speed of DuckDB.
+- **Data Quality:** Using `SUMMARIZE` and `CHECK` constraints to prevent bad data from ruining your analysis.
+
+---
+
+## Key Takeaway
+
+DuckDB is rarely used in isolation. It is the "glue" that connects your raw files (Parquet/CSV) to your Python scripts, your dbt models, or your frontend dashboards.
+
+---
+
+## Up Next: Module 6 - Data Visualization and BI
+
+Now that you have your data modeled and cleaned, how do you show it to people? In the next module, we'll see how DuckDB connects to tools like **Metabase, Tableau, and R-Shiny**.

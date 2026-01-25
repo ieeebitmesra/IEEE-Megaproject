@@ -1,0 +1,92 @@
+# Standard vs. Custom Analyzers
+
+Elasticsearch comes with several built-in analyzers, but sometimes you need to build your own "factory line" to handle specific types of text.
+
+---
+
+## 1. The Default: Standard Analyzer
+
+The `standard` analyzer is the default for all `text` fields. It works well for most languages.
+
+- **Tokenizer:** Standard Tokenizer.
+- **Filters:** Lowercase.
+
+**Use it for:** General content like blog posts, descriptions, and comments.
+
+---
+
+## 2. Language Analyzers
+
+Elasticsearch has built-in analyzers for different languages (English, Spanish, French, Chinese, etc.).
+
+- **Example:** The `english` analyzer includes an English stemmer and a list of English stopwords.
+
+```http
+# Testing the English analyzer
+POST /_analyze
+{
+  "analyzer": "english",
+  "text": "The students are learning"
+}
+# Result: ["student", "learn"]
+```
+
+---
+
+## 3. Other Useful Built-ins
+
+- **Simple:** Splits by non-letters and lowercases.
+- **Whitespace:** Splits by whitespace only (keeps punctuation).
+- **Keyword:** Treats the entire string as a single token. Great for IDs or zip codes.
+
+---
+
+## 4. Defining a Custom Analyzer
+
+When the defaults aren't enough, you define a custom analyzer in the **Index Settings**.
+
+```json
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_custom_email_analyzer": {
+          "type": "custom",
+          "tokenizer": "uax_url_email",
+          "filter": ["lowercase", "unique"]
+        }
+      }
+    }
+  }
+}
+```
+
+---
+
+## Real-World Example: Log Analysis
+
+Imagine you are storing logs like `ERROR [User-14] connection_refused`.
+
+- If you use the `standard` analyzer, it will split `connection_refused` into `[connection, refused]`.
+- If you want users to be able to search for the exact string `connection_refused`, you might use a custom analyzer with a **Whitespace Tokenizer** so it doesn't split on the underscore.
+
+---
+
+## Hypothetical Scenario: The "Diacritic" Dilemma
+
+A global store in Spain has customers searching for `"café"`. However, some users type `"cafe"`.
+
+- **The Problem:** By default, "cafe" and "café" are different tokens.
+- **The Solution:** Use the **`icu_folding`** token filter (part of a plugin) or a standard "asciifolding" filter. This converts `é` to `e`, so the search matches regardless of the accent.
+
+## Exercises
+
+1. **Which Analyzer?** You are indexing US Zip Codes (e.g., `90210`). Which built-in analyzer makes the most sense?
+2. **Analysis Prediction:** What tokens will the `whitespace` analyzer produce for `"New York, NY"`?
+3. **Custom Config:** In the custom email analyzer code block above, what does the `unique` filter likely do?
+
+## Summary and Next Steps
+
+Choosing the right analyzer is the difference between a search engine that "gets it" and one that frustrates the user.
+
+But how do you verify exactly what an analyzer is doing? In the next lesson, we will use the **`_analyze` API** to peek under the hood.

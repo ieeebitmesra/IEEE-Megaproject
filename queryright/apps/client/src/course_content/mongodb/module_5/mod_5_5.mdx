@@ -1,0 +1,83 @@
+# The `$out` and `$merge` Stages: Writing Results
+
+By default, an aggregation pipeline returns results to the client (your application or shell). However, for large analytical jobs or materialized views, you often want to save the results directly to a new or existing collection within the database. The `$out` and `$merge` stages serve this purpose.
+
+## The `$out` Stage
+
+The `$out` stage writes the documents returned by the aggregation pipeline to a specified collection.
+
+**Key Characteristics:**
+
+- **Replacement:** It completely **replaces** the target collection. If the collection exists, it is dropped and recreated.
+- **Atomic:** The operation is atomic; the new collection is not visible until the aggregation completes successfully.
+- **Placement:** Must be the _last_ stage in the pipeline.
+
+**Syntax:**
+
+```javascript
+{ $out: "outputCollectionName" }
+{ $out: { db: "otherDb", coll: "outputCollectionName" } }
+```
+
+**Use Case:** Nightly regeneration of a "Daily Sales Summary" report where history is not needed or is rebuilt entirely.
+
+## The `$merge` Stage (MongoDB 4.2+)
+
+The `$merge` stage is more flexible and powerful. It allows you to write to a collection without overwriting it entirely. It can insert new documents, update existing ones, or fail on duplicates, depending on your configuration.
+
+**Key Characteristics:**
+
+- **Incremental:** Can update existing data (e.g., "upsert").
+- **On-Demand Materialized Views:** Ideal for continuously updating a summary collection as new data arrives.
+- **Placement:** Must be the _last_ stage.
+
+**Syntax:**
+
+```javascript
+{
+  $merge: {
+    into: "targetCollection",
+    on: "_id",           // Field to match (must be unique index)
+    whenMatched: "merge", // "merge", "replace", "keepExisting", "fail"
+    whenNotMatched: "insert"
+  }
+}
+```
+
+## Practical Examples and Demonstrations
+
+### Scenario 1: Creating a Summary Collection (`$out`)
+
+**Context:** We want to create a static snapshot of sales by region.
+
+```javascript
+db.sales.aggregate([
+  { $group: { _id: '$region', totalSales: { $sum: '$amount' } } },
+  { $out: 'regional_sales_snapshot' },
+])
+```
+
+### Scenario 2: Updating a Materialized View (`$merge`)
+
+**Context:** We have a `daily_stats` collection. We want to update today's stats without touching yesterday's.
+
+```javascript
+db.logs.aggregate([
+  { $match: { date: ISODate('2023-10-27') } }, // Process only today's logs
+  { $group: { _id: '$date', errorCount: { $sum: 1 } } },
+  {
+    $merge: {
+      into: 'daily_stats',
+      on: '_id',
+      whenMatched: 'replace', // Update today's entry
+      whenNotMatched: 'insert', // Create if new
+    },
+  },
+])
+```
+
+## Summary
+
+The `$out` and `$merge` stages transform the aggregation pipeline from a query tool into a data processing and transformation engine (ETL). Use `$out` for simple, full replacements and `$merge` for sophisticated, incremental updates to your data warehouse or reporting tables.
+
+In the next lesson, we will apply these optimization and persistence techniques in a **Hands-on Lab: Optimizing Product Inventory Reports**.

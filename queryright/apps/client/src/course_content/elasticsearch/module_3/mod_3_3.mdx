@@ -1,0 +1,97 @@
+# Specialized Full-Text Searches
+
+Standard `match` is great, but sometimes you need to search multiple fields at once or search for exact phrases.
+
+---
+
+## 1. Multi-Match Query
+
+Users rarely search for just a "title." They type words into a box, and you want to search the title, the description, and maybe the tags.
+
+```http
+GET /products/_search
+{
+  "query": {
+    "multi_match": {
+      "query": "smart phone",
+      "fields": ["title", "description", "brand"]
+    }
+  }
+}
+```
+
+### Boosting Fields
+
+You can give more "weight" to certain fields using the `^` symbol.
+
+```json
+"fields": ["title^5", "description"]
+```
+
+_This says: "A match in the title is 5 times more important than a match in the description."_
+
+---
+
+## 2. Match Phrase Query
+
+The `match` query finds the words anywhere. The `match_phrase` query requires the words to be in the **exact order** and **next to each other**.
+
+```http
+GET /quotes/_search
+{
+  "query": {
+    "match_phrase": {
+      "content": "to be or not to be"
+    }
+  }
+}
+```
+
+### Slop (The "Fuzziness" of Phrases)
+
+What if the user types "to be not to be" (skipping the "or")? A strict phrase match will fail. You can use `slop` to allow some distance between words.
+
+```json
+"match_phrase": {
+  "content": {
+    "query": "to be to be",
+    "slop": 2
+  }
+}
+```
+
+---
+
+## 3. Match Phrase Prefix
+
+Used for **"Search-as-you-type"**. It treats the last word in the query as a prefix match.
+
+- If you search for `"clean co"`, it will match `"clean code"` and `"clean context"`.
+
+---
+
+## Real-World Example: News Article Search
+
+1. **Title vs. Body:** When a user searches for "Breaking News", you definitely want matches in the **Headline** to show up above matches buried in the 10th paragraph of the **Body**. (Use `multi_match` with boosting).
+2. **Quoted Search:** If a user puts their search in quotes `"Global Warming"`, your backend should switch from a `match` query to a `match_phrase` query to ensure results are about the specific phenomenon.
+
+---
+
+## Hypothetical Scenario: The "Brown Fox" vs. "Fox Brown"
+
+- A document contains: "The fox was brown."
+- User searches for: "brown fox."
+- **Match Query:** Returns the document.
+- **Match Phrase Query:** Returns 0 results (because "fox" comes before "brown" in the doc, but after it in the query).
+
+## Exercises
+
+1. **Boosting Syntax:** write the `fields` array for a `multi_match` query that searches `name`, `about`, and `bio`, making `name` 3 times more important.
+2. **Phrase vs Match:** Which query is more performance-heavy: `match` or `match_phrase`? (Hint: Phrase search has to check word positions).
+3. **Slop Calculation:** If a document says `"Quick Brown Fox"`, what is the minimum `slop` needed for a `match_phrase` query of `"Quick Fox"` to match?
+
+## Summary and Next Steps
+
+Now you can search across fields and find exact phrases. But search results aren't useful if they aren't ordered correctly or if you have millions of them.
+
+Next, we look at **Sorting and Pagination**.

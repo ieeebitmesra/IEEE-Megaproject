@@ -1,0 +1,68 @@
+# In-Memory vs. Persistent Storage
+
+Where does your data live? DuckDB gives you two options, and choosing the right one depends on your workflow.
+
+---
+
+## 1. In-Memory Mode (Ephemeral)
+
+If you start DuckDB without a filename (e.g., just running `duckdb` or connecting to `:memory:` in Python), your data lives entirely in RAM.
+
+- **Pros:** Maximum speed. No "cleanup" needed.
+- **Cons:** If the power goes out or the process closes, the data is gone forever.
+- **Best for:** One-off analyses, running tests, or "Cloud Function" environments like AWS Lambda.
+
+---
+
+## 2. Persistent Mode (The `.db` File)
+
+If you provide a path (e.g., `duckdb my_data.db`), DuckDB creates a single file on your hard drive.
+
+- **Pros:** Restarts are instant. No need to re-import CSVs every time.
+- **Cons:** Slightly slower than RAM (but still very fast).
+- **Best for:** Personal dashboards, ETL pipelines, and storing consolidated project data.
+
+---
+
+## 3. Connecting Multiple Times
+
+**Warning:** Only one process can write to a DuckDB file at a time.
+
+- If your Python script has the file open for writing, your CLI tool can only open it in **Read-Only** mode.
+
+```bash
+# Opening a file in Read-Only mode from the CLI
+duckdb my_data.db -readonly
+```
+
+---
+
+## Real-World Example: A Local "Data Warehouse"
+
+An analyst works on a project for three weeks.
+
+1. Every morning, they add new sales data from the previous day into `project.db`.
+2. Because it's persistent, they can run "Week-over-Week" comparisons instantly without re-loading the millions of rows from the first two weeks.
+3. At the end of the project, they just email the `project.db` file to their manager. The manager opens it and sees everything exactly as the analyst did.
+
+---
+
+## Hypothetical Scenario: The "Lambda" Timeout
+
+A developer is using DuckDB in a serverless function that times out after 30 seconds.
+
+- They try to load a 1GB Parquet file into a persistent `.db` file on every call.
+- **The Problem:** Writing to disk is too slow for the timeout.
+- **The Solution:** They use **In-Memory mode**. Since the data is already in a fast Parquet format, they just "query the file" directly without ever creating a local table. DuckDB's in-memory engine handles the heavy lifting in milliseconds.
+
+## Exercises
+
+1. **Choice:** You are writing a unit test for a login function. Should you use in-memory or persistent mode?
+2. **Access:** What happens if two different applications try to write to the same `stats.db` file at the same time?
+3. **Syntax:** How do you launch DuckDB from the terminal so that it saves data to `history.db`?
+
+## Summary and Next Steps
+
+DuckDB is flexible. You can use it as a temporary calculator or a long-term data store.
+
+But why is it so much faster than other databases for these tasks? In the next lesson, we look at **Columnar Storage and Vectorized Execution**.

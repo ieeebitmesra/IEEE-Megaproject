@@ -1,0 +1,102 @@
+# Distinguishing WHERE vs. HAVING Clause
+
+One of the most common interview questions and sources of confusion for SQL learners is the difference between `WHERE` and `HAVING`. Both clauses are used to filter data, but they operate at different stages of the query execution process. Understanding this distinction is vital for writing accurate and efficient queries.
+
+## The Core Difference: Timing
+
+The key to understanding the difference lies in the **Order of Execution**. When you run a SQL query, the database engine processes the clauses in a specific order:
+
+1.  **FROM**: Identifies the table(s) to retrieve data from.
+2.  **WHERE**: Filters individual **rows** based on raw data.
+3.  **GROUP BY**: Groups the remaining rows into buckets.
+4.  **HAVING**: Filters the **groups** based on aggregate calculations.
+5.  **SELECT**: Selects the columns to return.
+
+### WHERE: The Pre-Filter
+
+- **Filters:** Individual Rows.
+- **Timing:** Before grouping.
+- **Can use Aggregates?** NO. (You cannot say `WHERE COUNT(*) > 5`).
+- **Use Case:** "I only want to look at books that are in the 'Fiction' genre."
+
+### HAVING: The Post-Filter
+
+- **Filters:** Groups.
+- **Timing:** After grouping.
+- **Can use Aggregates?** YES. (You can say `HAVING COUNT(*) > 5`).
+- **Use Case:** "I only want to see genres that have more than 50 books."
+
+## Practical Examples and Demonstrations
+
+Let's look at a scenario in our **Online Bookstore** that combines both.
+
+### Scenario: The "High-Value Fiction" Query
+
+We want to find **Authors** who have written more than 3 **Fiction** books.
+
+**Query:**
+
+```sql
+SELECT author_id, COUNT(*)
+FROM books
+WHERE genre = 'Fiction'
+GROUP BY author_id
+HAVING COUNT(*) > 3;
+```
+
+**Step-by-Step Execution:**
+
+1.  **FROM books**: The database looks at the entire `Books` table.
+2.  **WHERE genre = 'Fiction'**: It throws away all Non-Fiction books. Only Fiction books remain.
+3.  **GROUP BY author_id**: It groups the remaining Fiction books by their author.
+4.  **HAVING COUNT(\*) > 3**: It counts the books in each author's pile. If an author has 3 or fewer Fiction books, they are discarded.
+5.  **SELECT**: It returns the IDs of the authors who survived.
+
+### What happens if we swap them?
+
+**Incorrect:**
+
+```sql
+SELECT author_id, COUNT(*)
+FROM books
+GROUP BY author_id
+HAVING genre = 'Fiction'; -- ERROR!
+```
+
+- **Why it fails:** After grouping by `author_id`, the `genre` column is compressed. An author might have written Fiction AND History. The database doesn't know which genre to check in the `HAVING` clause because the individual rows are gone.
+
+## Summary Comparison Table
+
+| Feature         | WHERE                       | HAVING                                          |
+| :-------------- | :-------------------------- | :---------------------------------------------- |
+| **Filters**     | Rows (Raw Data)             | Groups (Aggregated Data)                        |
+| **Order**       | Before GROUP BY             | After GROUP BY                                  |
+| **Aggregates**  | Not Allowed                 | Allowed (and required for filtering aggregates) |
+| **Performance** | Faster (filters data early) | Slower (processes data first, then filters)     |
+
+## Exercises and Practice Activities
+
+To solidify your understanding, complete the following exercises.
+
+### Exercise 1: Identification
+
+For each requirement, decide if you need `WHERE` or `HAVING`:
+
+1.  Filter orders placed in 2023.
+2.  Filter customers who have placed more than 10 orders.
+3.  Filter books with a price less than $20.
+4.  Filter categories with an average book price over $50.
+
+### Exercise 2: Writing the Query
+
+Write a query to find **Categories** that have a total stock quantity (`SUM(stock_quantity)`) of less than 500, but **only consider books published after the year 2000**.
+
+- Hint: You need `WHERE` to filter the year, and `HAVING` to filter the sum.
+
+## Concluding Thoughts
+
+In this lesson, we clarified the critical distinction between `WHERE` and `HAVING`. Remember: filter rows early with `WHERE` whenever possible to improve performance, and use `HAVING` only when you need to filter based on the result of an aggregate function like `SUM` or `COUNT`.
+
+In the next lesson, we will put all these concepts together in a practical application, analyzing sales data to derive real business insights.
+
+=START_QUESTIONS=Which clause filters data before grouping occurs?@@Can you use the SUM() function in a WHERE clause?@@If you want to filter by a specific date, which clause should you use?@@Which clause is generally faster for filtering raw data? =END_QUESTIONS=

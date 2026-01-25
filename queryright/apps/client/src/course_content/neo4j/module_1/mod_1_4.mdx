@@ -1,0 +1,56 @@
+# Modern Use Cases
+
+Where does Neo4j shine in the industry? It's not just for social networks!
+
+---
+
+## 1. Personalization & Recommendation
+
+- **Concept:** "People who bought this also bought that."
+- **Why Graph?** By looking at the `PURCHASED` relationships across different users, Neo4j can instantly suggest products that are 2 or 3 "hops" away from your current browsing session.
+
+---
+
+## 2. Identity & Access Management (IAM)
+
+- **Concept:** "Does User A have permission to read File Z?"
+- **Why Graph?** In complex companies, permissions are inherited through a chain: `User -> Role -> Group -> Department -> Permission`.
+- Neo4j can instantly verify the path from the User to the Permission.
+
+---
+
+## 3. Knowledge Graphs
+
+- **Concept:** Connecting disparate pieces of information (e.g., Google Search).
+- **Why Graph?** A Knowledge Graph connects strings (words) to things (entities). For example, it knows that "Apple" is a `Company`, and its CEO is `Tim Cook`.
+
+---
+
+## Real-World Example: The Panama Papers
+
+In one of the largest journalism investigations in history, investigators used Neo4j to uncover how politicians and celebrities were hiding money.
+
+- By loading millions of leaked emails and spreadsheets into a graph, they could see the connections between "Shell Companies," "Secret Bank Accounts," and "Final Owners."
+- Patterns that were hidden in tables became visible in a graph.
+
+---
+
+## Hypothetical Scenario: The "Lost Package"
+
+A shipping company tracks a package from China to London.
+
+- The package goes through 5 airports, 3 cargo ships, and 12 trucks.
+- **The Graph:** Every "Handshake" is a relationship.
+- If a package is damaged, the company can query the graph to see which "Truck Driver" or "Warehouse" was the common denominator for all damaged packages that week.
+
+## Exercises
+
+1. **Permission:** How would you model a "User belongs to a Group" in Neo4j?
+2. **Impact:** Why was Neo4j essential for the Panama Papers investigation?
+3. **Brainstorm:** Think of one way a hospital could use a graph database.
+
+## Summary and Next Steps
+
+We've finished our introduction! You now understand what a Graph DB is and when to use it.
+
+Up next: **Module 2 - Cypher Query Language Basics.**

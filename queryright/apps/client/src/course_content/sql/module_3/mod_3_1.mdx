@@ -1,0 +1,109 @@
+# Understanding Aggregate Functions (COUNT, SUM, AVG, MIN, MAX)
+
+So far, we have been working with individual rows of data. We've selected specific books, updated specific prices, and deleted specific orders. But in the business world, we often need to zoom out. Managers don't just want to see every single order; they want to know the _total_ sales for the day, the _average_ price of a book, or the _number_ of customers in a specific region.
+
+To answer these questions, SQL provides **Aggregate Functions**. These functions take a set of values (like an entire column) and perform a calculation to return a single value.
+
+## The Big Five Aggregate Functions
+
+There are five primary aggregate functions that you will use constantly:
+
+1.  **`COUNT()`**: Counts the number of rows.
+2.  **`SUM()`**: Adds up the values in a numeric column.
+3.  **`AVG()`**: Calculates the average value of a numeric column.
+4.  **`MIN()`**: Finds the smallest (minimum) value.
+5.  **`MAX()`**: Finds the largest (maximum) value.
+
+### Basic Syntax
+
+Aggregate functions are typically used in the `SELECT` list.
+
+```sql
+SELECT FUNCTION_NAME(column_name)
+FROM table_name;
+```
+
+## Practical Examples and Demonstrations
+
+Let's apply these to our **Online Bookstore** to derive some business insights.
+
+### Scenario 1: Counting Inventory (COUNT)
+
+How many different book titles do we carry in our store?
+
+**Query:**
+
+```sql
+SELECT COUNT(*)
+FROM books;
+```
+
+- **`COUNT(*)`**: This is a special syntax that counts _every_ row in the table, regardless of null values.
+- **Result:** If we have 1,000 rows in the `Books` table, the result is simply `1000`.
+
+### Scenario 2: Calculating Total Revenue (SUM)
+
+The finance team wants to know the total value of all orders placed to date.
+
+**Query:**
+
+```sql
+SELECT SUM(total_amount)
+FROM orders;
+```
+
+- **Result:** This adds up the `total_amount` column for every single row in the `Orders` table.
+
+### Scenario 3: Finding Average Book Price (AVG)
+
+We want to know the average price of a book in our inventory to help set pricing strategies.
+
+**Query:**
+
+```sql
+SELECT AVG(price)
+FROM books;
+```
+
+### Scenario 4: Price Range Analysis (MIN and MAX)
+
+What is the cheapest book we sell? What is the most expensive?
+
+**Query:**
+
+```sql
+SELECT MIN(price), MAX(price)
+FROM books;
+```
+
+- **Result:** This returns a single row with two columns, e.g., `4.99` and `150.00`.
+
+## Handling NULL Values
+
+It is important to know that aggregate functions (except `COUNT(*)`) **ignore NULL values**.
+
+- If you have a column `ratings` and one book has a `NULL` rating (no one rated it yet), `AVG(ratings)` will calculate the average of only the books that _have_ a rating. It does not treat NULL as zero.
+
+## Exercises and Practice Activities
+
+To solidify your understanding of aggregate functions, complete the following exercises.
+
+### Exercise 1: Customer Count
+
+Write a query to count the total number of registered customers in the `Customers` table.
+
+### Exercise 2: Stock Valuation
+
+Write a query to calculate the total number of books we have in stock (summing up the `stock_quantity` of all titles).
+
+### Exercise 3: Order Stats
+
+Write a single query that shows the minimum order amount, the maximum order amount, and the average order amount from the `Orders` table.
+
+## Concluding Thoughts
+
+In this lesson, we shifted our perspective from looking at individual records to analyzing data in bulk. Aggregate functions are the foundation of data reporting. They allow us to summarize millions of rows into meaningful numbers like "Total Sales" or "Average Customer Age."
+
+However, these functions calculate values for the _entire_ table (or the filtered result set). What if we want to see the total sales _per category_ or the average price _per author_? In the next lesson, we will introduce the `GROUP BY` clause, which allows us to break these aggregates down into specific groups.
+
+=START_QUESTIONS=Which function is used to find the total of a numeric column?@@What does COUNT(\*) do?@@Do aggregate functions include NULL values in their calculations?@@Which function would you use to find the most expensive product? =END_QUESTIONS=

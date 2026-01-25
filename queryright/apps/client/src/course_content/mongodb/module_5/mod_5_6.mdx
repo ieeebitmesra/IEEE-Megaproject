@@ -1,0 +1,127 @@
+# Hands-on Lab: Optimizing Product Inventory Reports
+
+In this lab, we will focus on the performance aspects of aggregation. We will simulate a scenario where a slow-running inventory report needs optimization. We will analyze the execution plan, create indexes to support the query, implement pagination for the user interface, and finally persist the results for faster subsequent access.
+
+## Lab Objectives
+
+By the end of this lab, you will be able to:
+
+- Analyze aggregation performance using `explain()`.
+- Create indexes to support `$match` and `$sort` stages.
+- Implement efficient pagination using `$limit` and `$skip`.
+- Use `$merge` to create a materialized view of your data.
+
+## Setting Up Your Environment and Dataset
+
+We will create a `products` collection. To simulate a performance scenario, imagine this collection has thousands of documents, though we will insert a smaller sample for the lab.
+
+**Run the following command:**
+
+```javascript
+use inventory_db;
+
+db.products.drop();
+
+// Insert sample data
+db.products.insertMany([
+  { "_id": 1, "category": "Electronics", "name": "Laptop", "stock": 50, "price": 1000 },
+  { "_id": 2, "category": "Electronics", "name": "Mouse", "stock": 200, "price": 20 },
+  { "_id": 3, "category": "Clothing", "name": "T-Shirt", "stock": 100, "price": 15 },
+  { "_id": 4, "category": "Clothing", "name": "Jeans", "stock": 40, "price": 50 },
+  { "_id": 5, "category": "Electronics", "name": "Monitor", "stock": 10, "price": 300 },
+  { "_id": 6, "category": "Home", "name": "Lamp", "stock": 30, "price": 45 }
+]);
+```
+
+## Step 1: Analyzing an Unoptimized Pipeline
+
+We want to find all "Electronics" products, sorted by price (high to low).
+
+**Run the explain plan:**
+
+```javascript
+db.products
+  .explain('executionStats')
+  .aggregate([
+    { $match: { category: 'Electronics' } },
+    { $sort: { price: -1 } },
+  ])
+```
+
+**Analysis:**
+Check the `winningPlan`. You will likely see `COLLSCAN` (Collection Scan) because we have no indexes. This means MongoDB reads every document to find the electronics, and then performs a blocking sort in memory.
+
+## Step 2: Creating an Index
+
+To optimize this, we need an index that covers both the filter (`category`) and the sort (`price`).
+
+**Command:**
+
+```javascript
+db.products.createIndex({ category: 1, price: -1 })
+```
+
+**Verify Optimization:**
+Run the explain command from Step 1 again.
+
+- **Observation:** The stage should now show `IXSCAN` (Index Scan).
+- **Benefit:** MongoDB jumps directly to "Electronics" in the index and reads them in pre-sorted order. The blocking sort is eliminated.
+
+## Step 3: Implementing Pagination
+
+Now that the query is fast, let's implement pagination to display 2 products per page. We want "Page 2".
+
+**Pipeline:**
+
+```javascript
+db.products.aggregate([
+  { $match: { category: 'Electronics' } },
+  { $sort: { price: -1 } },
+  { $skip: 2 }, // Skip Page 1 (2 items)
+  { $limit: 2 }, // Take Page 2 (2 items)
+])
+```
+
+**Output:**
+
+```json
+[{ "_id": 2, "name": "Mouse", "stock": 200, "price": 20 }]
+```
+
+_(Note: Since we only have 3 electronics, Page 2 only has the 3rd item)._
+
+## Step 4: Creating a Materialized View
+
+Finally, let's assume this "Electronics Report" is expensive to compute (e.g., involves complex math). We want to save the result to a `cached_reports` collection.
+
+**Pipeline:**
+
+```javascript
+db.products.aggregate([
+  { $match: { category: 'Electronics' } },
+  {
+    $project: {
+      name: 1,
+      value: { $multiply: ['$stock', '$price'] }, // Calculate total inventory value
+    },
+  },
+  {
+    $merge: {
+      into: 'cached_reports',
+      on: '_id',
+      whenMatched: 'replace',
+      whenNotMatched: 'insert',
+    },
+  },
+])
+```
+
+**Verify:**
+
+```javascript
+db.cached_reports.find()
+```
+
+## Summary
+
+In this lab, we walked through the full optimization lifecycle: diagnosing a slow query, applying an index strategy, implementing user-friendly controls (pagination), and caching the results for high-performance access. These are the core skills required for maintaining healthy MongoDB applications.

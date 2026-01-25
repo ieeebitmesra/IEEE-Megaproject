@@ -1,0 +1,105 @@
+# Ingesting Data: Indexing Documents
+
+Now that your Elasticsearch cluster is up and running, it's time to put some data into it. In the world of search engines, we don't say "inserting a row"; we say **Indexing a Document**.
+
+---
+
+## 1. Creating an Index
+
+While Elasticsearch can create an index automatically when you add the first document, it's usually better to create it explicitly so you have control over its settings.
+
+```http
+PUT /my-library
+```
+
+_Note: In the Kibana console, we use this shorthand format._
+
+---
+
+## 2. Indexing a Single Document
+
+To add a document, we use a `POST` or `PUT` request.
+
+- **PUT:** Use this if you want to specify a specific ID (e.g., matching an ID from your SQL database).
+- **POST:** Use this if you want Elasticsearch to generate a unique random ID for you.
+
+```http
+# Indexing a book with ID 1
+PUT /my-library/_doc/1
+{
+  "title": "Clean Code",
+  "author": "Robert C. Martin",
+  "year": 2008,
+  "pages": 464
+}
+```
+
+### The Response:
+
+Elasticsearch will respond with a JSON object confirming that the document was created (`result: created`) and incrementing the `_version`.
+
+---
+
+## 3. Bulk Ingestion
+
+Indexing 10,000 documents one-by-one with 10,000 separate HTTP requests is very slow. Instead, we use the **Bulk API** (`_bulk`).
+
+The Bulk API uses a special "Newline-Delimited JSON" format (ndjson). Each action is on its own line:
+
+```http
+POST /_bulk
+{ "index" : { "_index" : "my-library", "_id" : "2" } }
+{ "title" : "Design Patterns", "author": "Gang of Four", "year": 1994 }
+{ "index" : { "_index" : "my-library", "_id" : "3" } }
+{ "title" : "The Pragmatic Programmer", "author": "Andrew Hunt", "year": 1999 }
+```
+
+**Benefits of Bulk:**
+
+- Much faster performance.
+- Reduced network overhead.
+- Atomic-like behavior for large data syncs.
+
+---
+
+## 4. Retrieving a Document
+
+If you know the ID, you can get the document back instantly.
+
+```http
+GET /my-library/_doc/1
+```
+
+---
+
+## Real-World Example: Syncing a SQL Database
+
+Imagine you have a `products` table in MySQL and you want to make them searchable in Elasticsearch.
+
+1. **The Sync Service:** You write a small Python/Node.js script.
+2. **The Fetch:** Every 10 minutes, the script asks MySQL: "Show me all products modified in the last 10 minutes."
+3. **The Index:** For each product, the script runs a `PUT /products/_doc/<product_id>` in Elasticsearch.
+4. **The Result:** Your customers can now search for products using Elastic's high-speed search, while your internal business team continues to use MySQL for inventory and pricing.
+
+---
+
+## Hypothetical Scenario: The "Automatic Mapping" Surprise
+
+You index a document: `{"price": "19.99"}` (as a string).
+Then you index another: `{"price": 25.00}` (as a number).
+
+**The Problem:** Because you didn't define a mapping, Elasticsearch saw the first document and decided the `price` field is a **Text** field. When you try to run an "average price" calculation later, it fails because you can't calculate the average of strings.
+
+**The Lesson:** Always define your **Mappings** before indexing large amounts of data (we will cover this in detail in Module 2!).
+
+## Exercises
+
+1. **Practical Ingestion:** Write the `PUT` command to index a document representing your favorite song into an index called `music-library`.
+2. **Bulk Logic:** If you have 1 million documents to index, how many documents should you put in each bulk request? (Hint: The sweet spot is usually between 1,000 and 5,000).
+3. **ID Choice:** Why would a developer choose `PUT` (specifying an ID) instead of `POST` (random ID)?
+
+## Summary and Next Steps
+
+Indexing is the first step in the search lifecycle. Whether you add documents individually or in bulk, this is how your data enters the "Inverted Index" that makes search so fast.
+
+Now that we have data in our index, let's learn how to find it! In the next lesson, we will cover **Basic Search Queries**.

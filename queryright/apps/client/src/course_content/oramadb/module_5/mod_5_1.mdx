@@ -1,0 +1,67 @@
+# Persisting Your Index
+
+Because Orama is in-memory, everything resets when the process stops. In this lesson, we learn how to **Save** and **Load** your database.
+
+---
+
+## 1. Exporting the Data
+
+Orama allows you to "Export" your internal index into a plain JavaScript object. You can then save this object as a JSON file or store it in a database.
+
+```javascript
+const indexData = await save(db)
+const jsonString = JSON.stringify(indexData)
+// Save jsonString to a file or database
+```
+
+---
+
+## 2. Importing (Hydration)
+
+When your app starts again, you take that JSON data and "Inject" it back into a new Orama instance.
+
+```javascript
+const db = await create({ schema: { ... } });
+await load(db, persistedData);
+```
+
+---
+
+## 3. The "Snapshots" Pattern
+
+For large indices, you don't want to re-insert 1 million documents every time the server restarts.
+
+- **The Solution:** Run a "Build" script once a day that creates the index and saves it to a file (like `search-index.json`).
+- Your web server simply "Loads" the file on startup. This takes milliseconds.
+
+---
+
+## Real-World Example: The Static Website (Next.js)
+
+A documentation site (like the one you are reading!) uses Orama.
+
+- During `npm run build`, it scrapes all the pages and generates an Orama snapshot.
+- It saves the snapshot in the `public/` folder.
+- When a user visits the site, their browser downloads the 1MB `search-index.json`.
+- The user can now search the entire site instantly, even if they lose their internet connection.
+
+---
+
+## Hypothetical Scenario: The "Cloud Storage" Fix
+
+A developer is using AWS Lambda. Every time a user searches, the Lambda "Wakes up," but it has no memory of the previous search.
+
+- **The Solution:** The developer saves the Orama snapshot in an S3 bucket or a Redis cache.
+- The Lambda function downloads the snapshot from S3 on every request, allowing it to perform "In-Memory" search without keeping a server running 24/7.
+
+## Exercises
+
+1. **Functions:** What is the difference between the `save` and `load` functions?
+2. **Storage:** Where is the best place to store an Orama snapshot?
+3. **Speed:** Why is "Loading a snapshot" faster than "Re-inserting documents"?
+
+## Summary and Next Steps
+
+Persistence makes Orama reliable.
+
+Next, we look at **Orama Cloud**—the easiest way to manage search globally without writing your own "Save/Load" logic.

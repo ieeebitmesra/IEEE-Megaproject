@@ -1,0 +1,84 @@
+# Top-K and T-Digest
+
+In our final lesson on RedisBloom, we'll look at two specialized tools for handling "Heavy Hitters" and "Percentile Distributions." These are often used by data engineers to understand performance and user behavior at massive scale.
+
+---
+
+## 1. Top-K (Heavy Hitters)
+
+What are the 10 most popular songs on my streaming service right now? What are the top 5 failing services in my cloud infrastructure?
+
+### Why use Top-K?
+
+While you _could_ use a Sorted Set (`ZSET`) for this, a ZSET keeps a record of _every single item_. If you have 10 million distinct items but only care about the top 10, a ZSET is overkill.
+
+**Top-K** uses a probabilistic approach to keep track of the most frequent items in a stream while discarding the "tail" (rare items) to save memory.
+
+### Commands
+
+```bash
+# Create a Top-K list of size 10
+TOPK.RESERVE global_top_songs 10
+
+# Add items (like a stream of song plays)
+TOPK.ADD global_top_songs "Song_A" "Song_B" "Song_A"
+
+# See what's currently in the Top 10
+TOPK.LIST global_top_songs
+```
+
+---
+
+## 2. T-Digest (Percentiles)
+
+If you are a developer, you've probably heard of **P99 latency**. This means "99% of my users get a response in under X milliseconds."
+
+Calculating exact percentiles is very computationally expensive for large datasets. **T-Digest** is a structure that allows you to calculate these values with very high accuracy using almost no memory.
+
+### Commands
+
+```bash
+# Create a T-Digest
+TDIGEST.CREATE response_times
+
+# Add data (e.g., latency in milliseconds)
+TDIGEST.ADD response_times 10 15 12 100 250 14
+
+# Get the 99th percentile
+TDIGEST.BYRANK response_times 0.99
+```
+
+---
+
+## Real-World Example: An e-Sports Matchmaking System
+
+Imagine a game with 1 million active players. You need to know the **Skill Level (ELO)** distribution to make fair matches.
+
+1. **Top-K:** Use this to instantly show the "Top 50 Players in the World" on a leaderboard. It’s faster to update during a match than a traditional DB.
+2. **T-Digest:** Use this to see the "Average" player's skill. If the P90 (top 10%) skill level is suddenly dropping, it might mean your game is becoming too hard for new players!
+
+---
+
+## Hypothetical Scenario: The "DDoS" Monitor
+
+You are monitoring web traffic to detect hackers.
+
+- **Using Top-K:** You track the "Top 100 IP Addresses" hitting your site. Suddenly, one IP address starts representing 80% of your traffic. Top-K identifies this instantly, allowing you to block the attacker before the server crashes.
+- **Using T-Digest:** You track "Response Time." If the P99 latency jumps from 200ms to 2000ms, you know your system is under heavy load, even if the "average" (P50) looks okay.
+
+## Exercises
+
+1. **Top-K Practice:** Create a Top-K called `favorite_fruits` with a size of 3. Add 10 different fruits (some multiple times). Which ones made it to the list?
+2. **Percentile Thought:** Why is the "P99" (99th percentile) often a better measure of a website's "speed" than the "Average"?
+3. **Hierarchy:** Why would you use Top-K instead of a Sorted Set if you were processing 1 billion events per day?
+
+## Summary and Next Steps
+
+RedisBloom provides a suite of tools for "Big Data" problems.
+
+- **Bloom/Cuckoo Filters:** Membership testing (Is it there?).
+- **Count-Min Sketch:** Frequency counting (How many?).
+- **Top-K:** Most popular (Who's the best?).
+- **T-Digest:** Distribution (How's the overall health?).
+
+You've now mastered the most advanced data structures in Redis! In our final module, we will cover **Monitoring, Performance, and Best Practices** to prepare you for running Redis in production.

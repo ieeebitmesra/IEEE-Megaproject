@@ -1,0 +1,72 @@
+# The Text Analysis Process
+
+How does the text `"The Quick Brown Fox!"` become the terms `quick`, `brown`, and `fox` in the inverted index? This is the work of an **Analyzer**.
+
+An analyzer consists of three sequential steps.
+
+---
+
+## 1. Step One: Character Filters
+
+Character filters are used to "prep" the text before it's broken apart. They work on the raw string.
+
+- **Example:** Removing HTML tags (`<p>Hello</p>` becomes `Hello`) or converting characters (like `&` to `and`).
+
+## 2. Step Two: The Tokenizer
+
+This is the most critical step. The tokenizer breaks the string into individual **tokens** (usually words).
+
+- **Example:** The "Standard Tokenizer" splits text by whitespace and punctuation. `"Hello, World!"` becomes `["Hello", "World"]`.
+
+## 3. Step Three: Token Filters
+
+Once you have tokens, you can modify, add, or remove them.
+
+- **Lowercase Filter:** Converts everything to lowercase. `["Quick"]` -> `["quick"]`.
+- **Stopwords Filter:** Removes common words that don't help with search (like "the," "is," "at").
+- **Stemmer:** Reduces words to their root form. `["running", "runs"]` -> `["run", "run"]`.
+- **Synonym Filter:** Adds related terms. `["tiny"]` -> `["tiny", "small"]`.
+
+---
+
+## The Full Pipeline in Action
+
+**Original Input:** `<p>The 2 FAST Foxes!</p>`
+
+1. **Character Filter (HTML Strip):** `The 2 FAST Foxes!`
+2. **Tokenizer (Standard):** `[The, 2, FAST, Foxes]`
+3. **Token Filters (Lowercase, Stopword, Stemmer):**
+   - Lowercase: `[the, 2, fast, foxes]`
+   - Stopword: `[2, fast, foxes]` ("the" is removed)
+   - Stemmer: `[2, fast, fox]` ("foxes" becomes "fox")
+
+**Final Result in Index:** `2`, `fast`, `fox`
+
+---
+
+## Real-World Example: Product SKU Search
+
+If your website sells products with SKUs like `S-1234-B`, a standard tokenizer might split that into `[S, 1234, B]`. If a user searches for `S1234B`, they won't find it!
+
+**Solution:** You would use a custom analyzer with a "Pattern Replace" character filter to remove the dashes _before_ tokenization, ensuring the index only sees `S1234B`.
+
+---
+
+## Hypothetical Scenario: The "Too Many Synonyms" Trap
+
+A developer adds synonyms for "Running": `["sprinting", "jogging", "walking", "moving"]`.
+
+- **The Result:** When someone searches for "best walking shoes," the search engine returns "sprinting spikes" because it thinks they are the same thing.
+- **Lesson:** Be careful with token filters. Over-analyzing text can lead to "noise" and irrelevant results.
+
+## Exercises
+
+1. **Identify the Filter:** Which step would you use to change `1st` to `first`? (Character Filter or Token Filter?)
+2. **Mental Pipeline:** List the tokens that would remain after basic analysis for this sentence: `The Red Apples are falling!`
+3. **Why Stemming?** Why is stemming useful in a search engine? (Give one specific reason).
+
+## Summary and Next Steps
+
+Analyzers define how Elasticsearch "sees" your data. If you don't configure them correctly, your search will be either too strict or too loose.
+
+Next, we'll look at the **Standard Analyzer** vs. **Custom Analyzers** and how to choose the right one for your data.

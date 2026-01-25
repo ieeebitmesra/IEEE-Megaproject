@@ -1,0 +1,65 @@
+# Neo4j Architecture
+
+Neo4j isn't just a "wrapper" around a standard database. It is a **Native Graph Database (NGDB)**.
+
+---
+
+## 1. Native Graph Storage
+
+In a traditional database, data is stored in "Blocks" or "Pages." To find related data, the engine has to look up an Index to find where the other block is.
+
+- In **Neo4j**, every node contains the memory address of its neighbors.
+- This is called **Index-Free Adjacency**.
+- Once you find your first node, you never need an index again to navigate the rest of the graph.
+
+---
+
+## 2. The Storage Files
+
+Under the hood, Neo4j uses fixed-size record files:
+
+- `neostore.nodestore`: Stores node information.
+- `neostore.relationshipstore`: Stores pointers to the start and end nodes of a relationship.
+- `neostore.propertystore`: Stores the key-value data.
+
+Because they are fixed-size, Neo4j can calculate the exact location of any record in $O(1)$ time.
+
+---
+
+## 3. ACID Transactions
+
+Unlike many NoSQL databases, Neo4j is **ACID compliant**.
+
+- **A**tomic: Either the whole graph update happens, or none of it does.
+- **C**onsistent: The graph is always in a valid state.
+- **I**solated: Multiple users can update the graph at once without breaking it.
+- **D**urable: Once a relationship is created, it is saved to disk even if the power goes out.
+
+---
+
+## Real-World Example: Data Center Mapping
+
+A cloud provider manages 100,000 servers.
+
+- If a specific Network Switch fails, they need to know which websites will go down.
+- Because Neo4j uses native storage, it can traverse the entire "Dependency Graph" of switches, routers, and servers in real-time, allowing the provider to move websites to healthy servers _before_ the user notices.
+
+---
+
+## Hypothetical Scenario: The "Billion Node" Mystery
+
+A developer wonders if Neo4j will slow down if they add a billion "Customer" nodes.
+
+- **The Answer:** As long as you have the memory to store the pointers, your queries will remain fast. Finding a customer's purchase history is independent of the total number of customers in the system.
+
+## Exercises
+
+1. **Memory:** Why is RAM so important for Neo4j performance?
+2. **ACID:** Why is "Durability" important for a financial graph?
+3. **Architecture:** What is "Index-Free Adjacency"?
+
+## Summary and Next Steps
+
+Neo4j is built from the ground up to be a graph.
+
+In the next lesson, we wrap up Module 1 by looking at **Modern Use Cases.**

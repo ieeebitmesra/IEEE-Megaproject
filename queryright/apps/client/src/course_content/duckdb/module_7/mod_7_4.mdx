@@ -1,0 +1,54 @@
+# DuckDB Mastery: Final Project
+
+Congratulations! You have reached the end of the DuckDB curriculum. It’s time to put everything you've learned into practice.
+
+---
+
+## The Graduation Challenge
+
+You are tasked with building a "Mini Data Warehouse" for a startup called **GreenGrocer**.
+
+### Scenario:
+
+GreenGrocer has:
+
+1. A 100MB Parquet file of **historical sales**.
+2. A 5MB JSON file of **customer metadata** (with nested addresses).
+3. A CSV file of **product prices** that is updated every hour.
+
+### Your Goal:
+
+Write a single SQL script (or a series of commands) that:
+
+1. **Ingests** all three files.
+2. **Cleans** the customer names (uppercase them).
+3. **Joins** the tables together to find the "Total Revenue by City."
+4. **Optimizes** the result by storing it as a new, partitioned Parquet file.
+
+---
+
+## DuckDB Recap: What You've Learned
+
+1. **OLAP Performance:** Why column-oriented storage beats traditional row-storage for big data queries.
+2. **File Handling:** Zero-copy reading of CSV, JSON, and Parquet.
+3. **Advanced SQL:** Using Window Functions and ASOF Joins for time-series analysis.
+4. **The Ecosystem:** Running DuckDB in Python, in the Browser (WASM), and with BI tools like Metabase.
+5. **Quality:** Using Constraints and ENUMs to keep your data "Golden."
+
+---
+
+## Final Thoughts
+
+DuckDB is part of a "modern data stack" that values simplicity and speed. You don't always need a cloud cluster to do big data analysis. Often, you just need a better engine on your laptop.
+
+Keep exploring, keep querying, and most importantly—**stay analytical.**
+
+---
+
+**Next Steps for You:**
+
+- Join the **DuckDB Discord** to see what other people are building.
+- Check out **MotherDuck** if you need to collaborate on DuckDB files in the cloud.
+- Experiment with **DuckDB-WASM** by building your own browser-based dashboard.
+
+**Thank you for completing the course!**

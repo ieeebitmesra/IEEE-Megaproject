@@ -1,0 +1,80 @@
+# Common Pitfalls and Best Practices
+
+Congratulations! You've reached the end of the Redis curriculum. We've covered everything from basic data types to advanced search modules and scaling clusters. To wrap up, we will look at the most common mistakes developers make and a checklist of senior-level best practices.
+
+---
+
+## 1. Common Pitfalls
+
+### Pitfall #1: The "Huge Keys" Problem
+
+Storing a 50MB Hash or a 100MB List might seem easy, but Redis is single-threaded. When it tries to read or delete a massive key, it blocks _everything else_ for a split second.
+
+- **The Fix:** Break large data structures into smaller pieces (e.g., instead of one big list, use 100 smaller ones).
+
+### Pitfall #2: Keys without TTL (Expiration)
+
+Using Redis as a cache but forgetting to set a `TTL` means your memory will eventually fill up and your server will crash.
+
+- **The Fix:** Always default to using an expiration unless you are 100% sure the key is permanent.
+
+### Pitfall #3: O(N) Commands on Large Collections
+
+Commands like `KEYS *` or `SMEMBERS` are fast for 10 items, but painfully slow for 10 million.
+
+- **The Fix:** Use `SCAN` instead of `KEYS`. Use `SSCAN` or `ZSCAN` for large collections.
+
+---
+
+## 2. Senior-Level Best Practices
+
+### Use Naming Conventions
+
+Always use Colons (`:`) to organize your data.
+
+- **Good:** `user:101:profile`, `order:2023:summary`.
+- **Bad:** `user_101_profile`, `orders`.
+
+### Use Connection Pooling
+
+Don't open/close a connection for every request. Use a library that keeps a pool of connections open and ready.
+
+### Monitor Memory Fragmentation
+
+Sometimes Redis says it's using 1 GB of memory, but your Operating System says Redis is using 2 GB. This is "Fragmentation."
+
+- **The Fix:** Use `INFO memory` and check the `mem_fragmentation_ratio`. If it's over 1.5, you might need to restart Redis or tune your memory allocator.
+
+### Prefer Hashes to multiple Strings
+
+If you have 10 fields for a user, it's better to store them in one Hash than 10 separate String keys. This saves memory and is faster to fetch.
+
+---
+
+## 3. Final Architecture Checklist
+
+- [ ] Is Redis protected by a firewall?
+- [ ] Is `requirepass` or ACL enabled?
+- [ ] Are RDB and AOF persistence configured for your durability needs?
+- [ ] Have you tested your "Cache Miss" scenarios (Cache Stampede)?
+- [ ] Are you using the most efficient data structure (e.g., Bitmaps or HLL for large counts)?
+
+---
+
+## Final Review Project: The "Real-time Dashboard"
+
+Combine everything you've learned to design a system that tracks:
+
+1. **Total Active Users right now** (HyperLogLog)
+2. **The latest 10 system logs** (List with `LTRIM`)
+3. **Friend counts for all users** (Hashes)
+4. **The Top 5 most visited pages** (Sorted Set)
+5. **Search for content across the system** (RedisSearch)
+
+---
+
+## Conclusion
+
+Redis is much more than "just a cache." It is a high-speed engine that enables the "instant" experiences we've come to expect from modern technology. By mastering its data structures, persistence models, and security practices, you are now equipped to build professional, scalable, and resilient backend systems.
+
+**Happy Coding!**

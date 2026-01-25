@@ -1,0 +1,78 @@
+# RDB and AOF Persistence
+
+One of the most common misconceptions about Redis is that because it is an "in-memory" database, all data is lost if the server crashes or the power goes out. While Redis _primary_ storage is RAM, it provides two robust mechanisms to ensure your data is saved to disk: **RDB (Redis Database)** and **AOF (Append Only File)**.
+
+In this lesson, we will explore how these two methods work, their pros and cons, and how to choose the right one for your application.
+
+---
+
+## 1. RDB (Redis Database) - Snapshots
+
+RDB persistence performs **point-in-time snapshots** of your dataset at specified intervals.
+
+### How it Works
+
+Imagine you are playing a video game and you reach a "save point." When you save, the game takes a picture of exactly where you are and what items you have.
+
+- Redis does the same: every $N$ minutes (or after $M$ changes), it forks a child process that writes the entire dataset into a single compact file (usually called `dump.rdb`).
+
+### Advantages of RDB
+
+- **Compactness:** A single file represents your entire dataset, making it perfect for backups and disaster recovery.
+- **Fast Restarts:** Loading a single RDB file into memory is much faster than replaying a list of commands.
+- **Performance:** The main Redis process doesn't do the disk I/O; it forks a child process to do the heavy lifting.
+
+### Disadvantages of RDB
+
+- **Data Loss:** If Redis crashes between snapshots, you lose all data since the last save. For example, if you save every 5 minutes and it crashes at minute 4, those 4 minutes of data are gone.
+
+---
+
+## 2. AOF (Append Only File) - Logs
+
+AOF persistence logs **every write operation** received by the server.
+
+### How it Works
+
+Think of AOF like a bank ledger. Every time money moves, the clerk writes a new line in the book: "Deposit $10," "Withdraw $5."
+
+- When Redis restarts, it reads this "ledger" from start to finish and re-executes every command to reconstruct the state of the data.
+
+### Advantages of AOF
+
+- **Durability:** You can configure AOF to sync to disk every second (the default). In the worst-case scenario, you only lose 1 second of data.
+- **No Corruption:** Even if the power fails mid-write, Redis has tools to fix partially written logs.
+- **Human Readable:** The log is just a list of Redis commands. You can actually open it in a text editor!
+
+### Disadvantages of AOF
+
+- **File Size:** AOF files are usually much larger than RDB files because they store every single change, not just the final result.
+- **Slow Restarts:** Replaying thousands of commands takes longer than loading an RDB snapshot.
+
+---
+
+## Which one should I use?
+
+The modern best practice is to **use both**.
+
+- Use **AOF** for your day-to-day durability (to minimize data loss).
+- Use **RDB** for fast restarts and as a secondary backup.
+
+### Real-World Example: An E-Commerce Inventory
+
+1. **The Core Data:** You store the number of "Latest iPhone" in stock.
+2. **Persistence Strategy:** You enable both RDB and AOF.
+3. **The Crash:** A sudden power failure hits the data center.
+4. **The Recovery:** Redis restarts, reads the AOF file, and recovers the inventory count down to the last second. If the AOF file was somehow corrupted, you could still fall back to the RDB snapshot from 10 minutes ago.
+
+## Exercises
+
+1. **Internal Logic:** Why is RDB faster for restarting a server than AOF?
+2. **Data Loss Scenario:** Imagine a system that saves a snapshot (RDB) every 1 hour. A crash happens 55 minutes after the last save. How much data is lost?
+3. **Config Check:** Look up the Redis configuration file (`redis.conf`). What is the name of the setting that controls how often AOF writes to the disk? (Hint: it starts with `appendf`).
+
+## Summary and Next Steps
+
+Persistence transforms Redis from a volatile cache into a reliable data store. By understanding the balance between the "snapshot" approach of RDB and the "ledger" approach of AOF, you can build systems that are both fast and durable.
+
+In the next lesson, we will look at how to scale Redis beyond a single server using **Replication and Sentinel**.

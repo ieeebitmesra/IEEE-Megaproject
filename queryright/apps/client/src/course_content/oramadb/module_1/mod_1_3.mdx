@@ -1,0 +1,59 @@
+# Orama vs. The Giants
+
+Choosing the right tool depends on your data size and where you want the search to happen. Let’s compare OramaDB to other popular engines.
+
+---
+
+## 1. Orama vs. Elasticsearch
+
+| Feature         | OramaDB                   | Elasticsearch             |
+| :-------------- | :------------------------ | :------------------------ |
+| **Setup**       | Zero Config (NPM Install) | Complex Cluster Setup     |
+| **Memory**      | Low (MBs)                 | High (GBs)                |
+| **Scalability** | Best for < 1M docs        | Best for Billions of docs |
+| **Environment** | Browser / Edge / Server   | Server Only               |
+
+**Verdict:** Use Orama for user-facing search and "Speed-at-the-Edge." Use Elasticsearch for massive log analysis and enterprise-scale data warehouses.
+
+---
+
+## 2. Orama vs. DuckDB
+
+| Feature          | OramaDB               | DuckDB                 |
+| :--------------- | :-------------------- | :--------------------- |
+| **Primary Goal** | Search & Relevancy    | Analytical SQL         |
+| **Logic**        | Typo Tolerance / BM25 | Aggregations / Joins   |
+| **Language**     | TypeScript / JS       | C++ (with JS bindings) |
+
+**Verdict:** Use Orama if you want a "Search Bar" (searching for "Appel" and finding "Apple"). Use DuckDB if you want to calculate the "Average Sales in Q3" across a million rows.
+
+---
+
+## Real-World Example: The Documentation Site
+
+A company has 2,000 pages of text.
+
+- **Elasticsearch** is overkill. It would cost $20/month just to keep the server running.
+- **DuckDB** is too rigid. It's hard to handle "typo tolerance" elegantly in pure SQL.
+- **Orama** is perfect. It's free to host on the edge and provides a "Did you mean...?" experience for the user.
+
+---
+
+## Hypothetical Scenario: The "Mobile First" App
+
+You are building a mobile app that needs to search 50,000 local news articles.
+
+- You want the search to work even without Wi-Fi.
+- Orama is the only candidate here—it runs directly inside the mobile app's JavaScript runtime.
+
+## Exercises
+
+1. **Trade-off:** What is one thing Elasticsearch can do that Orama cannot?
+2. **Relevancy:** Why is DuckDB not the best tool for a "Search Bar"?
+3. **Cost:** Why is Orama often cheaper to run than Elasticsearch?
+
+## Summary and Next Steps
+
+Now you know _why_ to use Orama. Let's learn _how_ to use it.
+
+Up next: **Setting up your first Index.**

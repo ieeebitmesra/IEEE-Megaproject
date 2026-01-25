@@ -1,0 +1,39 @@
+# Memory Management: RAM vs. Disk
+
+Vectors are "Heavy." A single list of 1,536 numbers takes up about **6 KB** of space.
+
+- 1 million vectors = **6 GB** of raw data.
+- Add the HNSW index = **10+ GB**.
+
+If you try to keep everything in RAM, your server bills will be astronomical.
+
+---
+
+## On-Disk vs In-Memory
+
+Qdrant allows you to choose where to store the data for each collection.
+
+1. **In-Memory (Default):** Blazing fast, but expensive. Limited by your server's RAM.
+2. **MMap (On-Disk):** Qdrant keeps the data on the Hard Drive but uses "Memory Mapping" to access it quickly. This is much cheaper and allows you to store **billions** of vectors on a standard machine.
+
+---
+
+## The "Cold Start" Problem
+
+If your data is stored on disk (MMap) and hasn't been used in a while, the first search will be slow because the OS has to "Wake up" the disk and read the data. Once the search is done, the data stays in the OS cache, and the _next_ search will be fast.
+
+---
+
+## Real-World Example: Archive Search
+
+Imagine a legal firm searching records from 10 years ago. These aren't searched often.
+The firm stores them as "On-Disk" to save money. If the lawyer has to wait 200ms instead of 20ms for the search, it doesn't matter.
+
+---
+
+## Quick Exercises:
+
+1. **The Cost**: Why is "RAM" storage more expensive than "Disk" storage?
+2. **Strategy**: If you are building a real-time Chatbot (where speed is everything), would you choose In-Memory or On-Disk?
+3. **Estimation**: If each vector is 1KB, and you have a 4GB RAM server, roughly how many vectors can you store "In-Memory" before you run out of space? (Remember to save room for the OS!).
+   glade.

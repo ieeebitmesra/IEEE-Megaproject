@@ -1,0 +1,106 @@
+# Redis Data Types: Strings (Basic Operations)
+
+The **String** is the most basic and fundamental data type in Redis. If you've ever used a variable in a programming language like JavaScript or Python, you already understand how Redis Strings work. However, Redis Strings are surprisingly powerful—they can store text, numbers, or even binary data (like images or serialized objects) up to 512 MB in size.
+
+## Why Use Redis Strings?
+
+Strings are the building blocks for many common tasks:
+
+- **Session Caching:** Storing a serialized JSON object of a user's session.
+- **Counting:** Tracking page views, likes, or inventory.
+- **Locking:** Preventing two processes from running the same task at the same time.
+
+---
+
+## Basic Operations
+
+To interact with strings, we use simple, intuitive commands.
+
+### 1. Setting and Getting Values
+
+The most common commands are `SET` and `GET`.
+
+```bash
+# Set the value of the key "site_name"
+SET site_name "My Awesome App"
+
+# Retrieve the value
+GET site_name
+# Output: "My Awesome App"
+```
+
+### 2. Working with Numbers (Atomic Counters)
+
+Redis treats strings that contain numbers specially. You can perform mathematical operations directly on them without having to fetch the value first.
+
+```bash
+# Initialize a counter
+SET page_views 100
+
+# Increment by 1
+INCR page_views
+# Output: (integer) 101
+
+# Increment by a specific amount
+INCRBY page_views 50
+# Output: (integer) 151
+
+# Decrement
+DECR page_views
+```
+
+**Why this matters:** These operations are **atomic**. In a traditional database, you might fetch a value, add 1, then save it back. If two people do this at the same time, you might miss a count. In Redis, `INCR` happens in a single step, making it perfectly safe for high-traffic apps.
+
+### 3. Setting Expiration (TTL)
+
+One of the best features of Redis is the ability to make data "expire" automatically. This is essential for caching.
+
+```bash
+# Set a value that expires in 60 seconds
+SET temp_token "xyz123" EX 60
+
+# Check how much time is left (Time To Live)
+TTL temp_token
+# Output: (integer) 54
+```
+
+When the TTL reaches 0, the key is automatically deleted.
+
+---
+
+## Real-World Example: User Profile Cache
+
+Imagine you have a `users` table in a SQL database. Fetching a profile is expensive. You can cache it in Redis as a String.
+
+```bash
+# Store user 101's profile as a JSON string
+SET user:101:profile '{"name": "John", "email": "john@example.com", "plan": "pro"}' EX 3600
+```
+
+- We used a **naming convention** `user:101:profile`. Colon separators are the industry standard for organizing keys in Redis.
+- We set the expiration (`EX 3600`) to 1 hour. This ensures the cache doesn't stay "stale" forever.
+
+---
+
+## Hypothetical Scenario: The API Rate Limiter
+
+You built a free API, but you don't want any single user to make more than 10 requests per minute.
+
+1. Each time a user with IP `192.168.1.1` makes a request, you check the key `rate_limit:192.168.1.1`.
+2. If it doesn't exist, you `SET rate_limit:192.168.1.1 1 EX 60`.
+3. If it exists, you run `INCR rate_limit:192.168.1.1`.
+4. If the value returned by `INCR` is greater than 10, you block the request!
+
+Redis makes this complex logic incredibly fast and scalable.
+
+## Exercises
+
+1. **Basic Interaction:** Open your `redis-cli` and `SET` a key called `app_version` to "1.0.0". Then, `GET` it back.
+2. **Counter Practice:** Create a key called `visitor_count`. Use `INCR` three times. What is the final value?
+3. **TTL Challenge:** Set a key `special_offer` with a value of "50% OFF" that expires in 10 seconds. Use the `TTL` command every few seconds to watch it count down until it returns `-2` (which means the key no longer exists).
+
+## Summary and Next Steps
+
+Redis Strings are more than just text. They are high-speed containers for data and powerful atomic counters. By mastering `SET`, `GET`, `INCR`, and `EX`, you can already build complex features like rate limiters and session stores.
+
+In the next lesson, we will move beyond simple single values and explore **Hashes**, which allow you to store related fields together in a single key.

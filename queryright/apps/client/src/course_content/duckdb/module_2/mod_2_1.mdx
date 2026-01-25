@@ -1,0 +1,85 @@
+# Importing CSV and JSON
+
+CSV and JSON are the world's most common data formats. DuckDB is designed to handle them with zero friction.
+
+---
+
+## 1. The "Auto" Magic
+
+The most common way to read a CSV is `read_csv_auto`. You don't have to tell DuckDB what the column names or types are—it "sniffs" the first few thousand rows and guesses.
+
+```sql
+-- Just querying the file (no table created)
+SELECT * FROM 'sales_data.csv' LIMIT 10;
+
+-- Creating a table from a CSV
+CREATE TABLE sales AS SELECT * FROM read_csv_auto('sales_data.csv');
+```
+
+---
+
+## 2. Handling JSON
+
+JSON can be tricky because it's often "nested" (objects inside objects).
+
+### Flat JSON
+
+```sql
+SELECT * FROM read_json_auto('users.json');
+```
+
+### Nested JSON
+
+DuckDB can "un-nest" fields into columns.
+
+```sql
+-- Extracting a 'name' field from a nested 'profile' object
+SELECT profile->>'name' AS user_name FROM read_json_auto('users.json');
+```
+
+---
+
+## 3. Globbing (Multiple Files)
+
+What if you have a folder full of 500 CSV files (e.g., `2023-01.csv`, `2023-02.csv`, ...)?
+In DuckDB, you use a **Glob** pattern:
+
+```sql
+-- Read every CSV in the folder as one big table
+SELECT count(*) FROM read_csv_auto('data/*.csv');
+```
+
+---
+
+## Real-World Example: Daily Logs
+
+A developer has a folder of web logs in JSON format.
+
+1. They want to find all "404 Errors" from the last month.
+2. They run: `SELECT * FROM 'logs/*.json' WHERE status = 404;`
+3. DuckDB opens every file, identifies the `status` column, and aggregates the results in milliseconds.
+
+---
+
+## Hypothetical Scenario: The "Broken" CSV
+
+A CSV file has a typo where one row has 11 columns but every other row has 10.
+
+- **Default behavior:** The query crashes.
+- **The Solution:** Use the `ignore_errors` parameter.
+  ```sql
+  SELECT * FROM read_csv_auto('dirty.csv', ignore_errors=true);
+  ```
+  DuckDB will skip the broken line and continue with the rest of the data.
+
+## Exercises
+
+1. **Quick Command:** How do you read a file named `customers.csv` without creating a table first?
+2. **Globbing:** If you have files named `sales_1.csv`, `sales_2.csv`, etc., how do you query all of them at once?
+3. **JSON:** What operator (`->` or `->>`) do you use to extract a value from a JSON object as a String?
+
+## Summary and Next Steps
+
+CSVs are great for small data, but they are slow and take up a lot of space.
+
+In the next lesson, we'll look at DuckDB's superpower: **Querying Parquet files**, which are the industry standard for fast, compressed big data.

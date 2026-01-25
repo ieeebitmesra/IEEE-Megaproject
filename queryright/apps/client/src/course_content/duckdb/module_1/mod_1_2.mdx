@@ -1,0 +1,87 @@
+# Installation and CLI Basics
+
+DuckDB is famously easy to install. There are no dependencies and no environment variables to configure.
+
+---
+
+## 1. Getting the CLI
+
+The Command Line Interface (CLI) is a single executable file.
+
+- **macOS:** `brew install duckdb`
+- **Windows:** `choco install duckdb` or download the `.exe` from duckdb.org.
+- **Linux:** Download the binary directly.
+
+---
+
+## 2. Launching DuckDB
+
+To start an "In-Memory" session (data is lost when you close it):
+
+```bash
+duckdb
+```
+
+To start a persistent session (data is saved to a file):
+
+```bash
+duckdb my_analysis.db
+```
+
+---
+
+## 3. Useful Dot Commands
+
+Inside the DuckDB shell, you use "dot commands" to control the environment:
+
+- **`.help`**: List all commands.
+- **`.tables`**: List all tables in the database.
+- **`.schema`**: See the SQL used to create your tables.
+- **`.mode box`**: Makes the output look clean and readable.
+- **`.exit`** or `.quit`: Close the session.
+
+---
+
+## 4. Your First "Query"
+
+One of DuckDB's coolest features is that you don't even need a table to write SQL.
+
+```sql
+SELECT 1 + 1 AS result;
+
+SELECT * FROM 'https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv' LIMIT 5;
+```
+
+_Wait, did we just query a URL?_ Yes. DuckDB can treat remote files as tables automatically.
+
+---
+
+## Real-World Example: Fast CSV Preview
+
+You just downloaded a 500MB CSV file and you want to see the column names.
+
+- You open your terminal.
+- Run `duckdb`.
+- Type `DESCRIBE SELECT * FROM 'data.csv';`
+- Total time: < 2 seconds. No need to open heavy software.
+
+---
+
+## Hypothetical Scenario: The "Dirty" Data
+
+A developer is trying to import a CSV that has mixed date formats.
+
+- In many databases, the import would fail.
+- In DuckDB, they use the `read_csv_auto` function. DuckDB "sniffs" the data, realizes what the developer is trying to do, and handles the conversion automatically.
+
+## Exercises
+
+1. **Commands:** How do you launch DuckDB and save your work to a file named `finance.db`?
+2. **Help:** Which dot command shows you the structure of your current tables?
+3. **Syntax:** Write a SQL query in DuckDB to multiply 50 by 2.
+
+## Summary and Next Steps
+
+The CLI is great for exploration, but DuckDB is most powerful when it's embedded in your code.
+
+Next, we look at the difference between **In-process memory** and **Standalone files**.

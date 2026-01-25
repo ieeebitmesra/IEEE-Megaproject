@@ -1,0 +1,70 @@
+# Search Highlighting
+
+Search is only useful if the user knows _why_ a result was returned. **Highlighting** wraps the matching words in a specific tag (like `<b>` or `<mark>`).
+
+---
+
+## 1. Enabling Highlighting
+
+In your search query, you tell Orama which fields you want to highlight.
+
+```javascript
+const result = await search(db, {
+  term: 'wireless',
+  highlight: {
+    properties: ['description'],
+  },
+})
+```
+
+---
+
+## 2. Using the "Snippets"
+
+Orama doesn't just give you the whole text; it gives you a **Snippet**—a small piece of text around the match so the user doesn't have to read a 10-page document.
+
+```javascript
+// Result might look like this:
+// "...the best [wireless] headphones for travel..."
+```
+
+---
+
+## 3. Highlighting in the UI
+
+On the frontend, you take the highlighted string and render it as HTML.
+
+- _Pro Tip:_ Always sanitize your search results before rendering them as HTML to prevent XSS (Security) attacks!
+
+---
+
+## Real-World Example: News Article Previews
+
+A user searches for "Mars Rover."
+
+- The search results show 10 articles.
+- Each article has a 20-word snippet below the headline.
+- The words "Mars" and "Rover" are bolded in every snippet.
+- The user can quickly scan the snippets to find the specific article about the "Perseverance" landing.
+
+---
+
+## Hypothetical Scenario: The "Invisible" Match
+
+A user searches for "Waterproof." A result is returned, but the word "Waterproof" isn't in the title.
+
+- **The Problem:** The user is confused. They think the search engine is broken.
+- **The Solution:** Highlighting reveals that the word "Waterproof" was hidden in the **"Detailed Specs"** section.
+- Highlighting provides "Transparency" to the search engine.
+
+## Exercises
+
+1. **Setup:** Which parameter in the `search` function enables highlighting?
+2. **UX:** Why is it better to show a "Snippet" rather than the "Full Text"?
+3. **Security:** What is one risk of rendering search results directly as HTML? (Hint: See the Pro Tip above).
+
+## Summary and Next Steps
+
+Highlighting turns raw data into a readable list of options.
+
+Next, we look at **Advanced Boosting**—how to manually override Orama's scoring logic.

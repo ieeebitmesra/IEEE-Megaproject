@@ -1,0 +1,70 @@
+# What is DuckDB?
+
+If SQLite is the engine that powers every mobile phone and web browser, **DuckDB** is the engine that powers modern data analysis. It is an in-process, SQL OLAP database management system.
+
+---
+
+## 1. OLTP vs. OLAP
+
+To understand DuckDB, you must understand the two main ways databases are used:
+
+### OLTP (Online Transactional Processing)
+
+- **Example:** MySQL, PostgreSQL, SQLite.
+- **Workflow:** Many small, fast operations (e.g., "Add a product to a cart," "Update a user's password").
+- **Structure:** Row-oriented.
+- **Goal:** High concurrency and data integrity.
+
+### OLAP (Online Analytical Processing)
+
+- **Example:** Snowflake, BigQuery, ClickHouse, **DuckDB**.
+- **Workflow:** Large, complex queries (e.g., "Find the average revenue per customer over the last 3 years").
+- **Structure:** Columnar-oriented.
+- **Goal:** Maximum throughput for massive data scans.
+
+---
+
+## 2. Why "Duck" DB?
+
+The name "DuckDB" comes from the idea of a **Mallard**, which is versatile—it flies, walks, and swims.
+Similarly, DuckDB is designed to be:
+
+1. **Simple:** Easy to install (no server to manage).
+2. **Fast:** Industrial-grade analytical performance.
+3. **Feature-Rich:** Supports the full suite of modern SQL.
+
+---
+
+## 3. The "In-Process" Advantage
+
+Most OLAP databases (like Snowflake or Redshift) require an expensive server or a cloud subscription.
+DuckDB runs **inside** your application (like a library). There is no "Server" to start or stop. This eliminates the "network lag" between your code and your data.
+
+---
+
+## Real-World Example: Data Scientist's Laptop
+
+A data scientist has a 5GB CSV file of stock market data.
+
+- **Standard approach:** Load it into Python/Pandas. This might use 15GB of RAM and be very slow.
+- **DuckDB approach:** Query the CSV file directly with SQL using DuckDB. It uses almost no RAM, finishes in seconds, and they don't have to "import" anything.
+
+---
+
+## Hypothetical Scenario: The "Excel Killer"
+
+An analyst has an Excel spreadsheet that crashes every time they try to calculate a pivot table.
+
+- **The Solution:** They point DuckDB at the Excel file. DuckDB treats the spreadsheet as a database table. They can run complex SQL queries and get the answer instantly, even on millions of rows.
+
+## Exercises
+
+1. **Comparison:** Name one major difference between OLTP and OLAP.
+2. **Identify:** Is DuckDB a "Server-Client" database or an "In-Process" database?
+3. **Use-case:** If you are building a social media app and need to store user likes in real-time, should you use DuckDB or PostgreSQL?
+
+## Summary and Next Steps
+
+DuckDB is the perfect tool for when you have "too much data for Excel, but not enough to justify a Big Data cluster."
+
+Next, we look at how to get DuckDB onto your machine and start running your first queries.

@@ -1,0 +1,70 @@
+# Advanced Boosting & Functions
+
+We've seen simple boosting (multiplying a field's importance). Now let's look at **Conditional Boosting**—boosting based on logic.
+
+---
+
+## 1. Boolean Boosting
+
+What if you want to boost items that are "Premium" products, but only if they are also "In Stock"?
+
+```javascript
+const result = await search(db, {
+  term: 'shoes',
+  boost: {
+    title: 2,
+    brand: 1.5,
+  },
+  // This is where you'd combine it with filters!
+})
+```
+
+---
+
+## 2. Global Weighting
+
+In some apps, the `term` isn't the only thing that matters. You might want to sort by "Relevancy" _minus_ "Price."
+
+- This is often done by combining the Search Score with a Numerical field.
+
+---
+
+## 3. Dealing with "Over-Boosting"
+
+If you boost everything, you boost nothing.
+
+- **Common mistake:** Boosting `Title`, `Body`, `Tags`, and `Category`.
+- **The Result:** The score becomes a mess because every word is being multiplied multiple times.
+- **Rule of Thumb:** Only boost the **one or two** most important fields.
+
+---
+
+## Real-World Example: Sponsored Search Results
+
+An e-commerce giant wants "Sponsored Products" to appear at the top.
+
+- They have a field in the schema: `isSponsored: 'boolean'`.
+- When they perform a search, they use a **Custom Score** (or a very high boost) for any document where `isSponsored === true`.
+- This ensures the company makes ad revenue while still showing relevant products.
+
+---
+
+## Hypothetical Scenario: The "Empty Title" Problem
+
+A developer boosts the `title` field by 10x.
+
+- However, some documents don't have titles—they only have descriptions.
+- **The Result:** The documents with short titles rank much higher than the detailed documents with no titles, even if the detailed ones are better matches.
+- **The Lesson:** Be careful with high boosts on fields that might be empty or inconsistent.
+
+## Exercises
+
+1. **Trade-offs:** What happens if you apply a boost of `100` to a specific field?
+2. **Strategy:** If you were building a "Recipe Search," which field would you boost: `Ingredient List` or `Recipe Name`?
+3. **Drafting:** Write a search query that boosts the `tags` field by 3.0.
+
+## Summary and Next Steps
+
+Boosting gives you the power to "nudge" the search engine in the right direction.
+
+Next, we look at **Tokenizer Pipelines**—the advanced way to clean your text before it ever gets indexed.

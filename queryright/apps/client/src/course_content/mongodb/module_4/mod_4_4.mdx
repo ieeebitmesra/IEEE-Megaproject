@@ -1,0 +1,127 @@
+# String Operators (`$concat`, `$toUpper`, `$substr`)
+
+String operators allow you to manipulate text fields directly within the aggregation pipeline. Whether you need to format names, generate unique identifiers, or normalize text for case-insensitive comparison, these operators provide the necessary string manipulation functions.
+
+## Common String Operators
+
+### The `$concat` Operator
+
+The `$concat` operator joins multiple strings into a single string. It takes an array of expressions as arguments.
+
+**Syntax:**
+
+```javascript
+{
+  $concat: ['$field1', ' - ', '$field2']
+}
+```
+
+### The `$toUpper` and `$toLower` Operators
+
+These operators convert a string to uppercase or lowercase, respectively. They are essential for normalizing data before grouping or comparison.
+
+**Syntax:**
+
+```javascript
+{
+  $toUpper: '$field'
+}
+{
+  $toLower: '$field'
+}
+```
+
+### The `$substr` Operator
+
+The `$substr` operator extracts a portion of a string based on a starting index and a length.
+_Note: `$substr` operates on bytes. For Unicode safety, use `$substrCP` (Code Points)._
+
+**Syntax:**
+
+```javascript
+{
+  $substr: ['$field' /* start */ /* length */, ,]
+}
+```
+
+## Practical Examples and Demonstrations
+
+### Scenario 1: Formatting Full Names
+
+**Context:** Our user documents store `firstName` and `lastName` separately. We want to display a `fullName` field in uppercase for a report.
+
+**Sample Data:** `users` collection
+
+```json
+[
+  { "_id": 1, "firstName": "john", "lastName": "doe" },
+  { "_id": 2, "firstName": "Alice", "lastName": "Smith" }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.users.aggregate([
+  {
+    $project: {
+      fullName: {
+        $toUpper: {
+          $concat: ['$firstName', ' ', '$lastName'],
+        },
+      },
+    },
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[
+  { "_id": 1, "fullName": "JOHN DOE" },
+  { "_id": 2, "fullName": "ALICE SMITH" }
+]
+```
+
+### Scenario 2: Generating Initials
+
+**Context:** We want to generate a short code for each item using the first 3 letters of its name.
+
+**Sample Data:** `products` collection
+
+```json
+[
+  { "_id": 1, "name": "Laptop Pro" },
+  { "_id": 2, "name": "Monitor X" }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.products.aggregate([
+  {
+    $project: {
+      shortCode: {
+        $toUpper: { $substr: ['$name', 0, 3] },
+      },
+    },
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[
+  { "_id": 1, "shortCode": "LAP" },
+  { "_id": 2, "shortCode": "MON" }
+]
+```
+
+## Summary
+
+String operators provide the flexibility to reshape text data on the fly. By combining concatenation, case conversion, and substring extraction, you can format your output to meet specific display requirements without needing post-processing in your application.
+
+In the next lesson, we will combine date, conditional, array, and string operators in a **Hands-on Lab: Analyzing Time-Series Data and Complex Conditions**.

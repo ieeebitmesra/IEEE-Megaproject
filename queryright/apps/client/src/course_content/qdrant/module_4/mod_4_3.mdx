@@ -1,0 +1,53 @@
+# Hybrid Search: Vectors + Filters
+
+Searching for "Meaning" (Vectors) is great, but users often want to combine it with "Hard Facts" (Filters).
+
+---
+
+## The Hybrid Query
+
+In Qdrant, you can pass a `filter` object alongside your `vector`.
+
+```javascript
+await client.search('books', {
+  vector: queryVector,
+  filter: {
+    must: [
+      { key: 'genre', match: { value: 'Mystery' } },
+      { key: 'year', range: { gte: 2020 } },
+    ],
+  },
+  limit: 5,
+})
+```
+
+Qdrant does NOT perform the vector search first and then filter. It does **both at the same time.** This is much faster and more accurate.
+
+---
+
+## Filter Types
+
+- **Match:** Find exact values (e.g., `brand == "Nike"`).
+- **Range:** Find numbers in a span (e.g., `price < 100`).
+- **Full Text:** Search for specific words inside the metadata.
+- **Geo:** Find items within a certain distance of a GPS coordinate.
+
+---
+
+## Real-World Example: Real Estate
+
+Searching for a home:
+
+- **Vector:** "Cozy cabin with a fireplace and large windows."
+- **Filters:** `{ "price": {"lt": 500000}, "location": {"near": [40.7, -74.0]} }`
+
+Qdrant finds homes that _feel_ like the description, but ONLY if they are also in the right price range and location.
+
+---
+
+## Quick Exercises:
+
+1. **The Keyword**: What property inside the search request is used for filtering?
+2. **Timing**: Does Qdrant filter _Before_, _During_, or _After_ the vector search?
+3. **Draft**: Write a filter for items that are "In Stock" (boolean) and have a "Rating" higher than 4.5.
+   valley.

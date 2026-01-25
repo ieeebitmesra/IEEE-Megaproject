@@ -1,0 +1,63 @@
+# Health and Monitoring
+
+Search is a "living" thing. As your data changes, your search results might degrade. You need to monitor the **Health** of your Orama index.
+
+---
+
+## 1. Indexing Speed
+
+How long does it take to update your index?
+
+- If you are re-indexing 10,000 items every minute, you might see "Spikes" in CPU usage.
+- Orama is very optimized, but for massive updates, it is better to perform them in a **Background Worker** rather than on the main web server.
+
+---
+
+## 2. Hit Rate (Recall)
+
+A "Good" search results in a "Hit" (the user clicks something).
+
+- A "Bad" search results in 0 items found.
+- If your "0 Results" count is climbing, it usually means your users are using search terms you haven't considered (e.g., nicknames, abbreviations, or multiple languages).
+
+---
+
+## 3. Query Latency
+
+Latency is the time it takes for a user's query to return results.
+
+- **Goal:** < 50ms for local search.
+- **Goal:** < 150ms for cloud search.
+- If latency is high, check your `offset` (pagination) or the size of your `filters`.
+
+---
+
+## Real-World Example: The "Autocomplete" Monitoring
+
+A search bar has an "Autocomplete" feature that triggers on every keystroke.
+
+- The company notices that their server is being "DDoS'ed" by its own users—every user is sending 10 requests per second!
+- **The Solution:** They add a **Debounce** (wait 300ms before searching).
+- They move the Autocomplete index to the **Client-Side**, so there are zero server requests.
+- Result: Server load drops by 95% and the UI feels smoother.
+
+---
+
+## Hypothetical Scenario: The "Zombie" Results
+
+A user searches for a product that was deleted yesterday, but it still appears in the search results.
+
+- **The Cause:** The Orama index hasn't been "Rehydrated" with the new data.
+- **The Fix:** Implement a "Refresh Interval" or use Orama Cloud Webhooks to ensure the search index is updated within minutes of a database change.
+
+## Exercises
+
+1. **Automation:** Why should you automate your re-indexing process?
+2. **Metrics:** What does a high "0 Results" count indicate?
+3. **UX:** How does "Debouncing" improve both the user experience and server health?
+
+## Summary and Next Steps
+
+Monitoring ensures that your search engine stays fast and relevant over time.
+
+We wrap up Module 5 in the next lesson.

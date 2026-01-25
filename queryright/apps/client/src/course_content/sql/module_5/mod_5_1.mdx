@@ -1,0 +1,123 @@
+# Using Common Table Expressions (CTEs) for Readability
+
+As your SQL skills grow, so does the complexity of your queries. You might find yourself writing queries with multiple subqueries nested inside each other, creating a "spaghetti code" mess that is hard to read and debug.
+
+To solve this, SQL offers **Common Table Expressions (CTEs)**. A CTE is essentially a temporary, named result set that you define at the start of your query and then reference later, just like a regular table. It makes complex logic linear and readable.
+
+## Understanding CTEs
+
+Think of a CTE as a "pre-calculation" or a "scratchpad."
+Imagine you are cooking a complex meal. Instead of trying to chop vegetables _while_ you are sautéing the meat _while_ you are making the sauce, you do "mise en place"—you prepare all the ingredients in separate bowls first. Then, the final cooking step is simple: just combine the bowls.
+
+A CTE is that prep bowl. You define it first using the `WITH` keyword, and then your main query simply selects from it.
+
+### Basic Syntax
+
+```sql
+WITH cte_name AS (
+    SELECT column1, column2
+    FROM table_name
+    WHERE condition
+)
+SELECT *
+FROM cte_name;
+```
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### Scenario 1: The "High-Value" Customer Report
+
+We want to find customers who have placed more than 5 orders, and for those customers, we want to see their name and their total lifetime spend.
+
+**The "Subquery" Way (Harder to Read):**
+
+```sql
+SELECT name, total_spend
+FROM (
+    SELECT customer_id, SUM(total_amount) as total_spend
+    FROM orders
+    GROUP BY customer_id
+) AS customer_totals
+JOIN customers ON customer_totals.customer_id = customers.customer_id
+WHERE customer_id IN (
+    SELECT customer_id FROM orders GROUP BY customer_id HAVING COUNT(*) > 5
+);
+```
+
+- This is messy. You have to read from the inside out to understand what's happening.
+
+**The "CTE" Way (Clean and Linear):**
+
+```sql
+WITH FrequentShoppers AS (
+    -- Step 1: Find customers with > 5 orders
+    SELECT customer_id
+    FROM orders
+    GROUP BY customer_id
+    HAVING COUNT(*) > 5
+),
+CustomerSpending AS (
+    -- Step 2: Calculate total spend for everyone
+    SELECT customer_id, SUM(total_amount) AS total_spend
+    FROM orders
+    GROUP BY customer_id
+)
+-- Step 3: Combine them
+SELECT c.name, cs.total_spend
+FROM customers c
+JOIN FrequentShoppers fs ON c.customer_id = fs.customer_id
+JOIN CustomerSpending cs ON c.customer_id = cs.customer_id;
+```
+
+- **Analysis:** We defined two clear steps (`FrequentShoppers` and `CustomerSpending`). The final query just joins them together. It reads like a story.
+
+### Scenario 2: Analyzing Category Performance
+
+We want to compare each book's price to the average price of its category.
+
+**Query:**
+
+```sql
+WITH CategoryAverages AS (
+    SELECT category, AVG(price) AS avg_price
+    FROM books
+    GROUP BY category
+)
+SELECT b.title, b.price, b.category, ca.avg_price
+FROM books b
+JOIN CategoryAverages ca ON b.category = ca.category
+WHERE b.price > ca.avg_price;
+```
+
+- **Result:** This lists books that are more expensive than their category average.
+
+## Exercises and Practice Activities
+
+To solidify your understanding of CTEs, complete the following exercises.
+
+### Exercise 1: The Big Spenders
+
+Rewrite the following subquery logic using a CTE:
+"Find the average total order amount, and then list all orders that are above that average."
+
+### Exercise 2: Multi-Step Logic
+
+Create a query using two CTEs:
+
+1.  `CTE_Authors`: Find authors who have written more than 2 books.
+2.  `CTE_Books`: Find books that cost less than $10.
+3.  **Final Select:** Join these two to find "Cheap books written by Prolific Authors."
+
+### Exercise 3: Readability Check
+
+Why might a team prefer you to use a CTE instead of a nested subquery, even if the performance is the same?
+
+## Concluding Thoughts
+
+In this lesson, we learned how to use CTEs to organize our thoughts and our code. While they don't necessarily make the query run faster, they make it much easier to maintain and debug.
+
+In the next lesson, we will introduce **Window Functions**. These are a special class of functions that allow you to perform calculations across a set of rows related to the current row—like calculating a running total or ranking items—without collapsing the rows like `GROUP BY` does.
+
+=START_QUESTIONS=What keyword is used to define a CTE?@@Can you define multiple CTEs in a single query?@@How does a CTE improve code readability compared to subqueries?@@Is a CTE stored permanently in the database? =END_QUESTIONS=

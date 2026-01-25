@@ -1,0 +1,44 @@
+# Euclidean Distance (L2)
+
+Euclidean distance is the classic "Straight Line" distance between two points. It is the same formula you learned in high school geometry.
+
+---
+
+## The "Ruler" Math
+
+If you have two points (A and B), Euclidean distance calculates the length of the string required to connect them directly.
+
+**When to use it:**
+
+- **Image Search:** Often images are processed into vectors where the _exact_ values matter.
+- **Audio Fingerprinting:** Comparing sound waves.
+- **Physical Coordinates:** If your vectors actually represent X/Y positions on a map or 3D model.
+
+---
+
+## Real-World Example: Face Recognition
+
+Face recognition software converts features (distance between eyes, width of nose) into numbers.
+If Person A has a nose width of `5.0` and Person B has a nose width of `5.1`, Euclidean distance will record that tiny difference.
+
+Unlike Cosine (which looks at trends/angles), Euclidean cares about **Precision.**
+
+---
+
+## Hypothetical Scenario: The "Mistaken Identity"
+
+A developer uses Euclidean distance for Document Search.
+
+- **Doc 1:** "Shoes are great."
+- **Doc 2:** "Shoes are great. I love shoes. Shoes are my life. I have 500 shoes."
+
+Even though both docs are about shoes, Doc 2 is "Much farther away" from the center of the graph because it mentions it so many times. Euclidean might think these docs are **different**, whereas Cosine would know they are **the same**.
+
+---
+
+## Quick Exercises:
+
+1. **The Formula**: What shape is formed if we measure the Euclidean distance between two points in 2D space? (Hint: Think of a triangle).
+2. **Best for...**: Would you use Euclidean for comparing _Long Books_ or for comparing _Fingerprints_?
+3. **Difference**: In your own words, why does "Size" matter for Euclidean but not for Cosine?
+   plateau.

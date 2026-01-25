@@ -1,0 +1,95 @@
+# Boosting and Function Score
+
+Sometimes, pure text relevancy isn't enough. You might want to promote "Popular" items, "Recent" items, or "Sponsored" items regardless of how well their text matches.
+
+---
+
+## 1. Index-Time vs. Query-Time Boosting
+
+- **Index-Time (Legacy):** Giving a field a boost when indexing. This is now discouraged because you can't change it without re-indexing.
+- **Query-Time:** Boosting a field inside your search request (e.g., `title^5`).
+
+---
+
+## 2. The `boost` parameter
+
+Every query clause accepts a `boost` parameter.
+
+```json
+{
+  "match": {
+    "title": {
+      "query": "quick brown fox",
+      "boost": 2
+    }
+  }
+}
+```
+
+---
+
+## 3. `function_score` (The Pro Power)
+
+`function_score` allows you to modify the score of documents that are retrieved by a query.
+
+### Common Functions:
+
+- **`weight`**: Simply multiply the score by a number.
+- **`random_score`**: Give every user a slightly different order (useful for "Discover" pages).
+- **`field_value_factor`**: Use a field from the document (like `likes` or `views`) to influence the score.
+- **`decay_functions`**: Documents get lower scores as they get further from a specific date or location.
+
+### Example: Boosting by Popularity
+
+```http
+GET /posts/_search
+{
+  "query": {
+    "function_score": {
+      "query": { "match": { "content": "crypto" } },
+      "functions": [
+        {
+          "field_value_factor": {
+            "field": "view_count",
+            "factor": 1.2,
+            "modifier": "log1p"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+_Wait, what is `log1p`?_ If you just multiply by `view_count`, a post with 1,000,000 views will destroy all other results. Using a logarithm flattens the curve, so more views help, but they don't drown out relevancy.
+
+---
+
+## Real-World Example: Real Estate Search
+
+When searching for "Condo in New York":
+
+1. **Match:** "Condo" in title, "New York" in location.
+2. **Decay Function:** Use a `gauss` decay on the `price` field. The closer the price is to the user's budget ($500k), the higher the score.
+3. **Decay Function:** Use a `gauss` decay on the `listing_date`. Houses listed in the last 7 days get a massive boost; houses listed 6 months ago get almost no boost.
+
+---
+
+## Hypothetical Scenario: The "Sponsored" Slot
+
+A food delivery app wants to show "Burger" results.
+
+- **The Problem:** "McDonald's" pays for a sponsorship, but they don't have the word "Burger" in their name as often as "Big Al's Burger Shack."
+- **The Solution:** Use a `bool` query. In the `should` block, add a `term` query for `is_sponsored: true` with a high `boost`. This keeps McDonald's at the top whenever "Burger" is searched.
+
+## Exercises
+
+1. **Calculate:** If a document has a score of `1.0` and it matches a clause with a `boost: 5`, what is its new score?
+2. **Modifier:** Why is it dangerous to multiply a score by a raw `price` field?
+3. **Randomness:** When would you use `random_score`?
+
+## Summary and Next Steps
+
+You now have the tools to build a world-class search experience. You can combine logic, full-text matching, filters, and custom relevancy.
+
+In **Module 4**, we shift gears from finding individual documents to analyzing large sets of data using **Aggregations**.

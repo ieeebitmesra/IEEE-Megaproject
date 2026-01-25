@@ -1,0 +1,87 @@
+# The `$facet` Stage: Multi-Faceted Aggregation
+
+The `$facet` stage is a unique and powerful operator that allows you to execute multiple aggregation pipelines in parallel within a single stage. It processes the same set of input documents multiple times, once for each "facet" or sub-pipeline defined. This is commonly used to implement "faceted search" features seen on e-commerce sites, where a single query returns the search results _plus_ counts for categories, price ranges, and ratings simultaneously.
+
+## Understanding `$facet` Syntax
+
+The `$facet` stage takes a document where each field name is the name of a facet, and the value is an array of aggregation stages (a sub-pipeline).
+
+**Syntax:**
+
+```javascript
+{
+  $facet: {
+    "outputField1": [ stage1, stage2, ... ],
+    "outputField2": [ stage1, stage2, ... ]
+  }
+}
+```
+
+**Key Behavior:**
+
+- **Single Pass:** MongoDB reads the input documents once and feeds them into all sub-pipelines.
+- **Output:** The result is a single document containing the array results of each sub-pipeline.
+- **Memory:** The output document is subject to the 16MB BSON size limit, so `$facet` is not suitable for returning massive datasets in every facet.
+
+## Practical Examples and Demonstrations
+
+### Scenario 1: E-commerce Dashboard
+
+**Context:** We want to analyze our product catalog to get three distinct insights in one go:
+
+1.  **Categorized:** Count of products per category.
+2.  **Pricing:** Average price of all products.
+3.  **Top Products:** The top 3 most expensive products.
+
+**Sample Data:** `products` collection
+
+```json
+[
+  { "_id": 1, "name": "Laptop", "category": "Electronics", "price": 1000 },
+  { "_id": 2, "name": "Mouse", "category": "Electronics", "price": 20 },
+  { "_id": 3, "name": "Shirt", "category": "Apparel", "price": 50 },
+  { "_id": 4, "name": "Watch", "category": "Accessories", "price": 200 }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.products.aggregate([
+  {
+    $facet: {
+      // Facet 1: Group by Category
+      categories: [{ $group: { _id: '$category', count: { $sum: 1 } } }],
+      // Facet 2: Calculate Stats
+      priceStats: [{ $group: { _id: null, avgPrice: { $avg: '$price' } } }],
+      // Facet 3: Top Expensive Items
+      topExpensive: [{ $sort: { price: -1 } }, { $limit: 2 }],
+    },
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[
+  {
+    "categories": [
+      { "_id": "Electronics", "count": 2 },
+      { "_id": "Apparel", "count": 1 },
+      { "_id": "Accessories", "count": 1 }
+    ],
+    "priceStats": [{ "_id": null, "avgPrice": 317.5 }],
+    "topExpensive": [
+      { "_id": 1, "name": "Laptop", "price": 1000 },
+      { "_id": 4, "name": "Watch", "price": 200 }
+    ]
+  }
+]
+```
+
+## Summary
+
+The `$facet` stage enables "single-pass analytics," allowing you to derive multiple, distinct views of your data without making multiple round-trips to the database. It is the engine behind complex search interfaces and dashboard widgets.
+
+In the next lesson, we will apply this concept to build a **Product Category Faceted Search** system.

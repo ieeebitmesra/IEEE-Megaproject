@@ -1,0 +1,37 @@
+{
+  "method": "GET",
+  "path": "/api/auth/get-session",
+  "originalPath": "/api/auth/get-session",
+  "query": {},
+  "params": {
+    "*": "get-session"
+  },
+  "customHeaders": {
+    "host": "localhost:4000",
+    "connection": "keep-alive",
+    "accept": "*/*",
+    "accept-language": "*",
+    "sec-fetch-mode": "cors",
+    "user-agent": "node",
+    "accept-encoding": "gzip, deflate"
+  },
+  "response": {
+    "statusCode": 200,
+    "headers": {
+      "access-control-allow-origin": "http://localhost:3000",
+      "access-control-allow-credentials": "true",
+      "content-type": "application/json; charset=utf-8"
+    },
+    "body": {
+      "type": "json",
+      "schema": {
+        "type": "string",
+        "nullable": true
+      },
+      "example": null,
+      "signature": "primitive"
+    }
+  },
+  "timestamp": "2026-01-19T06:36:50.453Z",
+  "lastUpdated": "2026-01-19T06:36:50.454Z"
+}

@@ -1,0 +1,85 @@
+# The `$sort` Stage: Ordering Aggregated Results
+
+The `$sort` stage is used to rearrange the order of the documents in the aggregation pipeline. Just like the `sort()` cursor method in standard queries, it allows you to order your results in ascending or descending order based on one or more fields. However, within an aggregation pipeline, `$sort` has specific performance implications and memory constraints that you must be aware of.
+
+## Understanding `$sort` Syntax
+
+The syntax requires a document specifying the field(s) to sort by and the direction (1 for ascending, -1 for descending).
+
+**Syntax:**
+
+```javascript
+{
+  $sort: {
+    field1: 1,  // Ascending
+    field2: -1  // Descending
+  }
+}
+```
+
+## Memory Constraints and Performance
+
+The `$sort` stage is a **blocking stage**. This means that MongoDB must receive and process _all_ input documents before it can output a single sorted document. It cannot stream results one by one because the last document received might need to be the first one output.
+
+### The 100MB Limit
+
+By default, the `$sort` stage has a strict memory limit of 100 megabytes of RAM. If the data being sorted exceeds this limit, the aggregation will fail with an error.
+
+**Solutions for Large Sorts:**
+
+1.  **Use an Index:** If `$sort` is placed early in the pipeline (specifically, before any blocking or transforming stages like `$project` or `$unwind`), MongoDB can use an index to retrieve documents in order. This is the most performant method as it requires no in-memory sorting.
+2.  **`allowDiskUse`:** You can configure the aggregation to spill data to disk if it exceeds the memory limit. This prevents the error but is significantly slower than an in-memory sort.
+
+```javascript
+db.collection.aggregate(
+  [
+    /* pipeline stages */
+  ],
+  { allowDiskUse: true }, // Option to enable disk spilling
+)
+```
+
+## Practical Examples and Demonstrations
+
+### Scenario 1: Sorting by Multiple Fields
+
+**Context:** We want to list employees ordered by department (alphabetical) and then by salary (highest to lowest) within each department.
+
+**Sample Data:** `employees` collection
+
+```json
+[
+  { "_id": 1, "name": "Alice", "dept": "Engineering", "salary": 90000 },
+  { "_id": 2, "name": "Bob", "dept": "Sales", "salary": 70000 },
+  { "_id": 3, "name": "Charlie", "dept": "Engineering", "salary": 110000 }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.employees.aggregate([
+  {
+    $sort: {
+      dept: 1, // Ascending order for department
+      salary: -1, // Descending order for salary
+    },
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[
+  { "_id": 3, "name": "Charlie", "dept": "Engineering", "salary": 110000 },
+  { "_id": 1, "name": "Alice", "dept": "Engineering", "salary": 90000 },
+  { "_id": 2, "name": "Bob", "dept": "Sales", "salary": 70000 }
+]
+```
+
+## Summary
+
+The `$sort` stage is essential for presenting data in a logical order. However, due to its blocking nature and memory limits, it should be used judiciously. Whenever possible, leverage indexes to support your sort operations, or ensure your result set is filtered down to a manageable size before sorting.
+
+In the next lesson, we will explore **The `$limit` and `$skip` Stages**, which are often used in conjunction with `$sort` to implement pagination.

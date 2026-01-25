@@ -1,0 +1,38 @@
+# Snapshots & Backups
+
+A vector database is often a "Secondary" database. You might have the original text in Postgres and the vectors in Qdrant.
+However, because generating vectors (Embeddings) is **expensive and slow**, you really don't want to lose your Qdrant data!
+
+---
+
+## What is a Snapshot?
+
+A Snapshot is a single file that contains the entire state of a collection (Vectors, Payloads, and Indexes).
+
+**Creating a Snapshot (API):**
+`POST /collections/my_data/snapshots`
+
+This returns a `.snapshot` file. You can download this file and store it in S3 or Google Cloud Storage.
+
+---
+
+## Restoring from a Snapshot
+
+If your server crashes, you don't have to re-embed all your text. You simply tell Qdrant: _"Here is my snapshot file. Rebuild the collection from this."_
+
+---
+
+## Real-World Example: "Point-in-Time" Recovery
+
+A company accidentally runs a script that deletes 50% of their "User Interest" vectors.
+Using a Snapshot from 4 hours ago, they can restore the database in minutes.
+Without it, they would have to call the OpenAI API 500,000 times to regenerate the vectors, costing them thousands of dollars in API fees.
+
+---
+
+## Quick Exercises:
+
+1. **The File**: What is the file extension of a Qdrant backup?
+2. **The "Why"**: Why is it more expensive to "re-build" a vector database compared to a standard SQL database? (Think about the Embedding Model fees).
+3. **Best Practice**: How often should you take a snapshot for a database that updates every 5 minutes? (Daily, Hourly, or Every Minute?)
+   canyon.

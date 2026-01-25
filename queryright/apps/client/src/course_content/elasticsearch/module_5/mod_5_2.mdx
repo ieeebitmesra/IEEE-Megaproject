@@ -1,0 +1,74 @@
+# Shards and Replicas
+
+You can't store 10TB of data on a single server comfortably. Elasticsearch solves this by splitting your index into multiple pieces called **Shards**.
+
+---
+
+## 1. Primary Shards (Scaling Up)
+
+Think of a Primary Shard as an independent Lucene index.
+
+- If you have an index with **5 Primary Shards**, Elasticsearch splits your data roughly into 5 equal parts.
+- Each part can live on a different server.
+
+**Rule:** You set the number of Primary Shards when you create the index. **You cannot change this number later** (without re-indexing everything).
+
+---
+
+## 2. Replica Shards (Safety and Speed)
+
+Replicas are exact copies of Primary Shards. They serve two purposes:
+
+1. **High Availability:** If the server holding Shard 1 crashes, the Replica of Shard 1 takes over. You lose zero data.
+2. **Search Performance:** Both the Primary and the Replica can handle search requests. If you have 1 Primary and 2 Replicas, you have 3 "workers" answering search queries for that data.
+
+**Rule:** You can change the number of Replicas at any time.
+
+---
+
+## 3. The "Math" of Shard Allocation
+
+Imagine a cluster with **3 Nodes** and an index defined as:
+
+- `number_of_shards: 3`
+- `number_of_replicas: 1`
+
+Total Shards = $3$ (Primaries) + $3$ (Replicas) = **6 total**.
+Elasticsearch will try to spread these out:
+
+- Node A: Shard 1 (P), Shard 2 (R)
+- Node B: Shard 2 (P), Shard 3 (R)
+- Node C: Shard 3 (P), Shard 1 (R)
+
+**Crucial Logic:** A Replica and its Primary will **NEVER** be on the same node. If the node dies, having the copy on the same machine wouldn't help!
+
+---
+
+## Real-World Example: Log Management
+
+You are storing logs for a month. You decide on 1 Primary Shard because the data isn't huge.
+
+- At the end of the month, you realize searching is slow.
+- You can't change Primaries to 5. Instead, you change **Replicas to 3**. Now, 4 nodes are helping with the search instead of just 1.
+
+---
+
+## Hypothetical Scenario: The "Over-sharding" Trap
+
+A developer creates an index with 1,000 Primary Shards for a small dataset.
+
+- **The Result:** The cluster becomes incredibly slow.
+- **Why?** Every shard has a fixed overhead of RAM and file handles. 1,000 shards mean 1,000 separate Lucene instances.
+- **The Rule of Thumb:** Aim for shard sizes between **10GB and 50GB**.
+
+## Exercises
+
+1. **Calculation:** If an index has 2 Primaries and 2 Replicas, how many total shards are in the cluster?
+2. **Persistence:** Can you change the number of Primary shards after an index is created?
+3. **Availability:** If you have 3 nodes and an index with 1 Primary and 0 Replicas, what happens to your data if one node dies?
+
+## Summary and Next Steps
+
+Primaries help you store more data. Replicas help you survive failures and search faster.
+
+But how does Elasticsearch know **which** shard should hold **which** document? That's the job of **Routing**, which we'll explore next.

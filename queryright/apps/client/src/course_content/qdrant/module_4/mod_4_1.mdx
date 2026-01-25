@@ -1,0 +1,55 @@
+# The Search API: Finding "Top K"
+
+When you query Qdrant, you are performing a **k-NN** (k-Nearest Neighbors) search.
+
+---
+
+## What is "Top K"?
+
+In search terminology, **"K"** is the number of results you want.
+If you say "k=10," you are asking Qdrant: _"Find me the 10 points that are closest to my query vector."_
+
+---
+
+## A Typical Search Request (JavaScript)
+
+Using the `@qdrant/js-client-rest` library:
+
+```javascript
+const response = await client.search("my_collection", {
+    vector: [0.2, 0.1, 0.9, ...], // Your search vector
+    limit: 5,                    // This is "K"
+    with_payload: true,           // Return the metadata
+    with_vector: false            // We don't need the numbers back
+});
+
+console.log(response);
+```
+
+---
+
+## Real-World Example: "Similar Items"
+
+When you see a "You might also like" section on a website, the backend is running a Qdrant search.
+
+1. It takes the vector of the item you are currently looking at.
+2. It sends that vector to Qdrant with `limit: 5`.
+3. It displays the 5 results to you.
+
+---
+
+## Hypothetical Scenario: The "Nonsense Result"
+
+A user searches for "Best running shoes" and the first 3 results are perfect. But results 8, 9, and 10 are about "Car tires."
+**Why?** Because a k-NN search **always** returns K results, even if the distance is huge. If there are only 3 shoes in the database, Qdrant will simply find the next "closest" things, which might be completely unrelated.
+
+**The Fix:** Use `score_threshold`. This tells Qdrant: _"Only return items if they have a similarity score higher than 0.8."_
+
+---
+
+## Quick Exercises:
+
+1. **The Parameter**: Which property in the search request controls how many results are returned?
+2. **The Threshold**: If your `score_threshold` is too high (e.g., 0.999), what will happen to your search results?
+3. **Draft**: Write a pseudocode search for "3 most similar songs" given a song vector.
+   lagoon.

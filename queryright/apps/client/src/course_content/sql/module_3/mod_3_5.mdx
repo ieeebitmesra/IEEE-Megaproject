@@ -1,0 +1,97 @@
+# Practical Application: Analyzing Sales Data with Aggregates
+
+We have covered the theory of aggregation, grouping, and filtering. Now, it is time to act like a Data Analyst. In this lesson, we will apply everything we've learned to a realistic business scenario: analyzing the sales performance of our **Online Bookstore**.
+
+We will answer three common business questions using SQL.
+
+## The Data Landscape
+
+Recall our key tables:
+
+- **Orders:** `order_id`, `customer_id`, `order_date`, `total_amount`
+- **Order_Items:** `order_id`, `book_id`, `quantity`, `price_at_purchase`
+- **Books:** `book_id`, `title`, `category`, `author_id`
+
+## Business Question 1: What are our best-selling categories?
+
+**Goal:** The marketing team wants to know which genres generate the most revenue so they can focus their ad spend.
+
+**Analysis:**
+We need to sum the sales, grouped by category.
+_(Note: In a real normalized database, we would join `Order_Items` to `Books`. For this module, let's assume we have a denormalized view or we are just looking at `Books` inventory value as a proxy, or we will use a simplified `Sales` table for demonstration)._
+
+Let's assume we have a table `Sales_Summary` with columns: `category`, `sale_amount`.
+
+**Query:**
+
+```sql
+SELECT category, SUM(sale_amount) AS total_revenue
+FROM sales_summary
+GROUP BY category
+ORDER BY total_revenue DESC;
+```
+
+**Insight:**
+The `ORDER BY total_revenue DESC` (Descending) puts the highest earning categories at the top. This gives us an instant leaderboard of performance.
+
+## Business Question 2: Which days of the week are busiest?
+
+**Goal:** The warehouse manager needs to staff the shipping department appropriately. They want to know which dates have the highest volume of orders.
+
+**Analysis:**
+We need to count the number of orders, grouped by date.
+
+**Query:**
+
+```sql
+SELECT order_date, COUNT(*) AS total_orders
+FROM orders
+GROUP BY order_date
+ORDER BY total_orders DESC;
+```
+
+**Insight:**
+If we see that Mondays consistently have the highest order counts, the manager knows to schedule more staff on Mondays.
+
+## Business Question 3: Who are our "One-Hit Wonder" customers?
+
+**Goal:** The CRM team wants to target customers who placed one order but never came back, to try and re-engage them.
+
+**Analysis:**
+We need to find customers who have a count of orders exactly equal to 1.
+
+**Query:**
+
+```sql
+SELECT customer_id, COUNT(*) AS order_count
+FROM orders
+GROUP BY customer_id
+HAVING COUNT(*) = 1;
+```
+
+**Insight:**
+This list of `customer_id`s can be fed into an email marketing tool to send a "We Miss You!" coupon code.
+
+## Exercises and Practice Activities
+
+To solidify your understanding, try these analytical challenges.
+
+### Exercise 1: The High Rollers
+
+Write a query to find the total revenue (`SUM(total_amount)`) for each customer, but only show the top 5 customers with the highest spend. (Hint: Use `ORDER BY ... DESC` and `LIMIT 5`).
+
+### Exercise 2: Monthly Performance
+
+Assuming you have a column `month` in your orders table, write a query to find the average order value (`AVG(total_amount)`) for each month.
+
+### Exercise 3: Inventory Audit
+
+Write a query to find which authors have a total stock quantity of 0 across all their books. (Hint: Group by author and check if the sum of stock is 0).
+
+## Concluding Thoughts
+
+In this lesson, we moved from learning syntax to solving problems. We used `SUM`, `COUNT`, `GROUP BY`, and `HAVING` to answer real questions about revenue, operations, and customer behavior. This is the essence of SQL: turning raw data into actionable business intelligence.
+
+In the final lesson of this module, we will take this one step further and calculate standard Key Performance Indicators (KPIs) that every business tracks.
+
+=START_QUESTIONS=Which clause allows you to sort the results of your aggregation?@@How would you limit the results to just the top 5 rows?@@To find the total revenue per category, which function and clause do you need?@@What is the business value of grouping orders by date? =END_QUESTIONS=

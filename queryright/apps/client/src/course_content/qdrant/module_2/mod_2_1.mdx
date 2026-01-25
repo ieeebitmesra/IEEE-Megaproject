@@ -1,0 +1,49 @@
+# Points & IDs
+
+In Qdrant, the basic unit of data is called a **Point**.
+
+---
+
+## What is a Point?
+
+A Point is the combination of:
+
+1. **ID:** A unique identifier (Number or UUID).
+2. **Vector:** The list of numbers (The "Meaning").
+3. **Payload:** Optional metadata (The "JSON").
+
+---
+
+## The ID
+
+Unlike MongoDB which uses `_id` strings, Qdrant allows two types of IDs:
+
+- **64-bit Integers:** `12345` (Very fast).
+- **UUIDs:** `e877080a-5b12-42b7-8984-63c87e500851` (Great for syncing with other databases like SQL).
+
+---
+
+## Real-World Example: Syncing with SQL
+
+Imagine you have a `users` table in Postgres with IDs like `101, 102, 103`.
+When you create vectors for these users, you should use the **same ID** in Qdrant.
+
+When Qdrant finds a match for "User 102," you can instantly reach back into Postgres to get their email address or profile picture using that same ID.
+
+---
+
+## Hypothetical Scenario: The "Identity Crisis"
+
+A developer generates IDs for Qdrant randomly. They find a great match: `ID: 98721`.
+But there is NO way to know which product that belongs to in the main database! They have to perform a slow "Scan" of the metadata to find out.
+
+**Pro-tip:** Always keep your IDs consistent across your primary database and your vector database.
+
+---
+
+## Quick Exercises:
+
+1. **The Trio**: List the three components of a Qdrant "Point."
+2. **Type check**: Which ID type is better if you want your IDs to be globally unique across multiple servers?
+3. **Logic**: Can a single Point have more than one vector attached to it? (Research needed, or wait for the "Named Vectors" lesson!).
+   grove.

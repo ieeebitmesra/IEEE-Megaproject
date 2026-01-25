@@ -1,0 +1,69 @@
+# Client-side vs. Server-side Search
+
+One of the biggest questions with Orama is: **"Where should the search happen?"** Both approaches have pros and cons.
+
+---
+
+## 1. Client-Side (Browser) Search
+
+The Orama index is downloaded to the user's computer.
+
+- **Pros:**
+  - Sub-millisecond search (no network lag).
+  - Works offline.
+  - Zero server costs for search.
+- **Cons:**
+  - User has to download the index (bad for indices > 5MB).
+  - Data is visible in the browser (bad for private data).
+
+---
+
+## 2. Server-Side (Edge) Search
+
+The index lives on a server (or Orama Cloud). The browser sends a request to it.
+
+- **Pros:**
+  - Can handle massive datasets (GBs of data).
+  - Data is secure (private).
+  - Very small initial page load.
+- **Cons:**
+  - Subject to network latency.
+  - Costs money to run the server/cloud.
+
+---
+
+## 3. The "Hybrid" Rule of Thumb
+
+- **Use Client-Side** for: Documentation, small blogs, mobile apps with offline modes (< 10,000 documents).
+- **Use Server-Side/Cloud** for: E-commerce with millions of items, medical records, or user-specific private data.
+
+---
+
+## Real-World Example: Mobile App Offline Search
+
+A field technician app has 5,000 service manuals.
+
+- The technician often works in basements with no Wi-Fi.
+- **Deployment:** The app downloads the Orama index when the technician is at the office.
+- Now, they can search for "Boiler Model X-2" in the basement and get instant results offline.
+
+---
+
+## Hypothetical Scenario: The "Secret" Price List
+
+A company has a list of "Wholesale Prices" that should only be seen by specific partners.
+
+- **The Problem:** If they use Client-Side search, a smart user could open the browser's "Network" tab and see the entire price list.
+- **The Solution:** They must use **Server-Side search** and verify the user's identity (Authentication) before returning the results.
+
+## Exercises
+
+1. **Trade-offs:** Name one advantage of Server-Side search.
+2. **Performance:** Why should you avoid Client-Side search for a 100MB index?
+3. **Security:** Which deployment pattern is more secure for private data?
+
+## Summary and Next Steps
+
+Choosing the right pattern is about balancing speed with security.
+
+In the next lesson, we wrap up with some **Monitoring and Quality** tips.

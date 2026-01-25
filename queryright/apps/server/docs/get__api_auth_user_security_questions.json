@@ -1,0 +1,88 @@
+{
+  "method": "GET",
+  "path": "/api/auth/user/security-questions",
+  "originalPath": "/api/auth/user/security-questions",
+  "query": {},
+  "params": {},
+  "customHeaders": {
+    "host": "localhost:4000",
+    "connection": "keep-alive",
+    "content-type": "application/json",
+    "accept": "*/*",
+    "accept-language": "*",
+    "sec-fetch-mode": "cors",
+    "user-agent": "node",
+    "accept-encoding": "gzip, deflate"
+  },
+  "response": {
+    "statusCode": 200,
+    "headers": {
+      "access-control-allow-origin": "http://localhost:3000",
+      "access-control-allow-credentials": "true",
+      "content-type": "application/json; charset=utf-8"
+    },
+    "body": {
+      "type": "json",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            }
+          },
+          "required": ["id", "text"]
+        }
+      },
+      "example": [
+        {
+          "id": "1",
+          "text": "What was the name of your first pet?"
+        },
+        {
+          "id": "2",
+          "text": "What is the model of your first car?"
+        },
+        {
+          "id": "3",
+          "text": "What was the name of your elementary school?"
+        },
+        {
+          "id": "4",
+          "text": "In what city were you born?"
+        },
+        {
+          "id": "5",
+          "text": "What is your mother's maiden name?"
+        },
+        {
+          "id": "6",
+          "text": "What is the name of the street you grew up on?"
+        },
+        {
+          "id": "7",
+          "text": "What was the name of your childhood best friend?"
+        },
+        {
+          "id": "8",
+          "text": "What was the name of the first company you worked for?"
+        },
+        {
+          "id": "9",
+          "text": "What is the name of your favorite childhood teacher?"
+        },
+        {
+          "id": "10",
+          "text": "Where did you meet your spouse or partner?"
+        }
+      ],
+      "signature": "array:id:string|text:string"
+    }
+  },
+  "timestamp": "2026-01-03T20:14:28.543Z",
+  "lastUpdated": "2026-01-03T20:14:28.543Z"
+}

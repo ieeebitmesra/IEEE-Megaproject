@@ -1,0 +1,56 @@
+# Project: The Librarian Chatbot
+
+Finally, let's turn our search engine into an **AI Librarian.**
+
+---
+
+## Step 4: The RAG Integration
+
+This function takes a question, finds the answer in Qdrant, and uses an LLM to explain it to the user.
+
+```javascript
+async function askLibrarian(question) {
+  // 1. Find the top 2 relevant snippets
+  const sources = await smartSearch(question)
+
+  if (sources.length === 0) {
+    return "I'm sorry, I don't have any books on that topic."
+  }
+
+  // 2. Build the context string
+  const context = sources.map((s) => `[${s.title}]: ${s.text}`).join('\n\n')
+
+  // 3. Prompt the LLM
+  const response = await chatGPT.ask({
+    system:
+      'You are the head librarian. Answer the question using ONLY the provided context.',
+    prompt: `CONTEXT:\n${context}\n\nUSER QUESTION: ${question}`,
+  })
+
+  return response
+}
+```
+
+---
+
+## The Value of RAG
+
+By adding this step, your app doesn't just show a list of books. It actually **Reads** the books for the user and summarizes the knowledge. This is the "Magic" that Qdrant unlocks.
+
+---
+
+## Project Conclusion:
+
+- You have built a **Semantic Vector Search**.
+- You handled **Metadata and Indexing**.
+- You implemented **Score Thresholds** to prevent errors.
+- You created a **RAG Pipeline** for knowledge generation.
+
+---
+
+## Quick Exercises:
+
+1. **Flow**: Draw a flowchart of data moving from the User -> Qdrant -> LLM -> User.
+2. **Improvement**: How could you use the "Positive/Negative" recommendation API from Module 4 to make this Librarian even better?
+3. **Draft**: What metadata field would you add to the Payload to allow the Librarian to "Link" the user to a purchase page for the book?
+   grove.

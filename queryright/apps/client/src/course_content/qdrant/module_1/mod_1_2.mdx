@@ -1,0 +1,44 @@
+# Dimensions & Vector Space
+
+We often talk about vectors having "Dimensions." This is just the size of the list of numbers.
+
+---
+
+## What are Dimensions?
+
+- **2D Vector:** `[1.2, 3.4]` (A point on a map: X and Y).
+- **3D Vector:** `[1.2, 3.4, 5.5]` (A point in a room: X, Y, and Z).
+- **LLM Vector:** `[0.1, 0.4, ... 1536 times]` (Modern AI models like GPT-4 use 1536 dimensions!).
+
+Each "Dimension" represents a specific trait or feature.
+
+- Dimension 1 might represent "Salty vs Sweet".
+- Dimension 2 might represent "Hot vs Cold".
+- Dimension 3 might represent "Solid vs Liquid".
+
+---
+
+## Real-World Example: The "Food Map"
+
+Imagine we model foods in 2D Space:
+
+- **Ice Cream**: `[0.1 (Salty), 0.9 (Sweet)]`
+- **Brownie**: `[0.15 (Salty), 0.85 (Sweet)]`
+- **Potato Chip**: `[0.9 (Salty), 0.1 (Sweet)]`
+
+In our **Vector Space**, the Ice Cream and Brownie are very close to each other. The Potato Chip is far away.
+
+---
+
+## The "Curse" of Dimensionality
+
+When you have 1,536 dimensions, humans cannot visualize it. But the math stays the same. Qdrant is built to handle this "High Dimensional" math efficiently without slowing down.
+
+---
+
+## Quick Exercises:
+
+1. **Count**: How many dimensions are in the vector `[0.1, 0.5, 0.2, 0.9, 0.4]`?
+2. **Visualization**: Why can't we draw a 1536-dimensional vector on a whiteboard?
+3. **Similarity**: If a vector has 100 dimensions, and 99 of them match perfectly, but one is completely different, are the items still "Similar"?
+   tundra.

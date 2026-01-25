@@ -1,0 +1,63 @@
+# Parallelism and Threading
+
+In the old days, databases processed queries sequentially. DuckDB is designed for modern "Multi-core" computers.
+
+---
+
+## 1. Automatic Parallelism
+
+By default, DuckDB looks at how many CPU cores your computer has and tries to use **all of them**.
+
+- If you have an 8-core Macbook, DuckDB will split a table into 8 chunks and process them simultaneously.
+
+---
+
+## 2. Controlling Threads
+
+Sometimes you don't want DuckDB to hog all the power (e.g., if you are running a web server on the same machine).
+
+```sql
+-- Limit DuckDB to 4 threads
+SET threads = 4;
+
+-- See how many threads are currently in use
+SELECT * FROM duckdb_settings() WHERE name = 'threads';
+```
+
+---
+
+## 3. Parallel CSV Sniffing
+
+Even the "Import" phase is parallel. DuckDB can read multiple parts of a single large CSV file at the same time and combine the results.
+
+---
+
+## Real-World Example: Server Migration
+
+You are running DuckDB on a cheap 2-core Cloud server. The query takes 10 seconds.
+
+- You upgrade the server to a 16-core instance.
+- **You change 0 lines of code.**
+- The query now takes under 2 seconds.
+- DuckDB automatically scaled its performance to match the new hardware.
+
+---
+
+## Hypothetical Scenario: The "Context Switch"
+
+A developer starts 10 different DuckDB connections at the same time in 10 different Python threads.
+
+- **The Problem:** Each connection is trying to use "All Cores." The CPU is overwhelmed by "Context Switching" (switching between the 10 tasks).
+- **The Solution:** They set `threads = 1` for each DuckDB connection. Now, the 10 connections work perfectly in parallel without fighting over the same cores.
+
+## Exercises
+
+1. **Default:** How many threads does DuckDB use by default?
+2. **Settings:** What SQL command do you use to limit the number of threads?
+3. **Hardware:** If you have 100GB of data and want to make DuckDB faster, should you buy a faster Hard Drive or a CPU with more Cores? (Assuming your RAM is sufficient).
+
+## Summary and Next Steps
+
+DuckDB makes sure no CPU core stays idle.
+
+But what if you are searching for a specific record in a 10TB dataset? Parallelism isn't enough; you need **Indexing**.

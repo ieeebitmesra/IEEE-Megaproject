@@ -1,0 +1,64 @@
+# Labels and Filtering
+
+How do you keep your graph organized when you have millions of nodes? You use **Labels**.
+
+---
+
+## 1. Multi-Labels
+
+In Neo4j, a node can have more than one label.
+
+- A node could be a `:Person` AND an `:Actor`.
+- `CREATE (n:Person:Actor {name: "Tom Hanks"})`
+
+---
+
+## 2. Filtering with WHERE
+
+Just like SQL, you can use `WHERE` to narrow down your results.
+
+```cypher
+MATCH (p:Person)-[:ACTED_IN]->(m:Movie)
+WHERE p.born > 1980 AND m.title STARTS WITH "The"
+RETURN p.name, m.title
+```
+
+---
+
+## 3. The Power of Indexing Labels
+
+When you query `(p:Person)`, Neo4j doesn't look at all nodes in the database. It only looks at nodes with the `:Person` label. This is like searching within a specific "Table" in SQL.
+
+---
+
+## Real-World Example: Content Management
+
+A website has `Articles`, `Videos`, and `Images`.
+
+- All of them share a `:Content` label.
+- But they also have specific labels (`:Article`, `:Video`).
+- If you want to search everything, you query `:Content`.
+- If you only want to see videos, you query `:Video`.
+- This "Hierarchy" makes searching very efficient.
+
+---
+
+## Hypothetical Scenario: The "VIP" User
+
+An app has 1 million users. 500 of them are "VIPs."
+
+- **Efficiency Hack:** Don't just put a `is_vip: true` property on the user.
+- Add a `:VIP` label to the node!
+- Now, when you want to send a message to all VIPs, Neo4j only looks at those 500 nodes instead of scanning all 1 million users for a boolean flag.
+
+## Exercises
+
+1. **Syntax:** Write a Cypher command to create a node with two labels: `Vehicle` and `Car`.
+2. **Filtering:** How do you find a `Movie` where the `rating` is greater than 8.5?
+3. **Logic:** Why is adding a "Label" better than a "Boolean Property" for large categories?
+
+## Summary and Next Steps
+
+Labels are the "Categories" of your graph.
+
+We wrap up Module 2 in the next lesson!

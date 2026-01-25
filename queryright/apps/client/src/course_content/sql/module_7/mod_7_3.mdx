@@ -1,0 +1,96 @@
+# Materialized Views for Performance Optimization
+
+In Module 6, we learned about standard **Views**. A standard View is a "virtual table"—it's just a saved query. Every time you select from it, the database runs the underlying query in real-time.
+
+If that underlying query is massive (e.g., joining 5 tables and aggregating millions of rows), the View will be slow.
+
+Enter the **Materialized View**.
+
+## Understanding Materialized Views
+
+A Materialized View is a query result that is **saved to disk** like a physical table.
+
+- **Pros:** Querying it is instant, because the math is already done.
+- **Cons:** The data is static. If the underlying tables change, the Materialized View becomes "stale" (outdated) until you refresh it.
+
+## Basic Syntax
+
+```sql
+CREATE MATERIALIZED VIEW view_name AS
+SELECT ...;
+```
+
+To update the data:
+
+```sql
+REFRESH MATERIALIZED VIEW view_name;
+```
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### Scenario: The Monthly Sales Dashboard
+
+We have a dashboard that shows total sales by author, category, and region. Calculating this takes 10 seconds because it scans the entire `Orders` history. The CEO checks this dashboard 50 times a day.
+
+**Step 1: Create the Materialized View**
+
+```sql
+CREATE MATERIALIZED VIEW mv_sales_dashboard AS
+SELECT
+    a.name AS author,
+    b.category,
+    SUM(o.total_amount) AS total_revenue
+FROM orders o
+JOIN order_items oi ON o.order_id = oi.order_id
+JOIN books b ON oi.book_id = b.book_id
+JOIN authors a ON b.author_id = a.author_id
+GROUP BY a.name, b.category;
+```
+
+**Step 2: Query It**
+
+```sql
+SELECT * FROM mv_sales_dashboard WHERE category = 'Sci-Fi';
+```
+
+- **Result:** Instant. 0.01 seconds.
+
+**Step 3: The Refresh Strategy**
+Since sales data changes every minute, but the CEO only needs "approximate" real-time data, we can set up a scheduled job (cron job) to run:
+
+```sql
+REFRESH MATERIALIZED VIEW CONCURRENTLY mv_sales_dashboard;
+```
+
+- **`CONCURRENTLY`**: This allows users to keep reading the old data while the new data is being calculated in the background. Without this, the view locks up during the refresh.
+
+## When to Use Them?
+
+- **Use for:** Complex analytical reports, dashboards, end-of-day summaries.
+- **Avoid for:** Real-time data needs (e.g., checking stock availability).
+
+## Exercises and Practice Activities
+
+To solidify your understanding, complete the following exercises.
+
+### Exercise 1: The Leaderboard
+
+Write the SQL to create a Materialized View called `mv_top_customers` that lists the top 100 customers by lifetime spend.
+
+### Exercise 2: The Stale Data Problem
+
+If a customer places an order right now, will it appear in `mv_top_customers` immediately? Why or why not?
+
+### Exercise 3: Refresh Impact
+
+Why might you choose to refresh a view at 3:00 AM instead of 12:00 PM?
+
+## Concluding Thoughts
+
+In this lesson, we learned how to cache complex query results using Materialized Views. This is a key tool for performance tuning in read-heavy environments.
+
+In the next lesson, we will explore **JSONB**. Modern databases like PostgreSQL are not just for rows and columns anymore; they can store flexible, document-style data just like MongoDB, allowing for hybrid data models.
+
+=START_QUESTIONS=What is the main difference between a View and a Materialized View?@@How do you update the data in a Materialized View?@@What does the keyword CONCURRENTLY do during a refresh?@@Is a Materialized View suitable for real-time stock checking? =END_QUESTIONS=

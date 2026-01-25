@@ -1,0 +1,118 @@
+# Building a Product Category Faceted Search
+
+Faceted search is a standard feature in modern applications, allowing users to refine search results by selecting filters (facets) such as brand, price range, or rating. Implementing this efficiently requires returning both the search results (the "hits") and the available filter counts (the "facets") in a single response. The `$facet` stage is designed specifically for this pattern.
+
+## The Faceted Search Pattern
+
+A typical faceted search pipeline follows this structure:
+
+1.  **`$match`**: Filter the entire collection based on the user's initial search query (e.g., "running shoes").
+2.  **`$facet`**: Split the pipeline into two parallel tracks:
+    - **Metadata Track:** Calculates counts for each filter category (e.g., how many are "Nike", how many are "Adidas").
+    - **Data Track:** Retrieves the actual documents for the current page (Sort -> Skip -> Limit).
+
+## Practical Demonstration
+
+### Scenario: Online Bookstore Search
+
+**Context:** A user searches for "Programming". We need to show the books matching that term, but also show a sidebar with counts for "Authors" and "Years", plus the total count of results for pagination.
+
+**Sample Data:** `books` collection
+
+```json
+[
+  {
+    "_id": 1,
+    "title": "MongoDB Basics",
+    "author": "Smith",
+    "year": 2022,
+    "tags": ["db", "programming"]
+  },
+  {
+    "_id": 2,
+    "title": "JS Guide",
+    "author": "Doe",
+    "year": 2021,
+    "tags": ["web", "programming"]
+  },
+  {
+    "_id": 3,
+    "title": "Python Intro",
+    "author": "Smith",
+    "year": 2022,
+    "tags": ["programming"]
+  },
+  {
+    "_id": 4,
+    "title": "Cooking 101",
+    "author": "Chef",
+    "year": 2020,
+    "tags": ["cooking"]
+  }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.books.aggregate([
+  // 1. Initial Search Filter
+  {
+    $match: { tags: 'programming' },
+  },
+  // 2. Parallel Processing
+  {
+    $facet: {
+      // Track 1: The Results (Paginated)
+      results: [{ $sort: { year: -1 } }, { $skip: 0 }, { $limit: 10 }],
+      // Track 2: Author Facet
+      authors: [{ $group: { _id: '$author', count: { $sum: 1 } } }],
+      // Track 3: Year Facet
+      years: [
+        { $group: { _id: '$year', count: { $sum: 1 } } },
+        { $sort: { _id: -1 } }, // Sort years descending
+      ],
+      // Track 4: Total Count (for pagination UI)
+      totalCount: [{ $count: 'count' }],
+    },
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[
+  {
+    "results": [
+      { "_id": 1, "title": "MongoDB Basics", "year": 2022, ... },
+      { "_id": 3, "title": "Python Intro", "year": 2022, ... },
+      { "_id": 2, "title": "JS Guide", "year": 2021, ... }
+    ],
+    "authors": [
+      { "_id": "Smith", "count": 2 },
+      { "_id": "Doe", "count": 1 }
+    ],
+    "years": [
+      { "_id": 2022, "count": 2 },
+      { "_id": 2021, "count": 1 }
+    ],
+    "totalCount": [
+      { "count": 3 }
+    ]
+  }
+]
+```
+
+## Performance Considerations
+
+While `$facet` is powerful, it has a limitation: the resulting document (containing all arrays) must fit within the 16MB BSON limit.
+
+- **Pagination is Key:** Ensure the "results" facet uses `$limit` to keep the array small.
+- **Cardinality:** If a facet (like "Authors") has thousands of unique values, the output array might grow too large. In such cases, consider limiting the facet results (e.g., "Top 10 Authors").
+
+## Summary
+
+By combining `$match` with `$facet`, you can build a robust search backend that provides users with both the data they asked for and the context they need to refine their search further—all in a single database operation.
+
+In the next lesson, we will shift gears to graph data and explore **The `$graphLookup` Stage**, which allows for recursive data traversal.

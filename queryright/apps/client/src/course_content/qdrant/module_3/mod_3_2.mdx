@@ -1,0 +1,40 @@
+# Cosine Similarity: The Industry Standard
+
+Cosine Similarity is the most common metric used in text search.
+
+---
+
+## The Angle, Not the Length
+
+Cosine Similarity doesn't look at how "Big" the numbers are (the length of the vector). It looks at the **Angle** between them.
+
+- **Angle 0°:** The vectors point in exactly the same direction. (Similarity = 1.0).
+- **Angle 90°:** The vectors have nothing in common. (Similarity = 0.0).
+- **Angle 180°:** They are complete opposites. (Similarity = -1.0).
+
+---
+
+## Why use Cosine?
+
+It is perfect for **Text**.
+Think back to our "Great" vs "Great great great" example. A short review and a long review about the same topic will point in the **same direction**, even if one vector is much "longer." Cosine sees them as identical.
+
+---
+
+## Real-World Example: News Categorization
+
+A news agency wants to group articles.
+
+- **Article 1:** 500 words about the Stock Market.
+- **Article 2:** 5,000 words about the Stock Market.
+
+Even though Article 2 is much longer (and has "bigger" numbers in its vector), the **Angle** between them will be tiny. Cosine will correctly group them as "Finance."
+
+---
+
+## Quick Exercises:
+
+1. **The Range**: What is the maximum similarity score for Cosine? (Hint: It’s between -1 and 1).
+2. **Comparison**: Why is Cosine better than "Length" for comparing two documents of different sizes?
+3. **Scenario**: If "Love" and "Hate" are complete opposites, what would their Cosine angle likely be? (0°, 90°, or 180°?)
+   grove.

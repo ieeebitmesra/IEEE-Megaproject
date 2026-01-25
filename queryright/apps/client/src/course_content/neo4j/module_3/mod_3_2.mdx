@@ -1,0 +1,75 @@
+# Aggregations: Count, Collect, Unwind
+
+Sometimes you don't want the individual nodes; you want the **big picture**.
+
+---
+
+## 1. Counting Results
+
+Just like SQL, we use `count()`.
+
+```cypher
+MATCH (p:Person)-[:FOLLOWS]->(u:User {name: "Bob"})
+RETURN count(p) as followerCount
+```
+
+---
+
+## 2. Collecting into a List
+
+This is a "Graph Special." Use `collect()` to turn multiple rows into a single list.
+
+```cypher
+MATCH (p:Person {name: "Alice"})-[:LIKES]->(m:Movie)
+RETURN p.name, collect(m.title) as favoriteMovies
+```
+
+_Output: Alice | ["The Matrix", "Inception", "Titanic"]_
+
+---
+
+## 3. The Reverse: UNWIND
+
+If you have a list and want to turn it back into individual rows, use `UNWIND`.
+
+```cypher
+WITH ["Pizza", "Burgers", "Sushi"] AS foodList
+UNWIND foodList AS food
+RETURN food
+```
+
+---
+
+## Real-World Example: Recommendation Engine
+
+You want to show a list of "Mutual Friends."
+
+```cypher
+MATCH (me:User {name: "Me"}), (them:User {name: "Target"})
+MATCH (me)-[:FRIEND]-(mutual)-[:FRIEND]-(them)
+RETURN them.name, collect(mutual.name) as sharedFriends, count(mutual) as count
+```
+
+- This query finds everyone connected to both "Me" and "Target," counts them, and lists their names in one clean result.
+
+---
+
+## Hypothetical Scenario: The "Shopping Cart" Analysis
+
+A product manager wants to see groups of products bought together.
+
+- They query for all `[:BOUGHT]` relationships.
+- They use `collect(product.name)` to get a list of every item in every order.
+- By using `count(distinct order)`, they can see which combinations are the most popular.
+
+## Exercises
+
+1. **Syntax:** Which function turns a column of nodes into a single array?
+2. **Logic:** Why is `collect()` useful for building an API response?
+3. **Drafting:** Write a query that returns the count of all `ACTED_IN` relationships for the actor "Tom Hanks".
+
+## Summary and Next Steps
+
+Aggregations allow you to summarize complex graph patterns into simple stats.
+
+Next, we look at **Shortest Path**—the magic behind Google Maps and social networking.

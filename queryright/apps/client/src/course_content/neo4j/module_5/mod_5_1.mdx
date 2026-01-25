@@ -1,0 +1,59 @@
+# Intro to Graph Data Science (GDS)
+
+A graph is more than just data storage; it is a mathematical structure. **Graph Data Science (GDS)** is the practice of running algorithms on the "Shape" of the graph to find hidden patterns.
+
+---
+
+## 1. What is the GDS Library?
+
+GDS is a plugin for Neo4j that adds advanced algorithms. You don't use Cypher `MATCH` for these; you use specialized "Procedures" (e.g., `CALL gds.pageRank.stream(...)`).
+
+---
+
+## 2. The Three Steps of GDS
+
+1. **Project the Graph:** GDS takes a "Copy" of your graph and stores it in RAM. This makes it thousands of times faster because it's optimized for math, not storage.
+2. **Run the Algorithm:** You call the algorithm (e.g., "Find the most important nodes").
+3. **Write Back or Stream:** You save the results back to the database or send them to your application.
+
+---
+
+## 3. Why GDS?
+
+Traditional Cypher searches for **Patterns**. GDS searches for **Topology**.
+
+- Cypher: "Find all users who follow Alice."
+- GDS: "Find the most influential user in the entire network."
+
+---
+
+## Real-World Example: Infrastructure Stability
+
+An electric company models its grid in Neo4j (Power Plants -> Substations -> Transformers).
+
+- They use GDS to simulate a "Failure Point."
+- If we delete "Substation A," how many houses lose power?
+- It computes the "Critical Nodes" that, if broken, would cause the most damage to the system.
+
+---
+
+## Hypothetical Scenario: The "Influencer" Search
+
+A marketing agency wants to give a free sample to the most "Connected" person in a city.
+
+- They have a graph of 1 million people.
+- **The Problem:** Simply having the most followers isn't enough—you need to follow someone who _also_ has many followers.
+- **The Solution:** They run **PageRank** (the GDS algorithm Google uses).
+- The result is a list of users who are the "true" centers of influence.
+
+## Exercises
+
+1. **Philosophy:** What is the difference between "Pattern Matching" and "Topology"?
+2. **Process:** Why does GDS "Project" the graph into memory before running algorithms?
+3. **Logic:** Name one algorithm you've heard of that works on graphs.
+
+## Summary and Next Steps
+
+GDS turns your database into a lab.
+
+Next, we look at our first specific algorithm: **PageRank (Centrality).**

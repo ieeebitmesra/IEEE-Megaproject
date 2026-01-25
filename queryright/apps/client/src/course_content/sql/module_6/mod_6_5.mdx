@@ -1,0 +1,65 @@
+# Best Practices for Writing Efficient SQL Queries
+
+Writing SQL that "works" is easy. Writing SQL that is fast, readable, and scalable is a skill that sets professionals apart. Based on everything we have covered in this course, here are the Golden Rules of SQL.
+
+## 1. Select Only What You Need
+
+- **Bad:** `SELECT * FROM orders;`
+- **Good:** `SELECT order_id, total_amount FROM orders;`
+- **Why:** Retrieving extra columns wastes network bandwidth and memory. If a table has 50 columns and you only need 2, `SELECT *` is 25x more expensive than necessary.
+
+## 2. Avoid Functions on Indexed Columns
+
+- **Bad:** `WHERE YEAR(order_date) = 2023`
+- **Good:** `WHERE order_date >= '2023-01-01' AND order_date < '2024-01-01'`
+- **Why:** Wrapping a column in a function (like `YEAR()`) "hides" the raw data from the index. The database has to calculate the year for _every single row_ (Sequential Scan) instead of just looking up the dates in the index. This is called **SARGable** (Search ARGument able) queries.
+
+## 3. Use Joins Instead of Subqueries (Usually)
+
+- **Bad:** `SELECT * FROM orders WHERE customer_id IN (SELECT id FROM customers WHERE country = 'USA')`
+- **Good:** `SELECT o.* FROM orders o JOIN customers c ON o.customer_id = c.id WHERE c.country = 'USA'`
+- **Why:** Modern optimizers are very good at Joins. Correlated subqueries, in particular, can be performance killers.
+
+## 4. Use LIMIT for Sampling
+
+- **Bad:** Running a query on 1 million rows just to see what the data looks like.
+- **Good:** `SELECT * FROM orders LIMIT 10;`
+- **Why:** It stops the database from doing unnecessary work.
+
+## 5. Format Your Code
+
+- **Bad:** `SELECT id,name FROM users WHERE age>18 ORDER BY name`
+- **Good:**
+  ```sql
+  SELECT id, name
+  FROM users
+  WHERE age > 18
+  ORDER BY name;
+  ```
+- **Why:** You (and your teammates) will have to read this code later. Readability reduces bugs.
+
+## Exercises and Practice Activities
+
+To solidify your understanding, complete the following exercises.
+
+### Exercise 1: The Refactor
+
+Rewrite this query to be more efficient:
+`SELECT * FROM books WHERE lower(title) = '1984';`
+(Assume `title` is indexed. Hint: You might need to change how you store the data or use a functional index).
+
+### Exercise 2: The Wildcard
+
+Why is `WHERE name LIKE '%Smith'` (leading wildcard) much slower than `WHERE name LIKE 'Smith%'` (trailing wildcard)?
+
+### Exercise 3: The Code Review
+
+Look at a query you wrote in Module 2 or 3. Apply these best practices to clean it up.
+
+## Concluding Thoughts
+
+In this lesson, we summarized the habits of highly effective SQL developers.
+
+In the final lesson of Module 6, we will cover **Transactions**. This is the safety mechanism that ensures that when money leaves one account, it definitely arrives in the other, preventing data corruption during crashes or errors.
+
+=START_QUESTIONS=Why should you avoid SELECT \*?@@What does SARGable mean?@@Why is a leading wildcard (%) bad for performance?@@Why is formatting code important? =END_QUESTIONS=

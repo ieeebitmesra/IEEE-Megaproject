@@ -1,0 +1,68 @@
+# Indexing in an OLAP World
+
+In transactional databases (like Postgres), you put an index on almost every column. In DuckDB, indices are **rare**. Let's understand why.
+
+---
+
+## 1. Why we often DON'T need indices
+
+DuckDB uses **Zone Maps** (or Min-Max Indexes).
+
+- Every 100,000 rows, DuckDB stores the `min(price)` and `max(price)`.
+- If you search `WHERE price > 5000`, DuckDB checks the zone maps.
+- If a chunk has a `max` of `4000`, DuckDB skips the entire chunk of 100,000 rows.
+- This is done automatically and for free.
+
+---
+
+## 2. When to use Positional Indices
+
+If you are doing "needle in a haystack" lookups (finding 1 specific user ID out of 100 million), a standard index is still useful.
+
+```sql
+CREATE INDEX user_idx ON users (user_id);
+```
+
+**Pros:** `SELECT * FROM users WHERE user_id = 'abc'` becomes nearly instant.
+**Cons:**
+
+1. **Slower Inserts:** Every new row must update the index.
+2. **Larger Files:** Indices take up space on your disk.
+
+---
+
+## 3. ART: The Adaptive Radix Tree
+
+DuckDB uses a specialized type of index called an **ART**.
+
+- It is designed to fit in CPU caches better than the traditional "B-Trees" used by other databases.
+
+---
+
+## Real-World Example: Time-Series Logs
+
+A company has 10TB of logs indexed by `timestamp`.
+
+- Because the data is naturally "sorted" by time, the **Zone Maps** are incredibly effective.
+- Searching for logs between `9:00 AM` and `9:05 AM` skips 99.9% of the file without a single manually created index.
+
+---
+
+## Hypothetical Scenario: The "Constraint" ERROR
+
+A developer tries to create a `PRIMARY KEY` on a table.
+
+- **The Result:** Behind the scenes, DuckDB creates an index to ensure every value is unique.
+- **The Lesson:** If your data is "Read-Only" (like a finished report), don't bother with primary keys or indices. Let the columnar engine do its thing.
+
+## Exercises
+
+1. **Automation:** What is a "Zone Map" and do you have to create it yourself?
+2. **Tradeoff:** What is one disadvantage of adding an index to a DuckDB table?
+3. **Choice:** If you are building a dashboard that shows "Total Revenue per Month," would an index on `order_id` help with performance?
+
+## Summary and Next Steps
+
+Indices are for finding "One"; Columnar scans are for finding "All."
+
+What happens when your query needs more RAM than you have? In the next lesson, we look at **Memory Management and Spill-to-Disk**.

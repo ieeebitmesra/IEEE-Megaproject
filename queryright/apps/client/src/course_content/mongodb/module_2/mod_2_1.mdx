@@ -1,0 +1,321 @@
+# The `$group` Stage: Grouping Documents by Key
+
+The $group stage is a fundamental aggregation pipeline operator in MongoDB that processes documents and groups them by a specified key. For each unique grouping key, $group collects all documents that share that key and then applies one or more accumulator expressions to compute a single result document for each group. This allows for summarizing and aggregating data across collections.
+
+## Grouping Documents with \_id
+
+The \_id field in the $group stage is crucial as it defines the grouping key. All documents that evaluate to the same value for the \_id expression are placed into the same group. If you specify \_id: null, all input documents are considered a single group.
+
+### Basic Grouping by a Single Field
+
+To group documents by a single field, set the \_id to that field's name, prefixed with a dollar sign ($) to indicate a field path.
+
+Example: Grouping Orders by Customer ID
+
+Consider a collection named orders with documents like:
+
+```json
+[
+  { "_id": 1, "customerId": "A101", "orderDate": ISODate("2023-01-15T10:00:00Z"), "totalAmount": 150.75, "items": ["Laptop", "Mouse"] },
+  { "_id": 2, "customerId": "A102", "orderDate": ISODate("2023-01-15T11:00:00Z"), "totalAmount": 25.00, "items": ["Keyboard"] },
+  { "_id": 3, "customerId": "A101", "orderDate": ISODate("2023-01-16T09:30:00Z"), "totalAmount": 75.20, "items": ["Monitor"] },
+  { "_id": 4, "customerId": "A103", "orderDate": ISODate("2023-01-16T14:00:00Z"), "totalAmount": 300.50, "items": ["Webcam", "Headset"] }
+]
+```
+
+To group these orders by customerId and find the total count of orders for each customer:
+
+```javascript
+db.orders.aggregate([
+  {
+    $group: {
+      _id: '$customerId', // Group by the 'customerId' field
+      orderCount: { $sum: 1 }, // Accumulator to count documents in each group
+    },
+  },
+])
+```
+
+Result:
+
+```json
+[
+  { "_id": "A101", "orderCount": 2 },
+  { "_id": "A102", "orderCount": 1 },
+  { "_id": "A103", "orderCount": 1 }
+]
+```
+
+In this example:
+
+- `_id: "$customerId"` specifies that documents should be grouped based on the unique values of the `customerId` field.
+- `orderCount: { $sum: 1 }` is an accumulator operator. For each document processed within a group, `$sum: 1` adds 1 to the `orderCount` field, effectively counting the documents.
+
+### Grouping by Multiple Fields (Compound Grouping Key)
+
+You can group documents by a combination of multiple fields by defining the \_id as a document containing these fields.
+
+Example: Grouping Sales by Region and Product Category
+
+Consider a sales collection:
+
+```json
+[
+  { "_id": 1, "region": "East", "category": "Electronics", "amount": 1200 },
+  { "_id": 2, "region": "West", "category": "Electronics", "amount": 800 },
+  { "_id": 3, "region": "East", "category": "Apparel", "amount": 300 },
+  { "_id": 4, "region": "East", "category": "Electronics", "amount": 1500 },
+  { "_id": 5, "region": "West", "category": "Apparel", "amount": 450 }
+]
+```
+
+To group by both region and category to see the total sales for each unique combination:
+
+```javascript
+db.sales.aggregate([
+  {
+    $group: {
+      _id: {
+        region: '$region', // Part of the compound key
+        category: '$category', // Another part of the compound key
+      },
+      totalSales: { $sum: '$amount' }, // Accumulator to sum 'amount' for each group
+    },
+  },
+])
+```
+
+Result:
+
+```json
+[
+  { "_id": { "region": "East", "category": "Apparel" }, "totalSales": 300 },
+  { "_id": { "region": "West", "category": "Apparel" }, "totalSales": 450 },
+  {
+    "_id": { "region": "East", "category": "Electronics" },
+    "totalSales": 2700
+  },
+  { "_id": { "region": "West", "category": "Electronics" }, "totalSales": 800 }
+]
+```
+
+Here, the `_id` is an embedded document `{ region: "$region", category: "$category" }`. MongoDB creates a new group for every unique combination of region and category values.
+
+### Grouping by an Expression
+
+The \_id field can also be an aggregation expression. This allows for more dynamic and complex grouping logic.
+
+Example: Grouping Orders by Order Month
+
+Using the orders collection, let's group orders by the month they were placed. This requires extracting the month from the orderDate field.
+
+```javascript
+db.orders.aggregate([
+  {
+    $group: {
+      _id: { $month: '$orderDate' }, // Group by the month extracted from 'orderDate'
+      totalOrdersInMonth: { $sum: 1 },
+    },
+  },
+])
+```
+
+Result (assuming orderDate values from the orders collection are in January, which is month 1):
+
+```json
+[
+  { "_id": 1, "totalOrdersInMonth": 4 } // All orders are in January (month 1)
+]
+In this case, $month is a date aggregation operator (which will be covered in detail in Module 4). It extracts the month (as a number from 1 to 12) from a date field, and this extracted value then serves as the grouping key.
+
+```
+
+## Accumulator Operators Overview
+
+Accumulator operators process the documents within each group and return a single value. While $sum was used in the previous examples, many other accumulators exist for various aggregation needs. A full introduction to these operators is in the next lesson, but here's a brief mention of some common ones:
+
+$sum: Calculates the sum of numeric values.
+$avg: Calculates the average of numeric values.
+$min: Returns the minimum value.
+$max: Returns the maximum value.
+$first: Returns the value from the first document in the group (based on implicit order, or explicit if a $sort stage precedes $group).
+$last: Returns the value from the last document in the group (based on implicit order, or explicit if a $sort stage precedes $group).
+$push: Returns an array of all values for the specified field in the group.
+$addToSet: Returns an array of all unique values for the specified field in the group.
+The result document for each group contains the \_id field representing the group key and additional fields defined by the accumulator expressions.
+
+## Practical Examples and Demonstrations
+
+### Scenario 1: E-commerce Product Analytics
+
+**Goal:** Determine the total quantity sold and average price for each product.
+
+Collection: productsSold
+
+```json
+[
+  {
+    "_id": 1,
+    "productId": "P001",
+    "productName": "Laptop X",
+    "quantity": 2,
+    "price": 1200
+  },
+  {
+    "_id": 2,
+    "productId": "P002",
+    "productName": "Keyboard Y",
+    "quantity": 5,
+    "price": 75
+  },
+  {
+    "_id": 3,
+    "productId": "P001",
+    "productName": "Laptop X",
+    "quantity": 1,
+    "price": 1200
+  },
+  {
+    "_id": 4,
+    "productId": "P003",
+    "productName": "Monitor Z",
+    "quantity": 3,
+    "price": 300
+  },
+  {
+    "_id": 5,
+    "productId": "P002",
+    "productName": "Keyboard Y",
+    "quantity": 3,
+    "price": 75
+  }
+]
+```
+
+Aggregation Pipeline:
+
+```javascript
+db.productsSold.aggregate([
+  {
+    $group: {
+      _id: '$productId', // Group by product ID
+      productName: { $first: '$productName' }, // Get the product name (assuming it's consistent for a product ID)
+      totalQuantitySold: { $sum: '$quantity' }, // Sum up the quantity sold
+      averagePrice: { $avg: '$price' }, // Calculate the average price (for verification, should be consistent here)
+    },
+  },
+])
+```
+
+**Explanation:**
+
+- `_id: "$productId"` groups all sales records for the same product together.
+- `productName: { $first: "$productName" }` takes the `productName` from the first document encountered in each group. This is safe here because `productName` is expected to be consistent for a given `productId`.
+- `totalQuantitySold: { $sum: "$quantity" }` adds up the quantity for all documents in the group.
+- `averagePrice: { $avg: "$price" }` calculates the average price for all documents in the group.
+
+**Result:**
+
+```json
+[
+  {
+    "_id": "P002",
+    "productName": "Keyboard Y",
+    "totalQuantitySold": 8,
+    "averagePrice": 75
+  },
+  {
+    "_id": "P001",
+    "productName": "Laptop X",
+    "totalQuantitySold": 3,
+    "averagePrice": 1200
+  },
+  {
+    "_id": "P003",
+    "productName": "Monitor Z",
+    "totalQuantitySold": 3,
+    "averagePrice": 300
+  }
+]
+```
+
+### Scenario 2: Employee Department Analysis
+
+**Goal:** Find the number of employees in each department and the highest salary in that department.
+
+Collection: employees
+
+```json
+[
+  { "_id": 1, "name": "Alice", "department": "HR", "salary": 60000 },
+  { "_id": 2, "name": "Bob", "department": "Engineering", "salary": 90000 },
+  { "_id": 3, "name": "Charlie", "department": "HR", "salary": 75000 },
+  { "_id": 4, "name": "David", "department": "Engineering", "salary": 110000 },
+  { "_id": 5, "name": "Eve", "department": "Marketing", "salary": 80000 }
+]
+```
+
+Aggregation Pipeline:
+
+```javascript
+db.employees.aggregate([
+  {
+    $group: {
+      _id: '$department', // Group by department
+      employeeCount: { $sum: 1 }, // Count employees in each department
+      maxSalary: { $max: '$salary' }, // Find the maximum salary in each department
+    },
+  },
+])
+```
+
+Explanation:
+
+```
+_id: "$department" groups employees by their respective departments.
+employeeCount: { $sum: 1 } counts each employee record within a department group.
+maxSalary: { $max: "$salary" } finds the highest salary value among all employees in that department.
+```
+
+Result:
+
+```json
+[
+  { "_id": "HR", "employeeCount": 2, "maxSalary": 75000 },
+  { "_id": "Marketing", "employeeCount": 1, "maxSalary": 80000 },
+  { "_id": "Engineering", "employeeCount": 2, "maxSalary": 110000 }
+]
+```
+
+## Exercises and Practice Activities
+
+**1.** Use the productsSold collection from Scenario 1.
+
+Group by productName and find the total quantity sold for each unique product name.
+
+Hint: Your \_id will be "$productName".
+Expected output for "Laptop X" should be 3.
+
+```javascript
+// Your code here
+Using the employees collection from Scenario 2, group employees by department and calculate both the total salary expenditure and the average salary for each department.
+```
+
+Hint: You will need two accumulator operators: $sum and $avg.
+
+```javascript
+// Your code here
+For the orders collection (from the introduction):
+```
+
+Group orders by the day of the month they were placed.
+Count the total orders for each day.
+Hint: Use the $dayOfMonth date operator within your _id expression. (Module 4 will cover date operators in depth, but you can use $dayOfMonth: "$orderDate" for this exercise.)
+
+```javascript
+// Your code here
+Summary and Next Steps
+The $group stage is a powerful tool for aggregating and summarizing data in MongoDB. You've learned how to define grouping keys using single fields, compound fields, and expressions, and how to use basic accumulator operators like $sum, $first, $max, and $avg to derive meaningful insights from grouped data. This stage is foundational for various analytical tasks, from calculating sums and averages to finding minimums and maximums within specific categories.
+```
+
+In the next lesson, you will dive deeper into Introduction to Accumulator Operators ($sum, $avg, $min, $max), exploring a wider range of accumulator expressions and their specific uses in conjunction with the $group stage. This will equip you with a comprehensive understanding of how to perform complex calculations on your grouped data.

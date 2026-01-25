@@ -1,0 +1,123 @@
+# Practical Applications of Graph Aggregation
+
+While the basic mechanics of `$graphLookup` allow for simple traversals, its real power emerges when applied to complex, real-world data structures. In this lesson, we will explore two common design patterns: managing threaded discussions (like Reddit or Hacker News) and analyzing social network connections.
+
+## Scenario 1: Threaded Comments
+
+**Context:** In a discussion forum, comments can be replies to other comments, creating a nested tree structure. We want to retrieve a root comment and all its descendants, knowing exactly how deep each reply is nested.
+
+**Sample Data:** `comments` collection
+
+```json
+[
+  { "_id": 1, "text": "Root Post", "replyTo": null },
+  { "_id": 2, "text": "First Reply", "replyTo": 1 },
+  { "_id": 3, "text": "Second Reply", "replyTo": 1 },
+  { "_id": 4, "text": "Reply to First", "replyTo": 2 }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.comments.aggregate([
+  {
+    $match: { _id: 1 }, // Start with the root post
+  },
+  {
+    $graphLookup: {
+      from: 'comments',
+      startWith: '$_id',
+      connectFromField: '_id',
+      connectToField: 'replyTo',
+      as: 'thread',
+      depthField: 'level', // Adds a field 'level' to each found doc (0, 1, 2...)
+    },
+  },
+  // Optional: Sort the thread by level to see structure
+  {
+    $addFields: {
+      thread: {
+        $sortArray: { input: '$thread', sortBy: { level: 1 } },
+      },
+    },
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[
+  {
+    "_id": 1,
+    "text": "Root Post",
+    "thread": [
+      { "_id": 2, "text": "First Reply", "replyTo": 1, "level": 0 },
+      { "_id": 3, "text": "Second Reply", "replyTo": 1, "level": 0 },
+      { "_id": 4, "text": "Reply to First", "replyTo": 2, "level": 1 }
+    ]
+  }
+]
+```
+
+_Note: The `level` indicates the number of hops from the start node. Level 0 are direct replies._
+
+## Scenario 2: Social Network Connections (Friends of Friends)
+
+**Context:** We want to suggest friends to a user by finding "friends of friends" (2nd-degree connections) who are not already friends with the user.
+
+**Sample Data:** `users` collection
+
+```json
+[
+  { "_id": "Alice", "friends": ["Bob", "Charlie"] },
+  { "_id": "Bob", "friends": ["Alice", "David"] },
+  { "_id": "Charlie", "friends": ["Alice", "Eve"] },
+  { "_id": "David", "friends": ["Bob"] },
+  { "_id": "Eve", "friends": ["Charlie"] }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.users.aggregate([
+  { $match: { _id: 'Alice' } },
+  {
+    $graphLookup: {
+      from: 'users',
+      startWith: '$friends', // Start with Alice's friends (Bob, Charlie)
+      connectFromField: 'friends',
+      connectToField: '_id',
+      as: 'network',
+      maxDepth: 1, // Go 2 levels deep (0=friends, 1=friends of friends)
+      depthField: 'degree',
+    },
+  },
+  {
+    $project: {
+      suggestions: {
+        $filter: {
+          input: '$network',
+          as: 'person',
+          // Keep only 2nd degree connections (degree 1)
+          cond: { $eq: ['$$person.degree', 1] },
+        },
+      },
+    },
+  },
+])
+```
+
+**Analysis:**
+
+- **Depth 0:** Bob and Charlie (Alice's direct friends).
+- **Depth 1:** David (Bob's friend) and Eve (Charlie's friend).
+- The filter removes Bob and Charlie, leaving David and Eve as suggestions.
+
+## Summary
+
+By utilizing the `depthField` and `maxDepth` parameters, `$graphLookup` becomes a versatile tool for analyzing relationships. Whether you are reconstructing a conversation tree or traversing a social graph, these patterns allow you to extract meaningful hierarchical insights efficiently.
+
+In the next lesson, we will combine these concepts in a **Hands-on Lab: Implementing a Recommendation Engine**.

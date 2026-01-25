@@ -1,0 +1,106 @@
+# Metric Aggregations
+
+Metric aggregations perform calculations on numeric fields. They are the building blocks of data analysis.
+
+---
+
+## 1. Single-Value Metrics
+
+These return a single number.
+
+- **`sum`**: Total of all values.
+- **`avg`**: Mean average.
+- **`min` / `max`**: Lowest and highest values.
+- **`value_count`**: How many documents have a value in this field.
+
+```http
+GET /orders/_search
+{
+  "size": 0,
+  "aggs": {
+    "total_revenue": {
+      "sum": { "field": "price" }
+    }
+  }
+}
+```
+
+---
+
+## 2. Multi-Value Metrics
+
+Some aggregations return multiple numbers at once.
+
+### Stats Aggregator
+
+The `stats` aggregation is a shortcut. It returns `min`, `max`, `sum`, `count`, and `avg` in one go.
+
+```http
+"aggs": {
+  "price_stats": {
+    "stats": { "field": "price" }
+  }
+}
+```
+
+### Extended Stats
+
+This goes further and adds **standard deviation** and **variance**. Perfect for identifying "outliers" in your data.
+
+---
+
+## 3. Percentiles
+
+Percentiles show you the distribution of your data.
+
+- "What is the 95th percentile (P95) for website load time?"
+- This tells you that "95% of users experience a load time faster than X."
+
+```http
+"aggs": {
+  "load_time_outliers": {
+    "percentiles": {
+      "field": "load_ms",
+      "percents": [50, 95, 99]
+    }
+  }
+}
+```
+
+---
+
+## Real-World Example: Financial Reporting
+
+An insurance company needs to know their risk exposure.
+
+1. They use `sum` to find the total value of all active policies.
+2. They use `max` to find their single most expensive policy.
+3. They use `avg` to see the typical policy value.
+4. They use `percentiles` to see if their pricing is consistent across 99% of their customers.
+
+---
+
+## Hypothetical Scenario: The "Null" Price
+
+A developer runs an `avg` aggregation on the `price` field. Half of the documents don't have a price (they are `null`).
+
+- **The Behavior:** By default, Elasticsearch ignores documents missing the field.
+- **The Solution:** Use `missing` to provide a default value for those documents.
+  ```json
+  "avg": {
+    "field": "price",
+    "missing": 0
+  }
+  ```
+
+## Exercises
+
+1. **Quick Math:** If you want to know the highest and lowest temperatures recorded today, which aggregation(s) should you use?
+2. **Analysis:** Why is the `stats` aggregation better than running 5 separate aggregations?
+3. **Distribution:** If your P99 (99th percentile) is 10 seconds, but your P50 (median) is 0.1 seconds, what does that tell you about your system?
+
+## Summary and Next Steps
+
+Metric aggregations provide the "what." Now we need to define the "who" or "where" using **Bucket Aggregations**.
+
+Next, we'll learn how to group documents by terms, ranges, and dates.

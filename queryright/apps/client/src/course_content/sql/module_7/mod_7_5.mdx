@@ -1,0 +1,96 @@
+# Regular Expressions in SQL for Pattern Matching
+
+We are familiar with the `LIKE` operator for simple pattern matching (`%` and `_`). But what if you need to find something more specific?
+
+- "Find all strings that look like a credit card number."
+- "Find all emails that don't end in .com or .net."
+- "Find all book titles that contain a number."
+
+For these complex patterns, we use **Regular Expressions (Regex)**. In PostgreSQL, the operator for regex matching is `~`.
+
+## Basic Regex Syntax in PostgreSQL
+
+- `~` : Case-sensitive match.
+- `~*` : Case-insensitive match.
+- `!~` : Does not match.
+
+### Common Regex Symbols
+
+- `^`: Start of string.
+- `$`: End of string.
+- `.`: Any single character.
+- `[abc]`: Any one of a, b, or c.
+- `[0-9]`: Any digit.
+- `*`: Zero or more repetitions.
+- `+`: One or more repetitions.
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### Scenario 1: Validating Emails
+
+We want to find customers who might have entered invalid email addresses (e.g., missing the '@' symbol).
+
+**Query:**
+
+```sql
+SELECT email
+FROM customers
+WHERE email !~* '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$';
+```
+
+- **Analysis:** This complex pattern checks for standard email format. `!~*` returns rows that _fail_ this check.
+
+### Scenario 2: Finding Books with Years in Titles
+
+We want to find books like "1984" or "2001: A Space Odyssey".
+
+**Query:**
+
+```sql
+SELECT title
+FROM books
+WHERE title ~ '[0-9]{4}';
+```
+
+- **`[0-9]{4}`**: Looks for exactly 4 digits in a row.
+
+### Scenario 3: Cleaning Data (Substring Extraction)
+
+We have a column `description` that contains text like "ISBN: 978-3-16-148410-0". We want to extract just the ISBN number.
+
+**Query:**
+
+```sql
+SELECT
+    description,
+    SUBSTRING(description FROM 'ISBN: ([0-9-]+)') AS isbn
+FROM books;
+```
+
+- **Capture Group `()`**: Extracts only the part inside the parentheses.
+
+## Exercises and Practice Activities
+
+To solidify your understanding, complete the following exercises.
+
+### Exercise 1: The Phone Number
+
+Write a query to find customers whose phone number does NOT start with '555'. (Assume phone numbers are stored as text).
+
+### Exercise 2: The Case Insensitive Search
+
+Write a query using regex to find all authors whose name starts with 'J' or 'j' and ends with 'n' (e.g., "John", "jason").
+
+### Exercise 3: The Digit Hunter
+
+Write a query to find all usernames that contain _at least one_ number.
+
+## Concluding Thoughts
+
+In this lesson, we learned how to use the power of Regex within SQL. While the syntax can be intimidating, it is the only way to solve complex text-matching problems efficiently.
+
+In the final lesson of this entire course, we will bring everything together. We will build a comprehensive **Dashboard Data Source** query that uses Joins, Aggregates, Window Functions, and Date Logic to provide a complete business overview.
+
+=START_QUESTIONS=Which operator performs a case-insensitive regex match in PostgreSQL?@@What does the ^ symbol represent in regex?@@What does [0-9]+ mean?@@How is regex different from the LIKE operator? =END_QUESTIONS=

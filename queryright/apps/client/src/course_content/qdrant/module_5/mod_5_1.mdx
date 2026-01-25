@@ -1,0 +1,52 @@
+# Batch Upserting
+
+If you are importing 100,000 products into Qdrant, you should **never** send them one at a time. Each request has overhead (network time, authentication, disk I/O).
+
+Instead, you use **Batching**.
+
+---
+
+## What is an Upsert?
+
+"Upsert" means:
+
+- If the Point ID exists -> **Update** it.
+- If the Point ID doesn't exist -> **Insert** it.
+
+---
+
+## Efficient Batching (JavaScript)
+
+Qdrant allows you to send hundreds or thousands of points in a single array.
+
+```javascript
+await client.upsert("products", {
+    wait: true, // Only returns once data is safely written to disk
+    points: [
+        { id: 1, vector: [...], payload: { "name": "Item 1" } },
+        { id: 2, vector: [...], payload: { "name": "Item 2" } },
+        // ... Send 100-500 points at a time
+    ]
+});
+```
+
+**Ideal Batch Size:** Usually between **100 and 500 points**.
+
+- Too small: Too many network requests.
+- Too big: The request becomes too large for the server to handle and might time out.
+
+---
+
+## Real-World Example: Daily Syncs
+
+A warehouse updates its stock every night.
+Instead of deleting and recreating the vector database, they run a "Batch Upsert." Qdrant cleverly updates the stock counts in the `Payload` while keeping the `Vector` exactly the same, which is extremely fast.
+
+---
+
+## Quick Exercises:
+
+1. **The Term**: What does "Upsert" stand for?
+2. **Efficiency**: Why is one request of 100 points faster than 100 requests of 1 point?
+3. **Draft**: Why would you set `wait: false` during a massive initial import but `wait: true` when a single user updates their profile?
+   oasis.

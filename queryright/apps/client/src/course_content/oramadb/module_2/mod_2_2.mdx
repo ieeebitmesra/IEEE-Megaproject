@@ -1,0 +1,63 @@
+# Tokenization and Stemming
+
+How does Orama know that a search for "running" should also find documents containing the word "run"? The answer is **Tokenization** and **Stemming**.
+
+---
+
+## 1. What is Tokenization?
+
+Tokenization is the process of breaking a sentence into individual words (tokens).
+
+- **Sentence:** "The quick brown fox."
+- **Tokens:** `the`, `quick`, `brown`, `fox`.
+
+Orama automatically removes punctuation and converts everything to lowercase to make the search case-insensitive.
+
+---
+
+## 2. What is Stemming?
+
+Stemming is the process of reducing a word to its "root" form.
+
+- **Words:** `fishing`, `fished`, `fisher`.
+- **Root (Stem):** `fish`.
+
+By indexing the stem instead of the full word, Orama saves space and makes the search more "intelligent."
+
+---
+
+## 3. Custom Tokenizers
+
+Sometimes, the default rules don't work. For example, in a medical database, you might not want to stem the word "Operating" to "Operate."
+
+- Orama allows you to define **Custom Tokenizers** if you need total control over how words are split.
+
+---
+
+## Real-World Example: The Fashion Blog
+
+A user searches for "Dresses."
+
+- **Without Stemming:** The engine only finds documents with the exact word "Dresses." It misses a post titled "Summer Dress."
+- **With Orama's Stemming:** Orama reduces "Dresses" to "Dress." It successfully finds both the plural and singular versions of the word.
+
+---
+
+## Hypothetical Scenario: The "Part Number" Problem
+
+A hardware store wants users to search for part numbers like `BC-123-X`.
+
+- **The Problem:** A standard tokenizer might split this into `BC`, `123`, and `X`.
+- **The Solution:** The developer creates a custom tokenizer that keeps the dashes intact, so a search for `BC-123` returns the correct result.
+
+## Exercises
+
+1. **Definitions:** What is the difference between a "Token" and a "Stem"?
+2. **Logic:** Why is stemming important for a good user experience?
+3. **Practice:** What is the stem of the word "Computers"?
+
+## Summary and Next Steps
+
+Stemming makes search human-friendly.
+
+Next, we look at how Orama handles **Multiple Languages**—because search isn't just in English!

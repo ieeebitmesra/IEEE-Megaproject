@@ -1,0 +1,57 @@
+# Project: The Search Function
+
+Now that the data is (hypothetically) in the database, we need to write the function that users will trigger.
+
+---
+
+## Step 3: Performing the Search
+
+We will write a "Smart Search" function that takes a plain-text query from a user.
+
+```javascript
+async function smartSearch(userQuery) {
+  // 1. Get the vector for the user's text
+  // (This part usually calls the OpenAI API)
+  const queryVector = await getEmbedding(userQuery)
+
+  // 2. Search Qdrant
+  const results = await client.search('digital_library', {
+    vector: queryVector,
+    limit: 3,
+    with_payload: true,
+    score_threshold: 0.7, // Ignore bad matches
+  })
+
+  // 3. Format and Return
+  return results.map((hit) => ({
+    title: hit.payload.title,
+    author: hit.payload.author,
+    certainty: hit.score,
+    text: hit.payload.text_snippet,
+  }))
+}
+```
+
+---
+
+## Real-World Example: Search Result Cards
+
+In a real UI (like React or Vue), you would take these results and loop through them to create "Book Cards."
+Note the `certainty` score. You could use this to show a "Match Percentage" to the user! (e.g., "92% Match").
+
+---
+
+## Project Task:
+
+1. Write the `smartSearch` logic.
+2. Consider: What happens if `results` is an empty array `[]`? (How should the UI look?)
+3. Imagine: A user searches for "Baking Cookies" in your technical library. What will the `score_threshold` do to that search?
+
+---
+
+## Quick Exercises:
+
+1. **Threshold**: If a match has a score of 0.65, will it be returned by the function above?
+2. **Expansion**: How would you modify the search to ONLY look for books in the "Security" category? (Review Hybrid search in Module 4).
+3. **Efficiency**: Why is it better to return `with_payload: true` but `with_vector: false` inside the search results?
+   river.

@@ -1,0 +1,355 @@
+# Hands-on Lab: Basic Filtering and Projection
+
+This hands-on lab provides practical experience with the fundamental aggregation stages: $match for filtering documents and $project for reshaping document output. These stages are often the starting point for any aggregation pipeline, allowing for efficient data reduction and targeted field selection before more complex operations.
+
+## Setting Up Your Environment and Dataset
+
+Before beginning the exercises, ensure your MongoDB environment is running and you have access to a client (like mongosh or MongoDB Compass). We will use a hypothetical e-commerce dataset for these exercises.
+
+First, let's create a database called ecommerce_db and a collection called orders. Then, insert the following sample documents into the orders collection. This dataset includes various fields representing customer orders.
+
+```javascript
+// Connect to MongoDB using mongosh or similar client
+// Use the ecommerce_db database
+use ecommerce_db;
+// Insert sample data into the orders collection
+db.orders.insertMany([
+  {
+    orderId: "ORD001",
+    customerId: "CUST001",
+    orderDate: ISODate("2023-01-15T10:00:00Z"),
+    totalAmount: 120.50,
+    status: "completed",
+    items: [
+      { productId: "PROD001", quantity: 1, price: 50.00 },
+      { productId: "PROD003", quantity: 2, price: 35.25 }
+    ],
+    shippingAddress: {
+      street: "123 Main St",
+      city: "Anytown",
+      state: "CA",
+      zip: "90210"
+    },
+    paymentMethod: "Credit Card"
+  },
+  {
+    orderId: "ORD002",
+    customerId: "CUST002",
+    orderDate: ISODate("2023-01-16T11:30:00Z"),
+    totalAmount: 75.00,
+    status: "pending",
+    items: [
+      { productId: "PROD002", quantity: 1, price: 75.00 }
+    ],
+    shippingAddress: {
+      street: "456 Oak Ave",
+      city: "Anytown",
+      state: "CA",
+      zip: "90210"
+    },
+    paymentMethod: "PayPal"
+  },
+  {
+    orderId: "ORD003",
+    customerId: "CUST001",
+    orderDate: ISODate("2023-01-17T14:45:00Z"),
+    totalAmount: 200.00,
+    status: "completed",
+    items: [
+      { productId: "PROD001", quantity: 2, price: 50.00 },
+      { productId: "PROD004", quantity: 1, price: 100.00 }
+    ],
+    shippingAddress: {
+      street: "123 Main St",
+      city: "Anytown",
+      state: "CA",
+      zip: "90210"
+    },
+    paymentMethod: "Credit Card"
+  },
+  {
+    orderId: "ORD004",
+    customerId: "CUST003",
+    orderDate: ISODate("2023-01-18T09:00:00Z"),
+    totalAmount: 45.00,
+    status: "cancelled",
+    items: [
+      { productId: "PROD005", quantity: 3, price: 15.00 }
+    ],
+    shippingAddress: {
+      street: "789 Pine Ln",
+      city: "Otherville",
+      state: "NY",
+      zip: "10001"
+    },
+    paymentMethod: "Debit Card"
+  },
+  {
+    orderId: "ORD005",
+    customerId: "CUST002",
+    orderDate: ISODate("2023-01-19T16:00:00Z"),
+    totalAmount: 150.00,
+    status: "completed",
+    items: [
+      { productId: "PROD002", quantity: 1, price: 75.00 },
+      { productId: "PROD003", quantity: 2, price: 37.50 }
+    ],
+    shippingAddress: {
+      street: "456 Oak Ave",
+      city: "Anytown",
+      state: "CA",
+      zip: "90210"
+    },
+    paymentMethod: "Credit Card"
+  },
+  {
+    orderId: "ORD006",
+    customerId: "CUST004",
+    orderDate: ISODate("2023-02-01T08:00:00Z"),
+    totalAmount: 99.99,
+    status: "pending",
+    items: [
+      { productId: "PROD006", quantity: 1, price: 99.99 }
+    ],
+    shippingAddress: {
+      street: "101 Elm St",
+      city: "Springfield",
+      state: "IL",
+      zip: "62701"
+    },
+    paymentMethod: "PayPal"
+  }
+]);
+
+```
+
+## Filtering Documents with the $match Stage
+
+The $match stage filters documents based on specified query conditions, similar to the find() method. It is highly recommended to place $match stages early in an aggregation pipeline to reduce the number of documents processed by subsequent stages, leading to better performance.
+
+### Example 1: Filtering by a Single Field
+
+To retrieve all orders with a status of "completed":
+
+```javascript
+db.orders.aggregate([
+  {
+    $match: {
+      status: 'completed', // Matches documents where the 'status' field is "completed"
+    },
+  },
+])
+```
+
+This aggregation pipeline will output ORD001, ORD003, and ORD005.
+
+### Example 2: Filtering by Multiple Fields (AND condition)
+
+To find all "completed" orders placed by CUST001:
+
+```javascript
+db.orders.aggregate([
+  {
+    $match: {
+      status: 'completed', // Matches documents with status "completed"
+      customerId: 'CUST001', // AND matches documents with customerId "CUST001"
+    },
+  },
+])
+```
+
+This pipeline will return ORD001 and ORD003.
+
+### Example 3: Filtering with Comparison Operators
+
+To retrieve all orders with a totalAmount greater than or equal to 100:
+
+```javascript
+db.orders.aggregate([
+  {
+    $match: {
+      totalAmount: { $gte: 100 }, // Matches documents where totalAmount is greater than or equal to 100
+    },
+  },
+])
+```
+
+This will output ORD001, ORD003, and ORD005.
+
+### Example 4: Filtering on Embedded Documents
+
+To find orders where the city in the shippingAddress is "Anytown":
+
+```javascript
+db.orders.aggregate([
+  {
+    $match: {
+      'shippingAddress.city': 'Anytown', // Matches documents where the nested 'city' field in 'shippingAddress' is "Anytown"
+    },
+  },
+])
+```
+
+This will include ORD001, ORD002, ORD003, and ORD005.
+
+## Reshaping Document Output with the $project Stage
+
+The $project stage reshapes each document in the stream, including, excluding, or renaming fields. It can also create new fields with computed values.
+
+### Example 1: Including Specific Fields
+
+To display only the orderId, customerId, and totalAmount for all orders:
+
+```javascript
+db.orders.aggregate([
+  {
+    $project: {
+      _id: 0, // Exclude the default _id field
+      orderId: 1, // Include the orderId field
+      customerId: 1, // Include the customerId field
+      totalAmount: 1, // Include the totalAmount field
+    },
+  },
+])
+```
+
+The output for each document will look like:
+
+```json
+{ "orderId": "ORD001", "customerId": "CUST001", "totalAmount": 120.5 }
+// ... other documents
+```
+
+### Example 2: Excluding Specific Fields
+
+To display all fields except items and shippingAddress:
+
+```javascript
+db.orders.aggregate([
+  {
+    $project: {
+      items: 0, // Exclude the items array
+      shippingAddress: 0, // Exclude the shippingAddress embedded document
+    },
+  },
+])
+```
+
+The output will contain all fields except items and shippingAddress. Note that if \_id is not explicitly excluded (\_id: 0), it will be included by default when other fields are excluded.
+
+### Example 3: Creating New Fields
+
+To add a new field isHighValue that is true if totalAmount is greater than 100, and also rename totalAmount to orderValue:
+
+```javascript
+db.orders.aggregate([
+  {
+    $project: {
+      _id: 0,
+      orderId: 1,
+      customerId: 1,
+      orderValue: '$totalAmount', // Rename totalAmount to orderValue
+      isHighValue: { $gt: ['$totalAmount', 100] }, // Create a new boolean field based on a condition
+    },
+  },
+])
+```
+
+The output for an order like ORD001 would be:
+
+```json
+{
+  "orderId": "ORD001",
+  "customerId": "CUST001",
+  "orderValue": 120.5,
+  "isHighValue": true
+}
+```
+
+For ORD004:
+
+```json
+{
+  "orderId": "ORD004",
+  "customerId": "CUST003",
+  "orderValue": 45.0,
+  "isHighValue": false
+}
+```
+
+### Example 4: Projecting Fields from Embedded Documents
+
+To include the orderId, customerId, and the city from the shippingAddress:
+
+```javascript
+db.orders.aggregate([
+  {
+    $project: {
+      _id: 0,
+      orderId: 1,
+      customerId: 1,
+      shippingCity: '$shippingAddress.city', // Project the nested 'city' field as 'shippingCity'
+    },
+  },
+])
+```
+
+The output for ORD001:
+
+```json
+{ "orderId": "ORD001", "customerId": "CUST001", "shippingCity": "Anytown" }
+```
+
+## Combining $match and $project
+
+Combining these stages allows you to efficiently filter your data and then present only the relevant information. It's a common pattern to start pipelines with $match to reduce the dataset size, followed by $project to shape the remaining documents.
+
+### Example: Filter Completed Orders and Project Key Details
+
+Retrieve the orderId, customerId, and totalAmount for all "completed" orders.
+
+```javascript
+db.orders.aggregate([
+  {
+    $match: {
+      status: 'completed', // Step 1: Filter for completed orders
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+      orderId: 1,
+      customerId: 1,
+      totalAmount: 1,
+    }, // Step 2: Project only the desired fields
+  },
+])
+```
+
+This pipeline first reduces the number of documents to only those with status: "completed" (ORD001, ORD003, ORD005). Then, for these three documents, it projects only the orderId, customerId, and totalAmount fields.
+
+Output:
+
+```json
+{ "orderId": "ORD001", "customerId": "CUST001", "totalAmount": 120.50 }
+{ "orderId": "ORD003", "customerId": "CUST001", "totalAmount": 200.00 }
+{ "orderId": "ORD005", "customerId": "CUST002", "totalAmount": 150.00 }
+
+```
+
+## Exercises
+
+Using the ecommerce_db.orders collection:
+
+1. **Filter by Date and Status:** Find all orders that were placed on or after January 17, 2023 and have a status of "pending".
+   - Hint: Use $gte for the date comparison.
+
+2. **Project Specific Fields for Filtered Data:** For the orders found in Exercise 1, project only their orderId, orderDate, and status. Exclude the \_id field.
+   Complex Filter with totalAmount and paymentMethod: Find all orders where the totalAmount is less than 100 AND the paymentMethod is "PayPal".
+   Rename and Include Nested Field: For the orders found in Exercise 3, project their orderId, totalAmount, and rename shippingAddress.state to deliveryState.
+   Create a Conditional Field and Filter:
+   First, use a $project stage to create a new boolean field named isExpressShipping that is true if the shippingAddress.zip is "90210", otherwise false.
+Then, use a $match stage on the result of the $project stage to filter for documents where isExpressShipping is true.
+Self-correction note: Remember that $match stages generally perform better when placed earlier. This exercise is specifically designed to illustrate filtering after a projection for learning purposes. In a real-world scenario, you might filter shippingAddress.zip directly in an earlier $match stage if isExpressShipping isn't needed for other purposes.
+Next Steps and Future Learning
+In the next lessons, we will delve into more advanced aggregation stages such as $group for grouping documents and performing calculations ($sum, $avg, etc.), which allows for powerful data summarization. Understanding $match and $project is crucial as they form the foundational steps for almost all aggregation pipelines, enabling you to narrow down and shape your data effectively before applying more complex transformations.

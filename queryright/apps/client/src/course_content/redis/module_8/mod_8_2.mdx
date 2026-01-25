@@ -1,0 +1,78 @@
+# Performance Tuning and Benchmarking
+
+Redis is fast by default. But for high-scale applications, you can squeeze out even more performance by "tuning" the configuration and understanding how to measure its limits.
+
+---
+
+## 1. Redis Benchmark
+
+How do you know if your server can handle the 1,000,000 users you hope to get next year? You test it with `redis-benchmark`.
+
+```bash
+# Run a standard benchmark with 50 concurrent clients and 100,000 requests
+redis-benchmark -q -n 100000
+```
+
+- `-q`: Quiet mode (only shows the final results).
+- `-n`: Total number of requests.
+- The output will show you "Requests Per Second" for commands like `GET`, `SET`, `LPUSH`, etc.
+
+---
+
+## 2. Key Tuning Strategies
+
+### The Maxmemory Policy
+
+What should Redis do if it runs out of RAM? Should it crash? Or should it delete old data?
+
+- **volatile-lru:** Delete the "Least Recently Used" keys that have an expiration set. (Best for caching).
+- **allkeys-lru:** Delete _any_ old key to make room for new data.
+- **noeviction:** Return an error and don't delete anything. (Best if Redis is your primary database).
+
+### Pipelining
+
+Normally, your app sends a command and waits for a response (Round Trip). If you need to send 1,000 commands, that's 1,000 round trips.
+
+- **Pipelining** allows the app to send 1,000 commands in one go _without waiting for the response_ until the very end.
+- **Result:** Performance increases by 10x or more because you eliminate network latency.
+
+---
+
+## 3. TCP Keepalive and Timeout
+
+If you have thousands of "zombie" connections from apps that crashed, your server will get sluggish.
+
+- Tuning `tcp-keepalive` ensures that the server periodically checks if a connection is still alive and closes it if not.
+
+---
+
+## Real-World Example: Tuning a High-Frequency Trading App
+
+In finance, every microsecond ($1/1,000,000$th of a second) matters.
+
+1. **Benchmark:** The team runs `redis-benchmark` and finds that the Linux kernel is slowing things down.
+2. **Tuning:** They disable "Transparent Huge Pages (THP)" on the Linux server (a common Redis recommendation).
+3. **Architecture:** They implement **Pipelining** to send blocks of 10 trades at a time.
+4. **Outcome:** Latency drops from 500µs to 50µs. The app is now fast enough to compete in the global market.
+
+---
+
+## Hypothetical Scenario: The "Friday Night" Traffic Spike
+
+A video streaming site gets 10x more traffic on Friday nights.
+
+- **The Problem:** The Redis server hits its 8 GB limit.
+- **The Recovery:** Because they set `maxmemory-policy` to `allkeys-lru`, Redis start automatically deleting the oldest "view history" items.
+- **The Result:** New users can still log in and watch movies. The app remains stable, and people just see their "recently watched" list get a bit shorter.
+
+## Exercises
+
+1. **Benchmark Run:** Run `redis-benchmark -t get,set -q` on your machine. Which command is faster, GET or SET?
+2. **Policy Choice:** If you are using Redis to store "Shopping Carts" (not a cache), which `maxmemory-policy` should you choose?
+3. **Pipeline Logic:** Why does pipelining make a bigger difference if your Redis server is in a different city than your application server?
+
+## Summary and Next Steps
+
+Performance tuning is about making Redis work perfectly for _your_ specific needs. By using `redis-benchmark` to find bottlenecks and policies like `LRU` to manage memory, you can build a system that never crashes under pressure.
+
+Next, we will look at an often-overlooked topic: **Security**. Since Redis is so fast, it's also very easy for a hacker to "guess" your password if you don't set it up correctly.

@@ -1,0 +1,124 @@
+# Setting Up Redis (Local and Cloud)
+
+Before we can start using the powerful data structures and commands Redis offers, we need to have a Redis server running. In this lesson, we will cover the different ways to set up Redis, from installing it on your local machine to using managed cloud services.
+
+## Choosing Your Setup
+
+The best way to run Redis depends on your goals:
+
+- **For Learning/Development:** Local installation (Docker or Native) is usually best.
+- **For Production:** Managed cloud services are highly recommended for their reliability and ease of management.
+
+---
+
+## 1. Local Installation (Docker) - Recommended
+
+The easiest and most consistent way to run Redis locally, regardless of your operating system (Windows, macOS, or Linux), is using **Docker**.
+
+### Why Docker?
+
+Docker allows you to run Redis in an isolated "container" without worrying about installing dependencies directly on your computer.
+
+### Steps to Run Redis with Docker:
+
+1. Make sure you have Docker installed.
+2. Open your terminal and run the following command:
+
+   ```bash
+   docker run --name my-redis -p 6379:6379 -d redis
+   ```
+
+   - `--name my-redis`: Gives your container a friendly name.
+   - `-p 6379:6379`: Maps the standard Redis port (6379) from the container to your machine.
+   - `-d`: Runs the container in the "detached" (background) mode.
+   - `redis`: The name of the official Redis image.
+
+3. To verify it's running, use:
+   ```bash
+   docker exec -it my-redis redis-cli ping
+   ```
+   If everything is set up correctly, Redis will respond with `PONG`.
+
+---
+
+## 2. Native Installation
+
+If you prefer not to use Docker, you can install Redis directly on your OS.
+
+### macOS (using Homebrew)
+
+```bash
+brew install redis
+brew services start redis
+```
+
+### Linux (Ubuntu/Debian)
+
+```bash
+sudo apt update
+sudo apt install redis-server
+sudo systemctl start redis-server
+```
+
+### Windows
+
+Redis is not officially supported on Windows, but you can run it via **WSL2 (Windows Subsystem for Linux)** using the Linux instructions above. Alternatively, you can download a pre-compiled version for Windows from third-party sources (though Docker is still the better choice).
+
+---
+
+## 3. Cloud-managed Redis
+
+For real-world applications, you don't want to be responsible for managing the server hardware, backups, or security updates. This is where **Cloud Managed Redis** comes in.
+
+### Popular Providers:
+
+- **Redis Cloud (by Redis Ltd):** The creators of Redis offer a free tier that is perfect for learning and small projects.
+- **AWS ElastiCache / MemoryDB:** Integrated deeply into the Amazon Web Services ecosystem.
+- **Google Cloud Memorystore:** The Google Cloud equivalent.
+- **Upstash:** A serverless Redis provider that is excellent for hobbyists and edge functions (like Vercel or Netlify).
+
+### Connecting to the Cloud
+
+When you use a cloud provider, they will give you a **Connection String** (URL). It looks something like this:
+`redis://default:password@your-hostname.com:port`
+
+---
+
+## Tools for Interacting with Redis
+
+Once your server is running, you need a way to "talk" to it.
+
+### 1. Redis CLI (Command Line Interface)
+
+This is the built-in tool that comes with every Redis installation. It's the most powerful and direct way to run commands.
+
+```bash
+redis-cli
+```
+
+Once inside the CLI, you can try:
+
+```text
+127.0.0.1:6379> set user "Alice"
+OK
+127.0.0.1:6379> get user
+"Alice"
+```
+
+### 2. Redis Insight
+
+A beautiful, free GUI (Graphical User Interface) provided by Redis. It allows you to visualize your data, browse keys, and even monitor performance without using the terminal. Highly recommended for beginners!
+
+---
+
+## Exercises
+
+1. **Docker Practice:** If you have Docker installed, run the `docker run` command provided above. Then, use `redis-cli ping` to confirm the server is responsive.
+2. **Setup Choice:** Which setup method (Docker, Native, or Cloud) would you choose for a hackathon project that needs to be deployed online? Why?
+3. **Port Knowledge:** What is the default port number for Redis? Why is it important to know this when setting up an application?
+
+## Summary and Next Steps
+
+Congratulations! You now have the knowledge to get a Redis environment up and running. Whether you chose the isolation of Docker, the directness of a native install, or the convenience of the cloud, you are ready to start coding.
+
+In the next lesson, we will begin exploring **Redis Data Types**, starting with the most basic yet most versatile structure: **Strings**.

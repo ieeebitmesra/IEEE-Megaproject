@@ -1,0 +1,65 @@
+# Memory Management and Spill-to-Disk
+
+What happens if you have an 8GB laptop and you try to sort a 50GB dataset?
+
+- In Python/Pandas, your computer would freeze and the program would crash with a `MemoryError`.
+- In DuckDB, the query **finishes successfully**.
+
+---
+
+## 1. The Memory Limit
+
+You can tell DuckDB exactly how much of your RAM it is allowed to use.
+
+```sql
+-- Allow DuckDB to use 4GB of RAM
+SET memory_limit = '4GB';
+```
+
+---
+
+## 2. Buffer Manager
+
+DuckDB uses a **Buffer Manager**. It loads data into RAM in "Blocks." If it needs to load a new block but the RAM is full, it calculates which block hasn't been used in a while (LRU) and removes it to make space.
+
+---
+
+## 3. Spill-to-Disk (External Sorting/Joins)
+
+If an operation (like a massive `JOIN` or `ORDER BY`) absolutely needs more space than your RAM allow, DuckDB creates a **Temporary Directory** on your hard drive.
+
+- It writes "chunks" of the intermediate data to the disk.
+- It performs the math in pieces.
+- This is called **External Processing**.
+
+**The Catch:** It is slower than RAM, but it is better than a crash.
+
+---
+
+## Real-World Example: Running on a Small VM
+
+You have a Python script running DuckDB on a cheap "Micro" server with only 1GB of RAM.
+
+- You are processing a 20GB Parquet file.
+- By setting `SET memory_limit = '500MB';`, DuckDB manages its memory perfectly. It works "inside the box" and never triggers the server's "Out of Memory" killer.
+
+---
+
+## Hypothetical Scenario: The "Secret" Swap File
+
+A developer notices that their `DUCKDB_TEMP` folder is suddenly 10GB large while a query is running.
+
+- **Why?** They are doing a `SELECT DISTINCT` on a string column catch that has millions of unique values. DuckDB is using the disk as a temporary workspace to find the duplicates.
+- **The Solution:** The folder will disappear automatically when the query finished.
+
+## Exercises
+
+1. **Safety:** What is the benefit of "Spill-to-disk" compared to loading everything in RAM?
+2. **Commands:** How do you limit DuckDB to only use 1GB of RAM?
+3. **Observation:** If a query takes 2 seconds with a 16GB limit, but 20 seconds with a 1GB limit, what is likely happening?
+
+## Summary and Next Steps
+
+DuckDB is "Hard to Kill." It respects your hardware limits.
+
+Finally, to squeeze out the last bit of performance, we look at how data is compressed on disk in **Efficient Compression**.

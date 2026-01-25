@@ -1,0 +1,108 @@
+# Cache Invalidation Strategies
+
+There are only two hard things in Computer Science: cache invalidation and naming things. — _Phil Karlton_
+
+As we've seen, caching makes apps fast. But it also introduces a massive problem: **How do you make sure the user doesn't see old (stale) data?** When the "truth" in your database changes, the copy in your cache becomes a "lie."
+
+In this lesson, we will explore the strategies for "invalidating" (deleting or updating) a cache.
+
+---
+
+## 1. Time-Based Invalidation (TTL)
+
+The easiest and most common strategy is to let the cache expire automatically.
+
+### How it Works
+
+When you save data to Redis, you set a **TTL (Time To Live)**.
+
+```bash
+SET user:101:profile "{...}" EX 3600  # Expires in 1 hour
+```
+
+### Pros:
+
+- **Automatic:** No need to write complex code to delete keys.
+- **Safety Net:** Even if your code fails to update the cache correctly, it will eventually clear itself out.
+
+### Cons:
+
+- **Inconsistency:** For up to 1 hour, the user might see old data if their profile changes on the database side.
+
+---
+
+## 2. Event-Based Invalidation (Purge)
+
+Whenever the database is updated, the application proactively deletes the corresponding cache key.
+
+### How it Works
+
+1. User updates their profile.
+2. App updates the SQL Database.
+3. App runs `DEL user:101:profile`.
+
+### Pros:
+
+- **Zero Stale Data:** The cache is cleared immediately. The next read _must_ fetch the fresh data.
+
+### Cons:
+
+- **Complexity:** You have to remember to add a `DEL` command every single place in your code where data is updated. If you forget one spot, you have a bug.
+
+---
+
+## 3. Versioning (Cache Busting)
+
+Instead of deleting data, you change the "Key" so the old one is ignored.
+
+### How it Works
+
+You include a version number or a timestamp in your key.
+
+- `GET user:101:v1`
+- When the data changes, the app starts looking for `user:101:v2`.
+
+### Pros:
+
+- **Atomic:** You can "swap" to a new version of the data instantly.
+
+### Cons:
+
+- **Memory Waste:** The old keys (`v1`, `v2`) stay in Redis until they expire, taking up space.
+
+---
+
+## Real-World Example: A Social Media Feed
+
+Imagine you follow 500 people. Generating your feed is a very "expensive" SQL query.
+
+1. **The Strategy:**
+   - You cache the feed in Redis for 10 minutes (`EX 600`).
+   - If you post a new photo, the app doesn't wait for the 10 minutes; it immediately deletes your cached feed so you see your own post.
+2. **The Result:** The feed feels "live" when you interact with it, but the servers are saved from recalculating it every single time you refresh the page.
+
+---
+
+## Hypothetical Scenario: The "Inventory Trap"
+
+You have a system selling concert tickets. You cache the "Number of Tickets Left" for 1 minute.
+
+**The Problem:** The tickets sell out in 10 seconds.
+
+- For the next 50 seconds, the cache says "50 tickets left."
+- 1,000 users click "Buy," but the database rejects them all.
+- The users are angry because the app "lied" to them.
+
+**The Solution:** For highly critical data like inventory, you should never use time-based invalidation alone. You should use **Event-Based Invalidation** (delete the cache every time a ticket is sold) or don't cache that specific field at all!
+
+## Exercises
+
+1. **Strategy Selection:** You are caching a weather forecast. Which strategy would you use? Why?
+2. **Bug Hunting:** A user updates their profile picture, but they still see the old one for 30 minutes. What is the most likely reason?
+3. **The "Hard Problem":** Why is it harder to invalidate a cache for a "List of top 10 products" than it is for a single "Product ID"?
+
+## Summary and Next Steps
+
+Cache invalidation is about finding the right balance between **Performance** (long cache times) and **Accuracy** (short or frequent invalidation).
+
+Congratulations! You've finished the Caching module. In the next module, we will explore some of the most exciting tools in the Redis ecosystem: **RedisSearch and RedisJSON**.

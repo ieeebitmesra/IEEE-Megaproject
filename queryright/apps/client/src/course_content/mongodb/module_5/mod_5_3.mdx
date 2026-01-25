@@ -1,0 +1,61 @@
+# Using Indexes with Aggregation Pipelines
+
+Performance is a critical consideration when building aggregation pipelines, especially as data volumes grow. The most effective way to optimize an aggregation is to ensure it utilizes database indexes. Just like standard queries, aggregation pipelines can leverage indexes to filter and sort documents efficiently, avoiding slow collection scans.
+
+## Index Usage Rules
+
+For an aggregation pipeline to use an index, specific conditions must be met:
+
+1.  **Early Filtering:** The `$match` stage should be the very first stage in the pipeline. This allows MongoDB to use an index to identify the relevant documents immediately.
+2.  **Sorting:** If a `$sort` stage follows a `$match` stage (and they use the same index), the sort operation can be performed without loading documents into memory.
+3.  **Covered Queries:** If the pipeline only requires fields that are present in the index, MongoDB can satisfy the request directly from the index entry, never reading the actual document from disk.
+
+## Pipeline Covers (Covered Aggregations)
+
+A "covered" aggregation occurs when the index contains all the fields required by the pipeline. This is significantly faster than a standard query.
+
+To achieve this:
+
+1.  Create a compound index on all fields used in `$match`, `$group`, or `$project`.
+2.  Ensure the pipeline explicitly excludes the `_id` field (unless `_id` is part of the index).
+
+**Example:**
+Index: `{ status: 1, date: 1, amount: 1 }`
+
+**Pipeline:**
+
+```javascript
+db.sales.aggregate([
+  {
+    $match: { status: 'A' }, // Uses index
+  },
+  {
+    $group: {
+      _id: '$date', // In index
+      total: { $sum: '$amount' }, // In index
+    },
+  },
+  {
+    $project: { _id: 0, total: 1 }, // Exclude _id to stay covered
+  },
+])
+```
+
+## Optimization Strategies
+
+### Place `$match` First
+
+Always filter your data as early as possible.
+
+- **Bad:** `$unwind` -> `$match` (Scans all docs, expands them, then filters)
+- **Good:** `$match` -> `$unwind` (Filters docs using index, then expands only relevant ones)
+
+### Place `$sort` Before Transformations
+
+If you need sorted data, place `$sort` immediately after `$match`. If you place it after `$project` or `$unwind`, the index cannot be used for sorting, forcing a memory-intensive blocking sort.
+
+## Summary
+
+Indexes are the primary mechanism for speeding up read operations in MongoDB. By structuring your pipeline to filter and sort early, and by designing indexes that cover your aggregation's field requirements, you can reduce execution time from seconds to milliseconds.
+
+In the next lesson, we will learn how to verify these optimizations using **Explain Plans for Aggregation**.

@@ -1,0 +1,46 @@
+# Constraints & Data Integrity
+
+In Graph databases, you don't have "Columns" in the strict SQL sense, but you **must** have rules to prevent your data from becoming a mess.
+
+---
+
+## Uniqueness Constraints
+
+If you have a Social Network, you cannot have two users with the same email address. In Neo4j, we enforce this with a **Constraint**.
+
+```cypher
+CREATE CONSTRAINT user_email_unique FOR (u:User) REQUIRE u.email IS UNIQUE;
+```
+
+Once this is run, Neo4j will block any query that tries to `CREATE` or `MERGE` a User with an existing email.
+
+---
+
+## Real-World Example: Node Property Existence
+
+Sometimes, you don't care if a value is unique, but you **need** it to exist. For example, every `Product` node MUST have a `price`.
+
+```cypher
+CREATE CONSTRAINT product_price_exists FOR (p:Product) REQUIRE p.price IS NOT NULL;
+```
+
+---
+
+## Hypothetical Scenario: The "Invisible" Duplicate
+
+A developer forgot to add a uniqueness constraint on `EmployeeID`. They ran an import script twice by accident. Now, for every employee, there are **two** nodes with the same ID.
+When they calculate the sum of salaries, the number is **double** what it should be.
+
+**The Fix:**
+
+1. Use `MATCH` and `DETACH DELETE` to clean up the duplicates.
+2. Immediately run `CREATE CONSTRAINT` to make sure it never happens again.
+
+---
+
+## Quick Exercises:
+
+1. **The Syntax**: Write a command to ensure every `:Company` node has a unique `tax_id`.
+2. **Relationships**: Can you create a uniqueness constraint on a _Relationship_ property? (Research or use logic).
+3. **The Lock-out**: What happens to your app's frontend if a user tries to sign up with an email that violates a Uniqueness Constraint? How should the Backend handle the error?
+   Riverside.

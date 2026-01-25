@@ -1,0 +1,44 @@
+# Preventing Hallucinations
+
+Hallucinations happen when an LLM gets "Creative" because it doesn't have enough facts. Qdrant is the "Fact Engine."
+
+---
+
+## 1. Score Thresholding
+
+If a user asks about "Zombies," but your corporate database contains zero information about zombies, Qdrant will still return the "nearest" neighbor (maybe a document about "Infectious Diseases").
+The LLM might then try to link corporate policy to zombies.
+
+**The Fix:**
+Set a `score_threshold: 0.8`. If Qdrant returns nothing (because the topic is not in your data), the app should tell the user: _"Sorry, I don't have information on that topic in my records."_
+
+---
+
+## 2. Source Attribution
+
+Always include the **Payload** data in your final answer.
+Don't just give an answer—give the source!
+
+_"Based on the **Employee Handbook (page 12)**, the policy is..."_
+
+Because Qdrant stores the filename and page number in the Payload, your app can verify exactly where the information came from.
+
+---
+
+## Real-World Example: Medical AI
+
+A doctor uses an AI to check drug side effects.
+
+- **Bad AI:** "I think this drug causes headaches."
+- **Qdrant-Powered AI:** "According to the **FDA Registry (Document #992)**, this drug causes headaches in 2% of patients."
+
+The second one is trustworthy because it is grounded in a specific "Point" in Qdrant.
+
+---
+
+## Quick Exercises:
+
+1. **The Threshold**: If the similarity score is 0.2, is the information likely to be relevant?
+2. **Metadata**: What kind of data should you store in the Qdrant Payload to make your RAG bot more trustworthy? (e.g., URL, Author, Date).
+3. **Draft**: Why is "Source Attribution" more important for a Lawyer than for someone searching for Movie Recommendations?
+   forest.

@@ -1,0 +1,62 @@
+# Custom Score Calculation
+
+Sometimes, the standard "Word Match" score isn't enough. You might want to rank results based on **Popularity**, **Recency**, or **Price**. This is "Custom Scoring."
+
+---
+
+## 1. What is the Score?
+
+Orama uses an algorithm called **BM25** (Best Match 25). It calculates a number based on how many times a word appears in a document versus the entire database.
+
+- A high score (e.g., `5.6`) means a strong match.
+- A low score (e.g., `0.1`) means a weak match.
+
+---
+
+## 2. Overriding the Score
+
+You can manipulate the final score using mathematical functions. For example:
+`Final Score = BM25_Score * (Sales_Count / 100)`
+
+---
+
+## 3. The "Decay" Function
+
+A common need is to rank "New" items higher than "Old" items.
+
+- You apply a **Decay Function** that gradually lowers the score of a document as it gets older.
+- This ensures that a post from "5 Minutes ago" ranks higher than a post from "5 Years ago," even if the 5-year-old post has more keywords.
+
+---
+
+## Real-World Example: Trending Topics
+
+A social media site wants to show "Trending" hashtags.
+
+- They calculate the score using:
+  1. **キーワードマッチ (Text Match)**
+  2. **いいね数 (Likes)**
+  3. **投稿時間 (Hour of Publication)**
+- The result is a search experience where the "Hottest" news is always at the top.
+
+---
+
+## Hypothetical Scenario: The "Bargain Hunter"
+
+A user is searching for "Used Cars" and wants "Good condition" but "Cheap."
+
+- **The Solution:** The developer creates a custom score that combines the "Condition" rating with the "Price."
+- `Score = Condition_Score / Price`
+- Now, the cars with the highest "Value for Money" appear at the top of the list.
+
+## Exercises
+
+1. **Definitions:** What does the BM25 algorithm calculate?
+2. **Logic:** Why would a search engine want to "decay" the score of an old document?
+3. **Application:** Write a formula for a search engine score that prioritizes products with a high "User Rating" (1-5 stars).
+
+## Summary and Next Steps
+
+Custom scoring turns Orama from a "Search Engine" into a "Recommendation Engine."
+
+In the next lesson, we’ll look at **Tokenizer Pipelines**—the final frontier of performance and quality.

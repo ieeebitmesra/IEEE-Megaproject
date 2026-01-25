@@ -1,0 +1,88 @@
+# Understanding and Creating Indexes for Performance
+
+As your **Online Bookstore** grows from 100 books to 1,000,000 books, you will notice something alarming: your queries will get slower. A simple search for "Harry Potter" might take several seconds.
+
+This happens because, by default, the database performs a **Sequential Scan**. It looks at row 1, then row 2, then row 3... all the way to row 1,000,000, checking if the title matches.
+
+**Indexes** solve this. An index is a special data structure (like a B-Tree) that the database creates to find data quickly, much like the index at the back of a textbook.
+
+## How Indexes Work
+
+Imagine finding the word "Zebra" in a dictionary. You don't read every word from "Aardvark". You flip to the "Z" section. An index allows the database to "flip" directly to the data you need.
+
+### Trade-offs
+
+- **Pros:** Drastically speeds up `SELECT` queries (reading data).
+- **Cons:** Slows down `INSERT`, `UPDATE`, and `DELETE` operations (writing data). Every time you change the data, the database must also update the index.
+- **Storage:** Indexes take up disk space.
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### Scenario 1: Creating a Basic Index
+
+We frequently search for books by title.
+
+**Query:**
+
+```sql
+CREATE INDEX idx_books_title
+ON books(title);
+```
+
+- Now, `SELECT * FROM books WHERE title = '1984'` will be instant.
+
+### Scenario 2: Unique Indexes
+
+We want to ensure that no two users can sign up with the same email address. A Unique Index enforces this _and_ speeds up lookups.
+
+**Query:**
+
+```sql
+CREATE UNIQUE INDEX idx_customers_email
+ON customers(email);
+```
+
+### Scenario 3: Composite Indexes (Multi-Column)
+
+We often search for books by _Author_ AND _Genre_ together.
+`SELECT * FROM books WHERE author_id = 101 AND genre = 'Sci-Fi'`
+
+**Query:**
+
+```sql
+CREATE INDEX idx_books_author_genre
+ON books(author_id, genre);
+```
+
+- **Note:** The order matters. This index helps searches for `(author_id, genre)` and searches for `(author_id)` alone. It does **not** help searches for `(genre)` alone.
+
+## When to Index?
+
+- **Do Index:** Primary Keys (automatic), Foreign Keys, columns used frequently in `WHERE`, `JOIN`, and `ORDER BY`.
+- **Don't Index:** Small tables, columns with very few unique values (like "Gender" or "Status" if there are only 2-3 options), or columns that are rarely searched.
+
+## Exercises and Practice Activities
+
+To solidify your understanding, complete the following exercises.
+
+### Exercise 1: The Search Optimization
+
+You have a `Orders` table with 10 million rows. Users frequently complain that the "Order History" page is slow. The query is:
+`SELECT * FROM orders WHERE customer_id = 12345 ORDER BY order_date DESC;`
+What index would you create to fix this?
+
+### Exercise 2: The Bad Index
+
+Why would creating an index on a boolean column `is_active` (True/False) generally be a bad idea?
+
+### Exercise 3: Maintenance
+
+How do you remove an index that is no longer needed? (Hint: The command is similar to dropping a table).
+
+## Concluding Thoughts
+
+In this lesson, we learned how to turbocharge our read performance using Indexes. However, blindly adding indexes is dangerous. In the next lesson, we will learn how to use the `EXPLAIN` command to peek "under the hood" and see exactly how the database is executing our queries and whether it is actually using our indexes.
+
+=START_QUESTIONS=What is the primary benefit of an index?@@What is the primary downside of an index?@@Does a Unique Index allow duplicate values?@@If you create an index on (A, B), does it speed up a search for B alone? =END_QUESTIONS=

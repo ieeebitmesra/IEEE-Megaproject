@@ -1,0 +1,99 @@
+# Security Considerations
+
+Redis was originally designed to be a high-performance database inside a "trusted" environment. This means that by default, it doesn't have many security features enabled. However, in the modern world, security is non-negotiable.
+
+---
+
+## 1. Protecting the Network
+
+The most important rule of Redis security is: **NEVER expose Redis directly to the Internet.**
+
+### Binding and Protected Mode
+
+By default, modern Redis only listens to connections from `127.0.0.1` (your own machine).
+
+- If you need to connect from another server (like your web server), you must "Bind" to a specific internal IP address.
+- **Protected Mode:** If you try to open Redis to the world without a password, Redis will automatically enter "Protected Mode" and refuse all outside connections to keep you safe.
+
+---
+
+## 2. Authentication (AUTH)
+
+You should always set a strong password for your Redis server.
+
+### Configuring a Password
+
+In `redis.conf`:
+
+```text
+requirepass YourOverlyComplexPassword123!
+```
+
+### Accessing with a Password
+
+```bash
+redis-cli -a YourOverlyComplexPassword123!
+```
+
+---
+
+## 3. Disabling Dangerous Commands
+
+Some Redis commands are so powerful they can crash your server if run accidentally (or by a hacker).
+
+- `FLUSHALL`: Deletes every single key in every database.
+- `CONFIG`: Can change your security settings at runtime.
+
+### Renaming Commands
+
+You can "hide" or disable these commands in your configuration:
+
+```text
+# Disable FLUSHALL completely
+rename-command FLUSHALL ""
+
+# Rename CONFIG to something secret
+rename-command CONFIG MY_SECRET_CONFIG_PASSWORD_COMMAND
+```
+
+---
+
+## 4. ACLs (Access Control Lists)
+
+In modern Redis (6.0+), you can create different "Users" with different permissions. This is much better than sharing one password.
+
+```bash
+# Create a user 'app_viewer' who can only run 'GET' on keys starting with 'public:'
+ACL SETUSER app_viewer on >password123 +get ~public:*
+```
+
+---
+
+## Real-World Example: The "Open Redis" Disaster
+
+In 2017, thousands of servers were hit by "Ransomware" because they had Redis servers open to the internet with no passwords.
+
+1. **The Attack:** Hackers used the `CONFIG` command to change the Redis storage path to the server's system folders.
+2. **The Result:** They were able to overwrite critical system files and take over the entire computer.
+3. **The Lesson:** Always use a firewall to block port 6379 from the outside world, and always set a `requirepass`.
+
+---
+
+## Hypothetical Scenario: The "Junior Developer" Mistake
+
+A new developer wants to clear their local database, but they accidentally connect to the Production server. They type `FLUSHALL`.
+
+- **Result:** Every customer's session is deleted, the site crashes, and the business loses money.
+- **The Prevention:** If you had `rename-command FLUSHALL ""` in your production config, the command would have failed, and the developer would have realized their mistake without causing any damage.
+
+## Exercises
+
+1. **Security Audit:** Check your local `redis.conf` file. Is `requirepass` enabled?
+2. **ACL Practice:** Write an ACL command to create a user named `monitor` who can only run the `INFO` and `SLOWLOG` commands.
+3. **Network Logic:** Why is a Firewall more important than a Password for Redis security?
+
+## Summary and Next Steps
+
+Security isn't about one setting; it's about layers. By combining network isolation, strong passwords, renamed commands, and granular ACLs, you can ensure that your Redis data remains yours.
+
+In the final lesson of the entire Redis course, we will summarize the **Common Pitfalls and Best Practices** to help you become a true Redis Expert.

@@ -1,0 +1,69 @@
+# ASOF Joins (Time-Series Magic)
+
+In the real world, data doesn't always happen at the exact same millisecond.
+
+- You have a **Trade** at `10:00:05.123`.
+- You want to join it with the **Current Price** from a price feed.
+- But the price feed only refreshed at `10:00:04.999`.
+
+A standard `JOIN` will fail because the timestamps aren't equal. An **ASOF Join** (As Of) finds the "Best Match" from the past.
+
+---
+
+## 1. How it works
+
+An ASOF Join matches a row in Table A with the "latest" row in Table B that happened **before** or **at** the same time.
+
+```sql
+SELECT *
+FROM trades
+ASOF JOIN prices
+    ON trades.symbol = prices.symbol
+    AND trades.time >= prices.time;
+```
+
+---
+
+## 2. Why use it over a regular join?
+
+1. **Performance:** Doing this with standard SQL requires complex subqueries or window functions that are very slow on large datasets. DuckDB has a specialized engine for ASOF joins that is incredibly fast.
+2. **Readability:** The intent is clear: "Give me the price _as of_ the time of the trade."
+
+---
+
+## 3. Directional Joins
+
+You can also search "Forward" in time (though "Backward" is the default).
+
+- "Find the first marketing email sent _after_ the user signed up."
+
+---
+
+## Real-World Example: FinTech
+
+A crypto exchange handles 1 million trades per second.
+
+- To calculate the profit/loss for a user, they must join every trade with the market price at that exact moment.
+- Using ASOF Joins, they can process a whole day of trades in seconds on a single server.
+
+---
+
+## Hypothetical Scenario: The "Missing" Sensor Data
+
+A factory has temperature sensors that report every 5 minutes.
+
+- A "Quality Check" happens randomly.
+- **The Task:** Report the machine temperature during the quality check.
+- **The Result:** The quality check happened at `12:02`. The nearest temperature reading was `12:00`. DuckDB correctly "pulls" the `12:00` temperature as the most relevant state of the machine.
+
+## Exercises
+
+1. **Logic:** Does an ASOF join look for an exact match or a "nearest" match?
+2. **Pre-requisite:** What kind of column do you almost always need for an ASOF join to make sense? (ID, Date, or Name?)
+3. **Syntax:** In the `ON` clause of an ASOF join, which operator is typically used for the time comparison?
+
+## Summary and Next Steps
+
+ASOF joins make time-series analysis intuitive and fast.
+
+In the final lesson of this module, we look at **Sampling and Random Data Generation**—vital for testing and training machine learning models.

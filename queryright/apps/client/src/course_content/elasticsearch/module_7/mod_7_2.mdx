@@ -1,0 +1,89 @@
+# Aliases and Zero-Downtime Re-indexing
+
+What do you do when your `price` field is a `string` and you need it to be a `float`?
+
+1. You can't change the mapping of an existing index.
+2. You have to create a new index (`v2`) and move the data.
+3. Your app shouldn't stop working during this process.
+
+The solution is the **Alias**.
+
+---
+
+## 1. What is an Alias?
+
+An alias is a "nickname" for an index. Your application should **never** talk to `products_v1`. It should talk to the alias `products`.
+
+```http
+POST /_aliases
+{
+  "actions": [
+    { "add": { "index": "products_v1", "alias": "products" } }
+  ]
+}
+```
+
+---
+
+## 2. Zero-Downtime Re-indexing
+
+Here is the workflow for a schema change:
+
+1. **Create** `products_v2` with the correct mapping.
+2. **Re-index** the data:
+   ```http
+   POST /_reindex
+   {
+     "source": { "index": "products_v1" },
+     "dest": { "index": "products_v2" }
+   }
+   ```
+3. **Switch** the alias (Atomic operation):
+   ```http
+   POST /_aliases
+   {
+     "actions": [
+       { "remove": { "index": "products_v1", "alias": "products" } },
+       { "add": { "index": "products_v2", "alias": "products" } }
+     ]
+   }
+   ```
+4. **Delete** `products_v1` once you're sure everything is working.
+
+---
+
+## 3. Filtering and Routing Aliases
+
+Aliases can also be used to create "Virtual Indexes."
+
+- You can create an alias called `active_users` that is just a filtered view of the `users` index where `status: "active"`.
+
+---
+
+## Real-World Example: Database Migration
+
+A company grows from 1 million to 100 million products. They need to move from 1 shard to 10 shards.
+
+- Without aliases, they would have to shut down their website, move the data, update all their code to point to the new index name, and restart.
+- With aliases, the code stays the same. The "Switch" happens in a few milliseconds.
+
+---
+
+## Hypothetical Scenario: The "Double Write"
+
+During a 5-hour re-index, users are still adding new products to `v1`.
+
+- **The Problem:** `v2` will be missing those 5 hours of new data.
+- **The Solution:** Elasticsearch has a "Clone" API or you can use "Update by Query" to sync the delta. Alternatively, use a queue like Kafka to send writes to both indices during the migration.
+
+## Exercises
+
+1. **Definition:** What is an alias in Elasticsearch?
+2. **Strategy:** Why is the `POST /_aliases` step with `remove` and `add` considered "Atomic"?
+3. **Refactor:** If your app is currently hardcoded to `GET /users_v1/_search`, what should you change it to for future-proofing?
+
+## Summary and Next Steps
+
+Aliases are the "DNS" of Elasticsearch. They provide flexibility and safety.
+
+But who is allowed to delete your indices? In the next lesson, we'll look at **Security and ACLs**.

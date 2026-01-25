@@ -1,0 +1,59 @@
+# Payloads: Adding Metadata
+
+Vectors are great for "Similarity," but sometimes you need "Facts." This is where the **Payload** comes in.
+
+---
+
+## What is a Payload?
+
+A Payload is a JSON object attached to a point. It stores extra information about the vector.
+
+**Example Point:**
+
+- **Vector:** `[0.1, 0.4...]`
+- **Payload:**
+  ```json
+  {
+    "category": "shoes",
+    "color": "blue",
+    "price": 49.99,
+    "stock_count": 12
+  }
+  ```
+
+---
+
+## Why Payloads Matter
+
+Vector search alone might find "Blue Shoes" when you search for "Cool sneakers."
+But what if the user specifically checks a box for **"Price under $50"**?
+If you have data in the Payload, Qdrant can **Filter** the results. It will find the most similar sneakers _that are also under $50_.
+
+---
+
+## Real-World Example: Recommendation Engines
+
+Imagine you have a video streaming site.
+
+- **Search (Vector):** "Something like Inception."
+- **Filter (Payload):** `{"is_available_in_region": "UK", "rating": "PG-13"}`
+
+Qdrant finds the most similar movies to Inception, then instantly "kicks out" anything not allowed in the user's region or age group.
+
+---
+
+## Hypothetical Scenario: The "Empty Results" Bug
+
+A developer filters by `{"color": "Red"}` and finds 0 results, even though they have 1,000 red items.
+**The Cause:** They didn't tell Qdrant to "Index" the payload field. Without an index, Qdrant has to check every single item one by one, which can time out or fail on large datasets.
+
+**Rule:** Always Index fields in your Payload if you plan to filter by them often.
+
+---
+
+## Quick Exercises:
+
+1. **Definition**: What format is used to store data in a Qdrant Payload?
+2. **Comparison**: Vector search is for "Unstructured" data. Payload search is for "Structured" data. Explain the difference.
+3. **Draft**: Create a JSON payload for a "Point" representing a Book. Include its Title, Author, and Year.
+   field.

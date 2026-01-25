@@ -1,0 +1,17 @@
+import { BaseCaptionPlugin } from '@platejs/caption'
+import { BaseImagePlugin, BasePlaceholderPlugin } from '@platejs/media'
+import { KEYS } from 'platejs'
+
+import { ImageElementStatic } from '@/pages/text-editor/components/ui/media-image-node-static'
+
+export const BaseMediaKit = [
+  BaseImagePlugin.withComponent(ImageElementStatic),
+  BaseCaptionPlugin.configure({
+    options: {
+      query: {
+        allow: [KEYS.img],
+      },
+    },
+  }),
+  BasePlaceholderPlugin,
+]

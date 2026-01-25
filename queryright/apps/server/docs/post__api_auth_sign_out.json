@@ -1,0 +1,73 @@
+{
+  "method": "POST",
+  "path": "/api/auth/sign-out",
+  "originalPath": "/api/auth/sign-out",
+  "query": {},
+  "params": {
+    "*": "sign-out"
+  },
+  "body": {
+    "type": "json",
+    "schema": {
+      "type": "object",
+      "properties": {}
+    },
+    "example": {},
+    "signature": ""
+  },
+  "customHeaders": {
+    "host": "localhost:4000",
+    "connection": "keep-alive",
+    "content-length": "2",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0",
+    "accept": "*/*",
+    "origin": "http://localhost:3000",
+    "sec-fetch-site": "same-site",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-dest": "empty",
+    "referer": "http://localhost:3000/",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "accept-language": "en-US,en;q=0.9",
+    "cookie": "better-auth.oauth_state=d3cbd904749ccc234587ad44013cccd25daa764300e947d3715c24254645b5b77e743ac8919f9b01e272be8bf623b1f25dc9fbd432392f0edf2bdad5a2dc9b2cda243bd36cef141a6c3e98f751322706666920bcf6b9872a546eedd84fe80aa75de1bf53d9caa82fce13ff7e4dd994d76e4dc416815751a83258ef77b0f9645b0625437702c57fc45af70c0f343781d560d522c7b3fe66f3b92190bc74cd3f4930d60f14e8f59b5d1330fc29e351344a0536284f78ab078f19bc6b34afa08c520743129da396ada25b9ab66a34079883cd4c6780c9eebea85b813a9cb3798774dcb537f2d3cfd6d359f9a6a418440d4c03bfeeaf92a195ec46210d90ce7171867e653869fd241bd468724443a692127edf3ba27615711fe3bc2ce151b9d4cafca7e0e4cb8a68d331bd263a106c137a90e44d33c8; better-auth.account_data=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwia2lkIjoiUGpFd3pyS0xoWW9OdFhZUnI3cFdITk04SHM5TF9HWXNGeEowd3RKR2hRSSJ9..SpsIr8ugv0OLJTT8HWqwqw.ZY6TJzniKocBskxd5zBaF5oWJiGBBH-m20w_ELiX2Juj2vpssNJKVeO36aWdndRmd6UmtU-HjdkNRwyX4-7mqKv5zKcgFyAPfMB9NcKXa9MU1YxMP2Yl_LPe8_chv23kBUWEQF039yB-Ftgce7lCHSU13PSXTohNAoIDLGbtkCM8xu7kkO8g7HzLJ8T5e0pQZDpAXf2j1Yemm3uz4nAEKJ47HdrletBIGhYTMYu1sUjRZLN5wNkmYgg2zCgu3dHOurXkWcsRb9GIltXz3YRatFfqmEZoOJTMMeLV3eAt3fcwG0EHja-JL-SZg-bvGTLZ69hHEDhXWk2ZfjgmChekXOUWOj_x4_diSgr1mAYuvAB3CkV0CZDrsIwUSmO3vhmqRz2KdtgFe9H4-gAslltbsrNpI5ajPMJMONs8h4SxI4qxNiOzmTVCKdSSHR_zeY2Td_9J--JaDTeFOvG8hrkOWhqBYRqij0sma_rhKcy3_hFKtEGevdpgxpxIEcR0WGhFdL1U7j753Lqb9RM7aSNORw.fDUZMSJkG807bXq4OZIpv9UeeMzIIjsZcC1rjclnXS8; better-auth.session_token=amfR2fRMKvILUm2VgFVsiiZWwg7QtDxk.h8Y%2FGjcn%2F246qAacy1RrJYefiRTnmwPu0iu4xZrmMXw%3D; better-auth.session_data=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwia2lkIjoibTBjZHFuakd5RGViMlRqOVl0emNqLVZHcTZNcndhb2xQbklNcHYtVEppRSJ9..H_xM7hmfVjfD0uyMBvy2gQ.S7YyvWLG5RaPouGoq3boL8zTNnWY1jQ4QnHuGQHRl1F_RYx9TMSnBBUElP62luEzLV6bXqukBXjqeINYQasBllCijx3IXDs45Kwxc6GhZZQHKpJMH6d-FZuu_AQvNBFXuczvSveHA5Ta_AQXqhRXQlxQzSjdFG5_ZaHI8I9vvNid3RxwVsNInXuvldDyrzMGNBAqlCd4YKPN9OwXi7iPLG3q6CIAkNilvLpDCsm_ZluNZQL5TRGZ8SICvaMttq1AinuOBAOajJwFTe7EFCrGVq3LhjR00jC7FBBDkRtGpGj-7WJKBUSWpTrj6rTSqb1zpUHAZ6t9eqcqouXlTdOCaf7r62AY73jg4Hq_NpRQkma2o702vdOV8Fzb7ruaRceJ7gC_j9PyAVnqAV2uUrSf7Q05Q3TFAqe0nVaHxJ3iCpLD55gTRrykRRWk4YbmeGo1EaRj9L_GFU4rkMy1TmDZDff_8jkkquNBsf0eYghB8iZ6gnilUPWUttcO_wk-XeKhSRDd0aeStIsg4XbRC57UXwVDx-AJQE4w_NNr4fPbGrlUJaos-wm4nbSlmpBCZU8zNyKPIvMWmQGdDK7FYx90ndMS31U61xbPLgy7UaTxeO7qtwxCUE260NQta3p3LsknkQVxNluf4ZpHy_jaQi3I3FRMoVr2K7sJy3vxTeHrWz3yqSukXoE-Ek_LRl6_w7TjDLOpb8GFWit8v_ejRjaUTC6B2Kp7gEjlIffUW2PYBjOr9REpILCAqiaDUJO6yB43EnwTqBpr-cDtStuZV-On9IxpW06rOLDnXJkupO1ixJtHZkCfoO03M2zzJdhmnfrJMq8L7AkXRATUG2eIo-PZDRGvp3IWshVLE8BpFNQ8rRE_AET4bAQ5djYsGLNmks2eLFAy8DzKfbKLjvIJ1xf-UuwTlNnpjVLYuwuzn_pCBGA5AzaPYXX_sCgI7taefiS-YvgDUsdAcyE9zckFJpHO3Ssdsu_fRGd9iZi6EC486DH8u4gIHBm_oUEPt7xbQ4O9gtQd02WJibpqUeyrQ72MuVFJQV06ZdPeVIuZf3oyCfVWnQhn7i5gFdXj5Nw8UGs0NtshbKRs-aaQnSQpAitHtG5IPSKf27QQfpCtT6q6LV3DXAdGcX1TTk33b-TQ0y1Uou_Uffb9TEy_V0Z4GW80sm6Bs1mD1vODzx3ol5fPkUhodWrt-mB_TE92v2uYlo3JpnVyvzfitMdT6eA_EniByT_8u551JN4VVqHUqmeX28Oc5v6b_0N9jFxZ1_nUjDGaeUWRdPOpTXdhcZkHpSs-t6bU88226KvXcLcaEkoq8h4.Zo7ZIAynehPkXpBMCnLAvsmYyjlPpjDu3iU3C70IegQ"
+  },
+  "response": {
+    "statusCode": 200,
+    "headers": {
+      "access-control-allow-origin": "http://localhost:3000",
+      "access-control-allow-credentials": "true",
+      "content-type": "application/json; charset=utf-8",
+      "set-cookie": [
+        "better-auth.session_token=; Max-Age=0; Path=/; HttpOnly; SameSite=Lax",
+        "better-auth.session_data=; Max-Age=0; Path=/; HttpOnly; SameSite=Lax",
+        "better-auth.account_data=; Max-Age=0; Path=/; HttpOnly; SameSite=Lax",
+        "better-auth.account_data=; Max-Age=0; Path=/; HttpOnly; SameSite=Lax",
+        "better-auth.oauth_state=; Max-Age=0; Path=/; HttpOnly; SameSite=Lax",
+        "better-auth.session_data=; Max-Age=0; Path=/; HttpOnly; SameSite=Lax",
+        "better-auth.dont_remember=; Max-Age=0; Path=/; HttpOnly; SameSite=Lax"
+      ]
+    },
+    "body": {
+      "type": "json",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": ["success"]
+      },
+      "example": {
+        "success": true
+      },
+      "signature": "success:boolean"
+    }
+  },
+  "timestamp": "2026-01-11T22:15:10.891Z",
+  "lastUpdated": "2026-01-11T22:15:10.891Z"
+}

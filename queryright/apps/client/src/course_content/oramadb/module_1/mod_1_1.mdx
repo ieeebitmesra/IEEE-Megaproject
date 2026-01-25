@@ -1,0 +1,57 @@
+# What is OramaDB?
+
+OramaDB (formerly known as Orama) is a **next-generation search engine** designed for speed, simplicity, and the modern web.
+
+While databases like PostgreSQL are great at storage, and Elasticsearch is great for big clusters, Orama focuses on one thing: **Lightning-fast search at the edge.**
+
+---
+
+## 1. The Core Mission
+
+Orama was built to run anywhere:
+
+- In the **Browser** (Client-side search).
+- In **Node.js/Deno/Bun** (Server-side search).
+- At the **Edge** (Cloudflare Workers, Vercel Functions).
+
+It is written in TypeScript and has **zero dependencies**, making it incredibly lightweight and easy to deploy.
+
+---
+
+## 2. Key Features
+
+1. **Full-Text Search:** Typo tolerance, stemming, and stop-word removal out of the box.
+2. **Vector Search:** Support for AI-powered embeddings and "semantic" search.
+3. **Hybrid Search:** Combine traditional text matching with modern AI vectors.
+4. **Faceting:** Quickly group results (e.g., "Show me all products in the 'Electronics' category").
+5. **Typed Schema:** Unlike some NoSQL databases, Orama encourages a strict schema for better performance.
+
+---
+
+## Real-World Example: The E-commerce Search Bar
+
+Imagine you have a website with 10,000 products.
+
+- Traditional way: User types a word -> Frontend sends request to API -> API queries Database -> Result sent back.
+- **The Orama way:** You load the Orama index (a small JSON file) directly into the user's browser. As the user types, Orama searches the 10,000 products **on the user's phone** in less than 1 millisecond. No network requests needed.
+
+---
+
+## Hypothetical Scenario: The "Offline" Documentation
+
+A software company wants their documentation to be searchable even when the user is offline.
+
+- **The Solution:** They bundle an Orama search index with their web app.
+- Because Orama is just a JavaScript library, it can handle the search locally without ever talking to a server.
+
+## Exercises
+
+1. **Deployment:** Name three environments where OramaDB can run.
+2. **Comparison:** How is Orama different from a traditional database like PostgreSQL?
+3. **Typed Search:** Why does Orama use a "Schema" if it's a JavaScript-native tool?
+
+## Summary and Next Steps
+
+OramaDB is redefining where search happens. It moves the power from the central server to the "Edge."
+
+In the next lesson, we’ll look at the **Architecture** that makes this possible.

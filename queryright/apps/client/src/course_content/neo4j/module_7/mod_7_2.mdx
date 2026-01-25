@@ -1,0 +1,49 @@
+# Pitfalls: God Nodes & Dense Graphs
+
+A "God Node" is a node with millions of relationships. In Graph Theory, we call this a **Super Node**.
+
+---
+
+## Why Super Nodes are Bad
+
+Imagine a node called `:Country {name: "USA"}`. Every single user in your app connects to this node.
+If you try to find "Users who like Pizza in the USA", Neo4j has to look through **millions** of relationships connected to the USA node. This causes a massive performance hit.
+
+---
+
+## The Solution: Indexing and Specificity
+
+Instead of one massive "USA" node, you might:
+
+1. Use a **Property** instead of a node for high-volume data.
+2. Use **Sub-labels** or **Specific Relationship Types** (e.g., `[:LIVES_IN_STATE]` instead of a generic `[:LIVES_IN]`).
+
+---
+
+## Real-World Example: Log Management
+
+Imagine you are storing logs. You create a node for every "IP Address." One IP belongs to a massive proxy server used by 100,000 bots.
+If you try to query that IP, the query will hang.
+
+**Anti-Pattern:** Connecting every single event to a single "Year" or "Category" node.
+
+---
+
+## Hypothetical Scenario: The "Social Media Star"
+
+A celebrity has 10 million followers. When they post a message, the system tries to notify every follower via a `[:FOLLOWS]` relationship.
+If your query is `MATCH (c:Celeb)-[:FOLLOWS]-(f)`, Neo4j pulls 10 million lines into memory.
+
+**How to handle it:**
+
+- Don't traverse _from_ the Super Node. Use filters to narrow down the starting point from the _other_ side.
+- Use **Relationship Properties** to filter by date (e.g., only followers active in the last 24 hours).
+
+---
+
+## Quick Exercises:
+
+1. **Define it**: In your own words, what is a "Super Node"?
+2. **Strategy**: If you realized you had a Super Node representing "The Year 2024", how would you refactor your model to make it more efficient?
+3. **Trade-offs**: Why is a Graph Database _less_ efficient than a SQL database if you have too many Super Nodes?
+   mountain.

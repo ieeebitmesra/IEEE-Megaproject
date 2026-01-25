@@ -1,0 +1,64 @@
+# Split Brain and Quorum
+
+Distributed systems have a famous problem: **Communication Failure.** What happens if a cluster of 3 nodes is split in half by a network glitch?
+
+---
+
+## 1. The "Split Brain" Horror Story
+
+Imagine a 2-node cluster (Node A and Node B).
+
+1. A network cable is cut. Node A can't see Node B.
+2. Node A thinks: "B is dead. I am now the Master."
+3. Node B thinks: "A is dead. I am now the Master."
+4. You now have two separate clusters. Users write data to both.
+5. **The Disaster:** When the network is fixed, you have two conflicting versions of reality. This is almost impossible to merge without losing data.
+
+---
+
+## 2. The Solution: The Quorum
+
+To prevent split-brain, a cluster must have a **Quorum** (a majority) to elect a Master.
+
+$$Quorum = \lfloor \frac{N}{2} \rfloor + 1$$
+_(Where N is the number of Master-Eligible nodes)_
+
+- **3 Nodes:** Quorum is 2. If the network splits (1 vs 2), only the group of 2 can elect a master. The lone node will stop working.
+- **2 Nodes:** Quorum is 2. If the network splits (1 vs 1), **neither** side has a majority. The whole cluster stops.
+
+**Conclusion:** This is why you should **NEVER** have exactly 2 master-eligible nodes. Always have 3, 5, or 7.
+
+---
+
+## 3. Master Election in Modern ES
+
+In versions 7.x and later, Elasticsearch handles this "Voting Configuration" automatically. It tracks exactly which nodes are part of the quorum and won't allow a split-brain even if you don't manually configure the counts.
+
+---
+
+## Real-World Example: Chaos Engineering
+
+Large companies like Netflix use "Chaos Monkey" to randomly shut down servers.
+
+- Because they always have 3+ Master nodes, a single server dying doesn't stop their search service. The other two nodes detect the failure, elect a new master within seconds, and move the data around to restore health.
+
+---
+
+## Hypothetical Scenario: The "Zombie" Cluster
+
+A cluster has 5 nodes. A network split puts 2 nodes in a "Zombie" state (disconnected from the other 3).
+
+- **Behavior:** The 3-node group continues running perfectly. The 2-node group refuses to accept any writes or searches because they know they are the minority.
+- **The Result:** 100% data integrity. Once reconnected, the 2 zombies simply sync up with the 3 healthy nodes.
+
+## Exercises
+
+1. **Calculate:** What is the quorum for a cluster with 5 master-eligible nodes?
+2. **Logic Check:** Why is having 2 master nodes just as risky as having 1?
+3. **Recovery:** What happens to the "minority" side of a network split?
+
+## Summary and Next Steps
+
+Resilience is about managing the "Majority."
+
+But storing data costs money. How do we keep old logs on cheap hardware and new data on fast SSDs? We finish this module with **Index Lifecycle Management (ILM)**.

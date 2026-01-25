@@ -1,0 +1,70 @@
+# Orama on the Server (Deno/Node.js)
+
+While Orama is famous for the browser, it is a powerful tool for **Server-Side** logic too. Because it is in-memory, it is often used as a "Cache-Search" layer.
+
+---
+
+## 1. Orama in Node.js
+
+In a standard Node.js API, you can keep Orama as a global variable.
+
+```javascript
+import { create, insert, search } from '@orama/orama'
+
+const db = await create({ schema: { ... } });
+
+// API Route
+app.get('/search', async (req, res) => {
+  const results = await search(db, { term: req.query.q });
+  res.json(results);
+});
+```
+
+---
+
+## 2. Orama in Deno (Edge Runtime)
+
+Deno is perfect for Orama because Deno focuses on "Edge Instances" and fast startups. Orama’s zero-dependency nature means it starts up in Deno in almost 0ms.
+
+---
+
+## 3. High Availability
+
+If you run Orama on a single server, and that server crashes, you lose your search.
+
+- **The Solution:** Use a "Master/Follower" pattern.
+- One server (The Master) handles inputs/updates.
+- It "Broadcasts" the updated index to multiple Search Servers (The Followers).
+
+---
+
+## Real-World Example: Real-time Auction Site
+
+A site sells cars in auctions that last 60 seconds.
+
+- Prices change every second.
+- **The Solution:** They keep the auction data in an Orama instance inside the Node.js server.
+- Every time a bid is placed, Orama is updated.
+- Users searching for "High Bids" see the data change in real-time without the overhead of a slow SQL database.
+
+---
+
+## Hypothetical Scenario: The "Cold Start" Struggle
+
+A developer is using Orama in a Google Cloud Function.
+
+- Every time the function starts, it has to "Insert" 1,000 documents.
+- **The Problem:** This adds 500ms to every request.
+- **The Solution:** Use `load()` to hydrate a snapshot from memory or a global cache, reducing the startup time to < 20ms.
+
+## Exercises
+
+1. **Runtimes:** Does Orama require a special binary to run on Linux? (Hint: No, it's JS!)
+2. **Architecture:** Why is Orama considered "Zero-Latency" when used in a Node.js global variable?
+3. **Application:** How would you sync an Orama instance across 3 different servers?
+
+## Summary and Next Steps
+
+Server-side Orama is the ultimate search cache.
+
+In the next lesson, we look at the **Orama CLI**—importing data from the outside world.

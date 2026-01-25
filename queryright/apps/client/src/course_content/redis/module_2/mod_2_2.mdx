@@ -1,0 +1,109 @@
+# Sets: Unique Collections and Intersections
+
+A **Redis Set** is an unordered collection of unique strings. Unlike Lists, where you can have duplicate items (like "apple", "apple", "orange"), a Set only stores each item once. If you try to add "apple" twice, the second operation is simply ignored.
+
+## Why Use Redis Sets?
+
+Sets are perfect for tracking relationships and memberships where uniqueness is guaranteed.
+
+- **Unique Visitors:** Tracking unique user IDs that visited a page today.
+- **Social Networks:** Storing a user's friend list or followers.
+- **Tagging Systems:** Storing tags (e.g., "javascript", "backend", "web") for a blog post.
+- **Permission Systems:** Checking if a user belongs to a specific group (e.g., "admin" or "editor").
+
+---
+
+## Set Operations
+
+Set commands start with an "S".
+
+### 1. Adding and Removing Members
+
+```bash
+# Add tags to a post
+SADD post:101:tags "web" "redis" "database"
+
+# Try adding "web" again (it will return 0, meaning nothing was added)
+SADD post:101:tags "web"
+
+# Remove a tag
+SREM post:101:tags "database"
+```
+
+### 2. Checking Membership
+
+This is one of the most common set operations. It is extremely fast (O(1)).
+
+```bash
+# Is "redis" a tag for post 101?
+SISMEMBER post:101:tags "redis"
+# Output: (integer) 1 (Yes)
+```
+
+### 3. Retrieving Members
+
+```bash
+# Get all tags for this post
+SMEMBERS post:101:tags
+
+# Get the number of unique tags
+SCARD post:101:tags
+```
+
+---
+
+## The Secret Power of Sets: Set Math
+
+The most powerful feature of Redis Sets is their ability to perform **Set Math** (Intersections, Unions, and Differences) directly on the server.
+
+### 1. Intersection (Common Items)
+
+```bash
+# Find friends that Alice and Bob have in common
+SINTER user:alice:friends user:bob:friends
+```
+
+### 2. Union (All Unique Items combined)
+
+```bash
+# Find all unique tags used in three different posts
+SUNION post:1:tags post:2:tags post:3:tags
+```
+
+---
+
+## Real-World Example: Recommendation Engine
+
+Imagine a "People You May Know" feature on a social media site.
+
+1. **Alice** follows: `[user_a, user_b, user_c]` (stored in a Set `alice:following`).
+2. **Bob** follows: `[user_b, user_c, user_d]` (stored in a Set `bob:following`).
+3. To find **mutual friends**, the app runs: `SINTER alice:following bob:following`.
+4. The result is `[user_b, user_c]`.
+
+Redis performs this calculation instantly, even if users have thousands of followers.
+
+---
+
+## Hypothetical Scenario: The Spam Filter
+
+You are building a system to block spam comments. You have a Set called `blacklisted_ips`.
+
+1. Every time a comment is posted, you get the user's IP address.
+2. You run: `SISMEMBER blacklisted_ips 1.2.3.4`.
+3. If it returns `1`, you block the comment.
+4. If a moderator decides an IP is spammy, they run `SADD blacklisted_ips 1.2.3.4`.
+
+Because `SISMEMBER` is constant time, this check won't slow down your app regardless of how many millions of blacklisted IPs you have.
+
+## Exercises
+
+1. **Unique Tagging:** Create a set called `my_skills`. Add three skills. Try adding one that already exists. Use `SMEMBERS` to see the result.
+2. **Mutual Interests:** Create two sets: `hobbies:bob` and `hobbies:sarah`. Add some overlapping hobbies. Use `SINTER` to find what they have in common.
+3. **Membership Check:** Use `SISMEMBER` to check if a specific hobby exists in Bob's set.
+
+## Summary and Next Steps
+
+Redis Sets provide an efficient way to handle unique data and complex relationships. Their ability to perform fast membership checks and set operations (like intersections) makes them a foundation for recommendation engines and social features.
+
+In the next lesson, we will look at **Sorted Sets**, which take the uniqueness of Sets and add the ordering power of Lists!

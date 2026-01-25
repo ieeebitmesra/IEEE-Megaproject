@@ -1,0 +1,100 @@
+# Core Concepts: Documents, Indices, and Types
+
+To speak the language of Elasticsearch, you need to understand its fundamental building blocks. If you are coming from the world of SQL, many of these concepts will feel familiar, but they have distinct differences that are important to grasp.
+
+---
+
+## 1. The Document
+
+In Elasticsearch, a **Document** is the basic unit of information that can be indexed.
+
+- It is a JSON object (a collection of fields and values).
+- Every document belongs to an **Index**.
+- Every document has a unique **ID**.
+
+### SQL vs. Elasticsearch Mapping
+
+| SQL Concept | Elasticsearch Concept |
+| :---------- | :-------------------- |
+| Row         | Document              |
+| Column      | Field                 |
+| Table       | Index                 |
+| Database    | Cluster (or Index)    |
+
+**Example of a Document (in JSON):**
+
+```json
+{
+  "id": "1001",
+  "title": "Introduction to Elasticsearch",
+  "author": "Alice Smith",
+  "published_date": "2023-11-20",
+  "tags": ["search", "big data", "nosql"]
+}
+```
+
+---
+
+## 2. The Index
+
+An **Index** is a collection of documents that have similar characteristics.
+
+- For example, you might have one index for `customer_data`, another for `product_catalog`, and a third for `server_logs`.
+- An index is identified by a name (which must be all lowercase).
+- When you "index" data, you are essentially saving a document into an index.
+
+---
+
+## 3. The Mapping (The "Schema")
+
+While Elasticsearch can automatically guess what kind of data is in a field (e.g., "This looks like a number," "This looks like a date"), you can also explicitly define a **Mapping**.
+
+The mapping tells Elasticsearch:
+
+- Which fields are **Text** (searchable words).
+- Which fields are **Keywords** (exact values like ID codes or tags).
+- Which fields are **Numbers**, **Booleans**, or **Dates**.
+
+---
+
+## 4. Node and Cluster
+
+Elasticsearch is designed to be distributed.
+
+- **Node:** A single server that is part of your cluster, stores data, and participates in the cluster’s indexing and search capabilities.
+- **Cluster:** A collection of one or more nodes that together hold your entire data and provide federated indexing and search capabilities across all nodes.
+
+---
+
+## Real-World Example: A Corporate Employee Directory
+
+Imagine a large global company with 50,000 employees.
+
+1. **The Index:** `employee_directory`
+2. **The Document:** Each employee has a JSON document containing their name, job title, department, skills, and office location.
+3. **The Field Types:**
+   - `name` and `job_title`: **Text** (so you can search for "Manager" and find "Project Manager").
+   - `department`: **Keyword** (so you can filter exactly by "Sales" without getting "Salesforce Representative").
+   - `start_date`: **Date**.
+
+---
+
+## Hypothetical Scenario: The "Missing Type"
+
+In older versions of Elasticsearch (before 6.0), you could have multiple "Types" inside a single Index (e.g., one index for `twitter` with types `tweet` and `user`).
+
+**The Change:** Developers realized that this caused performance issues and "naming collisions" (e.g., if a `user` has a `name` field as a keyword and `tweet` has a `name` field as text, Elasticsearch gets confused).
+
+**The Result:** Today, **Mapping Types have been removed**. Every Index now represents exactly one type of data. This makes Elasticsearch much cleaner and faster!
+
+## Exercises
+
+1. **Vocabulary Check:** What is the Elasticsearch equivalent of a "Row" in a SQL database?
+2. **JSON Translation:** Create a simple JSON document (at least 4 fields) representing a "Movie" that you would want to index in Elasticsearch.
+3. **Indexing Logic:** If you were building a log analysis tool, would you put "Linux Server Logs" and "Windows Server Logs" in the same Index or separate Indices? Why?
+
+## Summary and Next Steps
+
+Documents are the data, and Indices are the containers. Understanding these core concepts is essential for structuring your data correctly.
+
+Now that we know _what_ we are storing, we need to know _where_ to store it. In the next lesson, we will cover **Setting Up Elasticsearch**, from local Docker installations to cloud-based options.

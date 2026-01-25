@@ -1,0 +1,77 @@
+# Filtering Results
+
+Search finds the relevant text, but **Filters** exclude things that shouldn't be there (e.g., "Show me results, but only if they are under $50").
+
+---
+
+## 1. Where Filters Happen
+
+Filters are placed in the `where` block of your search query.
+
+```javascript
+const result = await search(db, {
+  term: 'shoes',
+  where: {
+    price: {
+      between: [10, 50], // Range filter
+    },
+    inStock: true, // Boolean filter
+  },
+})
+```
+
+---
+
+## 2. Supported Operators
+
+Orama supports several comparison operators:
+
+- `eq`: Equal to.
+- `gt` / `gte`: Greater than / or equal to.
+- `lt` / `lte`: Less than / or equal to.
+- `between`: Value inside a range.
+
+---
+
+## 3. Combining Filters
+
+You can filter by multiple fields at once. Orama treats multiple filters in the `where` block as an **AND** operation (all conditions must be met).
+
+---
+
+## Real-World Example: Real Estate Price Tiers
+
+A user is searching for "Apartments" in New York.
+
+- They have a budget of $3,000.
+- Their search query:
+
+```javascript
+where: {
+  city: 'New York',
+  rent: { lt: 3000 }
+}
+```
+
+- Even if there is a beautiful $5,000 apartment that matches the "Apartment New York" text perfectly, Orama will hide it because it fails the filter.
+
+---
+
+## Hypothetical Scenario: The "In Stock" Toggle
+
+A customer on an e-commerce site clicks a checkbox that says "Hide Out of Stock."
+
+- **The Solution:** The developer adds `inStock: true` to the `where` object.
+- Now, the search results only show ready-to-ship products, reducing customer frustration.
+
+## Exercises
+
+1. **Syntax:** How do you search for items with a price "Greater than 100"?
+2. **Logic:** Does Orama's `where` block use `AND` or `OR` by default for multiple fields?
+3. **Drafting:** Write a filter that finds products in the `category` of 'electronics' that have more than 5 `reviews`.
+
+## Summary and Next Steps
+
+Filters help users find exactly what they need.
+
+Next, we look at **Facets**—the feature that powers those "Category Sidebar" counts on websites like Amazon.

@@ -1,0 +1,145 @@
+# Hands-on Lab: Implementing a Recommendation Engine
+
+In this lab, we will build a simple collaborative filtering recommendation engine using MongoDB's graph capabilities. The core idea is "People who bought this item also bought...". We will model the relationship between users and products and use `$graphLookup` to traverse from a specific product to the users who purchased it, and then back to other products those users purchased.
+
+## Lab Objectives
+
+By the end of this lab, you will be able to:
+
+- Model many-to-many relationships for graph traversal.
+- Use `$graphLookup` to perform multi-hop queries.
+- Aggregate and rank the results to provide meaningful recommendations.
+
+## Setting Up Your Environment and Dataset
+
+We will use a single collection `orders` to represent the edges of our graph. Each document represents a purchase.
+
+**Run the following command:**
+
+```javascript
+use recommendation_db;
+
+db.orders.drop();
+
+db.orders.insertMany([
+  { "user": "Alice", "product": "Laptop" },
+  { "user": "Alice", "product": "Mouse" },
+  { "user": "Bob", "product": "Laptop" },
+  { "user": "Bob", "product": "Headphones" },
+  { "user": "Charlie", "product": "Mouse" },
+  { "user": "Charlie", "product": "Keyboard" },
+  { "user": "David", "product": "Laptop" },
+  { "user": "David", "product": "Mouse" },
+  { "user": "David", "product": "Monitor" }
+]);
+```
+
+## Step 1: Define the Starting Point
+
+We want to find recommendations for someone viewing the **"Laptop"**.
+First, we need to find all orders for "Laptop".
+
+**Pipeline:**
+
+```javascript
+db.orders.aggregate([{ $match: { product: 'Laptop' } }])
+```
+
+**Output:** Orders for Alice, Bob, and David.
+
+## Step 2: Traverse to Co-Purchased Products
+
+Now, we want to find _other_ products purchased by these specific users.
+
+- **Hop 1:** Laptop -> Users (Alice, Bob, David)
+- **Hop 2:** Users -> Other Products (Mouse, Headphones, Monitor)
+
+We will use `$graphLookup`. Note that since our data is in one collection, we are looking up the `orders` collection _from_ the `orders` collection.
+
+```javascript
+db.orders.aggregate([
+  { $match: { product: 'Laptop' } }, // Start with Laptop orders
+  {
+    $graphLookup: {
+      from: 'orders',
+      startWith: '$user', // Start with the user who bought the laptop
+      connectFromField: 'user', // Match this user...
+      connectToField: 'user', // ...to other orders by the same user
+      as: 'userHistory',
+    },
+  },
+])
+```
+
+## Step 3: Flatten and Filter
+
+The `userHistory` array now contains _all_ purchases made by Alice, Bob, and David. We need to:
+
+1.  Unwind the array to process individual products.
+2.  Filter out the "Laptop" itself (we don't want to recommend what they are already looking at).
+
+```javascript
+db.orders.aggregate([
+  { $match: { product: 'Laptop' } },
+  {
+    $graphLookup: {
+      from: 'orders',
+      startWith: '$user',
+      connectFromField: 'user',
+      connectToField: 'user',
+      as: 'userHistory',
+    },
+  },
+  { $unwind: '$userHistory' },
+  {
+    $match: {
+      'userHistory.product': { $ne: 'Laptop' }, // Exclude the original product
+    },
+  },
+])
+```
+
+## Step 4: Ranking Recommendations
+
+Now we have a stream of related products. We need to count how many times each product appears to find the most popular ones.
+
+```javascript
+db.orders.aggregate([
+  { $match: { product: 'Laptop' } },
+  {
+    $graphLookup: {
+      from: 'orders',
+      startWith: '$user',
+      connectFromField: 'user',
+      connectToField: 'user',
+      as: 'userHistory',
+    },
+  },
+  { $unwind: '$userHistory' },
+  { $match: { 'userHistory.product': { $ne: 'Laptop' } } },
+  {
+    $group: {
+      _id: '$userHistory.product', // Group by related product
+      strength: { $sum: 1 }, // Count occurrences
+    },
+  },
+  { $sort: { strength: -1 } }, // Sort by popularity
+])
+```
+
+**Expected Output:**
+
+```json
+[
+  { "_id": "Mouse", "strength": 2 }, // Alice and David bought Mouse
+  { "_id": "Headphones", "strength": 1 }, // Bob bought Headphones
+  { "_id": "Monitor", "strength": 1 } // David bought Monitor
+]
+```
+
+**Analysis:**
+The "Mouse" is the strongest recommendation because two different users who bought a Laptop also bought a Mouse.
+
+## Summary
+
+In this lab, we built a recommendation engine without complex machine learning algorithms. By treating our data as a graph (User-Product edges) and using `$graphLookup` to traverse it, we uncovered hidden patterns in purchase behavior.

@@ -1,0 +1,100 @@
+# The `$limit` and `$skip` Stages: Pagination in Aggregations
+
+The `$limit` and `$skip` stages are control flow operators that restrict the number of documents passing through the pipeline. They are most commonly used together to implement pagination, allowing applications to retrieve results in manageable "pages" rather than fetching an entire dataset at once.
+
+## Understanding `$limit` Syntax
+
+The `$limit` stage takes a single positive integer $n$ and passes only the first $n$ documents to the next stage.
+
+**Syntax:**
+
+```javascript
+{ $limit: /* positive integer */ }
+```
+
+## Understanding `$skip` Syntax
+
+The `$skip` stage takes a single positive integer $n$ and discards the first $n$ documents, passing the remaining documents to the next stage.
+
+**Syntax:**
+
+```javascript
+{ $skip: /* positive integer */ }
+```
+
+## Implementing Pagination
+
+To implement consistent pagination, the order of operations is critical. You must always **Sort**, then **Skip**, then **Limit**.
+
+1.  **Sort:** Ensures a deterministic order (otherwise, "Page 1" might change randomly).
+2.  **Skip:** Jumps over the records from previous pages.
+3.  **Limit:** Restricts the result to the page size.
+
+**Formula:**
+
+- `Skip = (PageNumber - 1) * PageSize`
+- `Limit = PageSize`
+
+## Practical Examples and Demonstrations
+
+### Scenario 1: Fetching the "Top 3" Products
+
+**Context:** We want to find the 3 most expensive products in our catalog.
+
+**Sample Data:** `products` collection
+
+```json
+[
+  { "_id": 1, "name": "A", "price": 10 },
+  { "_id": 2, "name": "B", "price": 50 },
+  { "_id": 3, "name": "C", "price": 20 },
+  { "_id": 4, "name": "D", "price": 100 }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.products.aggregate([
+  { $sort: { price: -1 } }, // Sort by price descending
+  { $limit: 3 }, // Take top 3
+])
+```
+
+**Expected Output:**
+
+```json
+[
+  { "_id": 4, "name": "D", "price": 100 },
+  { "_id": 2, "name": "B", "price": 50 },
+  { "_id": 3, "name": "C", "price": 20 }
+]
+```
+
+### Scenario 2: Retrieving "Page 2" of Results
+
+**Context:** Assuming a page size of 2, we want to retrieve the second page of products, sorted alphabetically.
+
+- Page Size: 2
+- Page Number: 2
+- Skip: (2 - 1) \* 2 = 2
+
+**Pipeline Code:**
+
+```javascript
+db.products.aggregate([
+  { $sort: { name: 1 } }, // 1. Sort
+  { $skip: 2 }, // 2. Skip first 2
+  { $limit: 2 }, // 3. Take next 2
+])
+```
+
+## Performance Implications
+
+While `$limit` is generally performant (and can even allow MongoDB to stop processing early), `$skip` can become a performance bottleneck with large offsets. To skip 100,000 documents, MongoDB must still fetch and discard those 100,000 documents. For deep pagination, keyset pagination (filtering by `_id > last_seen_id`) is often preferred over `skip/limit`.
+
+## Summary
+
+The `$limit` and `$skip` stages are the standard building blocks for controlling result set size and navigation. When combined with `$sort`, they provide the functionality needed for user-facing lists and tables.
+
+In the next lesson, we will discuss **Using Indexes with Aggregation Pipelines**, which is crucial for optimizing the performance of these sort and filter operations.

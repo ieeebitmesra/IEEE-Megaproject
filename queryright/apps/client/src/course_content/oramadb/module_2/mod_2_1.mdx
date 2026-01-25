@@ -1,0 +1,78 @@
+# Advanced Schema Types
+
+OramaDB's schema isn't just for strings and numbers. It has specialized types that help it understand the _meaning_ of your data.
+
+---
+
+## 1. The `enum` Type
+
+If a field can only have a few specific values (like `color` or `priority`), use `enum`.
+
+- This is much more memory-efficient than storing the same string over and over.
+
+```javascript
+schema: {
+  priority: 'enum', // allowed: 'high', 'medium', 'low'
+}
+```
+
+---
+
+## 2. Geosearch with `geopoint`
+
+If you are building a "Store Locator," you need to store coordinates.
+
+- Orama has a built-in `geopoint` type.
+
+```javascript
+schema: {
+  location: 'geopoint'
+}
+// Data: { lat: 40.7128, lon: -74.0060 }
+```
+
+---
+
+## 3. The `string[]` (List of Strings)
+
+Useful for tags or categories.
+
+- If you search for "Action," Orama will find any document where "Action" appears in the `tags` list.
+
+```javascript
+schema: {
+  tags: 'string[]'
+}
+```
+
+---
+
+## Real-World Example: Real Estate Search
+
+A real estate app uses Orama to search listings.
+
+- **`status`** is an `enum` ('for sale', 'sold', 'pending').
+- **`location`** is a `geopoint`.
+- **`features`** is a `string[]` ('pool', 'gym', 'balcony').
+- This schema allows the user to perform complex searches like: "Find all **sold** homes with a **pool** within 2 miles of my location."
+
+---
+
+## Hypothetical Scenario: The "Date" Confusion
+
+A developer wants to search for documents created "Last Week."
+
+- **The Solution:** They use the `number` type to store a Unix Timestamp (e.g., `1700000000`).
+- Orama allows you to filter ranges: `WHERE timestamp > 1699000000`.
+
+## Exercises
+
+1. **Efficiency:** Why is `enum` better than `string` for limited categories?
+2. **Features:** How would you store a list of product "Colors" in Orama?
+3. **Geo:** What are the two keys required in a `geopoint` object?
+
+## Summary and Next Steps
+
+Advanced types make your data searchable in more ways than just text.
+
+In the next lesson, we’ll look at **Tokenization**—how Orama actually "reads" and breaks down your text.

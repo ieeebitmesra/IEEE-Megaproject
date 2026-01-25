@@ -1,0 +1,125 @@
+# Basic Search Queries
+
+You've indexed your documents; now it's time to query them. Elasticsearch provides a powerful "Query DSL" (Domain Specific Language) based on JSON. In this lesson, we will focus on the most common basic searches.
+
+---
+
+## 1. The `_search` Endpoint
+
+All search requests are sent to the `_search` endpoint.
+
+```http
+# Search across all documents in an index
+GET /my-library/_search
+```
+
+By default, this will return the first 10 documents it finds.
+
+---
+
+## 2. Match Query
+
+The `match` query is the "bread and butter" of Elasticsearch. It is used for full-text search.
+
+```http
+GET /my-library/_search
+{
+  "query": {
+    "match": {
+      "title": "Clean Code"
+    }
+  }
+}
+```
+
+**Why it's smart:** If a document has the title "Clean Architecture," it will still show up as a result (though lower down the list), because it matches the word "Clean."
+
+---
+
+## 3. Term Query
+
+While `match` is for text, the `term` query is for **exact values**.
+
+```http
+GET /my-library/_search
+{
+  "query": {
+    "term": {
+      "year": 2008
+    }
+  }
+}
+```
+
+_Tip: Use `term` for numbers, booleans, and "Keyword" fields (like categories or status codes). Never use `term` for full-text fields._
+
+---
+
+## 4. Range Query
+
+Range queries allow you to find values within a specific numerical or date span.
+
+```http
+GET /my-library/_search
+{
+  "query": {
+    "range": {
+      "pages": {
+        "gte": 200,
+        "lte": 500
+      }
+    }
+  }
+}
+```
+
+- `gte`: Greater-than or equal to.
+- `lte`: Less-than or equal to.
+- `gt` and `lt`: Greater-than and Less-than.
+
+---
+
+## Understanding the Search Results
+
+When you run a search, you'll see a JSON response with several important metadata fields:
+
+- **`took`**: How many milliseconds the search took.
+- **`timed_out`**: Did the search take too long? (Usually `false`).
+- **`hits.total.value`**: How many documents matched your query in total.
+- **`hits.hits`**: The actual array of matching documents.
+- **`_score`**: A number representing how relevant this document is to your query. Higher is better!
+
+---
+
+## Real-World Example: A Movie Search Bar
+
+Imagine a movie database like IMDb.
+
+1. **User Types:** "Harry Potter"
+2. **The App runs:** A `match` query on the `title` field.
+3. **The Filters:** The user filters for "Movies released after 2010."
+4. **The App runs:** A combined query (which we will learn about in Module 3) using a `match` for the title and a `range` for the `release_year`.
+5. **The Result:** The 8th Harry Potter film appears at the top (highest score), and 1930s films are filtered out.
+
+---
+
+## Hypothetical Scenario: The "Empty Results" Mystery
+
+A developer is searching for an exact order ID: `order-XP-99`.
+They use a `match` query, but it returns 500 different orders!
+
+**The Problem:** Because they used `match` on a text field, Elasticsearch split the ID into `order`, `XP`, and `99`. It's showing every order that contains any of those pieces.
+
+**The Solution:** For IDs and exact identifiers, you should use the **`term`** query on a **`keyword`** field.
+
+## Exercises
+
+1. **Match Practice:** Write a query to find all books where the `author` field contains the word "Martin".
+2. **Range Practice:** Imagine an index called `weather`. Write a range query to find all logs where the `temperature` was between `15` and `25` degrees.
+3. **Score Logic:** If two books match your search, but one has the search term in the title 5 times and the other has it only 1 time, which one will have a higher `_score`?
+
+## Summary and Next Steps
+
+Basic queries are only the tip of the iceberg, but they handle about 80% of daily search needs. By combining `match`, `term`, and `range`, you can build a powerful search experience.
+
+However, to really master search, you need to understand how Elasticsearch "analyzes" text and builds its magic index. In Module 2, we will dive deep into **Lucene and the Inverted Index**.

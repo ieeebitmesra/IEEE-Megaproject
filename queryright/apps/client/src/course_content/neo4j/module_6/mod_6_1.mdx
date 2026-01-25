@@ -1,0 +1,65 @@
+# Connecting to Neo4j: Drivers & SDNs
+
+To use Neo4j in an app, you don't just type in a console; you use **Drivers**.
+
+---
+
+## The Neo4j Driver (The Official Way)
+
+Neo4j provides official drivers for **JavaScript, Python, Java, .NET, and Go**. They all follow a similar pattern:
+
+1. **Driver**: The connection pool to your database instance.
+2. **Session**: A lightweight unit of work (usually tied to a single user request).
+3. **Transaction**: Ensuring your query either works completely or fails safely.
+
+---
+
+## Real-World Example: Node.js (TypeScript)
+
+If you are building a recommendation engine backend, your connection logic would look like this:
+
+```typescript
+import neo4j from 'neo4j-driver'
+
+// 1. Initialize the Driver
+const driver = neo4j.driver(
+  'bolt://localhost:7687',
+  neo4j.auth.basic('neo4j', 'password'),
+)
+
+// 2. Perform a Task
+async function getFriendRecommendations(userId: string) {
+  const session = driver.session()
+  try {
+    const result = await session.executeRead((tx) =>
+      tx.run(
+        `MATCH (u:User {id: $id})-[:FRIEND]->(f)-[:FRIEND]->(foaf)
+         WHERE NOT (u)-[:FRIEND]->(foaf) AND u <> foaf
+         RETURN foaf.name AS name, count(*) AS strength
+         ORDER BY strength DESC LIMIT 5`,
+        { id: userId },
+      ),
+    )
+    return result.records.map((row) => row.get('name'))
+  } finally {
+    await session.close()
+  }
+}
+```
+
+---
+
+## Hypothetical Scenario: The "Zombie" Connection
+
+A developer forgot to run `await session.close()`. Within 10 minutes, their server crashed.
+**Why?** Because even though the query finished, the "Session" was still holding onto a link in the connection pool. Eventually, the pool ran out of room, and the app "starved" to death.
+
+**Rule:** Always close your sessions (usually in a `finally` block).
+
+---
+
+## Quick Exercises:
+
+1. **Difference?**: What is the difference between a `Session` and a `Driver`?
+2. **Read vs Write**: Why should we use `session.executeRead()` instead of just `session.run()`? (Hint: It relates to database clusters and performance).
+3. **Draft a Query**: Write a Cypher query you would pass to a driver to find all "Managers" of a specific "Department" node.

@@ -1,0 +1,105 @@
+# Calculating Running Totals and Moving Averages
+
+In business analytics, looking at isolated numbers often isn't enough. Knowing we sold $500 today is good. Knowing that our _cumulative_ sales for the month just crossed $10,000 is better. Knowing that our _3-day moving average_ is trending up is even better.
+
+Window functions allow us to calculate these "rolling" metrics easily using the `ROWS BETWEEN` clause.
+
+## Understanding the Frame
+
+Inside the `OVER()` clause, we can define a "Frame" of rows relative to the current row.
+
+**Syntax:**
+
+```sql
+SUM(column) OVER (
+    ORDER BY date_column
+    ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+)
+```
+
+- **`UNBOUNDED PRECEDING`**: Start from the very first row.
+- **`CURRENT ROW`**: Stop at the current row.
+- **Result:** A cumulative running total.
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### Scenario 1: Cumulative Sales (Running Total)
+
+We want to see how our sales accumulate day by day throughout January.
+
+**Query:**
+
+```sql
+SELECT order_date, daily_sales,
+       SUM(daily_sales) OVER (
+           ORDER BY order_date
+           ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+       ) as running_total
+FROM daily_sales_summary;
+```
+
+**Result:**
+| order_date | daily_sales | running_total |
+| :--- | :--- | :--- |
+| Jan 1 | 100 | 100 |
+| Jan 2 | 200 | 300 (100+200) |
+| Jan 3 | 150 | 450 (300+150) |
+
+### Scenario 2: 3-Day Moving Average
+
+Sales data can be spiky. To smooth it out and see the trend, we calculate the average of the current day and the previous 2 days.
+
+**Query:**
+
+```sql
+SELECT order_date, daily_sales,
+       AVG(daily_sales) OVER (
+           ORDER BY order_date
+           ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
+       ) as moving_avg_3_day
+FROM daily_sales_summary;
+```
+
+- **Logic:** For Jan 3, it averages Jan 1, Jan 2, and Jan 3.
+
+### Scenario 3: Running Total _Per Customer_
+
+We can combine this with `PARTITION BY`. We want to see a running total of spend for _each_ customer, ordered by their order dates.
+
+**Query:**
+
+```sql
+SELECT customer_name, order_date, order_amount,
+       SUM(order_amount) OVER (
+           PARTITION BY customer_name
+           ORDER BY order_date
+           ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+       ) as customer_running_total
+FROM orders;
+```
+
+## Exercises and Practice Activities
+
+To solidify your understanding, complete the following exercises.
+
+### Exercise 1: The Ledger
+
+Write a query to calculate a running count of orders placed over time. (Hint: Use `COUNT(*)` instead of `SUM()`).
+
+### Exercise 2: The 7-Day Trend
+
+Write a query to calculate a 7-day moving average of sales. Why is a 7-day average particularly useful for retail businesses? (Hint: Think about weekends vs weekdays).
+
+### Exercise 3: Frame Logic
+
+If you changed the frame to `ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING`, what would you be calculating?
+
+## Concluding Thoughts
+
+In this lesson, we learned how to look backward (and forward) in our data to calculate trends and totals. This transforms static data into a story of growth and change.
+
+In the next lesson, we will look at **Pivoting Data**. This is the process of transforming rows into columns, turning a standard database list into a readable matrix or report format.
+
+=START_QUESTIONS=What clause defines the range of rows for a window function?@@What does UNBOUNDED PRECEDING mean?@@How do you calculate a running total?@@Why are moving averages useful? =END_QUESTIONS=

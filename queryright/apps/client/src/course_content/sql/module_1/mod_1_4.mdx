@@ -1,0 +1,148 @@
+# Basic SQL Syntax: SELECT Statement and Clause Order
+
+Now that we have our environment set up and understand how data is structured in tables, it is time to learn the language used to interact with that data: SQL (Structured Query Language). The most fundamental and frequently used command in SQL is the `SELECT` statement. This lesson will introduce you to the basic syntax of `SELECT`, the strict order of clauses you must follow, and how to retrieve data from your tables. Mastering this foundation is essential, as almost every data analysis task begins with selecting data.
+
+## The SELECT Statement: Retrieving Data
+
+The `SELECT` statement is used to fetch data from a database. In its simplest form, it tells the database _what_ data you want (which columns) and _where_ to get it from (which table). Unlike imperative programming languages where you describe _how_ to get the data (e.g., "open file, read line by line"), SQL is **declarative**: you describe the result you want, and the database engine figures out the most efficient way to get it.
+
+### The Basic Syntax
+
+The skeleton of a basic SQL query looks like this:
+
+```sql
+SELECT column1, column2, ...
+FROM table_name;
+```
+
+- **`SELECT`**: This keyword specifies the columns (attributes) you want to retrieve.
+- **`FROM`**: This keyword specifies the table (entity) that contains the data.
+- **`;` (Semicolon)**: This is the standard statement terminator. It tells the database that the command is complete and ready to be executed.
+
+### Clause Order Matters
+
+SQL is strict about the order of its clauses. You cannot put `FROM` before `SELECT`. While we will learn more clauses later (like `WHERE`, `GROUP BY`, `ORDER BY`), the `SELECT` and `FROM` clauses are the mandatory core of a retrieval query.
+
+**Correct Order:**
+
+1.  `SELECT`
+2.  `FROM`
+
+**Incorrect Order (Will cause an error):**
+
+```sql
+FROM table_name
+SELECT column_name; -- This is invalid SQL
+```
+
+### Case Sensitivity and Style
+
+SQL keywords (like `SELECT`, `FROM`) are **case-insensitive**. This means `select`, `Select`, and `SELECT` are all treated the same by the database. However, it is a widely accepted best practice to write keywords in **UPPERCASE** and table/column names in **lowercase**. This makes your code much easier to read and debug.
+
+- _Recommended:_ `SELECT first_name FROM customers;`
+- _Not Recommended:_ `select first_name from customers;` (Harder to distinguish keywords)
+
+## Practical Examples and Demonstrations
+
+Let's apply this syntax to our hypothetical **Online Bookstore** database from the previous lesson.
+
+### Scenario 1: Retrieving a List of Book Titles
+
+Imagine you are a store manager and you want a simple list of all the book titles available in your inventory. You don't need the price, the author, or the stock count—just the titles.
+
+**Query:**
+
+```sql
+SELECT title
+FROM books;
+```
+
+**Result:**
+The database will return a single column containing the titles of every book in the `books` table.
+
+| title               |
+| :------------------ |
+| The Great Gatsby    |
+| 1984                |
+| Pride and Prejudice |
+| ...                 |
+
+### Scenario 2: Retrieving Multiple Columns
+
+Now, suppose you want to see the title of each book along with its price and stock quantity to do a quick inventory check. You can select multiple columns by separating them with commas.
+
+**Query:**
+
+```sql
+SELECT title, price, stock_quantity
+FROM books;
+```
+
+**Result:**
+The database returns a table with three columns.
+
+| title               | price | stock_quantity |
+| :------------------ | :---- | :------------- |
+| The Great Gatsby    | 10.99 | 50             |
+| 1984                | 8.99  | 100            |
+| Pride and Prejudice | 12.50 | 30             |
+
+**Common Mistake:**
+Do not put a comma after the _last_ column name.
+
+- _Incorrect:_ `SELECT title, price, FROM books;` (The comma after `price` will cause a syntax error).
+
+### Scenario 3: Retrieving All Columns (The Wildcard `*`)
+
+Sometimes, you want to see _everything_ in a table. Instead of typing out every single column name, you can use the asterisk (`*`) character, which acts as a wildcard meaning "all columns."
+
+**Query:**
+
+```sql
+SELECT *
+FROM authors;
+```
+
+**Result:**
+This returns every column (`author_id`, `first_name`, `last_name`, `birth_date`) for every row in the `authors` table.
+
+| author_id | first_name | last_name  | birth_date |
+| :-------- | :--------- | :--------- | :--------- |
+| 1         | F. Scott   | Fitzgerald | 1896-09-24 |
+| 2         | George     | Orwell     | 1903-06-25 |
+| ...       | ...        | ...        | ...        |
+
+_Note:_ While `SELECT *` is great for quick exploration, it is generally discouraged in production applications because retrieving unnecessary data can slow down performance. We will discuss this more in the next lesson.
+
+## Exercises and Practice Activities
+
+To solidify your understanding of the basic `SELECT` syntax, complete the following exercises.
+
+### Exercise 1: Writing Basic Queries
+
+Assume you have a table named `Employees` with the following columns: `employee_id`, `first_name`, `last_name`, `email`, `department`, `salary`.
+
+1.  Write a query to retrieve only the first and last names of all employees.
+2.  Write a query to retrieve the email addresses of all employees.
+3.  Write a query to retrieve all information (every column) for every employee.
+
+### Exercise 2: Identifying Syntax Errors
+
+Look at the following SQL queries. Each one has a syntax error. Identify the error and write the corrected version.
+
+1.  `SELECT first_name last_name FROM employees;`
+2.  `SELECT * FROM employees` (Hint: What is missing at the end?)
+3.  `FROM employees SELECT email;`
+4.  `SELECT name, email, FROM users;`
+
+### Exercise 3: Conceptual Understanding
+
+Why do we use uppercase for keywords like `SELECT` and `FROM` even though SQL is case-insensitive? Explain how this helps a developer reading the code.
+
+## Concluding Thoughts
+
+In this lesson, we introduced the `SELECT` statement, the heartbeat of SQL. You learned the mandatory clause order (`SELECT` then `FROM`), how to retrieve specific columns, and how to use the wildcard `*` to retrieve all data. You also learned about coding standards like capitalization and semicolon termination.
+
+Looking ahead, the next lesson will refine our data retrieval skills. We will explore the difference between selecting specific columns versus all columns in more depth, focusing on performance and readability. We will also learn how to rename columns in our results using aliases to make reports more user-friendly.
+
+=START_QUESTIONS=What is the purpose of the SELECT clause?@@What is the purpose of the FROM clause?@@Which character is used to select all columns in a table?@@Why is the order of clauses important in SQL? =END_QUESTIONS=

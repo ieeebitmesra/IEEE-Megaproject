@@ -1,0 +1,66 @@
+# Connecting to External Databases
+
+You don't always want to move data into DuckDB. Sometimes you just want to use DuckDB as a "Lens" to look at your other databases.
+
+---
+
+## 1. The Postgres/MySQL Scanner
+
+DuckDB has extensions that allow it to read data directly from "Server-based" databases.
+
+```sql
+-- 1. Install and load the extension
+INSTALL postgres;
+LOAD postgres;
+
+-- 2. Attach the database
+ATTACH 'dbname=user_data user=admin host=myserver' AS my_pg (TYPE POSTGRES);
+
+-- 3. Query it!
+SELECT * FROM my_pg.users LIMIT 5;
+```
+
+---
+
+## 2. Why do this?
+
+1. **Analytical Performance:** Postgres is slow for "Average" and "Sum" on millions of rows. DuckDB is fast.
+2. **Federated Queries:** You can join a table in **Postgres** with a CSV file on your **Hard Drive** in a single SQL query.
+3. **ETL:** You can easily move data from Postgres to a Parquet file for long-term storage.
+
+---
+
+## 3. SQLite Integration
+
+Since DuckDB and SQLite are both "In-Process," DuckDB can attach to a `.sqlite` file instantly. This is great for apps that use SQLite for transactions but need DuckDB for reporting.
+
+---
+
+## Real-World Example: Data Portability
+
+A company is moving from an old MySQL database to a modern Parquet-based Data Lake.
+
+- The developer attaches to MySQL using DuckDB.
+- They run: `COPY my_mysql.sales TO 'sales_archive.parquet';`
+- The entire database is migrated to high-performance local files in seconds.
+
+---
+
+## Hypothetical Scenario: The "Join of Two Worlds"
+
+You have a `users` table in a secure PostgreSQL server and a `marketing_targets.xlsx` file.
+
+- You need to see which users in the database are on the marketing list.
+- **The Solution:** Use DuckDB. Attach the Postgres DB, read the Excel file, and run one `JOIN` query. No need to upload the spreadsheet to the secure server or download the user list.
+
+## Exercises
+
+1. **Commands:** What is the first command you must run to use the Postgres features in DuckDB?
+2. **Benefit:** Why would you use DuckDB to query Postgres instead of just using Postgres?
+3. **Syntax:** What is the keyword used to connect a new database to your DuckDB session?
+
+## Summary and Next Steps
+
+DuckDB can be the "Central Hub" for all your data, no matter where it lives.
+
+Finally, in the last lesson of this module, we look at how DuckDB interacts with the **Cloud** through **HTTP and S3**.

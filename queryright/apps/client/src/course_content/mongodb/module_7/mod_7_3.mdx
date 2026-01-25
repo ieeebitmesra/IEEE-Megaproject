@@ -1,0 +1,101 @@
+# Error Handling and Robust Pipeline Design
+
+Aggregation pipelines in production must be resilient. Data quality issues, schema variations, and unexpected input types can cause a pipeline to fail, potentially breaking your application features. Designing for robustness means anticipating these issues and handling them gracefully within the pipeline itself.
+
+## Common Failure Points
+
+1.  **Type Mismatches:** Attempting to perform arithmetic on a string field.
+2.  **Missing Fields:** Grouping by a field that doesn't exist in some documents.
+3.  **Null Values:** Accumulators encountering `null` where a number is expected.
+4.  **Memory Limits:** Exceeding the 100MB limit for blocking stages.
+
+## Handling Missing or Null Data
+
+The `$ifNull` operator is your first line of defense. It allows you to provide a default value if a field is missing or null.
+
+**Syntax:**
+
+```javascript
+{
+  $ifNull: ['$field' /* default-value */]
+}
+```
+
+**Example:**
+
+```javascript
+{
+  $project: {
+    // If 'category' is missing, treat it as "Uncategorized"
+    category: {
+      $ifNull: ['$category', 'Uncategorized']
+    }
+  }
+}
+```
+
+## Safe Type Conversion
+
+The `$convert` operator provides a safe way to change data types. Unlike `$toInt` or `$toDouble`, which throw errors on failure, `$convert` allows you to specify a fallback value.
+
+**Syntax:**
+
+```javascript
+{
+  $convert: {
+    input: "$field",
+    to: "int",
+    onError: 0,   // Value to return if conversion fails (e.g., "ABC" -> int)
+    onNull: 0     // Value to return if input is null/missing
+  }
+}
+```
+
+## Practical Demonstration
+
+### Scenario: Aggregating Dirty Data
+
+**Context:** We are aggregating logs where the `responseTime` field is sometimes a number, sometimes a string ("200ms"), and sometimes missing. We want the average response time.
+
+**Pipeline Code:**
+
+```javascript
+db.logs.aggregate([
+  {
+    $project: {
+      safeResponseTime: {
+        $convert: {
+          input: '$responseTime',
+          to: 'double',
+          onError: null, // Ignore bad strings
+          onNull: null,
+        },
+      },
+    },
+  },
+  // Filter out the nulls we just created/passed through
+  {
+    $match: { safeResponseTime: { $ne: null } },
+  },
+  {
+    $group: {
+      _id: null,
+      avgTime: { $avg: '$safeResponseTime' },
+    },
+  },
+])
+```
+
+## Debugging Strategies
+
+When a complex pipeline fails or returns unexpected results:
+
+1.  **Isolate Stages:** Comment out stages starting from the bottom until the pipeline works.
+2.  **Use `$limit`:** Test with a small sample (`{ $limit: 100 }`) at the start of the pipeline to debug logic without waiting for full execution.
+3.  **Check Types:** Use `$type` in a `$match` stage to find documents that violate your schema assumptions.
+
+## Summary
+
+A robust pipeline is a defensive pipeline. By using operators like `$ifNull` and `$convert`, you ensure that your aggregation logic can survive the messy reality of production data without crashing your application.
+
+In the next lesson, we will address **Securing Aggregation Pipelines**, focusing on how to prevent sensitive data leakage.

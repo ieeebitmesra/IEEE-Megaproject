@@ -1,0 +1,149 @@
+# Array Operators (`$map`, `$filter`, `$size`, `$reduce`)
+
+Array operators provide powerful tools for manipulating and analyzing arrays _within_ a single document, without the need to `$unwind` them. These operators allow you to transform, filter, count, and aggregate array elements in place, maintaining the document structure while deriving new insights.
+
+## The `$size` Operator
+
+The `$size` operator returns the number of elements in an array. It is the most efficient way to count items, such as the number of tags on a product or comments on a post.
+
+**Syntax:**
+
+```javascript
+{
+  $size: '$arrayField'
+}
+```
+
+## The `$filter` Operator
+
+The `$filter` operator returns a subset of an array based on a specified condition. It is useful for removing unwanted items from a list without exploding the document.
+
+**Syntax:**
+
+```javascript
+{
+  $filter: {
+    input: "$arrayField",
+    as: "item", // Variable name for the current element
+    cond: { $expression } // Boolean condition
+  }
+}
+```
+
+## The `$map` Operator
+
+The `$map` operator applies an expression to each item in an array and returns a new array with the applied results. It is similar to the `map()` function in JavaScript.
+
+**Syntax:**
+
+```javascript
+{
+  $map: {
+    input: "$arrayField",
+    as: "item",
+    in: { $expression } // Transformation logic
+  }
+}
+```
+
+## Practical Examples and Demonstrations
+
+### Scenario 1: Filtering and Counting
+
+**Context:** We have a blog post collection with a `comments` array. We want to count how many "approved" comments each post has.
+
+**Sample Data:** `posts` collection
+
+```json
+[
+  {
+    "_id": 1,
+    "title": "Intro to MongoDB",
+    "comments": [
+      { "text": "Great!", "status": "approved" },
+      { "text": "Spam", "status": "rejected" },
+      { "text": "Helpful", "status": "approved" }
+    ]
+  }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.posts.aggregate([
+  {
+    $project: {
+      title: 1,
+      approvedComments: {
+        $filter: {
+          input: '$comments',
+          as: 'comment',
+          cond: { $eq: ['$$comment.status', 'approved'] },
+        },
+      },
+    },
+  },
+  {
+    $addFields: {
+      approvedCount: { $size: '$approvedComments' },
+    },
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[
+  {
+    "_id": 1,
+    "title": "Intro to MongoDB",
+    "approvedComments": [
+      { "text": "Great!", "status": "approved" },
+      { "text": "Helpful", "status": "approved" }
+    ],
+    "approvedCount": 2
+  }
+]
+```
+
+### Scenario 2: Transforming Data with `$map`
+
+**Context:** We have a list of prices in an array and want to apply a 10% tax to each price.
+
+**Sample Data:** `invoices` collection
+
+```json
+[{ "_id": 1, "prices": [100, 200, 50] }]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.invoices.aggregate([
+  {
+    $project: {
+      pricesWithTax: {
+        $map: {
+          input: '$prices',
+          as: 'price',
+          in: { $multiply: ['$$price', 1.1] },
+        },
+      },
+    },
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[{ "_id": 1, "pricesWithTax": [110, 220, 55] }]
+```
+
+## Summary
+
+Array operators like `$map`, `$filter`, and `$size` allow for sophisticated data manipulation directly within the projection stage. They enable you to clean, reshape, and analyze embedded lists efficiently without the performance cost of unwinding and regrouping.
+
+In the next lesson, we will examine **String Operators (`$concat`, `$toUpper`, `$substr`)**, which provide text manipulation capabilities within the pipeline.

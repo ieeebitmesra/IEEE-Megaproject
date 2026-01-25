@@ -1,0 +1,70 @@
+# Dynamic vs. Explicit Mapping
+
+In Module 1, we let Elasticsearch "guess" our data types. This is called **Dynamic Mapping**. In production, this is dangerous. You should almost always use **Explicit Mapping**.
+
+---
+
+## 1. The Dangers of Dynamic Mapping
+
+1. **Incorrect Types:** Elasticsearch might see `2023-01-01` and think it's a `date`, but you actually wanted it as a `string`.
+2. **Mapping Explosion:** If you index a JSON object with thousands of random keys (like a giant nested config), Elasticsearch will create a mapping for every single one. This can crash the cluster.
+3. **Wasted Space:** Dynamic mapping creates both a `text` and a `keyword` field for every string. If you only need one, you are doubling your storage costs.
+
+---
+
+## 2. Best Practice: Disable Dynamic Mapping
+
+You can tell Elasticsearch to reject any document that contains a field you haven't explicitly defined.
+
+```json
+{
+  "mappings": {
+    "dynamic": "strict",
+    "properties": {
+      "user_id": { "type": "keyword" },
+      "email": { "type": "keyword" }
+    }
+  }
+}
+```
+
+_If a document comes in with a "username" field, Elasticsearch will throw an error instead of creating a new mapping._
+
+---
+
+## 3. Dynamic Templates
+
+What if you want the best of both worlds? You can define rules for dynamic fields.
+
+- "Any field starting with `is_` should be a `boolean`."
+- "Any string field should ONLY be a `keyword`, not `text`."
+
+---
+
+## Real-World Example: Log Management
+
+In a logging system, developers often add new fields to their logs without telling the DB admins.
+
+- Using `dynamic: "strict"` would break the app every time a developer adds a log line.
+- Using `dynamic: "true"` would cause mapping explosions.
+- **The Solution:** Use `dynamic: "runtime"`. This allows you to index the data without a schema, but it's slightly slower to search.
+
+---
+
+## Hypothetical Scenario: The "Long" that became a "Float"
+
+- Doc 1: `{ "price": 10 }` -> Elasticsearch maps `price` as a `long`.
+- Doc 2: `{ "price": 10.99 }` -> **ERROR!** You cannot put a decimal into a `long` field.
+- **The Lesson:** Explicitly mapping `price` as a `float` or `scaled_float` from Day 1 prevents this crash.
+
+## Exercises
+
+1. **Comparison:** Why is `dynamic: "strict"` safer than `dynamic: "true"` for production?
+2. **Storage:** How does explicit mapping help save disk space?
+3. **Template Logic:** Write a rule that would map all fields ending in `_count` as a `long`.
+
+## Summary and Next Steps
+
+Explicit mapping is the foundation of a stable cluster.
+
+But what happens when you _need_ to change your mapping? Since mappings are immutable, you have to re-index. In the next lesson, we learn how to do that with **zero downtime** using **Aliases**.

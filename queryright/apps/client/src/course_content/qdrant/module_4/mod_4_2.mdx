@@ -1,0 +1,46 @@
+# HNSW: The Speed Secret
+
+If you have 10 million vectors, it is impossible to calculate the "Distance" for every single one every time someone searches. It would take seconds, and your CPU would melt.
+
+To solve this, Qdrant uses **HNSW** (Hierarchical Navigable Small World).
+
+---
+
+## What is HNSW?
+
+Imagine a world map.
+
+1. **Top Layer:** Just the major cities (London, New York, Tokyo).
+2. **Middle Layer:** Smaller cities and towns.
+3. **Bottom Layer:** Individual houses and streets.
+
+To find your way to a specific house in London from New York:
+
+- You first jump to the "London" dot in the top layer.
+- Then you drop down to the middle layer to find the right neighborhood.
+- Finally, you drop to the bottom layer to find the exact street.
+
+HNSW builds this "Map" for your vectors. It lets Qdrant skip millions of "dots" and only look at the ones that are likely to be neighbors.
+
+---
+
+## ANN: Approximate Nearest Neighbors
+
+Because HNSW skips data, it is called **"Approximate."**
+It is 99% accurate, but it is **1,000x faster** than a "Brute Force" search. In search engines, we happily trade 1% accuracy for that massive speed boost.
+
+---
+
+## Real-World Example: Scale
+
+- **Without HNSW:** Searching 100 million items takes 5 minutes.
+- **With HNSW:** Searching 100 million items takes 50 milliseconds.
+
+---
+
+## Quick Exercises:
+
+1. **Concept**: Why is it called "Approximate" instead of "Exact" search?
+2. **Layers**: How do the "Layers" in HNSW help speed up the search?
+3. **Choice**: When would you ever want an "Exact" search (Brute Force)? (Hint: Very small datasets or critical medical/security data).
+   ocean.

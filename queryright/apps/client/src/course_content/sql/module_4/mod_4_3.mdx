@@ -1,0 +1,114 @@
+# Understanding LEFT JOINs (LEFT OUTER JOIN)
+
+While `INNER JOIN` is great for finding matches, it has a flaw: it hides data that doesn't fit. In business, we often need to see the "whole picture," including the items that _don't_ have a match.
+
+For example, a manager might ask: "Show me a list of all our customers, and if they have placed an order, show me the order details." If we use an `INNER JOIN`, customers who haven't bought anything yet will disappear from the list. To keep them, we use a `LEFT JOIN`.
+
+## Understanding LEFT JOIN
+
+The `LEFT JOIN` (or `LEFT OUTER JOIN`) prioritizes the "Left" table (the first one mentioned).
+
+1.  It takes **every single row** from the Left table.
+2.  It looks for a match in the Right table.
+3.  If a match is found, it attaches the data.
+4.  If **no match** is found, it still keeps the Left row but fills the Right columns with `NULL`.
+
+### Basic Syntax
+
+```sql
+SELECT table1.column_name, table2.column_name
+FROM table1 -- This is the LEFT table
+LEFT JOIN table2 -- This is the RIGHT table
+ON table1.common_column = table2.common_column;
+```
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### Scenario 1: All Customers and Their Orders
+
+We want a report of all registered customers. If they have ordered, we want to see the order ID. If not, we still want to see their name.
+
+**Query:**
+
+```sql
+SELECT customers.name, orders.order_id
+FROM customers
+LEFT JOIN orders
+ON customers.customer_id = orders.customer_id;
+```
+
+**Result:**
+| name | order_id |
+| :--- | :--- |
+| Alice | 1001 |
+| Bob | 1002 |
+| Charlie | NULL |
+
+- **Analysis:** Alice and Bob have orders, so the data appears. Charlie has never placed an order. An `INNER JOIN` would have deleted Charlie. The `LEFT JOIN` keeps Charlie and puts `NULL` in the `order_id` column.
+
+### Scenario 2: Books without Authors
+
+We want to audit our database to find books that are missing author information.
+
+**Query:**
+
+```sql
+SELECT books.title, authors.name
+FROM books
+LEFT JOIN authors
+ON books.author_id = authors.author_id;
+```
+
+- If we see a row like `| The Ancient Scroll | NULL |`, we know "The Ancient Scroll" has an invalid or missing author ID.
+
+### Scenario 3: Finding "Zero Activity" Records
+
+This is a very powerful use case. We can use `LEFT JOIN` combined with `WHERE ... IS NULL` to find records that have **no** match.
+
+- _Question:_ "Who are the customers that have NEVER placed an order?"
+
+**Query:**
+
+```sql
+SELECT customers.name
+FROM customers
+LEFT JOIN orders
+ON customers.customer_id = orders.customer_id
+WHERE orders.order_id IS NULL;
+```
+
+- **Logic:**
+  1.  Get all customers (Left Join).
+  2.  Try to attach orders.
+  3.  Filter for rows where the attachment failed (`order_id IS NULL`).
+  4.  Result: A list of inactive customers.
+
+## Exercises and Practice Activities
+
+To solidify your understanding of `LEFT JOIN`, complete the following exercises.
+
+### Exercise 1: The Catalog Audit
+
+Write a query to list **all** authors. Join them with the `Books` table to see what they have written. If an author has written nothing, they should still appear in the list.
+
+### Exercise 2: The Unsold Books
+
+Write a query to find books that have never been ordered.
+
+- Left Table: `Books`
+- Right Table: `Order_Items`
+- Hint: Use the `IS NULL` trick from Scenario 3.
+
+### Exercise 3: Prediction
+
+If you `LEFT JOIN` a table with 100 rows to an empty table, how many rows will the result have?
+
+## Concluding Thoughts
+
+In this lesson, we learned how to use `LEFT JOIN` to preserve data from the primary table even when no related data exists. This is essential for "Gap Analysis"—finding what is missing (like customers without orders or products without sales).
+
+In the next lesson, we will look at the `RIGHT JOIN`. It is mathematically the mirror image of the `LEFT JOIN`, but in practice, it is rarely used. We will explain why.
+
+=START_QUESTIONS=Which table's data is guaranteed to be preserved in a LEFT JOIN?@@What value is inserted when no match is found in the right table?@@How can you use LEFT JOIN to find customers with no orders?@@If you swap the order of tables in a LEFT JOIN, does the result change? =END_QUESTIONS=

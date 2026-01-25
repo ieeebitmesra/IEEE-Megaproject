@@ -1,0 +1,55 @@
+# Final Project: The Digital Library
+
+We are going to build a **Semantic Search Engine** for a library of Technical Books.
+
+---
+
+## The Goal
+
+A user should be able to search for concepts like _"How to scale a database?"_ and find books on Sharding, Replication, and Performance, even if those books don't use the exact words "scale" in the title.
+
+---
+
+## The Tech Stack
+
+1. **Database:** Qdrant (for vector and metadata storage).
+2. **Embedder:** OpenAI `text-embedding-3-small` (or any model you choose).
+3. **Data:** A list of book snippets.
+
+---
+
+## The Data Model (Payload)
+
+Every "Point" in our Qdrant collection will look like this:
+
+```json
+{
+  "id": "A UUID",
+  "vector": "[1536 numbers]",
+  "payload": {
+    "title": "Designing Data-Intensive Applications",
+    "author": "Martin Kleppmann",
+    "category": "Architecture",
+    "text_snippet": "Replication means keeping a copy of the same data on multiple machines..."
+  }
+}
+```
+
+---
+
+## Project Step 1: Planning
+
+Before writing code, answer these questions:
+
+1. **Distance Metric:** Will you use Cosine, Euclidean, or Dot Product? (Review Module 3).
+2. **Collection Name:** What will you name your collection?
+3. **Chunking:** Will you store the whole book in one vector, or split it into chapters?
+
+---
+
+## Quick Exercises:
+
+1. **Selection**: Why is "Architecture" a good metadata field to store in the Payload? (How could we use it for filtering?)
+2. **Logic**: If we have two books by the same author, do they have the same vector?
+3. **Design**: In a real app, would you store the _Full Text_ of the book in Qdrant, or just a _Summary_? Why?
+   orchard.

@@ -1,0 +1,113 @@
+# Redis Data Types: Hashes (Basic Operations)
+
+In the previous lesson, we saw how Redis Strings can store serialized JSON objects. While that works, it has a drawback: if you only want to update _one_ field (like a user's password), you have to download the whole JSON string, update it, and upload the entire thing back.
+
+**Redis Hashes** solve this problem perfectly. A Hash is like a "mini-dictionary" or a "Map" stored inside a Redis key.
+
+## Why Use Redis Hashes?
+
+Hashes are ideal for representing **Objects**. Instead of one key per field, you store all fields related to an entity under a single key.
+
+- **User Profiles:** Storing `name`, `email`, `age`, and `is_verified`.
+- **Product Details:** Storing `price`, `stock_count`, and `description`.
+- **Configurations:** Storing application settings.
+
+---
+
+## Hash Operations
+
+Hashes use commands that start with an "H".
+
+### 1. Creating and Updating Hashes
+
+Use `HSET` to add fields to a hash.
+
+```bash
+# Store a user's details
+HSET user:1001 name "Bob" email "bob@example.com" age 28
+```
+
+### 2. Retrieving Data
+
+You can get a single field, multiple fields, or the entire object.
+
+```bash
+# Get just the email
+HGET user:1001 email
+# Output: "bob@example.com"
+
+# Get all fields and values
+HGETALL user:1001
+# Output:
+# 1) "name"
+# 2) "Bob"
+# 3) "email"
+# 4) "bob@example.com"
+# 5) "age"
+# 6) "28"
+```
+
+### 3. Updating Numbers within a Hash
+
+Just like Strings have `INCR`, Hashes have `HINCRBY`.
+
+```bash
+# Increment the user's age
+HINCRBY user:1001 age 1
+# Output: (integer) 29
+```
+
+### 4. Checking for Existence
+
+```bash
+# Does the field "phone" exist in this hash?
+HEXISTS user:1001 phone
+# Output: (integer) 0 (False)
+```
+
+---
+
+## Real-World Example: E-Commerce Shopping Cart
+
+Imagine you want to store a user's shopping cart in Redis. Using a Hash is very efficient.
+
+```bash
+# The Key is 'cart:user123'
+# The fields are 'productId' and the values are 'quantity'
+HSET cart:user123 prod_99 2
+HSET cart:user123 prod_45 1
+
+# If the user adds another 'prod_99', just increment it!
+HINCRBY cart:user123 prod_99 1
+```
+
+- **Efficiency:** You are only updating the specific product quantity, not the whole cart.
+- **Simplicity:** You can easily see how many unique products are in the cart using `HLEN cart:user123`.
+
+---
+
+## Hypothetical Scenario: The Game Character System
+
+In an online RPG, you have thousands of characters. Each has stats like `health`, `mana`, `level`, and `gold`.
+
+If you use Strings, every time a character takes 10 damage, you have to parse the entire character state.
+
+With Hashes:
+
+1. Every character has a key: `char:warrior_77`.
+2. When the character takes damage: `HINCRBY char:warrior_77 health -10`.
+3. When the character drinks a potion: `HINCRBY char:warrior_77 mana 20`.
+
+This approach is extremely memory-efficient and fast because Redis doesn't have to deal with the overhead of serializing and deserializing data on the application side.
+
+## Exercises
+
+1. **Create a Profile:** Use `HSET` to create a hash for a book with fields: `title`, `author`, and `year`.
+2. **Update a Field:** Use `HSET` to change the `year` of the book you just created. Then use `HGET` to verify the change.
+3. **Multi-Field Access:** Look up the command `HMGET` (Hint: it's for getting multiple fields). Try to get both the `title` and `author` of your book in one command.
+
+## Summary and Next Steps
+
+Redis Hashes are your go-to data structure for structured data. They keep related fields together, save memory, and allow for granular updates to your objects.
+
+Now that we've covered the two most common "individual" data types (Strings and Hashes), it's time to explore how Redis handles **Collections**. In the next module, we will dive into **Lists**, **Sets**, and **Sorted Sets**.

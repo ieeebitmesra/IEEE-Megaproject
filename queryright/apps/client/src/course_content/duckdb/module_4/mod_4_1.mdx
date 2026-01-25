@@ -1,0 +1,76 @@
+# Understanding EXPLAIN
+
+How does DuckDB actually "plan" to run your query? Before it touches a single byte of data, it builds a **Query Plan**. You can see this plan using the `EXPLAIN` keyword.
+
+---
+
+## 1. What is a Query Plan?
+
+A query plan is a tree of operations.
+
+- **Top:** The final result.
+- **Middle:** Filters, Joins, and Aggregations.
+- **Bottom:** The data sources (CSVs, Parquet, or DB tables).
+
+```sql
+EXPLAIN SELECT count(*) FROM sales WHERE price > 100;
+```
+
+---
+
+## 2. EXPLAIN ANALYZE (The Real Truth)
+
+`EXPLAIN` shows the **theory** (what DuckDB thinks will happen).
+`EXPLAIN ANALYZE` shows the **reality** (what actually happened).
+
+```sql
+EXPLAIN ANALYZE SELECT count(*) FROM sales WHERE price > 100;
+```
+
+DuckDB will run the query and show you:
+
+1. **Time:** How much time each part of the tree took.
+2. **Cardinality:** How many rows were processed at each step.
+3. **Optimizations:** Did it use "Projection Pushdown" to skip columns?
+
+---
+
+## 3. Reading the Visualization
+
+Look for the "Bottlenecks."
+
+- If a "Join" step takes 80% of the time, that's where you need to optimize.
+- If a "Scan" step is taking too long, maybe you need to switch from CSV to Parquet.
+
+---
+
+## Real-World Example: The "Missing Filter"
+
+A developer writes a query that should be fast but takes 10 seconds.
+
+1. They run `EXPLAIN ANALYZE`.
+2. They see that DuckDB is scanning 100 million rows.
+3. They realize they forgot the `WHERE` clause to filter for only the current year.
+4. They add the filter, and the "Scan" step now only processes 1 million rows.
+
+---
+
+## Hypothetical Scenario: The "Bad Join"
+
+You are joining two tables: `Users` (10 million rows) and `Clicks` (1,000 rows).
+
+- In a "Bad Plan," the DB might load the 10 million users first and look for clicks.
+- **The Optimization:** DuckDB sees this and flips it. It loads the 1,000 clicks into a "Hash Table" and then probes the user list.
+- You can see this "Hash Join" in the `EXPLAIN` output.
+
+## Exercises
+
+1. **Comparison:** What is the difference between `EXPLAIN` and `EXPLAIN ANALYZE`?
+2. **Observation:** If the `EXPLAIN` output says "PARQUET_SCAN," does that mean DuckDB is reading from a table or a file?
+3. **Logic:** Why is the "Cardinality" (number of rows) important to watch in a query plan?
+
+## Summary and Next Steps
+
+`EXPLAIN` is your X-ray vision.
+
+One reason DuckDB is so fast is its ability to use all your CPU cores at once. Next, we look at **Parallelism and Threading**.

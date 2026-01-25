@@ -1,0 +1,58 @@
+# Indexing for Performance
+
+We learned that Neo4j is "Index-Free" once you are traversing. But to find the **starting point** of your search, you still need an Index.
+
+---
+
+## 1. Why do we need an Index?
+
+If you have 10 million nodes and you say `MATCH (p:Person {name: "Alice"})`, Neo4j has to check every single `:Person` node to see if its name is Alice. This is a "Full Scan" and it's very slow.
+
+- **The Solution:** Create an index on `Person(name)`.
+
+---
+
+## 2. Creating an Index
+
+```cypher
+CREATE INDEX FOR (p:Person) ON (p.name)
+```
+
+---
+
+## 3. Types of Indexes in Neo4j
+
+1. **Range Indexes:** For numbers and dates (e.g., `price < 100`).
+2. **Text Indexes:** For string searches (e.g., `name CONTAINS 'Ali'`).
+3. **Point Indexes:** For geographic searches (Lat/Long).
+
+---
+
+## Real-World Example: Real Estate Search
+
+A property site uses Neo4j to model `House` locations.
+
+- When a user searches for "Houses in Brooklyn," Neo4j uses a **Text Index** on the `neighborhood` property to find the first 100 houses.
+- From those 100 houses, it then "traverses" to find nearby schools, supermarkets, and subway stations.
+- The Index gets you the "Starting Seed," and the graph logic does the rest.
+
+---
+
+## Hypothetical Scenario: The "Selective" Index
+
+A developer wants to index _every single property_ on their nodes.
+
+- **The Result:** The database slows down! Every time they `CREATE` or `UPDATE` a node, Neo4j has to update 10 different indexes.
+- **The Lesson:** Only index properties that you use in your `MATCH` or `WHERE` clauses.
+
+## Exercises
+
+1. **Benefit:** When is an index used in a Neo4j query?
+2. **Drafting:** Write a command to create a range index for `Product(price)`.
+3. **Comparison:** How is a `Full Scan` different from an `Index Seek`?
+
+## Summary and Next Steps
+
+Indexes are the "Receptionists" of your graph; they tell you where to find the first node so you can start your journey.
+
+Next, we look at **Query Profiling**—how to see exactly what Neo4j is doing.

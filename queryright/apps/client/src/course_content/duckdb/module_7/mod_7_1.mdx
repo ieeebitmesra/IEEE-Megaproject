@@ -1,0 +1,77 @@
+# Handling JSON and Nested Data
+
+In the modern world, data isn't always in neat rows and columns. It's often "nested" (like a JSON object). DuckDB is famous for how well it handles these complex structures.
+
+---
+
+## 1. The `STRUCT` and `LIST` Types
+
+DuckDB has two main ways to nest data:
+
+- **LIST:** An array of items. Example: `[1, 2, 3]`.
+- **STRUCT:** A collection of key-value pairs (like a JSON object). Example: `{'name': 'Alice', 'age': 30}`.
+
+---
+
+## 2. Querying JSON Directly
+
+You don't need to "flatten" your data before you query it. DuckDB can reach inside JSOn files.
+
+```sql
+SELECT
+    payload->>'$.user.name' AS username,
+    payload->'$.tags' AS list_of_tags
+FROM read_json('events.json');
+```
+
+_The `->>` operator extracts a value as text, while `->` extracts the object or list._
+
+---
+
+## 3. The `UNNEST` command
+
+What if you have a list of items and you want to turn them into individual rows? You use `UNNEST`.
+
+```sql
+-- Before: 1 row with [A, B]
+-- After: 2 rows (A and B)
+SELECT unnest(['Electronics', 'Books']) as category;
+```
+
+---
+
+## Real-World Example: Log Analysis
+
+A server sends "Error Objects" that look like this: `{"id": 1, "metadata": {"ip": "1.1.1.1", "browser": "Chrome"}}`.
+
+- With DuckDB, you can run an aggregation directly on the browser:
+
+```sql
+SELECT
+    metadata.browser,
+    count(*)
+FROM logs.json
+GROUP BY 1;
+```
+
+- DuckDB does the "Flattening" in the background at lightning speed.
+
+---
+
+## Hypothetical Scenario: The "Messy" API
+
+A developer is using a free Weather API that returns a massive, 20-level-deep JSON file.
+
+- **The Solution:** Instead of writing complex Python logic to parse the JSON, they just load the file into DuckDB and use SQL path expressions (`->>`) to extract only the `temperature` and `humidity` values they need.
+
+## Exercises
+
+1. **Extraction:** What is the difference between `->` and `->>`?
+2. **Lists:** How do you turn a single row containing a list into multiple rows?
+3. **Efficiency:** Why is it better to query JSON directly in DuckDB rather than writing custom Python loops?
+
+## Summary and Next Steps
+
+DuckDB makes "NoSQL" data feel like "SQL" data.
+
+In the next lesson, we look at **Full-Text Search and Spatial (GIS)** extensions.

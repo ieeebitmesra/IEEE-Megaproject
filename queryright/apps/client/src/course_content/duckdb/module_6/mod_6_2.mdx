@@ -1,0 +1,74 @@
+# DuckDB + Evidence.dev: BI for Developers
+
+Traditional BI tools (like Power BI) are "Drag and Drop." **Evidence.dev** is "Code First." It allows you to build data reports using Markdown and SQL.
+
+---
+
+## 1. How it Works
+
+Evidence uses DuckDB as its internal engine.
+
+- You write a Markdown file.
+- You embed a SQL query inside the Markdown.
+- Evidence runs the query through DuckDB and renders a chart.
+
+---
+
+## 2. Example: A Simple Report
+
+````markdown
+# Annual Sales Report
+
+<DataTable data={sales_data} />
+
+<LineChart data={sales_data} x=month y=revenue />
+
+```sql sales_data
+SELECT
+    date_trunc('month', sale_date) as month,
+    sum(amount) as revenue
+FROM read_parquet('sales/*.parquet')
+GROUP BY 1
+ORDER BY 1
+```
+````
+
+```
+
+---
+
+## 3. Why this is the "Future"
+
+1. **Version Control:** Your dashboards are just Markdown files. You can save them in Git (GitHub).
+2. **Speed:** Because it uses DuckDB, the charts are lightning-fast.
+3. **Parquet Integration:** Evidence can query Parquet files directly from your computer or S3.
+
+---
+
+## Real-World Example: The Automated Monthly Audit
+
+A DevOps team uses Evidence + DuckDB to monitor server costs.
+- Every month, they drop a CSV of AWS costs into a `/data` folder.
+- Evidence automatically updates the SQL-driven charts.
+- The team commits the Markdown file to Git, so they have a history of every report ever generated.
+
+---
+
+## Hypothetical Scenario: The "Excel Killer"
+
+A data analyst is tired of copying and pasting SQL results into Excel to make a graph for their boss.
+- **The Solution:** They set up Evidence.
+- Now, they just click "Save" on their SQL query, and the professional-looking dashboard is already prepared for their boss.
+
+## Exercises
+
+1. **Comparison:** How is "Code-First BI" different from "Drag-and-Drop BI"?
+2. **Setup:** Why does Evidence include DuckDB by default?
+3. **Logic:** What are the benefits of keeping your dashboards in a Git repository?
+
+## Summary and Next Steps
+
+Evidence.dev shows that SQL + Markdown is a powerful duo.
+
+Next, we look at **Streamlit and R-Shiny**—how to build interactive web apps with DuckDB.
+```

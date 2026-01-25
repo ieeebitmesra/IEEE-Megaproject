@@ -1,0 +1,78 @@
+# What is an Inverted Index?
+
+Why is Elasticsearch so fast? It's not because of magic; it's because of the **Inverted Index**. This is the core data structure that empowers all near-instant searches.
+
+---
+
+## 1. Comparing Search Strategies
+
+### The "Traditional" Approach (Forward Index)
+
+Think of a standard SQL `LIKE '%term%'` search. The database has to look at every single row, scan every character in a column, and see if the term exists. This is called a "full table scan." As your data grows to millions of rows, this becomes incredibly slow.
+
+### The "Elastic" Approach (Inverted Index)
+
+An Inverted Index works like the index at the back of a textbook. Instead of looking for a page to find a word, you look for a **word** to find which **pages** (documents) it appears on.
+
+---
+
+## 2. Anatomy of an Inverted Index
+
+Let's say we have three documents:
+
+1. `The quick brown fox`
+2. `The fox is quick`
+3. `Brown foxes are slow`
+
+An Inverted Index for these would look roughly like this:
+
+| Term  | Documents |
+| :---- | :-------- |
+| quick | 1, 2      |
+| brown | 1, 3      |
+| fox   | 1, 2      |
+| foxes | 3         |
+| slow  | 3         |
+| is    | 2         |
+| ...   | ...       |
+
+Now, if you search for "quick," Elasticsearch doesn't loop through every sentence. It just looks at the table, sees "1" and "2," and returns those documents immediately.
+
+---
+
+## 3. Beyond Just "Matching"
+
+The Inverted Index doesn't just store IDs. It also stores:
+
+- **Term Frequency (TF):** How many times a word appears in a specific document.
+- **Position:** Where in the document the word is (used for "phrase" searches).
+- **Offsets:** To highlight the search term in the results.
+
+---
+
+## Real-World Example: Search Bar Suggestions
+
+When you start typing in a search bar (e.g., "ap..."), Elasticsearch looks at its inverted index for all terms starting with "ap." Because the terms are sorted alphabetically in the index, it can find "apple," "application," and "apollo" in microseconds using binary search.
+
+---
+
+## Hypothetical Scenario: The "Fox" vs. "Foxes" Problem
+
+A user searches for "foxes" but gets zero results, even though there is a document that says "fox."
+
+**The Problem:** In the basic table above, "fox" and "foxes" are two different terms.
+**The Solution:** This is where **Analysis** comes in. If we "stem" the words (reduce them to their root), both "fox" and "foxes" become "fox" in the index. We will explore this in the next lesson.
+
+## Exercises
+
+1. **Mapping Practice:** Create a small inverted index (like the table above) for these two sentences:
+   - `Elasticsearch is cool`
+   - `Lucene is very cool`
+2. **Performance:** Why is an inverted index faster than a full text scan? Explain in one sentence.
+3. **Storage:** Why do you think we call it an "Inverted" index instead of just a "Search" index?
+
+## Summary and Next Steps
+
+The Inverted Index is the reason search engines work. It turns a "finding" problem into a simple "lookup" problem. However, an inverted index is only as good as the **terms** you put into it.
+
+Next, we will look at **Text Analysis**—the process of turning raw text into these optimized terms.

@@ -1,0 +1,80 @@
+# Interactive Apps: Streamlit & R-Shiny
+
+Sometimes a static dashboard isn't enough. You need **interactive** filters, buttons, and user inputs. For this, Python developers use **Streamlit** and R developers use **Shiny**.
+
+---
+
+## 1. DuckDB + Streamlit (Python)
+
+Streamlit is the fastest way to build a web app in Python. Pairing it with DuckDB makes it a speed demon.
+
+```python
+import streamlit as st
+import duckdb
+
+# Input from the user
+min_price = st.slider("Select Minimum Price", 0, 1000)
+
+# Query DuckDB
+df = duckdb.query(f"SELECT * FROM 'data.parquet' WHERE price > {min_price}").to_df()
+
+# Show the chart
+st.line_chart(df)
+```
+
+---
+
+## 2. DuckDB + Shiny (R)
+
+R users love DuckDB because it is compatible with `dbplyr`.
+
+```r
+library(shiny)
+library(duckdb)
+
+con <- dbConnect(duckdb(), "my_db.db")
+
+# In the server logic
+prices <- tbl(con, "products") %>%
+  filter(price > input$min_price) %>%
+  collect()
+```
+
+---
+
+## 3. The "In-Process" Advantage
+
+In many web apps, every time a user drags a slider, the app has to send a request over the internet to a database (like Postgres). This causes a "lag."
+
+- With DuckDB, the database can run **inside the web server process**.
+- There is zero network latency. The app feels "instant."
+
+---
+
+## Real-World Example: Real Estate Search
+
+A real estate website allows users to filter 10 million home listings by Zip Code and Square Footage.
+
+- By using DuckDB-WASM or a local DuckDB file on the server, the filters happen in real-time as the user moves the slider.
+- No "Loading..." spinners. Just raw speed.
+
+---
+
+## Hypothetical Scenario: The "Disconnected" Field Agent
+
+A data scientist needs to go to a remote location with no internet.
+
+- They have a Streamlit app running on their laptop.
+- Because DuckDB is a local file, they can search and analyze millions of rows of survey data without needing a Wi-Fi connection.
+
+## Exercises
+
+1. **Latency:** Why is DuckDB faster for "Slider-based" filters than a cloud database?
+2. **Code:** Look at the Python example. What DuckDB command converts the results to a format Streamlit understands?
+3. **Architecture:** Where exactly does DuckDB "live" when used inside a Streamlit app?
+
+## Summary and Next Steps
+
+Interactive apps put the power of DuckDB in the hands of everyday users.
+
+In the next lesson, we'll learn how to **tune the performance** of these dashboards so they stay fast as data grows.

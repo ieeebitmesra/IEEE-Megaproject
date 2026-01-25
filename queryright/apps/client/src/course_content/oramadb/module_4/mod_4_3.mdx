@@ -1,0 +1,71 @@
+# Hybrid Search: The Best of Both Worlds
+
+Keyword search is precise. Vector search is semantic. **Hybrid Search** combines them both into a single query.
+
+---
+
+## 1. Why Hybrid?
+
+- **Vector Only:** If you search for a specific serial number like "A1-B2-C3," Vector search might fail because it doesn't "Mean" anything.
+- **Keyword Only:** If you search for "Feeling happy," Keyword search might fail if the document uses the word "Joy" instead.
+
+**Hybrid Search** uses keywords for precision and vectors for conceptual matching.
+
+---
+
+## 2. How to do it in Orama
+
+You simply provide both a `term` and a `vector` in the search parameters.
+
+```javascript
+const result = await search(db, {
+  term: 'iPhone',
+  vector: {
+    value: [...],
+    property: 'embedding'
+  },
+  mode: 'hybrid' // Combine results!
+})
+```
+
+---
+
+## 3. Reciprocal Rank Fusion (RRF)
+
+How does Orama decide if a "Keyword match" is better than a "Vector match"?
+
+- It uses an algorithm called **RRF**.
+- RRF looks at the rank of a result in both lists and assigns a final combined score.
+- This ensures that if a document is a good match for **both**, it goes straight to #1.
+
+---
+
+## Real-World Example: Medical Records
+
+A doctor searches for "Type 2 Diabetes meds."
+
+- **Keyword search** finds documents containing "Type 2" and "Diabetes."
+- **Vector search** finds documents about "Metformin" or "Insulin Resistance" (which are related concepts).
+- **Hybrid search** puts everything together, ensuring the doctor sees the most comprehensive list of information.
+
+---
+
+## Hypothetical Scenario: The "Niche Product"
+
+A user searches for "Bose QuietComfort 45."
+
+- **Vector search** might return generic "Noise-canceling headphones."
+- **Keyword search** finds the exact Bose model.
+- Because it's a Hybrid search, the exact Bose model appears first, but the similar headphones are shown right below as "Alternative options."
+
+## Exercises
+
+1. **Comparison:** When is Keyword search better than Vector search?
+2. **Algorithm:** What is the name of the algorithm Orama uses to combine scores?
+3. **Application:** Write a hybrid search query for an app that searches for "Tesla Model 3" using both text and vectors.
+
+## Summary and Next Steps
+
+Hybrid search is the industry standard for high-performance apps.
+
+Finally, we look at **RAG (Retrieval Augmented Generation)**—how Orama powers AI Chatbots.

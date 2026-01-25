@@ -1,0 +1,69 @@
+# Redis Cluster: Sharding and Scaling
+
+In the previous lessons, we learned how to make Redis durable (Persistence) and reliable (Sentinel). However, both those setups have one major limit: your entire dataset must fit inside the RAM of a **single server**.
+
+If you have 500 GB of data but your biggest server only has 128 GB of RAM, you need a different strategy. This is where **Redis Cluster** comes in.
+
+---
+
+## What is Redis Cluster?
+
+Redis Cluster is a way to distribute your data across multiple Redis nodes automatically. This is known as **Sharding** (or Partitioning).
+
+### Key Features of Redis Cluster:
+
+- **Horizontal Scaling:** You can add more servers as your data grows. Want to store 1 TB of data? Just add enough 64 GB nodes to reach that total.
+- **Automatic Sharding:** Redis Cluster splits your "key space" into 16,384 **Hash Slots**. Every key you save is hashed and assigned to one of these slots, which are spread across your nodes.
+- **High Availability without Sentinel:** Redis Cluster has its own built-in monitoring and failover. Each "Master" node in the cluster can have one or more "Replicas."
+
+---
+
+## How Sharding Works (The 16,384 Slots)
+
+When you run `SET user:101 "Alice"`, Redis doesn't just put it on a random node.
+
+1. It calculates a "Hash" of the key.
+2. It uses `CRC16(key) mod 16384` to find the slot number.
+3. If Node A manages slots 0 to 5000, and your key's slot is 400, the data goes to Node A.
+
+### The Advantage of Slots
+
+If you add a new Node (Node D), you don't have to reshuffle all your data. You just move a few thousand slots from Nodes A, B, and C to Node D. This is called **Resharding**, and it can happen while the database is still running!
+
+---
+
+## Real-World Example: A Global Ride-Sharing App
+
+Imagine an app like Uber or Lyft that needs to track millions of drivers and passengers in real-time.
+
+- **The Problem:** The location data for all world cities is way too large for one server.
+- **The Cluster Solution:** Use a Redis Cluster with 50 nodes.
+  - Data for New York might live on Nodes 1-3.
+  - Data for London lives on Nodes 4-6.
+- **Scaling:** If the app launches in 20 more cities next month, they just add 10 more nodes to the cluster and rebalance the slots.
+
+---
+
+## Hypothetical Scenario: The Multi-Key Command Problem
+
+Redis is famous for its speed with single-key commands. But some commands involve multiple keys, like `SINTER` (intersection of two sets).
+
+**The Challenge:** In a Cluster, `Set_A` might be on Node 1, and `Set_B` might be on Node 5. Redis Cluster cannot perform operations across different nodes.
+
+**The Solution: Hash Tags.** You can force related keys to stay on the same node by using curly braces:
+
+- `SET {user:123}:profile "..."`
+- `SADD {user:123}:friends "..."`
+  Because both keys have `{user:123}`, they will hash to the **same slot** and live on the same node, allowing you to run multi-key commands safely.
+
+## Exercises
+
+1. **Capacity Planning:** If you have 300 GB of data and each server has 64 GB of RAM, what is the _minimum_ number of Master nodes you need in your cluster?
+2. **Slot Logic:** Why does Redis use "Hash Slots" (16,384 of them) instead of just mapping keys directly to server IP addresses?
+3. **Hash Tags:** If I want to ensure my "cart" and "user_profile" for User #500 always live on the same server, how should I name the keys?
+
+## Summary and Next Steps
+
+Redis Cluster is the "Final Boss" of Redis scaling. It allows you to move from a single machine to a distributed system that can handle petabytes of data and millions of requests per second.
+
+You've now completed the infrastructure part of the course! In the next module, we will return to application logic and explore **Pub/Sub, Transactions, and Scripting**.

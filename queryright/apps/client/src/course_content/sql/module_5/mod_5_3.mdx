@@ -1,0 +1,101 @@
+# Ranking Data with ROW_NUMBER, RANK, DENSE_RANK, NTILE
+
+Ranking data is a common requirement. "Who are our top 10 customers?" "What is the 2nd most expensive book?" "Divide our sales reps into 4 performance quartiles."
+
+SQL provides dedicated window functions to handle these ranking scenarios efficiently.
+
+## The Ranking Functions
+
+We will cover four key functions. All of them require an `ORDER BY` clause inside the `OVER()` definition to determine the ranking order.
+
+1.  **`ROW_NUMBER()`**: Assigns a unique sequential integer (1, 2, 3...) to rows. If two rows have the same value (a tie), the order is arbitrary (unless you specify a tie-breaker).
+2.  **`RANK()`**: Assigns a rank, but handles ties by skipping numbers. (e.g., 1, 2, 2, 4). Note that "3" is skipped.
+3.  **`DENSE_RANK()`**: Assigns a rank, and handles ties _without_ skipping numbers. (e.g., 1, 2, 2, 3).
+4.  **`NTILE(n)`**: Divides the rows into `n` approximately equal groups (buckets).
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### Scenario 1: Ranking Books by Price (Handling Ties)
+
+We want to rank books from most expensive to least expensive.
+Let's say we have three books:
+
+- Book A: $20
+- Book B: $20
+- Book C: $10
+
+**Query:**
+
+```sql
+SELECT title, price,
+       ROW_NUMBER() OVER (ORDER BY price DESC) as row_num,
+       RANK() OVER (ORDER BY price DESC) as rank_num,
+       DENSE_RANK() OVER (ORDER BY price DESC) as dense_rank_num
+FROM books;
+```
+
+**Result:**
+| title | price | row_num | rank_num | dense_rank_num |
+| :--- | :--- | :--- | :--- | :--- |
+| Book A | 20.00 | 1 | 1 | 1 |
+| Book B | 20.00 | 2 | 1 | 1 |
+| Book C | 10.00 | 3 | 3 | 2 |
+
+- **Analysis:**
+  - `ROW_NUMBER` forced a 1 and 2, even though the price is the same.
+  - `RANK` gave both a 1, but then skipped to 3 for the next book.
+  - `DENSE_RANK` gave both a 1, and the next book became 2.
+
+### Scenario 2: Top Selling Book _Per Category_
+
+We want to find the #1 most expensive book in _each_ category. We combine ranking with `PARTITION BY`.
+
+**Query:**
+
+```sql
+SELECT title, category, price,
+       RANK() OVER (PARTITION BY category ORDER BY price DESC) as price_rank
+FROM books;
+```
+
+- This restarts the ranking counter (1, 2, 3...) for every new category.
+
+### Scenario 3: Customer Segmentation (Quartiles)
+
+We want to divide our customers into 4 groups based on their total spending: "Platinum", "Gold", "Silver", "Bronze".
+
+**Query:**
+
+```sql
+SELECT customer_name, total_spend,
+       NTILE(4) OVER (ORDER BY total_spend DESC) as quartile
+FROM customer_spending_summary;
+```
+
+- Customers in quartile 1 are the top 25% spenders.
+
+## Exercises and Practice Activities
+
+To solidify your understanding of ranking, complete the following exercises.
+
+### Exercise 1: The Podium
+
+Write a query to find the top 3 most expensive books using `DENSE_RANK()`. Why might you choose `DENSE_RANK` over `ROW_NUMBER` for a podium finish?
+
+### Exercise 2: Pagination
+
+Write a query using `ROW_NUMBER()` to select rows 11 through 20 from the `Orders` table (ordered by date). This is how "Page 2" of search results is often generated.
+
+### Exercise 3: The Median
+
+How could you use `NTILE(2)` to roughly identify the median (middle) value of book prices?
+
+## Concluding Thoughts
+
+In this lesson, we learned how to assign rank to our data. This is essential for reporting and for filtering "Top N" results.
+
+In the next lesson, we will look at another powerful application of window functions: **Running Totals and Moving Averages**. These allow us to see cumulative growth over time, which is a staple of financial reporting.
+
+=START_QUESTIONS=Which function handles ties by skipping the next rank number?@@Which function ensures every row has a unique number?@@What does NTILE(4) do?@@Which clause is mandatory inside the OVER() for ranking functions? =END_QUESTIONS=

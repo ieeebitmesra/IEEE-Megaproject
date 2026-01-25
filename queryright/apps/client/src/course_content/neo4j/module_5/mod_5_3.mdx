@@ -1,0 +1,56 @@
+# Community Detection
+
+How do you find "Groups" or "Tribes" in a massive web of data? **Community Detection** algorithms (like Louvain) look for clusters of high density.
+
+---
+
+## 1. What is a "Community"?
+
+A community is a set of nodes that are more connected to each other than they are to the rest of the graph.
+
+- Think of your "High School Friends" vs your "Coworkers." You are the bridge between them, but those two groups rarely talk to each other.
+
+---
+
+## 2. The Louvain Algorithm
+
+Louvain is the most popular community detection algorithm. It starts by putting every node in its own community and then merges them iteratively to maximize "Modularity" (the density of the clusters).
+
+---
+
+## 3. Label Propagation
+
+A faster, simpler algorithm. Imagine a "Virus" of color. If most of your neighbors are "Blue," you eventually become "Blue" too. This continues until everyone is assigned to a stable group.
+
+---
+
+## Real-World Example: Fraud Clusters
+
+Scammers often work in groups.
+
+- They share the same `Phone Number`, `Address`, or `Bank Account`.
+- By running **Louvain Community Detection**, a bank can find "Islands" of activity that are tightly bound to each other but disconnected from normal society.
+- If one person in an "Island" is a known fraudster, the bank can preemptively flag every other person in that specific cluster.
+
+---
+
+## Hypothetical Scenario: The "Music Genre" Discovery
+
+A streaming service has a list of `User -> Listens_To -> Artist`.
+
+- They don't know which artists belong to which "Niche Genres."
+- **The Solution:** They run Community Detection.
+- The algorithm finds a group of 50 artists who are almost always listened to by the same group of users.
+- The service gives this group a new name: "Lo-Fi Synthwave," and creates a new playlist for it.
+
+## Exercises
+
+1. **Definitions:** What makes a "Community" in a graph?
+2. **Logic:** Why is Louvain "iterative"?
+3. **Drafting:** If you ran community detection on a map of the world, what "Communities" would you expect to see? (Hint: Think about Languages or Borders).
+
+## Summary and Next Steps
+
+Community detection helps you organize the chaos of a big graph into meaningful clusters.
+
+In the next lesson, we wrap up GDS by looking at **Similarity Algorithms.**

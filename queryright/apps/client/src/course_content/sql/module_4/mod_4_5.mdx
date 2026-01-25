@@ -1,0 +1,97 @@
+# Implementing FULL JOINs (FULL OUTER JOIN)
+
+We have seen `INNER JOIN` (matches only), `LEFT JOIN` (all left + matches), and `RIGHT JOIN` (all right + matches). The final join type is the `FULL JOIN` (or `FULL OUTER JOIN`).
+
+The `FULL JOIN` is the "inclusive" join. It returns **everything**.
+
+1.  It returns all matching rows.
+2.  It returns all rows from the Left table (with NULLs on the right).
+3.  It returns all rows from the Right table (with NULLs on the left).
+
+## Understanding FULL JOIN
+
+Think of `FULL JOIN` as a combination of a Left Join and a Right Join. It ensures that no data from _either_ table is left behind.
+
+### Basic Syntax
+
+```sql
+SELECT table1.column_name, table2.column_name
+FROM table1
+FULL JOIN table2
+ON table1.common_column = table2.common_column;
+```
+
+_Note: MySQL does not support the `FULL JOIN` keyword directly (you have to simulate it with `UNION`). However, PostgreSQL supports it natively, which is what we are using._
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### Scenario 1: The Ultimate Audit (Customers vs. Orders)
+
+We want a complete list of all customers and all orders.
+
+- We want to see customers who bought things (Matches).
+- We want to see customers who bought nothing (Left side).
+- We want to see orders that have no valid customer attached (Right side - Orphaned data).
+
+**Query:**
+
+```sql
+SELECT customers.name, orders.order_id
+FROM customers
+FULL JOIN orders
+ON customers.customer_id = orders.customer_id;
+```
+
+**Result:**
+| name | order_id | Description |
+| :--- | :--- | :--- |
+| Alice | 1001 | Match (Normal) |
+| Bob | NULL | Customer with no order |
+| NULL | 1099 | Order with no customer (Data Error!) |
+
+**Insight:**
+This is incredibly useful for data quality checks. The rows with `NULL` on the left indicate serious database integrity issues (orders existing without a customer).
+
+### Scenario 2: Merging Employee Lists
+
+Imagine we have two tables: `Day_Shift_Employees` and `Night_Shift_Employees`. Some employees work both shifts. We want a master list of everyone.
+
+**Query:**
+
+```sql
+SELECT day.name, night.name
+FROM day_shift_employees AS day
+FULL JOIN night_shift_employees AS night
+ON day.employee_id = night.employee_id;
+```
+
+## Exercises and Practice Activities
+
+To solidify your understanding, complete the following exercises.
+
+### Exercise 1: The Full Inventory
+
+Write a query to `FULL JOIN` the `Books` table and the `Sales_Promotions` table.
+
+- This will show books that are on promotion.
+- Books that are NOT on promotion.
+- Promotions that have no books assigned to them yet.
+
+### Exercise 2: Identifying Mismatches
+
+Explain in your own words what it means if a `FULL JOIN` returns a row where the Left ID is `NULL` but the Right ID is `500`.
+
+## Concluding Thoughts
+
+In this lesson, we completed our tour of SQL Joins.
+
+- **INNER:** Intersection (A ∩ B)
+- **LEFT:** Left Circle (A)
+- **RIGHT:** Right Circle (B)
+- **FULL:** Union (A ∪ B)
+
+In the final lesson of Module 4, we will step away from Joins and look at another way to combine data: **Subqueries**. These allow us to nest one query inside another to answer multi-step questions like "Who is the customer who spent more than the average?"
+
+=START_QUESTIONS=Which join returns all rows from both tables?@@If a match is not found in a FULL JOIN, what happens?@@Does MySQL support the FULL JOIN keyword natively?@@What is a common use case for FULL JOIN? =END_QUESTIONS=

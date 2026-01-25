@@ -1,0 +1,63 @@
+# Performance Tuning for Dashboards
+
+As your data grows from 1GB to 100GB, your dashboards might start to slow down. Here is how to keep them fast.
+
+---
+
+## 1. Parquet Partitioning (The #1 Fix)
+
+If your dashboard only shows data for the "Current Year," why scan every year?
+
+- **The Solution:** Partition your Parquet files by year.
+- `sales/year=2023/data.parquet`
+- `sales/year=2024/data.parquet`
+- DuckDB will automatically skip the "2023" folder if your SQL query says `WHERE year = 2024`. This is called **Hive Partitioning**.
+
+---
+
+## 2. Projection Pushdown
+
+Don't use `SELECT *`.
+
+- Dashboards usually only show 2 or 3 columns (e.g., `Date` and `Price`).
+- If you use `SELECT date, price`, DuckDB will only read those specific columns from the disk. This reduces I/O by 90%.
+
+---
+
+## 3. Persistent Files vs. Memory
+
+For high-concurrency dashboards (many people looking at the same time):
+
+- **Avoid** re-creating the database connection every second.
+- **Use** a persistent file connection so DuckDB can use its internal metadata cache.
+
+---
+
+## Real-World Example: Tuning a Log Dashboard
+
+A company monitors 1TB of server logs.
+
+- Initially, the dashboard took 30 seconds to load.
+- **The Fix:** They partitioned the logs by `day`.
+- Now, when they look at "Today's Logs," DuckDB only reads 5GB of data instead of 1TB.
+- Result: Load time dropped from 30 seconds to **0.5 seconds**.
+
+---
+
+## Hypothetical Scenario: The "Busy" Monday
+
+On Monday morning, 50 managers all open the same dashboard at once.
+
+- **The Solution:** They use a "Connection Pool" or a single persistent DuckDB instance that handles multiple read-only queries. Because DuckDB supports multiple readers, everyone gets their results quickly.
+
+## Exercises
+
+1. **Partitioning:** How does DuckDB know which folders to "skip" during a search?
+2. **I/O:** Why is `SELECT *` bad for dashboard performance?
+3. **Capacity:** What happens if 100 people query a DuckDB file at the exact same millisecond? (Hint: Does it support multi-threading?)
+
+## Summary and Next Steps
+
+Optimization is the difference between a "good" tool and a "professional" tool.
+
+We wrap up this module in the next lesson.

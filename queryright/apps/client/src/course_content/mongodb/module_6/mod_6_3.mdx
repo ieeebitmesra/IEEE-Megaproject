@@ -1,0 +1,98 @@
+# The `$graphLookup` Stage: Traversing Hierarchical Data
+
+The `$graphLookup` stage enables recursive search capabilities within the aggregation pipeline. Unlike the standard `$lookup` stage, which performs a simple join between two collections, `$graphLookup` can traverse a graph or tree structure by recursively matching fields. This is essential for modeling hierarchical data such as organizational charts, social networks, or threaded discussions.
+
+## Understanding `$graphLookup` Syntax
+
+The syntax defines how the recursion should proceed: where to start, how to link documents, and when to stop.
+
+**Syntax:**
+
+```javascript
+{
+  $graphLookup: {
+    from: "collection",             // Target collection
+    startWith: "$expression",       // Initial value to start search
+    connectFromField: "field",      // Field in the currently visited document
+    connectToField: "field",        // Field in the target document to match
+    as: "outputArray",              // Name of the output array
+    maxDepth: /* number */,             // Optional: Limit recursion depth
+    depthField: "depth"             // Optional: Add a field indicating distance
+  }
+}
+```
+
+## Practical Examples and Demonstrations
+
+### Scenario 1: Organizational Chart (Reporting Hierarchy)
+
+**Context:** We have an `employees` collection where each document has a `reportsTo` field pointing to their manager. We want to find the entire reporting chain for a specific manager (i.e., all direct and indirect reports).
+
+**Sample Data:** `employees` collection
+
+```json
+[
+  { "_id": 1, "name": "CEO", "reportsTo": null },
+  { "_id": 2, "name": "VP Engineering", "reportsTo": "CEO" },
+  { "_id": 3, "name": "VP Sales", "reportsTo": "CEO" },
+  { "_id": 4, "name": "Dev Manager", "reportsTo": "VP Engineering" },
+  { "_id": 5, "name": "Developer", "reportsTo": "Dev Manager" }
+]
+```
+
+**Pipeline Code:**
+We want to find everyone who eventually reports to the "VP Engineering".
+
+```javascript
+db.employees.aggregate([
+  {
+    $match: { name: 'VP Engineering' }, // Start with the VP
+  },
+  {
+    $graphLookup: {
+      from: 'employees',
+      startWith: '$name', // Start looking for documents where...
+      connectFromField: 'name', // ...the 'name' of the current doc...
+      connectToField: 'reportsTo', // ...matches the 'reportsTo' of the next doc.
+      as: 'reportingHierarchy',
+    },
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[
+  {
+    "_id": 2,
+    "name": "VP Engineering",
+    "reportingHierarchy": [
+      { "_id": 4, "name": "Dev Manager", "reportsTo": "VP Engineering" },
+      { "_id": 5, "name": "Developer", "reportsTo": "Dev Manager" }
+    ]
+  }
+]
+```
+
+**Explanation:**
+
+1.  **Start:** MongoDB starts with "VP Engineering".
+2.  **Step 1:** It looks for docs where `reportsTo` is "VP Engineering". Finds "Dev Manager".
+3.  **Step 2:** It looks for docs where `reportsTo` is "Dev Manager". Finds "Developer".
+4.  **Step 3:** It looks for docs where `reportsTo` is "Developer". Finds none.
+5.  **Result:** All found documents are collected in `reportingHierarchy`.
+
+## Performance Implications
+
+Recursive lookups can be expensive.
+
+- **Indexes:** Ensure `connectToField` is indexed.
+- **Memory:** The result array must fit in the 16MB document limit. If a hierarchy is too deep or wide, the operation will fail.
+- **Max Depth:** Use `maxDepth` to prevent infinite loops or excessive processing in cyclic graphs.
+
+## Summary
+
+The `$graphLookup` stage transforms MongoDB into a graph database for specific traversal tasks. It allows you to model complex relationships like trees and networks without needing a specialized graph database engine.
+
+In the next lesson, we will explore **Practical Applications of Graph Aggregation**, looking at more complex scenarios like threaded comments and social connections.

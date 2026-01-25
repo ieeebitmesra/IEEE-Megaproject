@@ -1,0 +1,85 @@
+# Introduction to Aggregations
+
+Search is about finding a needle in a haystack. **Aggregations** are about describing the height, weight, and color of the haystack itself.
+
+In SQL, you use `GROUP BY` and `COUNT()`. In Elasticsearch, you use the **Aggregations framework** (often called "aggs").
+
+---
+
+## 1. The Power of Aggs
+
+Aggregations allow you to answer questions like:
+
+- "What is the average price of all laptops?"
+- "How many orders were placed each month?"
+- "Which 5 brands have the most products in our inventory?"
+
+---
+
+## 2. Bucket vs. Metric
+
+Every aggregation falls into one of two categories:
+
+### A. Buckets (The "Groups")
+
+Buckets divide documents into different "bins."
+
+- **Example:** A "Terms" bucket for `category` would create a bucket for "Electronics," a bucket for "Home," etc.
+- **Analogy:** Sorting a pile of laundry into "Whites," "Colors," and "Delicates."
+
+### B. Metrics (The "Math")
+
+Metrics calculate values over a set of documents (usually within a bucket).
+
+- **Example:** `avg`, `sum`, `min`, `max`.
+- **Analogy:** Counting how many items are in each laundry pile or finding the weight of the "Whites" pile.
+
+---
+
+## 3. The Basic Structure
+
+Aggregations are usually sent alongside a query. If the query is empty (`match_all`), the aggs run on the whole index.
+
+```http
+GET /sales/_search
+{
+  "size": 0, // We only want the math, not the actual documents
+  "aggs": {
+    "my_agg_name": {
+      "terms": {
+        "field": "category.keyword"
+      }
+    }
+  }
+}
+```
+
+---
+
+## Real-World Example: Dashboard Visualization
+
+If you look at a Kibana dashboard with a Pie Chart showing "Sales by Region":
+
+1. The **Pie Slices** are determined by a **Bucket Aggregation** (Terms agg on the `region` field).
+2. The **Size of Slices** is determined by a **Metric Aggregation** (Sum agg on the `revenue` field).
+
+---
+
+## Hypothetical Scenario: The "Too Much Data" Agg
+
+A developer wants to find the average login time for every user on their site.
+
+- **The Problem:** They have 10 million users. Creating 10 million buckets (one per user) to calculate one average each is extremely memory-intensive.
+- **The Solution:** Aggregations should be used for summarizing data into meaningful chunks, not for mimicking row-level data processing.
+
+## Exercises
+
+1. **Categorize:** Is `avg_price` a Bucket or a Metric aggregation?
+2. **Settings:** Why do we often set `"size": 0` when running aggregations?
+3. **Analogy:** If you are grouping students by their `Major` and then finding the `Avg GPA` for each major, which one is the Bucket and which one is the Metric?
+
+## Summary and Next Steps
+
+Aggregations turn raw data into insights. They are the reason Elasticsearch is used heavily for logging and observability (like the ELK stack).
+
+Next, we will look at **Metric Aggregations** to perform basic math on your data.

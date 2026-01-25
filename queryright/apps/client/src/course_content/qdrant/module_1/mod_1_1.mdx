@@ -1,0 +1,41 @@
+# What is a Vector Database?
+
+Until now, we have searched for data using **Keywords** (SQL `LIKE`), **Names** (Mongo `{name: "Alice"}`), or **Connections** (Neo4j `(a)-[:REL]->(b)`).
+
+**Vector Databases** do something different: they search for **Meaning**.
+
+---
+
+## The Concept of "Embeddings"
+
+Computers don't understand words. They understand numbers. An **Embedding** is a mathematical representation of a piece of data (text, image, audio) as a long list of numbers called a **Vector**.
+
+**Example:**
+
+- "King" -> `[0.1, 0.9, 0.4]`
+- "Queen" -> `[0.1, 0.85, 0.41]`
+- "Pizza" -> `[0.8, 0.1, 0.2]`
+
+Notice how "King" and "Queen" have similar numbers? That’s because they share a similar _meaning_. "Pizza" is completely different.
+
+---
+
+## Real-World Example: "I'm looking for a place to sleep."
+
+- **Keyword Search (SQL):** Would look for the exact word "sleep" or "place." It might return nothing.
+- **Vector Search (Qdrant):** Understands the _concept_ of sleep. It might return "Hotels," "Hostels," or "Inns," even if the word "sleep" never appears in their description.
+
+---
+
+## Why Qdrant?
+
+Qdrant (pronounced "Quadrant") is a high-performance vector database written in **Rust**. It is designed to store these millions of number-lists and find the closest matches in milliseconds.
+
+---
+
+## Quick Exercises:
+
+1. **Definition**: In your own words, what is an "Embedding"?
+2. **Comparison**: Why is searching for "Meaning" better than searching for "Keywords" when building a recommendation engine?
+3. **Logic**: If "Cat" is `[0.5, 0.1]` and "Kitten" is `[0.51, 0.09]`, would a Vector Database think they are similar or different?
+   lagoon.

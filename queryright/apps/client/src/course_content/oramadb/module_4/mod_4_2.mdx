@@ -1,0 +1,75 @@
+# The Vector Schema
+
+To use Vector Search in Orama, you must explicitly define which fields will contain embeddings and how "large" those embeddings are.
+
+---
+
+## 1. Defining the `vector` type
+
+You add a field to your schema with the type `vector`. You must also provide the **Dimensions** (the length of the number list).
+
+```javascript
+const db = await create({
+  schema: {
+    title: 'string',
+    embedding: 'vector[1536]', // OpenAI embeddings are usually 1536 long
+  },
+})
+```
+
+---
+
+## 2. Searching with Vectors
+
+When you search, instead of providing a `term` (string), you provide a `vector` (list of numbers).
+
+```javascript
+const result = await search(db, {
+  mode: 'vector',
+  vector: {
+    value: [0.1, 0.2, ...], // Your search term converted to a vector
+    property: 'embedding'
+  },
+  similarity: 0.85 // How "close" of a match do you want? (0.0 to 1.0)
+})
+```
+
+---
+
+## 3. Dimensions Matter
+
+The dimension size must **exactly match** the output of the AI model you are using.
+
+- If you use OpenAI `text-embedding-3-small`, use `1536`.
+- If you use a local model like HuggingFace `all-MiniLM-L6-v2`, it might be `384`.
+
+---
+
+## Real-World Example: Image Search
+
+You can even search images with Orama!
+
+- You use an AI model (like CLIP) to turn an image of a **"Red Apple"** into a vector.
+- You store that vector in Orama.
+- When a user uploads a photo of a red fruit, Orama compares the vectors and finds your "Red Apple" product.
+
+---
+
+## Hypothetical Scenario: The "Dimension Mismatch"
+
+A developer tries to insert a vector of length 10 into a schema defined for length 1536.
+
+- **Result:** Orama will throw an error.
+- You must ensure your "Ingestion" script and your "Search" script are using the same AI model.
+
+## Exercises
+
+1. **Setup:** If you use a model that outputs vectors of length 512, how do you define the schema?
+2. **Parameters:** What does "Similarity" mean in a vector search?
+3. **Logic:** Can you use the same Orama index for both text search and vector search? (Hint: See the next lesson!)
+
+## Summary and Next Steps
+
+Vector schemas allow Orama to store AI-generated knowledge.
+
+Next, we look at the "Holy Grail" of modern search: **Hybrid Search.**

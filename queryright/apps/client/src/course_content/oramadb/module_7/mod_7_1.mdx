@@ -1,0 +1,77 @@
+# Orama + Modern Web Frameworks
+
+Orama is a favorite for developers using "Static Site Generators" like **Next.js**, **Astro**, and **Nuxt**. In this lesson, we learn how to implement "Static Search."
+
+---
+
+## 1. The "Build-Time" Indexing
+
+In Astro or Next.js, you have a `build` step.
+
+- You write a script that iterates over your content folders.
+- It builds the Orama index.
+- It saves it as a JSON file in the `/public` folder.
+
+---
+
+## 2. The Frontend Hook
+
+On your website, you use a React or Vue hook to load the index.
+
+```javascript
+// React Example
+const [db, setDb] = useState(null)
+
+useEffect(() => {
+  async function init() {
+    const response = await fetch('/search-index.json')
+    const data = await response.json()
+    const orama = await create({ schema: { ... } })
+    await load(orama, data)
+    setDb(orama)
+  }
+  init()
+}, [])
+```
+
+---
+
+## 3. Why this "Wins"
+
+This approach is **Serverless**.
+
+- You don't need a database server.
+- You don't need an API.
+- Your search is as fast as a local JSON file—because it _is_ a local JSON file.
+
+---
+
+## Real-World Example: Documentation Search
+
+The official documentation for many JavaScript libraries use Orama.
+
+- When you land on the page, the browser silently downloads the index.
+- When you type in the search bar, the UI updates instantly.
+- Even if the library's server goes down, the search on the page still works because the index is already in your browser's memory.
+
+---
+
+## Hypothetical Scenario: The "Massive" Site
+
+A site has 50,000 pages. The JSON index is 15MB.
+
+- **The Problem:** 15MB is too big for a single download.
+- **The Solution:** Instead of a "Static" search, they use **Orama Cloud**.
+- The search bar sends a small request to the Cloud, which only returns the top 10 results (kb-sized), keeping the user's browser fast.
+
+## Exercises
+
+1. **Frameworks:** Which web framework "Build" step is best for generating Orama indexes?
+2. **Setup:** Where should you store your `search-index.json` file?
+3. **Logic:** Why is static search "Serverless"?
+
+## Summary and Next Steps
+
+Orama + Modern Web = Instant Search.
+
+Next, we look at **Orama in Deno and Node.js** for server-side environments.

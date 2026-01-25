@@ -1,0 +1,93 @@
+# Sorting and Pagination
+
+How do you handle the "Top 10" results, and how do you let users click through "Page 2," "Page 3," etc.?
+
+---
+
+## 1. Default Sorting (Relevancy)
+
+By default, Elasticsearch sorts by `_score` (relevancy) in descending order.
+
+---
+
+## 2. Explicit Sorting
+
+You can override the score sorting to sort by dates, numbers, or keywords.
+
+```http
+GET /orders/_search
+{
+  "query": { "match_all": {} },
+  "sort": [
+    { "order_date": { "order": "desc" } },
+    { "price": { "order": "asc" } }
+  ]
+}
+```
+
+**Crucial Warning:** You cannot sort on a `text` field. You must use a `keyword` sub-field (e.g., `title.keyword`).
+
+---
+
+## 3. Basic Pagination (`from` and `size`)
+
+The simplest way to paginate is using `from` (offset) and `size` (limit).
+
+```http
+GET /products/_search
+{
+  "from": 20,
+  "size": 10,
+  "query": { "match": { "category": "books" } }
+}
+```
+
+_This gets results 21 through 30._
+
+### The "Deep Paging" Limit
+
+Elasticsearch has a safety limit: you cannot use `from` and `size` to go past **10,000 documents**.
+
+- **Why?** To calculate page 1,000, Elasticsearch has to fetch and sort the first 10,000 documents from every shard and merge them. This consumes massive amounts of RAM and CPU.
+
+---
+
+## 4. Deep Pagination (`search_after`)
+
+If you need to iterate through millions of results (e.g., for an export), use `search_after`.
+
+1. Sort by a unique field (like `id`).
+2. Your first request gets 10 docs.
+3. Your second request includes the sort values of the _last_ document from the first request.
+
+---
+
+## Real-World Example: Infinite Scroll
+
+On a social media feed:
+
+1. When the user opens the app, you `size: 20` sort by `timestamp: desc`.
+2. When they scroll to the bottom, you take the timestamp of the 20th post.
+3. You run a new search with `search_after: [timestamp_of_20th_post]` and `size: 20`.
+4. This keeps the performance fast even if the user scrolls for hours.
+
+---
+
+## Hypothetical Scenario: The "Empty Sort" Mystery
+
+A developer tries to sort by `first_name`.
+
+- **The Error:** "Fielddata is disabled on text fields by default."
+- **The Solution:** They check their mapping. They see `first_name` is a `text` field. They change their sort to `first_name.keyword` and it works instantly.
+
+## Exercises
+
+1. **Calculate:** If you want "Page 5" and each page has 20 results, what are your `from` and `size` values?
+2. **Sort Syntax:** Write a sort block to sort documents by `priority` (highest first) and then by `internal_id` (alphabetical).
+3. **The Limit:** What happens if you try to set `from: 10001`?
+
+## Summary and Next Steps
+
+Pagination and sorting are vital for user experience. But what if you want to manually "nudge" certain documents to the top based on business logic (like a sponsored product)?
+
+In the final lesson of this module, we look at **Boosting and Function Scores**.

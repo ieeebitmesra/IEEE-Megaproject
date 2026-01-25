@@ -1,0 +1,92 @@
+# Deleting Records from Tables (DELETE FROM)
+
+Sometimes, data is no longer needed. A customer requests to close their account, an order is cancelled, or a product is discontinued. In these cases, we need to remove records from our database. The `DELETE` statement is the tool for this job. It is powerful and permanent, so it must be used with extreme caution.
+
+## Understanding the DELETE Statement
+
+The `DELETE FROM` statement removes one or more rows from a table. Unlike `UPDATE`, which changes values _within_ a row, `DELETE` removes the entire row completely.
+
+### Basic Syntax
+
+```sql
+DELETE FROM table_name
+WHERE condition;
+```
+
+- **`DELETE FROM`**: Specifies the table to remove data from.
+- **`WHERE`**: **Crucial!** Specifies _which_ rows to remove.
+
+### The Danger of Omitting WHERE
+
+Just like with `UPDATE`, if you omit the `WHERE` clause, the database assumes you want to delete **every single row** in the table.
+
+- _Dangerous Example:_ `DELETE FROM customers;`
+- _Result:_ Your `Customers` table is now empty. All customer data is gone.
+
+## Practical Examples and Demonstrations
+
+We continue with our **Online Bookstore** scenario.
+
+### Scenario 1: Deleting a Specific Record
+
+A customer has cancelled Order #1005. We need to remove it from the system.
+
+**Query:**
+
+```sql
+DELETE FROM orders
+WHERE order_id = 1005;
+```
+
+**Result:**
+The row with `order_id` 1005 is removed. All other orders remain.
+
+### Scenario 2: Deleting Multiple Records
+
+We decided to stop selling "Magazines". We want to remove all products from the `Books` table that are in the 'Magazine' category.
+
+**Query:**
+
+```sql
+DELETE FROM books
+WHERE category = 'Magazine';
+```
+
+**Result:**
+The database finds all rows where the category is 'Magazine' and deletes them.
+
+### Scenario 3: Referential Integrity (The Safety Net)
+
+What happens if you try to delete an Author who has written books that are still in your `Books` table?
+
+- If you try: `DELETE FROM authors WHERE author_id = 101;` (J.K. Rowling)
+- **Result:** The database will likely stop you with an error: "Foreign key constraint violation."
+- **Reason:** Relational databases are designed to prevent "orphan" records. You cannot have a book that points to an author who doesn't exist. To delete the author, you must first delete their books (or reassign them).
+
+## Exercises and Practice Activities
+
+To solidify your understanding of deleting data, complete the following exercises.
+
+### Exercise 1: Removing a User
+
+Write a query to delete the customer with `customer_id` 50 from the `Customers` table.
+
+### Exercise 2: Cleaning Up Old Data
+
+Write a query to delete all orders that were placed before '2020-01-01'. (Hint: Use the `<` operator with the date).
+
+### Exercise 3: The "Empty Table" Mistake
+
+Explain what the following query does and why it is dangerous:
+
+```sql
+DELETE FROM products;
+```
+
+## Concluding Thoughts
+
+In this lesson, we learned how to remove data using the `DELETE` statement. We reinforced the critical importance of the `WHERE` clause to avoid wiping out entire tables. We also touched on the concept of Referential Integrity, which prevents us from accidentally breaking links between related tables (like Authors and Books).
+
+In the next lesson, we will return to data retrieval (`SELECT`), but with much more power. We will learn how to combine multiple conditions using Logical Operators (`AND`, `OR`, `NOT`), allowing us to ask complex questions like "Show me all fiction books that cost less than $15 AND are in stock."
+
+=START_QUESTIONS=Which statement is used to remove rows from a table?@@What happens if you run a DELETE statement without a WHERE clause?@@What is a Foreign Key constraint violation in the context of deleting?@@Can you undo a DELETE operation after it is committed? =END_QUESTIONS=

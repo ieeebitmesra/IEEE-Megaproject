@@ -1,0 +1,63 @@
+# What is Vector Search?
+
+Traditional search looks for **Keywords**. If you search for "Liquid," it looks for that exact word. **Vector Search** looks for **Meanings**.
+
+---
+
+## 1. Embeddings: Turning Words into Numbers
+
+To do vector search, we convert text into a list of numbers (a "Vector") using an AI model (like OpenAI).
+
+- **"Liquid"** might become `[0.12, -0.45, 0.89, ...]`
+- **"Water"** might become `[0.11, -0.44, 0.88, ...]`
+
+Because the numbers are so similar, a mathematical calculation can prove that "Liquid" and "Water" have similar meanings.
+
+---
+
+## 2. Why Use It?
+
+Vector search solves the "Synonym" problem.
+
+- A user searches for **"cheap phones."**
+- A traditional search might miss an article titled **"Inexpensive smartphones."**
+- Vector search understands they are the same concept and shows both results.
+
+---
+
+## 3. Orama's Role
+
+Orama includes a built-in **Vector Engine**. It stores these lists of numbers and performs the mathematical comparisons (Cosine Similarity) at lightning speed.
+
+---
+
+## Real-World Example: The Support Chatbot
+
+A customer types: "How do I get my money back?"
+
+- Traditional Search: Looks for "money", "back", "get".
+- **Vector Search:** Understands the user is asking about a **"Refund Policy."**
+- Orama finds the "Refund Policy" document even if the words "money" or "back" aren't in the title.
+
+---
+
+## Hypothetical Scenario: The "Empty Results" Rescue
+
+A user searches for "Couch" on a furniture site.
+
+- The site only uses the word "Sofa" in its database.
+- **Traditional Search:** "Sorry, 0 results found."
+- **Vector Search with Orama:** "Here are our Sofas!"
+- The user buys a sofa, and the business saves a sale.
+
+## Exercises
+
+1. **Concepts:** What is an "Embedding"?
+2. **Comparison:** How is Vector Search different from Keyword Search?
+3. **Logic:** Why is Vector Search harder to set up than Keyword Search? (Hint: Do you need an extra AI model?)
+
+## Summary and Next Steps
+
+Vector search allows your app to "Understand" your user.
+
+In the next lesson, we’ll see how to add **Vectors to our Orama Schema**.

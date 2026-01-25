@@ -1,0 +1,39 @@
+# Introduction to Relational Joins
+
+In the previous modules, we worked primarily with single tables. We queried the `Books` table to find prices, or the `Orders` table to find sales figures. However, the true power of a **Relational Database Management System (RDBMS)** lies in its ability to relate data across multiple tables.
+
+Real-world data is rarely stored in one massive spreadsheet. Instead, it is broken down into smaller, specialized tables to reduce redundancy and improve data integrity. For example, instead of storing the author's name and bio in every single row of the `Books` table, we store it once in an `Authors` table and link it using an ID.
+
+To reconstruct the full picture—for example, to see a book title alongside its author's name—we need to combine these tables. The mechanism for doing this in SQL is called a **JOIN**.
+
+## The Concept of Joining Tables
+
+Imagine you have two physical ledgers on your desk.
+
+1.  **Ledger A (Books):** Lists book titles and an "Author ID" number (e.g., "1984", Author ID: 101).
+2.  **Ledger B (Authors):** Lists "Author ID" numbers and names (e.g., Author ID: 101, Name: "George Orwell").
+
+If a customer asks, "Who wrote 1984?", you look at Ledger A, find "1984", see the ID is 101. Then you switch to Ledger B, find ID 101, and see "George Orwell". You have mentally "joined" the two ledgers based on the matching ID.
+
+SQL Joins automate this process. They allow you to query multiple tables simultaneously by specifying the common column that links them.
+
+## Types of Joins
+
+There are several ways to join tables, depending on which records you want to keep.
+
+1.  **INNER JOIN:** Returns only the rows where there is a match in _both_ tables. (e.g., Books that have an Author, AND Authors that have written a Book).
+2.  **LEFT JOIN (or LEFT OUTER JOIN):** Returns _all_ rows from the left table, and the matching rows from the right table. If there is no match, the right side will contain NULLs. (e.g., All Books, even if they have no known Author).
+3.  **RIGHT JOIN (or RIGHT OUTER JOIN):** Returns _all_ rows from the right table, and the matching rows from the left table. (e.g., All Authors, even if they haven't written a Book yet).
+4.  **FULL JOIN (or FULL OUTER JOIN):** Returns rows when there is a match in _one_ of the tables. It combines the results of both Left and Right joins.
+
+## Why Use Joins?
+
+- **Normalization:** They allow us to keep data organized in separate tables (Normalization) without losing the ability to view it as a unified whole.
+- **Efficiency:** Storing text like "George Orwell" thousands of times takes up space and makes updates difficult (what if he changes his name?). Storing the ID "101" is efficient. Joins let us look up the name only when needed.
+- **Complex Analysis:** We can answer questions that span the entire business, like "Which customers (Table A) bought books (Table B) written by authors (Table C) from New York?"
+
+## Concluding Thoughts
+
+This lesson serves as a high-level overview. In the following lessons, we will dive deep into the syntax and specific use cases for each type of join, starting with the most common one: the `INNER JOIN`. We will use our **Online Bookstore** data to link Books to Authors, and Orders to Customers, revealing the interconnected nature of our data.
+
+=START_QUESTIONS=What is the primary purpose of a JOIN in SQL?@@Which column is typically used to link two tables together?@@Does an INNER JOIN return rows that do not have a match?@@Why is data split into multiple tables in an RDBMS? =END_QUESTIONS=

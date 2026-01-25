@@ -1,0 +1,80 @@
+# Write-Through and Write-Back Caching
+
+In the previous lesson, we learned about Cache-Aside, where the application manages both the cache and the database. However, in some systems, you want the cache to be more "integrated" into the data flow. Two patterns for this are **Write-Through** and **Write-Back**.
+
+---
+
+## 1. Write-Through Caching
+
+In a **Write-Through** system, the application treats the cache as the primary data store for writes. When the app wants to save data, it sends it to the cache. The cache then _immediately_ writes it to the database before confirming success to the app.
+
+### The Flow:
+
+1. App sends data to the Cache.
+2. Cache writes data to the Database.
+3. Cache returns "Success" to the App.
+
+### Advantages:
+
+- **Consistency:** Data is never "stale" because the cache and database are updated at the same time.
+- **Read Performance:** Since data is always "pushed" to the cache on save, you almost never have a "Cache Miss."
+
+### Disadvantages:
+
+- **Write Latency:** Writing to both stores takes more time than writing to just one.
+- **Waste:** You might cache data that no one ever ends up reading.
+
+---
+
+## 2. Write-Back (Write-Behind) Caching
+
+**Write-Back** is the "fastest" but "riskiest" caching pattern. The application writes data _only_ to the cache. The cache then writes that data to the database **later** (asynchronously).
+
+### The Flow:
+
+1. App sends data to the Cache.
+2. Cache returns "Success" to the App _instantly_.
+3. Cache (or a separate process) writes the data to the Database in the background 5 or 10 seconds later.
+
+### Advantages:
+
+- **Incredible Performance:** Your app feels "instant" because it never has to wait for the slow database.
+- **Write Batching:** You can group 100 small updates and send them to the database as one single large update, reducing DB load.
+
+### Disadvantages:
+
+- **Data Loss Risk:** If the cache crashes before it has finished writing to the database, that data is gone forever. This is why Write-Back is usually only used with very durable Redis setups (like Redis Cluster with AOF).
+
+---
+
+## Real-World Example: An IoT Sensor Network
+
+Imagine you have 50,000 sensors in a factory sending temperature readings every 10 milliseconds.
+
+1. **The Problem:** If you try to write every single reading to a SQL database, the database will melt from the sheer number of write operations.
+2. **The Write-Back Solution:**
+   - Sensors send data to Redis.
+   - Redis updates a rolling average or a "last known value."
+   - Every 5 minutes, a background worker takes the aggregated data and saves it to a permanent MariaDB database for archival.
+3. **The Result:** The system handles massive traffic smoothly while keeping the permanent storage clean and efficient.
+
+---
+
+## Hypothetical Scenario: The "Smart Home" Toggle
+
+You have a smart home app where you can toggle a light switch.
+
+- **Using Write-Through:** You hit the "On" button. The app waits for the database to confirm it's on, and _then_ the light on your screen turns green. This might take 500ms—feels a bit sluggish.
+- **Using Write-Back:** You hit the "On" button. The light on your screen turns green _immediately_. The database is updated in the background. It feels "snappy" and high-end to the user.
+
+## Exercises
+
+1. **Choice of Pattern:** You are building a banking app to transfer money. Would you use Write-Through or Write-Back? Why?
+2. **Performance Tradeoff:** Explain why Write-Back is faster than Write-Through for the end-user.
+3. **Risk Mitigation:** If you _must_ use Write-Back for performance, what are two things you can do to reduce the risk of losing data? (Hint: Think back to Module 3).
+
+## Summary and Next Steps
+
+Write-Through ensures your data is safe and consistent, while Write-Back prioritizes speed and scalability. Choosing between them is a classic engineering tradeoff between **Reliability** and **Performance**.
+
+In the final lesson of this module, we will address the hardest problem in computer science: **Cache Invalidation**.

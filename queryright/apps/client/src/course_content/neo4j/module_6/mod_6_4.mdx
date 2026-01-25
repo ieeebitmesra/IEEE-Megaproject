@@ -1,0 +1,49 @@
+# Where to Run Neo4j: Cloud vs local
+
+You've been learning Neo4j, but where does the database actually live?
+
+---
+
+## 1. Neo4j Desktop (Local)
+
+This is what you likely used for learning. It's free, runs on your machine, and is great for development.
+
+- **Pro:** No internet required, maximum speed for local work.
+- **Con:** If your laptop dies, your data is gone. Hard to share with a team.
+
+---
+
+## 2. Neo4j AuraDB (Cloud)
+
+This is the "Managed" version of Neo4j. It's like RDS for SQL or Atlas for MongoDB.
+
+- **Pro:** Zero maintenance. Automated backups. Scales automatically.
+- **Con:** Costs money for larger datasets. Requires an internet connection to query.
+
+---
+
+## Real-World Example: Setting Up a "Service Account"
+
+When moving to the Cloud, you don't use your personal login for your Node.js app. You create a **Service Account** with a restricted password.
+
+**Aura Connection String:**
+`neo4j+s://[DB_ID].databases.neo4j.io`
+
+The `+s` tells the driver to use **Encrypted TLS** (Security is mandatory in the cloud!).
+
+---
+
+## Hypothetical Scenario: The "Regional Lag"
+
+A company hosts their Neo4j Aura instance in the **US-East (Virginia)** region, but their app servers are in **EU-West (Ireland)**.
+Every time the app asks for a friend list, the request has to travel 3,000 miles across the ocean and back. The app feels "sluggish."
+
+**The Solution:** Always host your Database in the same physical region as your App Servers.
+
+---
+
+## Quick Exercises:
+
+1. **Connection String**: What does the `+s` in `neo4j+s://` represent?
+2. **Backups**: Why is it better to have a Cloud provider handle backups instead of doing it yourself on a local server?
+3. **Environment Variables**: Why should you NEVER hardcode your AuraDB password in your GitHub repository? (Where should it go instead?)

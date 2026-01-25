@@ -1,0 +1,61 @@
+# Tokenizer Pipelines
+
+A Tokenizer Pipeline is the "Factory Line" that your text travels through before it is saved. You can add your own "Steps" to this line.
+
+---
+
+## 1. The Standard Pipeline
+
+1. **Lowercase:** "Apple" -> "apple".
+2. **Stopwords:** Remove "the", "and".
+3. **Stemming:** "Running" -> "run".
+
+---
+
+## 2. Adding Custom Steps
+
+You might want to add a step for **Normalization**.
+
+- **Example:** You want "café" to be treated the same as "cafe".
+- You add a "Normalizer" step that removes accent marks from letters.
+
+---
+
+## 3. High-Performance Tokenization
+
+If your pipeline is too complex (e.g., you are running a heavy AI model for every word), your indexing speed will slow down.
+
+- **The Solution:** Keep your tokenizer pipeline as "Lean" (fast) as possible. Do heavy processing (like LLM translations) **before** you send the data to Orama.
+
+---
+
+## Real-World Example: Medical Abbreviations
+
+In a hospital database, "BP" always means "Blood Pressure."
+
+- **The Solution:** The developer adds a step to the pipeline:
+  - If word is 'BP', replace with 'Blood Pressure'.
+- Now, when a researcher searches for "Blood Pressure," Orama finds every document where the doctor just typed "BP."
+
+---
+
+## Hypothetical Scenario: The "Emoji" Search
+
+A Gen-Z social app wants users to be able to search using emojis.
+
+- **The Problem:** Many tokenizers ignore emojis entirely.
+- **The Solution:** The developer creates a custom pipeline step that "Translates" emojis into words.
+- 🔥 becomes "fire".
+- Now, a search for the word "Fire" returns todos or posts containing the fire emoji.
+
+## Exercises
+
+1. **Review:** List the three standard steps in an Orama tokenizer pipeline.
+2. **Transformation:** How would you handle translating "US", "U.S.A.", and "United States" into a single searchable term?
+3. **Logic:** Why is "normalization" important for searching names (like 'Renée')?
+
+## Summary and Next Steps
+
+Pipelines give you surgical control over your search data.
+
+We wrap up Module 6 in the next lesson.

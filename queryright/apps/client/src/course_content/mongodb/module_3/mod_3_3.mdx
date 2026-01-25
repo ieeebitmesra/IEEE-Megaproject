@@ -1,0 +1,117 @@
+# The `$addFields` and `$set` Stages: Adding New Computed Fields
+
+The `$addFields` stage is a versatile aggregation operator used to add new fields to documents or update existing fields. Unlike `$project`, which reshapes the document by specifying exactly which fields to keep, `$addFields` preserves all existing fields in the input document and simply appends the new ones. This makes it the preferred choice when you want to enrich documents with computed values without manually listing every other field you wish to retain.
+
+_Note: Starting in MongoDB 4.2, `$set` was introduced as an alias for `$addFields`. They function identically, but `$set` is often preferred for readability as it aligns with the update operator syntax._
+
+## Understanding `$addFields` Syntax
+
+The syntax is similar to `$project`, where you define the field name and the expression that calculates its value.
+
+**Syntax:**
+
+```javascript
+{
+  $addFields: {
+    newField: "staticValue",
+    computedField: { $expression: ... },
+    existingField: "newValue" // Overwrites existing field
+  }
+}
+```
+
+## Practical Examples and Demonstrations
+
+### Scenario 1: Calculating Total Cost
+
+**Context:** We have a collection of line items with `price` and `quantity`. We want to add a `totalCost` field to each document without losing the original data.
+
+**Sample Data:** `cart_items` collection
+
+```json
+[
+  { "_id": 1, "item": "Apple", "price": 0.5, "qty": 10 },
+  { "_id": 2, "item": "Banana", "price": 0.3, "qty": 5 }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.cart_items.aggregate([
+  {
+    $addFields: {
+      totalCost: { $multiply: ['$price', '$qty'] },
+    },
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[
+  { "_id": 1, "item": "Apple", "price": 0.5, "qty": 10, "totalCost": 5.0 },
+  { "_id": 2, "item": "Banana", "price": 0.3, "qty": 5, "totalCost": 1.5 }
+]
+```
+
+**Explanation:**
+
+- The `$multiply` operator calculates the product of `price` and `qty`.
+- `$addFields` attaches this result as `totalCost`.
+- Note that `item`, `price`, and `qty` are automatically preserved.
+
+### Scenario 2: Categorizing Data with Conditional Logic
+
+**Context:** We want to label orders as "High Value" or "Standard" based on their amount. We can use `$cond` (conditional operator) within `$addFields`.
+
+**Sample Data:** `orders` collection
+
+```json
+[
+  { "_id": 1, "amount": 500 },
+  { "_id": 2, "amount": 50 }
+]
+```
+
+**Pipeline Code:**
+
+```javascript
+db.orders.aggregate([
+  {
+    $set: {
+      // Using the $set alias
+      category: {
+        $cond: {
+          if: { $gte: ['$amount', 100] },
+          then: 'High Value',
+          else: 'Standard',
+        },
+      },
+    },
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+[
+  { "_id": 1, "amount": 500, "category": "High Value" },
+  { "_id": 2, "amount": 50, "category": "Standard" }
+]
+```
+
+## Performance Implications
+
+The `$addFields` stage is generally lightweight, but the complexity depends on the expressions used.
+
+- **Computed Fields:** Simple arithmetic is fast. Complex string manipulation or array operations will take more CPU.
+- **Document Size:** Adding large fields (like duplicating an array) increases the document size. Be mindful of the 16MB BSON document size limit.
+
+## Summary
+
+The `$addFields` (and `$set`) stage is the standard tool for enriching documents in a pipeline. It allows you to perform calculations, apply logic, and tag data while keeping the original document structure intact.
+
+In the next lesson, we will look at the inverse operation: **The `$unset` Stage**, which allows us to surgically remove fields from documents.

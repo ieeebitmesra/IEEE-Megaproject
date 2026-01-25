@@ -1,0 +1,63 @@
+# Orama Architecture: How it Works
+
+To understand why Orama is so fast, we need to look under the hood. It doesn't work like a traditional database that reads from a "hard drive."
+
+---
+
+## 1. Everything is In-Memory
+
+Orama is an **in-memory search engine**.
+
+- When you start an Orama instance, it builds a specialized data structure (an **Inverted Index**) in the RAM of your computer or browser.
+- Searching RAM is thousands of times faster than searching a disk.
+
+---
+
+## 2. The Inverted Index
+
+Like Elasticsearch, Orama uses an Inverted Index.
+
+- **Normal Table:** Document ID -> Content.
+- **Inverted Index:** Word -> [List of Document IDs].
+- If you search for "Apple," Orama doesn't read every document. it just looks at the "Apple" entry in its index and immediately knows which documents contain it.
+
+---
+
+## 3. Serialization (The "Snapshot")
+
+If Orama is in-memory, what happens when you turn off your computer? The data is gone.
+
+- **The Solution:** Orama allows you to "Snapshot" your index into a JSON or binary file.
+- You can save this file to an S3 bucket or a local disk.
+- When you need to search again, you "rehydrate" (load) the snapshot back into memory.
+
+---
+
+## Real-World Example: Serverless Cold Starts
+
+Vercel or Netlify "Functions" often go to sleep when not in use.
+
+- When a user searches, the function wakes up.
+- Orama loads a 2MB index from storage in about 50ms.
+- It performs the search in 1ms.
+- The user feels an instant response, even though the "server" was technically off.
+
+---
+
+## Hypothetical Scenario: The "Memory Leak" Fear
+
+A developer is worried that loading a search engine into the browser will crash the user's phone.
+
+- **The Truth:** Orama is highly optimized. An index of 5,000 products usually takes up less than 5MB of RAM—roughly the same as one high-quality image on a webpage.
+
+## Exercises
+
+1. **Storage:** Why is searching RAM faster than searching a disk?
+2. **Indexing:** What is an "Inverted Index"?
+3. **Persistence:** How do you save your Orama data so it doesn't disappear when the app closes?
+
+## Summary and Next Steps
+
+Memory-first architecture is what makes Orama "Edge-Native."
+
+Next, we compare Orama to the giants: **Elasticsearch and DuckDB.**

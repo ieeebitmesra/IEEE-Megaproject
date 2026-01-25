@@ -1,0 +1,62 @@
+# The Orama CLI: Bulk Ingestion
+
+Writing `insert()` calls for 100,000 items is tedious. The **Orama CLI** allows you to manage your indexes and data from your terminal.
+
+---
+
+## 1. Installation
+
+```bash
+npm install -g @oramacloud/cli
+```
+
+---
+
+## 2. Importing from CSV/JSON
+
+If you have a large dataset in another format, you can pipe it directly into Orama.
+
+```bash
+cat products.json | orama-cli import --index my-index
+```
+
+---
+
+## 3. Local Development
+
+The CLI also allows you to:
+
+- **Test queries:** Run searches in the terminal to see what the score and results look like.
+- **Manage Indices:** Create, delete, and list your indices on Orama Cloud.
+- **Deploy:** "Push" your local code and index settings to the production cloud.
+
+---
+
+## Real-World Example: Migrate from SQL to Search
+
+A data engineer has 500,000 rows in a PostgreSQL table. They want to make them searchable in Orama.
+
+- They run a SQL command: `COPY products TO STDOUT WITH CSV`.
+- They pipe that output directly into the Orama CLI: `... | orama-cli import`.
+- In less than 5 minutes, their entire database is now a high-performance search index.
+
+---
+
+## Hypothetical Scenario: The "Quick Test"
+
+A developer is wondering if "Boost: 2" or "Boost: 5" is better for their specific data.
+
+- Instead of re-building their web app 10 times...
+- **The Solution:** They use the CLI to run the same search with different boost flags and compare the results in seconds.
+
+## Exercises
+
+1. **Commands:** How do you test a query using the Orama CLI?
+2. **Migration:** What file formats can the Orama CLI import?
+3. **Logic:** Why is a CLI better than a web browser for importing 1GB of data?
+
+## Summary and Next Steps
+
+The CLI is your "Swiss Army Knife" for data management.
+
+Up next is your **Graduation Project!**

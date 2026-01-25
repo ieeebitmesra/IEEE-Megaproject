@@ -1,0 +1,67 @@
+# TF-IDF vs. BM25
+
+Why did the document about "Coffee" show up before the document about "Tea"? The answer lies in the **Scoring Algorithm**. Elasticsearch currently uses **BM25**, which is an improvement over the classic **TF-IDF**.
+
+---
+
+## 1. What is TF-IDF?
+
+TF-IDF stands for **Term Frequency - Inverse Document Frequency**.
+
+- **Term Frequency (TF):** If a word appears 10 times in a document, that document is probably more relevant than one where it appears once.
+- **Inverse Document Frequency (IDF):** If the word "the" appears in every document in your index, it's not very helpful for finding a specific one. If the word "Espresso" appears in only 2 documents, it's highly "valuable."
+
+$$Score \approx TF \times IDF$$
+
+---
+
+## 2. Why BM25 is better
+
+BM25 (Best Matching 25) solves a major flaw in TF-IDF: **Term Saturation.**
+
+In TF-IDF, if a word appears 1,000 times, the score is 1,000 times higher than if it appears once.
+In BM25, the score "levels off."
+
+- A document with 10 mentions of "Coffee" is more relevant than 1 mention.
+- But a document with 100 mentions of "Coffee" is only _slightly_ more relevant than 10 mentions.
+
+---
+
+## 3. Field Length Norm
+
+BM25 also cares about **how long** the document is.
+
+- If the word "Pizza" appears in a 3-word title, that document is likely 100% about pizza.
+- If the word "Pizza" appears once in a 10,000-word book, the book probably isn't about pizza.
+- **BM25 gives a higher score to the shorter field.**
+
+---
+
+## Real-World Example: Keyword Stuffing
+
+In the 90s, people would put "Free Money Free Money Free Money" at the bottom of their websites to trick search engines.
+
+- With **TF-IDF**, this worked!
+- With **BM25**, the score saturates quickly, so adding "Free Money" a thousand times doesn't help more than adding it three times.
+
+---
+
+## Hypothetical Scenario: The "Rare Word" Winner
+
+A user searches for "The Manhattan Project."
+
+- Document 1: Mentioned "The" 50 times, "Manhattan" 1 time.
+- Document 2: Mentioned "Manhattan" 2 times.
+- **The Result:** Document 2 wins easily. Because "Manhattan" has a higher **IDF** (it's rarer) than "The," those two matches are worth much more than the fifty matches for the common word.
+
+## Exercises
+
+1. **Terminology:** What does "IDF" stand for and what does it measure?
+2. **Comparison:** Why does BM25 prevent "Term Saturation"?
+3. **Length Norm:** If two documents both mention the word "Apple" once, but Doc A is a text message and Doc B is a novel, which one gets a higher score?
+
+## Summary and Next Steps
+
+BM25 is the default brain of Elasticsearch. It handles the math so you don't have to.
+
+But sometimes the math feels wrong. How do we see exactly how a score was calculated? Next, we use the **Explain API**.

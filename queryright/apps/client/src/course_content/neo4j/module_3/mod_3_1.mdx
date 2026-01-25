@@ -1,0 +1,70 @@
+# Variable Length Paths
+
+One of the most powerful features of Neo4j is the ability to find connections of an **unknown length**.
+
+---
+
+## 1. What is a "Hop"?
+
+A "Hop" is moving from one node to another through a relationship.
+
+- `(A)-[:FRIEND]->(B)` is 1 hop.
+- `(A)-[:FRIEND]->(B)-[:FRIEND]->(C)` is 2 hops.
+
+---
+
+## 2. Using the Asterisk `*`
+
+In Cypher, you can tell Neo4j to search for multiple hops using the `*` operator.
+
+```cypher
+MATCH (me:Person {name: "Me"})-[:FRIEND*1..3]->(stranger:Person)
+RETURN stranger.name
+```
+
+_"Find my friends, friends of friends, and friends of friends of friends (1 to 3 hops away)."_
+
+---
+
+## 3. Infinite Paths `*`
+
+If you don't provide a number, Neo4j will keep searching until it hits a dead end. Use this with caution!
+
+- `MATCH (A)-[:WORKS_AT*]->(B)`
+
+---
+
+## Real-World Example: Supply Chain Dependencies
+
+A software company wants to know all the secondary and tertiary libraries their app depends on.
+
+- **The Query:**
+
+```cypher
+MATCH (myApp:Project)-[:DEPENDS_ON*]->(library:Project)
+RETURN library.name
+```
+
+- This traverses the entire "Dependency Tree" (A depends on B, which depends on C...), uncovering hidden risks in their software stack.
+
+---
+
+## Hypothetical Scenario: The "Long Lost Relative"
+
+A user on a genealogy site wants to know if they are related to a famous historical figure.
+
+- **The Graph:** millions of `:PARENT_OF` relationships.
+- **The Solution:** A variable length search finds the 15-hop connection that proves the user is the 12th great-grandchild of the historical figure.
+- **Try doing that in SQL!**
+
+## Exercises
+
+1. **Syntax:** What does `*1..5` mean in a relationship?
+2. **Logic:** Why is a variable length search dangerous on a massive, highly connected graph? (Hint: Think about memory).
+3. **Application:** Write a query to find all "Managers of Managers" (2 hops) for a specific employee.
+
+## Summary and Next Steps
+
+Variable length paths allow you to discover "Second Degree" and "Third Degree" connections effortlessly.
+
+Next, we look at **Aggregations**—counting and collecting data in the graph.

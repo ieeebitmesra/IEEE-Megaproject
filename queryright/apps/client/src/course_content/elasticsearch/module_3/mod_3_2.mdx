@@ -1,0 +1,97 @@
+# The `bool` Query
+
+The `bool` query is the most common way to build complex searches. It allows you to combine multiple query clauses into a single request.
+
+---
+
+## 1. The Four Pillars of `bool`
+
+A `bool` query has four main sections:
+
+| Parameter      | Meaning                                                             | Affects Score? |
+| :------------- | :------------------------------------------------------------------ | :------------- |
+| **`must`**     | The clause **must** appear in matching documents.                   | Yes            |
+| **`filter`**   | The clause **must** appear in matching documents.                   | **No**         |
+| **`should`**   | If it matches, the score increases, but it's not strictly required. | Yes            |
+| **`must_not`** | The clause **must NOT** appear in matching documents.               | **No**         |
+
+---
+
+## 2. A Concrete Example
+
+Let's search for books:
+
+- Must have "Elasticsearch" in the title.
+- Must be a "tutorial" (but we don't care about scoring this field).
+- It would be nice (should) if it's authored by "Clinton Gormley".
+- It must not be "out of print".
+
+```http
+GET /books/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        { "match": { "title": "Elasticsearch" } }
+      ],
+      "filter": [
+        { "term": { "type": "tutorial" } }
+      ],
+      "should": [
+        { "match": { "author": "Clinton Gormley" } }
+      ],
+      "must_not": [
+        { "term": { "status": "out of print" } }
+      ]
+    }
+  }
+}
+```
+
+---
+
+## 3. The `minimum_should_match`
+
+If you have a `should` block, by default, it acts like a "bonus". However, if you have NO `must` or `filter` clauses, at least one `should` clause must match.
+You can control this behavior:
+
+```json
+"bool": {
+  "should": [...],
+  "minimum_should_match": 2
+}
+```
+
+_This requires that at least 2 of the "should" conditions are met._
+
+---
+
+## Real-World Example: Job Board Search
+
+1. **Must:** The job must contain the keyword "React".
+2. **Filter:** The job must be in "New York".
+3. **Should:** The user prefers "Remote" or "Full-time".
+4. **Must Not:** The user hates "Recruitment Agencies".
+
+This logic is perfectly handled by a single `bool` query.
+
+---
+
+## Hypothetical Scenario: The "OR" Confusion
+
+A student wants to find documents that are either in the "red" category OR the "blue" category.
+They try to put two `must` clauses.
+**The Problem:** Documents match both!
+**The Solution:** Use `should` with `minimum_should_match: 1`. This creates logical **OR**.
+
+## Exercises
+
+1. **Logic Check:** If a document matches a `must_not` clause, will it appear in the results?
+2. **Scoring:** Which contributes more to the search speed: `must` or `filter`?
+3. **Refactor:** How would you write a query that finds all electronics that are NOT from the brand "Pear"?
+
+## Summary and Next Steps
+
+The `bool` query is your toolbox for logic. By nesting `bool` queries inside other `bool` queries, you can build incredibly sophisticated filters.
+
+Next, we'll look at specialized full-text searches like **`multi_match`** and **`match_phrase`**.

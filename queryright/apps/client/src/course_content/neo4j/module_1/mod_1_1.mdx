@@ -1,0 +1,60 @@
+# What is a Graph Database?
+
+In the world of data, relationships are often more important than the data itself. While SQL uses tables and Foreign Keys, a **Graph Database** stores data as a network of connections.
+
+---
+
+## 1. The Core Components
+
+A Graph Database consists of three main parts:
+
+- **Nodes (Vertices):** The entities (e.g., User, Product, City).
+- **Relationships (Edges):** The connections between entities (e.g., User _FOLLOWS_ User, Product _LOCATED_IN_ City).
+- **Properties:** Key-value pairs stored on both nodes and relationships (e.g., User has a `name`, Follows has a `since` date).
+
+---
+
+## 2. Why Neo4j?
+
+Neo4j is the world's leading **Native Graph Database**.
+
+- **Native Storage:** It doesn't pretend to be a graph on top of a table; it stores data physically as nodes and pointers.
+- **Index-Free Adjacency:** Finding a neighbor is a simple pointer jump. It doesn't matter if you have 1 thousand or 1 billion nodes; finding the friend of a friend takes the same amount of time.
+
+---
+
+## 3. The Power of "Traversal"
+
+In SQL, if you want to find "Friends of Friends of Friends," you have to perform three expensive `JOIN` operations.
+In Neo4j, you simply "traverse" the relationships. This makes graph databases thousands of times faster for connected data.
+
+---
+
+## Real-World Example: Fraud Detection
+
+A bank notices a suspicious transaction.
+
+- In a SQL database, it's hard to see that the person sending the money shares the same IP address as a known scammer from three years ago.
+- In a **Graph**, this connection is obvious. The engine can trace the path: `Transaction -> Sender -> IP -> Scammer`.
+- Neo4j can find these "Fraud Rings" in real-time before the money even leaves the account.
+
+---
+
+## Hypothetical Scenario: The "Six Degrees of Separation"
+
+Imagine you want to know how many "hops" it takes to connect any two people in a database of 10 million users.
+
+- **SQL:** The query would be hundreds of lines long and might never finish.
+- **Neo4j:** A single-line query can find the shortest path between two people in milliseconds.
+
+## Exercises
+
+1. **Definitions:** What are the three parts of a Property Graph?
+2. **Comparison:** Why is a "Pointer Jump" faster than a "SQL JOIN"?
+3. **Logic:** Name one app you use every day that likely uses a Graph Database (Hint: Think Social Media).
+
+## Summary and Next Steps
+
+Graph databases turn "Relationships" into first-class citizens.
+
+Next, we look at the specific differences between **Relational (SQL) and Graph (Neo4j)** modeling.

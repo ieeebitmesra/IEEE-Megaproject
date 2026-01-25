@@ -1,0 +1,80 @@
+# Analyzing Query Performance with EXPLAIN (ANALYZE)
+
+You wrote a query. It works. But is it fast? Is it efficient? Or is it secretly scanning millions of rows unnecessarily?
+
+To answer this, PostgreSQL provides the `EXPLAIN` command. This tool reveals the **Query Plan**—the step-by-step roadmap the database engine created to execute your SQL.
+
+## Understanding the Query Plan
+
+When you run `EXPLAIN SELECT...`, the database doesn't run the query. Instead, it shows you:
+
+1.  **Scan Method:** How it will find the data (Sequential Scan vs. Index Scan).
+2.  **Cost:** An estimated "effort" score.
+3.  **Rows:** How many rows it expects to process.
+
+If you run `EXPLAIN ANALYZE SELECT...`, it **actually runs** the query and reports the _actual_ time taken.
+
+## Practical Examples and Demonstrations
+
+Let's apply this to our **Online Bookstore**.
+
+### Scenario 1: The Sequential Scan (Bad)
+
+We search for a book by title, but we haven't created an index yet.
+
+**Query:**
+
+```sql
+EXPLAIN SELECT * FROM books WHERE title = 'The Great Gatsby';
+```
+
+**Output (Simplified):**
+`Seq Scan on books  (cost=0.00..18.50 rows=1 width=25)`
+
+- **Seq Scan:** This confirms the database is reading the whole table.
+- **Cost:** 18.50. (Lower is better).
+
+### Scenario 2: The Index Scan (Good)
+
+Now we create an index and run it again.
+
+**Query:**
+
+```sql
+CREATE INDEX idx_title ON books(title);
+EXPLAIN SELECT * FROM books WHERE title = 'The Great Gatsby';
+```
+
+**Output (Simplified):**
+`Index Scan using idx_title on books  (cost=0.15..8.17 rows=1 width=25)`
+
+- **Index Scan:** It used our index!
+- **Cost:** 8.17. The cost dropped significantly.
+
+### Scenario 3: The Full Table Scan (Sometimes Good)
+
+If you ask for `SELECT * FROM books`, the database will likely choose a Sequential Scan even if you have an index. Why? Because reading the whole book is faster than looking up every single word in the index one by one. `EXPLAIN` helps you understand _why_ the database made that choice.
+
+## Exercises and Practice Activities
+
+To solidify your understanding, complete the following exercises.
+
+### Exercise 1: Run an Explain
+
+(If you have a running DB): Run `EXPLAIN` on a query that joins `Orders` and `Customers`. Look for the word "Hash Join" or "Nested Loop".
+
+### Exercise 2: Analyze vs Explain
+
+What is the danger of running `EXPLAIN ANALYZE` on a `DELETE` or `UPDATE` statement? (Hint: It actually executes the code).
+
+### Exercise 3: Cost Comparison
+
+If Query A has a cost of 100 and Query B has a cost of 5000, which one is likely to be slower?
+
+## Concluding Thoughts
+
+In this lesson, we learned how to debug performance issues. `EXPLAIN` is the X-Ray machine for your queries.
+
+In the next lesson, we will summarize everything we've learned into a set of **Best Practices** for writing efficient, readable, and maintainable SQL.
+
+=START_QUESTIONS=What command shows the execution plan without running the query?@@What does EXPLAIN ANALYZE do?@@What does "Seq Scan" stand for?@@Is a lower cost number better or worse? =END_QUESTIONS=

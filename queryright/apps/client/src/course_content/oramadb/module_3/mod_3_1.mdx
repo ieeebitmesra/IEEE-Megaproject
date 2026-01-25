@@ -1,0 +1,77 @@
+# Basic Search & Typo Tolerance
+
+Searching in Orama is centered around the `search` function. It’s designed to be simple for beginners but powerful for pros.
+
+---
+
+## 1. The Simplest Search
+
+To search for a word, you just provide a `term`.
+
+```javascript
+const result = await search(db, {
+  term: 'pizza',
+})
+```
+
+Orama will look for "pizza" in **all** string fields of your schema.
+
+---
+
+## 2. Searching Specific Fields
+
+If you only want to search the `title`, you can specify it.
+
+```javascript
+const result = await search(db, {
+  term: 'margherita',
+  properties: ['title'],
+})
+```
+
+---
+
+## 3. Typo Tolerance (Fuzzy Search)
+
+Users make mistakes. Orama allows you to configure how many mistakes are allowed.
+
+```javascript
+const result = await search(db, {
+  term: 'pizaa', // Typo!
+  tolerance: 1, // Allow 1 character error
+})
+```
+
+_A tolerance of 1 will find "pizza". A tolerance of 2 would find "piazza"._
+
+---
+
+## Real-World Example: The Library App
+
+A user is searching for a book titled "The Great Gatsby."
+
+- They type "The Great Gatsy" (oops, forgot the 'b').
+- Because the library app has `tolerance: 1` enabled, Orama still returns the correct book at the #1 position.
+- This prevents the user from thinking the library doesn't have the book.
+
+---
+
+## Hypothetical Scenario: The "Too Fuzzy" Search
+
+A developer sets `tolerance: 5` because they want to be "very helpful."
+
+- **The Result:** A search for "Cat" returns "Bat", "Hat", "Car", "Can", and "Cab".
+- The results are now "noisy" and useless.
+- **The Lesson:** Usually, a tolerance of **1 or 2** is the "Sweet Spot" for search engines.
+
+## Exercises
+
+1. **Parameters:** What happens if you don't provide a `properties` array?
+2. **Tolerance:** If a user types "Apple" but the database says "Aple", what tolerance level is needed?
+3. **Application:** Write a search query that searches for the term "Wireless" only in the `category` and `tags` fields.
+
+## Summary and Next Steps
+
+Basic search is great, but real apps need to "narrow down" results.
+
+In the next lesson, we’ll learn about **Filtering**—how to restrict results by price, date, or category.

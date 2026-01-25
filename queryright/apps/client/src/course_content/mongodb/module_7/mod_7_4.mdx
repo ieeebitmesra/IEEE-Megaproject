@@ -1,0 +1,107 @@
+# Securing Aggregation Pipelines (Field Redaction)
+
+Security in aggregation pipelines focuses on controlling data visibility. When generating reports or exposing APIs backed by aggregation, you must ensure that sensitive information (PII, internal flags, secrets) is not accidentally included in the output. While `$project` and `$unset` are useful for known schemas, the `$redact` stage offers a powerful, recursive mechanism for enforcing access control logic across complex, nested documents.
+
+## The `$redact` Stage
+
+The `$redact` stage traverses the document structure and decides, for each level (document and embedded sub-documents), whether to keep it, prune it, or discard it based on a condition.
+
+**Return Variables:**
+
+- `$$DESCEND`: Keep the current level and continue checking children.
+- `$$PRUNE`: Remove the current level (and all children) but keep the parent.
+- `$$KEEP`: Keep the current level and all children (stop checking).
+
+**Syntax:**
+
+```javascript
+{
+  $redact: {
+    $cond: {
+      if: /* security-condition */,
+      then: "$$DESCEND",
+      else: "$$PRUNE"
+    }
+  }
+}
+```
+
+## Practical Examples and Demonstrations
+
+### Scenario 1: Role-Based Access Control (RBAC)
+
+**Context:** We have a document with mixed sensitivity levels. Some fields are tagged "public", others "private". We want to return the document but strip out "private" sections if the user is not an admin.
+
+**Sample Data:** `users` collection
+
+```json
+{
+  "_id": 1,
+  "name": "Alice",
+  "contact": {
+    "email": "alice@example.com",
+    "access": "public"
+  },
+  "financials": {
+    "salary": 100000,
+    "access": "private"
+  }
+}
+```
+
+**Pipeline Code (for a Public User):**
+
+```javascript
+var userRole = 'public' // This would come from your app logic
+
+db.users.aggregate([
+  {
+    $redact: {
+      $cond: {
+        if: {
+          $or: [
+            { $eq: ['$access', 'public'] }, // Keep if explicitly public
+            { $not: '$access' }, // Keep if no access tag (default)
+          ],
+        },
+        then: '$$DESCEND',
+        else: '$$PRUNE',
+      },
+    },
+  },
+])
+```
+
+**Expected Output:**
+
+```json
+{
+  "_id": 1,
+  "name": "Alice",
+  "contact": {
+    "email": "alice@example.com",
+    "access": "public"
+  }
+  // 'financials' is pruned because access is 'private'
+}
+```
+
+## Simple Field Exclusion
+
+For simpler, flat documents, explicit exclusion is often sufficient and more readable.
+
+**Pipeline Code:**
+
+```javascript
+db.users.aggregate([
+  {
+    $unset: ['password', 'socialSecurityNumber', 'internalNotes'],
+  },
+])
+```
+
+## Summary
+
+Security must be built into the pipeline design. Use `$unset` for simple field removal and `$redact` for complex, rule-based filtering of hierarchical data. Always assume that the output of your pipeline might be visible to the end-user and sanitize accordingly.
+
+In the next lesson, we will conclude the course with **Best Practices for Building Scalable Aggregation Pipelines**.

@@ -1,0 +1,77 @@
+# CREATE and MATCH
+
+In this lesson, we learn how to add data to our graph and how to find it later.
+
+---
+
+## 1. Creating Nodes
+
+To add data, use the `CREATE` keyword.
+
+```cypher
+CREATE (n:Movie {title: "The Matrix", released: 1999})
+```
+
+_Note: If you run this twice, you will have two identical nodes. Neo4j does not automatically check for duplicates unless you set a constraint._
+
+---
+
+## 2. Creating Relationships
+
+To create a relationship, you first have to **find** the nodes, then **draw** the line.
+
+```cypher
+MATCH (a:Person {name: "Keanu Reeves"})
+MATCH (m:Movie {title: "The Matrix"})
+CREATE (a)-[:ACTED_IN {role: "Neo"}]->(m)
+```
+
+---
+
+## 3. Finding Data (MATCH)
+
+`MATCH` is the most powerful keyword in Cypher.
+
+```cypher
+MATCH (m:Movie)
+WHERE m.released > 2010
+RETURN m.title
+```
+
+---
+
+## Real-World Example: Building a Social Graph
+
+A new user, Charlie, joins your app.
+
+1. You `CREATE` the Charlie node.
+2. Charlie follows Bob.
+
+```cypher
+MATCH (c:User {name: "Charlie"}), (b:User {name: "Bob"})
+CREATE (c)-[:FOLLOWS]->(b)
+```
+
+3. Now, when Bob posts a photo, your app runs a `MATCH` to find everyone who follows Bob so they can get a notification.
+
+---
+
+## Hypothetical Scenario: The "Duplicate" Nightmare
+
+A developer accidentally imports a list of 100 people twice. Now they have 200 nodes!
+
+- **The Preventive Logic:** Instead of `CREATE`, use `MERGE`.
+- `MERGE (p:Person {name: "Alice"})`
+- `MERGE` behaves like "Create if it doesn't exist, else find it." This is a best practice for clean graphs.
+
+## Exercises
+
+1. **Creation:** Write a Cypher command to create a `Country` node with the name "Japan".
+2. **Relationships:** How do you find two existing nodes and connect them?
+3. **Logic:** What is the difference between `CREATE` and `MERGE`?
+
+## Summary and Next Steps
+
+Creating and finding data is the heartbeat of any database.
+
+Next, we look at **Relationships** in more detail—including directed, undirected, and recursive ones!

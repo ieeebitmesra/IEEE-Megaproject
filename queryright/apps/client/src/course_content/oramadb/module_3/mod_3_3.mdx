@@ -1,0 +1,73 @@
+# Faceting: Counting by Category
+
+Have you ever searched for a product on a website and seen a sidebar that says "Electronics (15)", "Books (42)", "Home (10)"? These are called **Facets**.
+
+---
+
+## 1. How Facets Work
+
+A Facet tells Orama to group the search results by a specific field and count how many items are in each group.
+
+```javascript
+const result = await search(db, {
+  term: 'gadget',
+  facets: {
+    category: {
+      limit: 10,
+      sort: 'count', // Show the most popular categories first
+    },
+  },
+})
+```
+
+---
+
+## 2. Accessing the Data
+
+The facets don't change which documents are returned, they just add a new `facets` object to the results.
+
+```javascript
+console.log(result.facets.category.values)
+// Output: [ { value: 'Phone', count: 12 }, { value: 'Tablet', count: 5 } ]
+```
+
+---
+
+## 3. Range Facets
+
+You can even facet by ranges! This is how you make "Price Brackets."
+
+- "Under $20 (5 items)"
+- "$20 - $50 (12 items)"
+
+---
+
+## Real-World Example: The Movie Database
+
+A user searches for "Space" movies.
+
+- The sidebar shows:
+  - Genre: Science Fiction (80), Documentary (10).
+  - Year: 2020s (40), 1990s (15).
+- The user sees that "Science Fiction" has the most hits, so they click it to filter their results further.
+
+---
+
+## Hypothetical Scenario: The "Empty" Category
+
+A developer is building a search for 1,000 blog posts.
+
+- They want to show categories, but they don't want to show categories that have 0 results for the current search.
+- **The Solution:** Orama's facets are **Dynamic**. If a category doesn't appear in the current search results, it simply won't appear in the `facets` object. This keeps the UI clean.
+
+## Exercises
+
+1. **Purpose:** What is the difference between a "Filter" and a "Facet"?
+2. **UI:** Why are facets useful for the end-user?
+3. **Setup:** If you wanted to show the "Top 5" brands in a search result, what `limit` would you set in the `facets` object?
+
+## Summary and Next Steps
+
+Facets are the key to a professional search UI.
+
+In the next lesson, we look at **Pagination and Sorting**—how to handle thousands of search results.

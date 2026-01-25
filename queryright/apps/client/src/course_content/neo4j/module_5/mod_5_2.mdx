@@ -1,0 +1,63 @@
+# PageRank (Centrality)
+
+Who is the "Most Important" person in your graph? **PageRank** is the algorithm that answers that question.
+
+---
+
+## 1. How PageRank Works
+
+PageRank (named after Larry Page of Google) measures the importance of nodes based on their connections.
+
+- A node is important if it has many incoming relationships.
+- A node is **even more important** if it has incoming relationships from _other_ important nodes.
+
+---
+
+## 2. Using it in Neo4j
+
+```cypher
+CALL gds.pageRank.stream('my-graph-projection')
+YIELD nodeId, score
+RETURN gds.util.asNode(nodeId).name AS name, score
+ORDER BY score DESC
+```
+
+---
+
+## 3. Other Centrality Algorithms
+
+1. **Betweenness Centrality:** Finds nodes that act as "Bridges" between different parts of the graph. (Great for finding "Gatekeepers").
+2. **Degree Centrality:** Just counts the number of relationships. (Simple but useful).
+
+---
+
+## Real-World Example: Search Engine Ranking
+
+This is how Google started.
+
+- Every Website is a **Node**.
+- Every Link is a **Relationship**.
+- If Wikipedia links to your blog, your "Score" goes up significantly because Wikipedia is a highly trusted (important) node.
+
+---
+
+## Hypothetical Scenario: The "Bridge" Employee
+
+In a large company, there are two departments that rarely talk to each other (Engineering and Marketing).
+
+- One employee, Sarah, works in Engineering but used to work in Marketing.
+- **The Graph:** Most relationships are within groups. Sarah is the only relationship _between_ groups.
+- If you run **Betweenness Centrality**, Sarah will have a massive score.
+- **The Lesson:** If Sarah quits, the two departments will lose their connection entirely. Sarah is a "Critical Bridge."
+
+## Exercises
+
+1. **Theory:** If someone with a high PageRank score links to you, what happens to your score?
+2. **Comparison:** How is "Betweenness" different from "PageRank"?
+3. **Application:** Why would a transportation company use Betweenness Centrality to find "Bottlenecks" in their road network?
+
+## Summary and Next Steps
+
+Centrality helps you find the "Leaders" and "Bridges" in your data.
+
+Next, we look at **Community Detection**—how to find groups of people who are tightly connected.

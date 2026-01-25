@@ -1,0 +1,80 @@
+# Synonyms and Stemming
+
+Search is not about string matching; it's about **meaning**.
+
+- If I search for "shoes," I probably want to see "sneakers."
+- If I search for "running," I definitely want to see documents about someone who "ran."
+
+---
+
+## 1. Stemming (The Roots)
+
+Stemming is the process of reducing a word to its root form (the "stem").
+
+- **Running, Ran, Runs** -> `run`
+- **Electricity, Electrical** -> `electr`
+
+**Why?** If the document contains `running` and the search is `ran`, they both resolve to `run` in the inverted index, and you get a match!
+
+---
+
+## 2. Synonyms (The Relationships)
+
+Synonyms tell Elasticsearch that two different strings mean the same thing. You define them in the **Analysis Settings**.
+
+```json
+"filter": {
+  "my_synonym_filter": {
+    "type": "synonym",
+    "synonyms": [
+      "i-phone, iphone, apple phone => iphone",
+      "universe, cosmos",
+      "fast, quick, speedy"
+    ]
+  }
+}
+```
+
+### Two Types of Synonyms:
+
+1. **Mapping (A, B => C):** "Replace A and B with C." (Great for normalizing brands).
+2. **Expansion (A, B):** "Treat A as B and B as A."
+
+---
+
+## 3. Index-time vs Search-time Synonyms
+
+- **Index-time:** Synonyms are saved in the inverted index. If you change your synonym list, you have to re-index all data. (Fast)
+- **Search-time:** The search query is expanded to include synonyms. You can change your list instantly. (Slightly slower)
+
+---
+
+## Real-World Example: Medical Search
+
+A patient searches for "Heart Attack."
+
+- The medical database uses formal terms like "Myocardial Infarction."
+- Without a synonym filter, the patient gets zero results.
+- With synonyms: `"heart attack, myocardial infarction"`, the patient finds the life-saving information they need.
+
+---
+
+## Hypothetical Scenario: The "Small World"
+
+A developer adds `small, tiny, minute` as synonyms.
+
+- **The Problem:** Someone searches for a "60 minute timer."
+- **The Result:** They get results for "small timers."
+- **The Fix:** They realize "minute" (time) is spelled the same as "minute" (size). They remove it from the synonym list to avoid confusion.
+
+## Exercises
+
+1. **Stemming Prediction:** What is the stem of "Automated" and "Automatic"?
+2. **Synonym Logic:** What is the advantage of using `i-phone => iphone`?
+3. **Choice of Time:** Why might you prefer "Search-time" synonyms over "Index-time" synonyms?
+
+## Summary and Next Steps
+
+Language is messy. Synonyms and Stemming help clean it up.
+
+But what if the user just makes a mistake? What if they type "Elastcsearch" (missing the 'i')? In the next lesson, we look at **Fuzziness**.

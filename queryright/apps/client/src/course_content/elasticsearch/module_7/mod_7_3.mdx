@@ -1,0 +1,79 @@
+# Security and Access Control
+
+Elasticsearch used to be famous for being "Insecure by Default." Today, powerful security features are built-in and required.
+
+---
+
+## 1. Authentication (Who are you?)
+
+You should never run Elasticsearch without a password.
+
+- **Built-in Users:** `elastic` (superuser), `kibana_system`, `logstash_system`.
+- **Custom Users:** You can create users with specific usernames and passwords.
+
+---
+
+## 2. Authorization / RBAC (What can you do?)
+
+Elasticsearch uses **Role-Based Access Control**.
+
+### A. Roles
+
+A Role defines a set of permissions.
+
+- **Grant:** Read-only access to index `logs-*`.
+- **Deny:** Deleting any index.
+- **Grant:** Access to the `_cluster/health` API.
+
+### B. Mappings
+
+You "map" a User to a Role.
+
+- "User `john_doe` has the `reader` role."
+
+---
+
+## 3. Field and Document Level Security (FDL / DLS)
+
+This is a premium feature but vital for shared platforms.
+
+- **Field Level:** You can show a user the `product_name` but hide the `supplier_cost`.
+- **Document Level:** You can show a user only the documents where `department == "Sales"`.
+
+---
+
+## 4. Encryption
+
+- **SSL/TLS:** All traffic between your app and ES, and between the nodes themselves, should be encrypted.
+- **API Keys:** Instead of sharing passwords, apps should use rotated API keys.
+
+---
+
+## Real-World Example: Multi-Team Cluster
+
+A company has one giant ES cluster for 3 teams: Marketing, HR, and Engineering.
+
+- **HR:** Needs to see salaries but must not see server logs.
+- **Engineering:** Needs to see server logs but must not see salaries.
+- **The Solution:** Use Roles. HR gets a role with access to the `hr-data` index. Engineers get a role with access to `server-logs`. Neither team can view or delete the other's data.
+
+---
+
+## Hypothetical Scenario: The "Public" Elasticsearch
+
+A developer installs ES on a Cloud server and leaves port `9200` open to the world without a password.
+
+- **The Result:** Within hours, a "Ransomware" bot finds the server, deletes all indices, and creates a new index called `READ_ME_FOR_DECRYPTION`.
+- **The Lesson:** Always enable `xpack.security.enabled: true` and use a firewall.
+
+## Exercises
+
+1. **Terminology:** What is the difference between Authentication and Authorization?
+2. **Setup:** Which user is the "Superuser" with all permissions?
+3. **Best Practice:** Should your app use the `elastic` superuser credentials for daily searches? (Yes/No).
+
+## Summary and Next Steps
+
+Security isn't a "feature"—it's a requirement.
+
+How do we know if our cluster is actually running smoothly? In the next lesson, we look at **Monitoring and Health**.

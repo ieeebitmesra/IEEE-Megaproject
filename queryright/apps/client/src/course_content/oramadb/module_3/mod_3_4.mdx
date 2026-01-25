@@ -1,0 +1,73 @@
+# Pagination and Sorting
+
+If a user searches for a common word like "Data," you might have 5,000 results. You can't show them all at once. You need **Pagination**.
+
+---
+
+## 1. Pagination: `limit` and `offset`
+
+- **Limit:** How many items to show on one page.
+- **Offset:** How many items to skip (to get to the next page).
+
+```javascript
+// Page 1
+await search(db, { limit: 10, offset: 0 })
+
+// Page 2
+await search(db, { limit: 10, offset: 10 })
+```
+
+---
+
+## 2. Sorting Results
+
+By default, Orama sorts by **Relevancy (Score)**. The best match is #1.
+But sometimes you want to sort by something else, like `price` or `date`.
+
+```javascript
+const result = await search(db, {
+  term: 'shoes',
+  sortBy: {
+    property: 'price',
+    order: 'DESC', // Most expensive first
+  },
+})
+```
+
+---
+
+## 3. High-Performance Sorting
+
+Sorting in Orama is extremely fast because it happens in-memory. However, remember that you should only sort by fields that are in your schema as `number` or `enum` for the best performance.
+
+---
+
+## Real-World Example: The "Newest First" Filter
+
+On a social media app, users search for "Elections."
+
+- By default, they see the most "Relevant" posts.
+- But they can click a "Latest" button.
+- The app then re-runs the search with `sortBy: { property: 'timestamp', order: 'DESC' }`.
+- Now, the most recent news appears at the top, even if it doesn't have the highest keyword match.
+
+---
+
+## Hypothetical Scenario: The "Empty Page" Bug
+
+A developer calculates the offset for "Page 5" but there are only 2 pages of results.
+
+- **The Result:** Orama will return an empty `hits` array.
+- **The Fix:** Always check the `count` property returned by the search result to know how many total pages exist before requesting them.
+
+## Exercises
+
+1. **Math:** If you want to show 20 items per page, what is the `offset` for Page 3?
+2. **Logic:** Why is "descending" (DESC) sorting usually the default for dates?
+3. **Application:** Write a query that finds the "Top 3 Cheapest" laptops.
+
+## Summary and Next Steps
+
+Pagination keeps your app fast, and sorting keeps your users happy.
+
+We wrap up Module 3 in the next lesson!

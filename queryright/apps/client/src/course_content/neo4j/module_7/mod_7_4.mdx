@@ -1,0 +1,51 @@
+# Final Project: Detection Queries
+
+Now that the data is modeled, we need our "Smoking Gun" query.
+
+---
+
+## Pattern Matching for Fraud
+
+We want to find all applicants who are connected via a chain of shared items, even if they don't share the _same_ item.
+
+### The "Circular" Query
+
+Let's find all pairs of people who are separated by exactly two "shared resources."
+
+```cypher
+MATCH (p1:Applicant)-[*1..4]-(p2:Applicant)
+WHERE p1.id < p2.id
+RETURN p1.name, p2.name, count(*) AS shared_signals
+ORDER BY shared_signals DESC
+```
+
+---
+
+## Real-World Example: Blacklisting
+
+Now, let's say we KNOW that `Alice Smith` is a fraudster. We want to find everyone in her "Ring" and mark them as suspicious.
+
+```cypher
+MATCH (alice:Applicant {name: "Alice Smith"})-[:HAS_PHONE|HAS_EMAIL|HAS_ADDRESS*1..6]-(victim:Applicant)
+SET victim.status = "SUSPICIOUS"
+RETURN victim.name, victim.status
+```
+
+This query traverses the graph up to 6 hops away from Alice, tagging everyone who has even a remote connection to her.
+
+---
+
+## Hypothetical Scenario: The "False Positive"
+
+A mother and her daughter share an address and a home phone. The system flags them both as a "Fraud Ring."
+**The Fix:**
+Experienced Graph Data Scientists look for **Weights**. If they only share one item (an Address), it's probably family. If they share an Address, a Phone, and a Credit Card, it's probably fraud.
+
+---
+
+## Quick Exercises:
+
+1. **Refine the Query**: Modify the first query to only return people who share MORE than one item.
+2. **Logic**: Why did we use `p1.id < p2.id` in the first query? (What happens if you remove it?)
+3. **Advanced**: How would you use a `PageRank` algorithm (from Module 5) to find the "Leader" of a fraud ring?
+   meadow.

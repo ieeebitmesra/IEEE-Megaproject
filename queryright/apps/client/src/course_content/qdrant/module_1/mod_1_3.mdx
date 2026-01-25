@@ -1,0 +1,44 @@
+# From Text to Vectors: Embedding Models
+
+A database like Qdrant does **not** create the vectors. You have to feed it the vectors.
+
+---
+
+## How it Works
+
+1. **Raw Data:** "How to build a website."
+2. **Embedding Model:** You send this text to an AI model (OpenAI, HuggingFace, or Cohere).
+3. **The Vector:** The model returns `[0.12, -0.45, 0.88...]`.
+4. **Storage:** You save that vector into Qdrant.
+
+---
+
+## Real-World Example: Multilingual Search
+
+This is the magic part. If you use a "Multilingual Embedding Model":
+
+- "Hello" -> `[0.5, 0.5]`
+- "Hola" -> `[0.5, 0.5]`
+
+Because they have the same **Meaning**, they get the same **Vector**.
+If you search Qdrant for "Hello," it might return results written in Spanish because the _Vectors_ match, even if the _Words_ don't.
+
+---
+
+## Hypothetical Scenario: The "Empty Search"
+
+A developer creates a search engine for a Recipe site.
+The user searches for: _"Healthy breakfast ideas."_
+The database only has entries like: _"Low calorie morning oats"_ and _"Nutritious fruit bowl."_
+
+**Without Vectors:** 0 results found (Keywords don't match).
+**With Vectors:** The model recognizes that "Nutritious" is similar to "Healthy," and correctly returns the fruit bowl.
+
+---
+
+## Quick Exercises:
+
+1. **Workflow**: List the 4 steps of getting data into Qdrant.
+2. **Tools**: Name one company or tool that provides "Embedding Models."
+3. **Accuracy**: If you use a different model to _Search_ than you used to _Store_ the data, will it work? Why or why not?
+   canyon.

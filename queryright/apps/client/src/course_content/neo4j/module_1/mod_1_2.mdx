@@ -1,0 +1,57 @@
+# Relational vs. Graph
+
+Is Neo4j a replacement for SQL? Not always. It's about choosing the right tool for the shape of your data.
+
+---
+
+## 1. Relational (Tables)
+
+- **Best for:** Accounting, fixed schemas, and "Set-based" operations (e.g., "Find all users whose name starts with A").
+- **The Pain Point:** Many-to-Many relationships. When you have multiple Join Tables (e.g., `User_Groups`, `Group_Roles`), your queries become slow and unreadable.
+
+---
+
+## 2. Graph (Connections)
+
+- **Best for:** Recommendation engines, supply chain logistics, and "Path-based" operations (e.g., "How is User A related to User B?").
+- **The Advantage:** Flexibility. You can add a new type of relationship (e.g., `WORKS_AT`) at any time without changing a "Schema" or running a migration.
+
+---
+
+## 3. "Joining" vs. "Traversing"
+
+| Action         | Relational (SQL)              | Graph (Neo4j)                         |
+| :------------- | :---------------------------- | :------------------------------------ |
+| **Logic**      | Matching values in two tables | Following a physical pointer          |
+| **Complexity** | Increases with data size      | Only increases with "depth" of search |
+
+---
+
+## Real-World Example: Supply Chain Integration
+
+A car manufacturer has 50,000 parts.
+
+- In **SQL**, if a single bolt from a specific factory in China is recalled, finding every car that contains that bolt requires joining `Parts`, `Assemblies`, `Manufacturers`, and `Vehicle_Orders` tables.
+- In **Neo4j**, you simply start at the `Bolt` node and follow the `PART_OF` relationships outward to see which `Vehicles` are at the end of the chain.
+
+---
+
+## Hypothetical Scenario: The "Social" Migration
+
+A developer is building a LinkedIn clone.
+
+- They start with SQL, but they realize that "Recommendations" (showing people you might know) are taking 10 seconds to load because of all the JOINs.
+- **The Solution:** They migrate the "Connections" data to Neo4j.
+- Now, the "People You May Know" widget loads in 50ms.
+
+## Exercises
+
+1. **Trade-offs:** When should you stick with SQL instead of moving to Neo4j?
+2. **Structure:** Why is it easier to add "New relationship types" in a graph?
+3. **Logic:** What happens to SQL performance as you add more and more JOINs?
+
+## Summary and Next Steps
+
+Graph databases excel when the _path_ between data points is the answer.
+
+Up next: **Neo4j Architecture and Native Graph Storage.**

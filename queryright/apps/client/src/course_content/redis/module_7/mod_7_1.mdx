@@ -1,0 +1,92 @@
+# Introduction to Bloom Filters
+
+Have you ever wondered how Google Chrome remembers billions of malicious URLs without taking up gigabytes of memory on your computer? Or how Medium knows if you've already read an article before recommending it to you?
+
+The secret is a **Bloom Filter**. In this module, we will explore **RedisBloom**, a module that adds powerful "Probabilistic Data Structures" to Redis.
+
+---
+
+## 1. What is a Bloom Filter?
+
+A Bloom Filter is a space-efficient data structure used to test whether an element is a **member of a set**.
+
+### The Key Difference: "Maybe" vs. "Definitely"
+
+- **Standard Sets:** Tell you 100% accurately if an item is there.
+- **Bloom Filters:**
+  - If it says "NO", the item is **definitely NOT** in the set.
+  - If it says "YES", the item is **LUKELY** in the set (but there is a small chance it's not). This is called a **False Positive**.
+
+### Why use "Maybe"?
+
+In exchange for that tiny bit of uncertainty, Bloom Filters use **90% less memory** than a regular Set. You can check for a billion items in just a few megabytes.
+
+---
+
+## 2. Basic Commands
+
+### Adding an Item
+
+```bash
+# Add a username to the filter
+BF.ADD usernames "alice"
+```
+
+### Checking Membership
+
+```bash
+# Is "alice" in the list?
+BF.EXISTS usernames "alice"
+# Output: (integer) 1 (Maybe)
+
+# Is "bob" in the list?
+BF.EXISTS usernames "bob"
+# Output: (integer) 0 (Definitely No)
+```
+
+### Creating with custom accuracy
+
+```bash
+# Create a filter with a 0.1% error rate for 100,000 items
+BF.RESERVE my_filter 0.001 100000
+```
+
+---
+
+## Real-World Example: The "Username Available" Check
+
+Imagine a site like Instagram with 1 billion users. When a new user tries to sign up as "CoolCat101", you need to know if that name is taken.
+
+1. **The Problem:** Searching a database of 1 billion names on every keystroke is slow.
+2. **The RedisBloom Solution:**
+   - Store all 1 billion names in a Bloom Filter.
+   - When the user types of "CoolCat101," check `BF.EXISTS`.
+   - If it returns `0` (No), the name is definitely free! Show the green checkmark instantly.
+   - If it returns `1` (Yes), it's _probably_ taken. Now you do a "slow" check in your main database to be 100% sure.
+3. **The Result:** 99% of valid sign-ups get an instant response, and the database is saved from billions of unnecessary queries.
+
+---
+
+## Hypothetical Scenario: The "Browser Malware Protection"
+
+Every day, security researchers find 10,000 new malicious websites. They want to protect users.
+
+- **Option A:** Download the full list of 5 million bad URLs to every user's computer. (Too big!)
+- **Option B:** Send every URL the user visits to Google's servers to check. (Slow and bad for privacy!)
+- **Option C:** Send a small Bloom Filter to the browser.
+  - When the user visits a site, the browser checks the filter locally.
+  - If the filter says "Maybe Malware," the browser then asks the server for confirmation.
+  - If it says "No," the browser just loads the page.
+
+## Exercises
+
+1. **Conceptual Logic:** If a Bloom Filter says an item is NOT present, is it possible for that item to actually be in the set?
+2. **Setup:** Use `BF.ADD` to add five different email addresses to a filter called `blocked_emails`.
+3. **Testing:** Check for an email you _didn't_ add. Did it correctly say 0?
+4. **Efficiency:** Why is a Bloom Filter better than a Hash or a Set for a list of 100 million "Already Read" articles?
+
+## Summary and Next Steps
+
+Bloom Filters are professional tools for huge datasets. They allow you to add "Instant Rejection" to your app, preventing slow database lookups for items that don't exist.
+
+But Bloom Filters have one weakness: **You cannot delete an item from them.** In the next lesson, we will look at **Cuckoo Filters**, which fix this problem!

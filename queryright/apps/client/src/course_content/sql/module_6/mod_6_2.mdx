@@ -1,0 +1,113 @@
+# Creating and Modifying Tables (CREATE TABLE, ALTER TABLE)
+
+Now that we have a design, we need to implement it. In SQL, the **Data Definition Language (DDL)** commands allow us to create, modify, and destroy database structures.
+
+## Creating Tables
+
+The `CREATE TABLE` statement defines a new table, its columns, and the data types for those columns. It also defines **Constraints**—rules that the data must follow.
+
+### Common Constraints
+
+- **`PRIMARY KEY`**: Uniquely identifies each row. (Implies `NOT NULL` and `UNIQUE`).
+- **`FOREIGN KEY`**: Enforces a link to another table.
+- **`NOT NULL`**: The column cannot be empty.
+- **`UNIQUE`**: All values in this column must be different.
+- **`CHECK`**: Ensures values meet a specific condition (e.g., `price > 0`).
+- **`DEFAULT`**: Provides a value if none is specified.
+
+## Practical Examples and Demonstrations
+
+Let's build the **Online Bookstore** schema from scratch.
+
+### Scenario 1: Creating the Authors Table
+
+```sql
+CREATE TABLE authors (
+    author_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    birth_date DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+- **`SERIAL`**: In PostgreSQL, this creates an auto-incrementing integer (1, 2, 3...).
+
+### Scenario 2: Creating the Books Table (With Foreign Key)
+
+```sql
+CREATE TABLE books (
+    book_id SERIAL PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    author_id INT REFERENCES authors(author_id), -- Links to Authors
+    price DECIMAL(10, 2) CHECK (price >= 0),     -- Price cannot be negative
+    stock_quantity INT DEFAULT 0
+);
+```
+
+## Modifying Tables (ALTER TABLE)
+
+Business requirements change. You might need to add a column, change a data type, or remove a constraint. We use `ALTER TABLE` for this.
+
+### Scenario 3: Adding a Column
+
+We decided to track the "Genre" of each book.
+
+```sql
+ALTER TABLE books
+ADD COLUMN genre VARCHAR(50);
+```
+
+### Scenario 4: Changing a Data Type
+
+We realized `VARCHAR(100)` isn't long enough for some book titles.
+
+```sql
+ALTER TABLE books
+ALTER COLUMN title TYPE VARCHAR(255);
+```
+
+### Scenario 5: Deleting a Column
+
+We no longer need to track `birth_date` for authors.
+
+```sql
+ALTER TABLE authors
+DROP COLUMN birth_date;
+```
+
+## Dropping Tables
+
+To delete a table entirely (structure AND data), use `DROP TABLE`.
+**Warning:** This is permanent.
+
+```sql
+DROP TABLE books;
+```
+
+## Exercises and Practice Activities
+
+To solidify your understanding, complete the following exercises.
+
+### Exercise 1: The Reviews Table
+
+Write a `CREATE TABLE` statement for a `Reviews` table.
+
+- Columns: `review_id` (PK), `book_id` (FK), `customer_name`, `rating` (1-5), `comment`.
+- Constraint: `rating` must be between 1 and 5.
+
+### Exercise 2: The Update
+
+Write an `ALTER TABLE` statement to add a `is_verified` boolean column to the `Reviews` table, with a default value of `FALSE`.
+
+### Exercise 3: The Constraint
+
+Why is it important to define `author_id` as a Foreign Key in the `Books` table? What would happen if we didn't?
+
+## Concluding Thoughts
+
+In this lesson, we learned how to build the physical structure of our database. We defined tables with strict rules to ensure data quality.
+
+In the next lesson, we will look at **Indexes**. Once our tables are built and filled with data, we need to ensure that searching them remains fast. Indexes are the key to performance.
+
+=START_QUESTIONS=Which command creates a new table?@@What does the PRIMARY KEY constraint do?@@How do you add a new column to an existing table?@@What is the purpose of the CHECK constraint? =END_QUESTIONS=

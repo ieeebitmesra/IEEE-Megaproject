@@ -1,0 +1,79 @@
+# Cache-Aside Pattern
+
+Caching is the most common use of Redis. However, "caching" isn't just one thing—there are specific **patterns** for how your application talks to the database and the cache. The most popular and widely used pattern is the **Cache-Aside** pattern (also known as Lazy Loading).
+
+In this lesson, we will learn how it works, why it's so popular, and when to use it.
+
+---
+
+## 1. How Cache-Aside Works
+
+In the Cache-Aside pattern, the **application** is responsible for managing both the database and the cache. Redis "sits to the side" (hence the name).
+
+### The Reading Flow (Cache Hit vs. Cache Miss)
+
+1. Your app needs data (e.g., User #101's profile).
+2. **Step 1:** The app checks Redis first (`GET user:101`).
+3. **If the data is there (Cache Hit):** Great! The app uses it and returns it to the user.
+4. **If the data is NOT there (Cache Miss):**
+   - The app fetches the data from the main database (e.g., PostgreSQL).
+   - The app saves that data in Redis so it's there for next time (`SET user:101 ...`).
+   - The app returns the data to the user.
+
+### The Writing Flow
+
+When data changes (e.g., the user updates their name):
+
+1. The app updates the main database.
+2. The app **deletes** the old data from Redis (`DEL user:101`).
+   - Why delete instead of update? Deleting is safer because it forces the next "Read" to fetch the fresh data from the database.
+
+---
+
+## 2. Advantages of Cache-Aside
+
+- **Resilience:** If Redis happens to go down, your app still works! It just becomes a bit slower because every request is a "Cache Miss" that goes to the database.
+- **Efficiency:** You only cache the data that people actually ask for. This saves memory because you aren't pre-loading your entire database into Redis.
+- **Simplicity:** The logic is easy to implement in almost any programming language.
+
+---
+
+## 3. Disadvantages and Challenges
+
+- **Triple Penalty:** On a "Cache Miss," you have to do three things: check Redis, check the DB, and write back to Redis. This makes the _first_ request for a piece of data slightly slower.
+- **Stale Data:** If someone updates the database directly (without using the app), the cache will still have the old data until it expires.
+
+---
+
+## Real-World Example: A Blog Platform
+
+Imagine you have a blog with thousands of articles.
+
+1. **The Traffic:** 90% of your visitors only read the "Top 5" articles.
+2. **The Strategy:**
+   - Use Cache-Aside.
+   - When a user clicks a "Top" article, the app finds it in Redis and shows it instantly.
+   - When a user clicks an obscure article from 2015, the app hits the SQL database, fetches it, and puts it in Redis.
+3. **Outcome:** Your server handles millions of readers using very little hardware because most readers never even touch the SQL database.
+
+---
+
+## Hypothetical Scenario: The "First Data" Problem
+
+A local news site publishes a "Breaking News" story. 10,000 people click the link at the exact same second.
+
+**The Problem:** The story isn't in Redis yet (Cache Miss). All 10,000 requests hit the SQL database at once. This is called a **Cache Stampede**.
+
+**The Solution:** You can "Warm the Cache." When the editor hits "Publish," the backend manually pushes the story to Redis _before_ anyone clicks it. This is a common variation of the Cache-Aside pattern.
+
+## Exercises
+
+1. **Step-by-Step Logic:** Write down the 5 steps your app takes when a user tries to log in, using the Cache-Aside pattern for their session.
+2. **Failure Analysis:** If your Redis server crashes and you are using Cache-Aside, what happens to your users? Are they logged out?
+3. **Write Strategy:** Why do we usually _delete_ a key in Redis when the database changes, rather than _updating_ the key with the new value?
+
+## Summary and Next Steps
+
+Cache-Aside is the "bread and butter" of caching. It’s reliable, easy to understand, and handles most use cases perfectly.
+
+In the next lesson, we will look at two other patterns: **Write-Through** and **Write-Back**, which are used in more specialized, write-heavy applications.

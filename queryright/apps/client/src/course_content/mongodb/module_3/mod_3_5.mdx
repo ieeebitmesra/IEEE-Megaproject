@@ -1,0 +1,183 @@
+# Hands-on Lab: Normalizing and Joining Customer Order Data
+
+In this lab, we will tackle a common real-world challenge: generating a detailed sales report from a relational data model implemented in MongoDB. We will work with two collections, `customers` and `orders`, where the `orders` collection contains an array of purchased items. Our goal is to flatten this structure, join it with customer details, and calculate the final value of each line item.
+
+## Lab Objectives
+
+By the end of this lab, you will be able to:
+
+- Deconstruct array fields using `$unwind`.
+- Join data across collections using `$lookup`.
+- Calculate new field values using `$addFields`.
+- Clean up the final output using `$unset`.
+
+## Setting Up Your Environment and Dataset
+
+We will create two collections: `customers` and `orders`.
+
+**Run the following command to initialize the data:**
+
+```javascript
+use shop_db;
+
+db.customers.drop();
+db.orders.drop();
+
+// Insert Customers
+db.customers.insertMany([
+  { "_id": "C001", "name": "Alice Johnson", "region": "North" },
+  { "_id": "C002", "name": "Bob Smith", "region": "South" }
+]);
+
+// Insert Orders with embedded items array
+db.orders.insertMany([
+  {
+    "_id": 101,
+    "customerId": "C001",
+    "date": ISODate("2023-02-01"),
+    "items": [
+      { "product": "Laptop", "qty": 1, "price": 1000 },
+      { "product": "Mouse", "qty": 2, "price": 25 }
+    ]
+  },
+  {
+    "_id": 102,
+    "customerId": "C002",
+    "date": ISODate("2023-02-02"),
+    "items": [
+      { "product": "Monitor", "qty": 2, "price": 200 }
+    ]
+  },
+  {
+    "_id": 103,
+    "customerId": "C001",
+    "date": ISODate("2023-02-03"),
+    "items": [
+      { "product": "Keyboard", "qty": 1, "price": 50 }
+    ]
+  }
+]);
+```
+
+## Step 1: Unwinding the Items
+
+Our `orders` documents contain an array of items. To analyze sales at the product level (e.g., "How many mice were sold?"), we must first flatten this array.
+
+**Pipeline:**
+
+```javascript
+db.orders.aggregate([
+  {
+    $unwind: '$items',
+  },
+])
+```
+
+**Output Preview:**
+
+```json
+{ "_id": 101, "customerId": "C001", "items": { "product": "Laptop", "qty": 1, "price": 1000 } }
+{ "_id": 101, "customerId": "C001", "items": { "product": "Mouse", "qty": 2, "price": 25 } }
+...
+```
+
+**Analysis:**
+Notice that Order 101 has been split into two separate documents, one for each item. The `items` field is now an object, not an array.
+
+## Step 2: Joining Customer Information
+
+Now that we have individual line items, we want to attach the customer's name to each sale. We will use `$lookup` to pull data from the `customers` collection.
+
+**Pipeline:**
+
+```javascript
+db.orders.aggregate([
+  { $unwind: '$items' },
+  {
+    $lookup: {
+      from: 'customers',
+      localField: 'customerId',
+      foreignField: '_id',
+      as: 'customer_info',
+    },
+  },
+])
+```
+
+**Output Preview:**
+The `customer_info` field is added as an array containing the matching customer document.
+
+## Step 3: Flattening the Customer Info
+
+The `$lookup` stage returns an array, but we know that `customerId` matches exactly one customer. Let's `$unwind` this new array to make the data easier to access.
+
+**Pipeline:**
+
+```javascript
+db.orders.aggregate([
+  { $unwind: '$items' },
+  {
+    $lookup: {
+      from: 'customers',
+      localField: 'customerId',
+      foreignField: '_id',
+      as: 'customer_info',
+    },
+  },
+  { $unwind: '$customer_info' },
+])
+```
+
+## Step 4: Calculating Line Item Totals and Formatting
+
+We now have all the data we need. Let's calculate the total value for each line item (`qty * price`) and reshape the document to look like a clean report. We will use `$addFields` for the calculation and `$project` (or `$unset`) to clean up.
+
+**Pipeline:**
+
+```javascript
+db.orders.aggregate([
+  { $unwind: '$items' },
+  {
+    $lookup: {
+      from: 'customers',
+      localField: 'customerId',
+      foreignField: '_id',
+      as: 'customer_info',
+    },
+  },
+  { $unwind: '$customer_info' },
+  {
+    $addFields: {
+      lineTotal: { $multiply: ['$items.qty', '$items.price'] },
+      customerName: '$customer_info.name',
+      region: '$customer_info.region',
+      productName: '$items.product',
+    },
+  },
+  {
+    $unset: ['items', 'customer_info', 'customerId'], // Remove raw structures
+  },
+])
+```
+
+**Final Output:**
+
+```json
+[
+  { "_id": 101, "date": ISODate("..."), "lineTotal": 1000, "customerName": "Alice Johnson", "region": "North", "productName": "Laptop" },
+  { "_id": 101, "date": ISODate("..."), "lineTotal": 50, "customerName": "Alice Johnson", "region": "North", "productName": "Mouse" },
+  { "_id": 102, "date": ISODate("..."), "lineTotal": 400, "customerName": "Bob Smith", "region": "South", "productName": "Monitor" },
+  { "_id": 103, "date": ISODate("..."), "lineTotal": 50, "customerName": "Alice Johnson", "region": "North", "productName": "Keyboard" }
+]
+```
+
+## Exercises
+
+1. **Filter by Region:** Modify the pipeline to show only sales from the "North" region.
+   _Hint: Add a `$match` stage. Think about where it is most efficient to place it._
+
+2. **High Value Items:** Filter the results to show only line items where the `lineTotal` is greater than 100.
+
+## Summary
+
+In this lab, we successfully transformed a hierarchical data structure (orders with arrays) into a flat, relational-style report. We used `$unwind` to break down the arrays, `$lookup` to enrich the data with foreign key relationships, and `$addFields` with `$unset` to format the final output.

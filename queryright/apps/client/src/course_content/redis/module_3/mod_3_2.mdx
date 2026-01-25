@@ -1,0 +1,72 @@
+# Redis Replication and Sentinel
+
+What happens if the actual server hardware running Redis fails? Even with RDB and AOF, if the computer is dead, your application is down. To prevent this, we use **Replication** to copy data to multiple servers and **Sentinel** to automatically manage those servers.
+
+---
+
+## 1. Redis Replication (Primary/Replica)
+
+Replication allows you to have multiple copies of your data across different servers.
+
+### The Architecture
+
+- **Primary (Master):** The main server that handles all the "write" operations (`SET`, `INCR`, etc.).
+- **Replica (Slave):** Servers that maintain an exact copy of the Primary's data. They are usually "Read-Only."
+
+### Why use Replication?
+
+1. **High Availability:** If the Primary fails, you still have your data on the Replicas.
+2. **Read Scalability:** If your app has millions of "Read" requests but few "Writes," you can spread the reads across 5 or 10 Replicas, taking the load off the Primary.
+
+---
+
+## 2. Redis Sentinel (The Watchman)
+
+Replication alone isn't enough. If the Primary server goes down at 3 AM, who tells the app to start using a Replica instead? You don't want to wake up a developer to change a config file.
+
+**Redis Sentinel** is a separate process that monitors your Redis instances and performs **Automatic Failover**.
+
+### How Sentinel Works:
+
+1. **Monitoring:** Sentinel constantly checks ("pings") the Primary and Replicas to see if they are alive.
+2. **Notification:** If a server goes down, Sentinel can notify an admin or another application via an API.
+3. **Automatic Failover:** This is the "magic" part. If the Primary dies:
+   - Sentinel detects the failure.
+   - It picks the "healthiest" Replica.
+   - It promotes that Replica to be the new Primary.
+   - It tells the other Replicas to start following the new Primary.
+4. **Configuration Provider:** Your application connects to Sentinel, not the Redis Primary directly. Sentinel tells your app: "Hey, currently Server A is the Primary."
+
+---
+
+## Real-World Example: A High-Traffic News Site
+
+Imagine a news site during a major election.
+
+- **The Database:** A single Redis Primary and four Replicas.
+- **The Load:** Millions of people are hitting the "Refresh" button to see the latest counts.
+- **The Setup:** The app sends all "Reads" to the four Replicas.
+- **The Event:** The Primary server's motherboard fries and it goes offline.
+- **The Recovery:** Sentinel detects the failure within 10 seconds, promotes "Replica 2" to be the new Primary, and the news site keeps functioning without a single person noticing.
+
+---
+
+## Hypothetical Scenario: The "Split Brain" Problem
+
+Imagine you have two Sentinels. They disagree. Sentinel A thinks the Primary is dead, but Sentinel B thinks it's alive (maybe because of a network glitch).
+
+If they both tried to promote different Replicas, you'd have two Primaries—this is called a "Split Brain" and it leads to data corruption.
+
+**The Solution:** Redis Sentinel uses a **Quorum**. You usually run an odd number of Sentinels (at least 3). A failover only happens if a _majority_ (e.g., 2 out of 3) agree that the Primary is actually down.
+
+## Exercises
+
+1. **Role Definition:** In a Primary/Replica setup, which server handles the `INCR` command? Which handles the `GET` command?
+2. **Failover Logic:** Why is it better to have Sentinel manage the failover rather than doing it manually?
+3. **Quorum Math:** If you have 5 Sentinels, how many must agree for a failover to occur if the quorum is set to "majority"?
+
+## Summary and Next Steps
+
+Replication provides redundancy and read-scaling, while Sentinel provides the automation needed to keep your system running 24/7. Together, they form the "Standard" high-availability setup for most Redis users.
+
+But what if your dataset is too big for a single server's RAM? In the next lesson, we will explore **Redis Cluster**, which allows you to split your data across multiple machines.

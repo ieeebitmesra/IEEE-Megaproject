@@ -1,0 +1,41 @@
+# Normalization & Scaling
+
+Before we dive into the Qdrant API, we need to understand one final math concept: **Normalization.**
+
+---
+
+## Size Doesn't Always Matter
+
+Imagine two vectors:
+
+- **Vector A:** `[1, 1]` (Represents a short review: "Great!")
+- **Vector B:** `[10, 10]` (Represents a long review: "Great great great great...")
+
+In some math systems, Vector B would be 10x "Stronger" than Vector A. But in search, they mean exactly the same thing!
+
+---
+
+## What is Normalization?
+
+Normalization "squashes" vectors so they have a length of **1.0**.
+
+- Vector A becomes: `[0.707, 0.707]`
+- Vector B becomes: `[0.707, 0.707]`
+
+Now they are identical! Qdrant prefers normalized vectors for most operations because it makes "Distance" calculations much faster and more accurate.
+
+---
+
+## Real-World Example: Image Search
+
+When searching for "A cat," you don't want the search to fail just because one image is **4K resolution** and the other is a **low-res thumbnail**.
+Normalization ensures the _Content_ of the image (the "Cat-ness") is what matters, not the _Size_ of the file.
+
+---
+
+## Quick Exercises:
+
+1. **Definition**: What does "Normalization" do to a vector's length?
+2. **Logic**: If two vectors point in the same direction but one is twice as long as the other, are they geometrically "Similar"?
+3. **Draft**: If you have a vector `[0, 5]`, what would the normalized version be? (Hint: The coordinates should add up in a way that the length is 1).
+   river.

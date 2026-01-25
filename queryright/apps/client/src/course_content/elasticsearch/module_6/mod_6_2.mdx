@@ -1,0 +1,67 @@
+# The Explain API
+
+When a user asks, "Why is this random document at the top for my search?", you don't have to guess. You can ask Elasticsearch to **Explain** itself.
+
+---
+
+## 1. Using the `_explain` API
+
+You send the same query you normally would, but pointed at a specific document ID.
+
+```http
+GET /movies/_explain/tt0111161
+{
+  "query": {
+    "match": { "title": "shawshank redemption" }
+  }
+}
+```
+
+---
+
+## 2. Reading the Output
+
+The output is a massive tree of math. Look for the key components:
+
+- **`description`**: "weight(title:shawshank in 1234) [PerFieldSimilarity], result of:"
+- **`value`**: The total numeric score.
+- **`details`**: A breakdown of the **TF**, **IDF**, and **Length Norm** for every single word in your search.
+
+---
+
+## 3. Query-Level Explain
+
+You can also run a normal search and add `"explain": true` to the body. This will include an `_explanation` object for **every hit**.
+
+_Warning: This makes the response huge and slow. Only use it for debugging._
+
+---
+
+## Real-World Example: The "Ghost" Match
+
+A developer searches for "Apple" and sees a document about "Bananas" at the top.
+
+1. They run `_explain`.
+2. They see that the "Bananas" document mentions "Apple" in a hidden metadata field (e.g., `related_products`).
+3. They realize they are searching too many fields and should limit their `multi_match` to just the `title` and `description`.
+
+---
+
+## Hypothetical Scenario: Score of 0.0
+
+A document clearly contains the word "Tree," but it's not showing up for a "Tree" search.
+
+- **Explain says:** "Wait, the analyzer turned 'Tree' into 'tree', but your term query is looking for 'Tree' (Exact match)."
+- **The Lesson:** Analysis mismatches are the #1 cause of "missing" results.
+
+## Exercises
+
+1. **Debugging:** What API should you use to see the breakdown of a score for a specific document?
+2. **Analysis:** If a document's score is driven mostly by a high `idf`, does that mean the search term is common throughout the index or rare?
+3. **Overhead:** Why would you NOT want `"explain": true` in a production environment?
+
+## Summary and Next Steps
+
+The Explain API turns the "Magic" of BM25 into "Math."
+
+Once you understand the math, you can start manipulating the **Analysis** to make results even better. In the next lesson, we'll look at **Synonyms and Stemming**.

@@ -1,0 +1,80 @@
+{
+  "method": "POST",
+  "path": "/api/auth/sign-in/social",
+  "originalPath": "/api/auth/sign-in/social",
+  "query": {},
+  "params": {
+    "*": "sign-in/social"
+  },
+  "body": {
+    "type": "json",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "type": "string"
+        },
+        "callbackURL": {
+          "type": "string"
+        }
+      },
+      "required": ["provider", "callbackURL"]
+    },
+    "example": {
+      "provider": "github",
+      "callbackURL": "http://localhost:3000/auth/callback"
+    },
+    "signature": "callbackURL:string|provider:string"
+  },
+  "customHeaders": {
+    "host": "localhost:4000",
+    "connection": "keep-alive",
+    "content-length": "73",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0",
+    "accept": "*/*",
+    "origin": "http://localhost:3000",
+    "sec-fetch-site": "same-site",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-dest": "empty",
+    "referer": "http://localhost:3000/",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "accept-language": "en-US,en;q=0.9",
+    "cookie": "better-auth.oauth_state=b60a75e44c14f073d61d3405c7e5bf0b518cb6da1546a244152d7b38e485f39777a66d2b37a63356184f84e883d9ec7389da822f54fc169de2049d08b30ce126ae4159ac25dad5ca7a77799039720de59ab9e622f10921a2e63642ff7b7f670c93be07b136c4849c5a4a066332666943d3a305b8a7495e4298fe21fef1540db7302b9f11864b9b5605eb435acd613275145a1fc913a8c328389bf4a44c8e49bf2b2362613da20ce39687b420ba615708d8081615ddf221b801c383b4252245769fd69b4bb9a77ead6f57fa5936eefc2bf1274d332504e5a8bcf04c783e4bdd8778a2a733647e22605d69f459771b272628469e00ea5e9981c91f01bde3f47b6d2606efc33ba88cc8ab2d718090293e918d6a47615579b5231e9bf3eb2427b20c8d3ab99956ad252faf66d6d85d30eb227d5bbba8; better-auth.account_data=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwia2lkIjoiUGpFd3pyS0xoWW9OdFhZUnI3cFdITk04SHM5TF9HWXNGeEowd3RKR2hRSSJ9..Z_cO075_urj8fiqr82F1Tg.F63X2nUQkM1HBEuZYOibxrcwB17a9RDt8cVBFAbkbsGqMQIJDZpTjIPG8JoaVQIUJ4f1WAZnHSBhg9FZgac7A_Xp6AnXkEwb3r77I3HGkL-uPlR3PeuLXNqbvVavKCRYDsZ3zRKMhfDNnZI2EWxuoqs_VW59kvqX8dscQVKe9MIwcPavOykQRCw9Xeqr6OuAZc3ETCvmcXhB1n3GndsO3Ra8io2KYOJiwgd3soxGukcuZd_ZC3mwySvC3R0EMobxMqvw7lAeHk1PBenuCPki8GBTg6AKagGM5EHD3OFoLJjf_Q25TdnkXrSD7Pf4t3z-NU5NM9vcH7VM2tj-LLIdST8agn1gsZpy6ZmhxGaAza-DWMHjXKNYZs2yIcb-PwWWx1iYhQxCSKv-VVDNu1vUiowJElNloTqLb328m08zyHf292IiN4bgZmb5Bffv43_7kfqXUNZgDruzh6ikAZcZbbE2aDIbkHtbrSJq0UDYcc94qjWuvPzAhB1oxT8BJbPo0grg12r1uZndW4AWPPxNjuV2E-skzakiJW2A8FxZq1GLF9xXEBRt95k3yQB84YjKF8LeM3LC7Dg3I-wHHrwz76OrxnQEUeKYebrJw2YIue7f3D-yJV8NXUsIqJJzXL9v7XMRQ0GOvsq8RZr5aFG4ZA.YPSROURHJTW7Hlc7cWfWyBb626jiqmn8qOLmAx8e_f4; better-auth.session_token=GdmVKBj4MnBfI4l7RrDCMH5tNmI5Kv11.Tp5BNcnUHpXcVqjTeqV38XD3fHgjP%2BWEfhGx0i%2FIQpA%3D; better-auth.session_data=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwia2lkIjoibTBjZHFuakd5RGViMlRqOVl0emNqLVZHcTZNcndhb2xQbklNcHYtVEppRSJ9..EowVYkxBQFW9p5FnU7zPcw.7jnaU2WLZuMqoLxihWYK8ML71a2_4cwRakHsY7dn7orhW-dGZdGMNq3kT8l2M45v1_IkG3Lop3GJXf_anq1eRuP8PJMa2rlriiHLDCn5b-gBz6zhZPYOWfYjah-VM29ev8Uda_Mx9lZzA7TmOAFigZWpyc5IcHkt9OyPQj0p7ZNHmtMAp20SSAOJbUOjeLRarTidoPJuQ_dr9RlEIRULRnTS3bl1vmHWbN5lXTsAaXvqp5gpJ9XeX3hkttjQmji59a8tJD7jqPPkpQk4J4phbgRyPf4G49uymmksLgBvEBZBUp1WSqV8TqbK_Wb2pIvkggJP3mOYzTgo6bCirK7BmHDXe1jW7bn-UJC7HkboTs0I3OaGHMtIdunHU7TilyEOxx7a8xleEEc0r7N_umECKZjIrYCeiAaB826vN0ji7xJprPm4B9D5x1qovop2BxMf-O5yHHsxQqkp8gRJlmwCIAxxwbozLV3pKVocPh6AWn__kLfXWiyurrIbGmc3A3nu4M1eFHprEDfnXIcQ4QF3Q_B7lCiTyGjgYOpe3KqcLRt6denZjJuIwLvZaf9O9lXqRlPSBQAatOMTe993jha1lgQxnwQj72Df070TR7a75x_rKSG_cYvnDCL5FgPrh3lwfFUmRUuqvBhS9iTQLqCaLzVIJiHp6to4OQjtx4J2mdGBtac5_983dD44LAIkExNT500SnRBIgX99GuXH3cmjyEwEKHi_glYPTWBgIFeamc5O99fcbmmP0D4vTBzGMOI7pL9tiQZlu0CUq3swGLpBa_C_344oBGDwrPUE3bd54ZGMPdg7eBlfGRBi9hM-dOclVGtxmKuI53fZCccKCsUOCav_Qfgguf70OU1GFNgYeJSlaqthjOyDp-qzqWV1WhdXozJjA_BYOibDW0MPB-RIQwlhnuBDt0tGMrhqss5zh84kb2r23K_FwLb0J2E8x4jepTNqp4onzVGdwKckGR3JjLlySVxwXzHfQ7BycVe2SkCBOvUzgblNJVMRav52z3DEIK9j9C6KiiYiC1JqUKeupl4uAcdV4phJjMUsH8XCwEWXSIwNc-L5nuay7d3zDbhOHNZWdRojAlopcPI_-YLSb21VqFJXqU7ipg8rr27PjKLoSR0REMQQmjfR9Wnt3fSuZ_cF8sj3o9wONp4QpPdksosCUhwbgb7OeABNhcTavByLJtuGAu6e__Ae0KUjWaN8IXs7h4_eqgvfKQg_SEslElDqGdIRQToBEhUaCfzsvREEN8rvuET7mKi_npuotHWQ.wB27wY-1iSChjvvX8E_31PO4uvBEl7VYyhnKyypEzwQ; theme=dark"
+  },
+  "response": {
+    "statusCode": 200,
+    "headers": {
+      "access-control-allow-origin": "http://localhost:3000",
+      "access-control-allow-credentials": "true",
+      "content-type": "application/json; charset=utf-8",
+      "set-cookie": "__Secure-better-auth.oauth_state=242be842686565c961888fb8d52490c0f2a62409fbcc8173b0f555b8b7917046d6de83fab673bcc85bbae70345716eb841b7fd898bcbf8fdbff3c55bdab57e3af5cdfd236bd8bccbbc1f4848abb083d510789e939ab7c62649ec81eefb46525cf399583165261f7ce62b3ac1379cb2cd56df5ccc76da70e6b9bab0202c13f9a47db897cefbc74687edf68d9afe39d56456f265c9a505b5d48795dd79511553b03bef17b3027c81f4c172930193690dba576820ade5ace193a9e406cb686ad430fb713a81f40419a870685f08c7fb216c1f2b7c8db8c6381867feebe6e707bc9a3e6b124c632acf3c111d6d1ce72f73d1d8c820f472508b6d8fc55a14c657b410caf48c0f7cf689fb38d9d1fe2abfe5e57832038b0151bc89b78b11ec75056f14faaa7b3a70fd757bec88e94877a90aeda32692a9; Max-Age=600000; Path=/; HttpOnly; Secure; SameSite=Lax"
+    },
+    "body": {
+      "type": "json",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "redirect": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": ["url", "redirect"]
+      },
+      "example": {
+        "url": "https://github.com/login/oauth/authorize?response_type=code&client_id=Ov23liQlCm4RKQiYlP8f&state=y0ueGh_LhNcJZdB-brp2KWt-w8iJEIjJ&scope=read%3Auser+user%3Aemail&redirect_uri=http%3A%2F%2Flocalhost%3A4000%2Fapi%2Fauth%2Fcallback%2Fgithub&code_challenge_method=S256&code_challenge=XHiTRTT9O4BsmKryKxAUyIUAhkbUm_8cVqtEERFLP3U",
+        "redirect": true
+      },
+      "signature": "redirect:boolean|url:string"
+    }
+  },
+  "timestamp": "2026-01-14T19:39:49.570Z",
+  "lastUpdated": "2026-01-14T19:39:49.570Z"
+}
